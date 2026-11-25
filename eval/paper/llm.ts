@@ -70,7 +70,7 @@ const buckets = { cf: rateBucket(Number(process.env.EVAL_CF_RPM ?? 200)), orFree
 // Models marked require_workers_paid in the Workers AI catalogue are limited to 20 requests/minute per model.
 const PAID_TIER = new Set(["@cf/thinkingmachines/inkling-2-small"]);
 const modelBuckets = new Map<string, () => Promise<void>>();
-const modelBucket = (model: string) => modelBuckets.get(model) ?? modelBuckets.set(model, rateBucket(18)).get(model)!;
+const modelBucket = (model: string) => modelBuckets.get(model) ?? modelBuckets.set(model, rateBucket(Number(process.env.EVAL_PAID_RPM ?? 18))).get(model)!;
 
 // A small semaphore per provider for concurrency.
 function limiter(n: number) {
