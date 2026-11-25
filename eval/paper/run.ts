@@ -24,7 +24,8 @@ const EXCLUDED = new Set(["inkling-2-small"]);
 const STUDY_OPEN = OPEN_MODELS.filter((m) => !EXCLUDED.has(m.id));
 const models: ModelSpec[] = modelArg === "open" ? STUDY_OPEN : modelArg === "frontier" ? FRONTIER_MODELS : modelArg === "free" ? FREE_MODELS : modelArg === "all" ? ALL : modelArg.split(",").map((id) => ALL.find((m) => m.id === id)!).filter(Boolean);
 
-const outDir = resolve(here, process.env.EVAL_RESULTS_DIR ?? "results");
+const outDirName = process.env.EVAL_RESULTS_DIR ?? "results";
+const outDir = resolve(here, outDirName);
 // The frozen code version and evaluation date, recorded in every row.
 const STUDY_COMMIT = process.env.STUDY_COMMIT ?? "uncommitted";
 mkdirSync(outDir, { recursive: true });
@@ -115,7 +116,9 @@ if (suite === "phia" || suite === "real") {
   const h12 = (x: string) => createHash("sha256").update(x).digest("hex").slice(0, 12);
   // PHIA is CC BY-NC 4.0: committed rows carry ids, hashes and parsed answers only. The full row (final text, tool
   // arguments, packets) goes to eval/data/results/, which is gitignored.
-  const fullOut = resolve(here, "../data/results", out.split("/").at(-1)!.replace(/\.jsonl$/, ".full.jsonl"));
+  // Full rows sit next to the results directory they belong to (results/ and results/final/ share the top level).
+  const sub = /^results(\/final)?$/.test(outDirName) ? "" : outDirName.replace(/^results\//, "");
+  const fullOut = resolve(here, "../data/results", sub, out.split("/").at(-1)!.replace(/\.jsonl$/, ".full.jsonl"));
   if (suite === "phia") mkdirSync(dirname(fullOut), { recursive: true });
   const jobs = models.flatMap((m) => conds.flatMap((c) => tasks.map((t) => ({ m, c, t, run: 0 })))).filter((j) => !done.has(`${j.c}|${j.m.id}|${j.t.id}|${j.run}`));
   console.log(`${suite}: ${jobs.length} runs to do (${models.length} models × ${conds.length} conditions × ${tasks.length} tasks); ingest rejected ${JSON.stringify(bench.info.rejected)}`);
