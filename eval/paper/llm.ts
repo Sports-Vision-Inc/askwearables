@@ -106,17 +106,17 @@ export async function chat(m: ModelSpec, messages: Msg[], opts: { tools?: Tool[]
       const t0 = Date.now();
       let res: Response;
       try {
-        res = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${key}`, "content-type": "application/json", ...(m.provider === "openrouter" ? { "x-title": "AskWearables evaluation" } : {}) }, body: JSON.stringify(body), signal: AbortSignal.timeout(180_000) });
+        res = await fetch(url, { method: "POST", headers: { authorization: `Bearer ${m.provider === "workers-ai" ? cfToken() : key}`, "content-type": "application/json", ...(m.provider === "openrouter" ? { "x-title": "AskWearables evaluation" } : {}) }, body: JSON.stringify(body), signal: AbortSignal.timeout(180_000) });
       } catch (e) {
         await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
         if (attempt === 4) return { message: { role: "assistant", content: null }, usage: { prompt: 0, completion: 0 }, cost: 0, latency_ms: Date.now() - t0, error: `network:${(e as Error).name}` };
         continue;
       }
       const latency = Date.now() - t0;
-      // The Wrangler OAuth token expires hourly. On a 401 from Workers AI, refresh it (any wrangler command does)
-      // and retry, instead of recording an infrastructure failure.
+      // The Wrangler OAuth token expires hourly; one refresher loop (the run script) renews it. On a 401, wait and
+      // re-read the token instead of refreshing here: concurrent refreshes rotate the refresh token and race each other.
       if (res.status === 401 && m.provider === "workers-ai" && attempt < 4) {
-        try { (await import("node:child_process")).execSync("npx wrangler whoami", { stdio: "ignore", timeout: 60_000 }); } catch { /* retry anyway */ }
+        await new Promise((r) => setTimeout(r, 20_000));
         continue;
       }
       if (res.status === 429 || res.status >= 500) {
