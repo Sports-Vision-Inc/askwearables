@@ -112,7 +112,8 @@ def classify2(r):
     if a in (None,'unknown'): return 'spec/window_wrong+unknown'
     return 'spec/window_wrong_value'
 import collections as C
-c=[r for r in full if r['condition']=='C_broker' and r.get('stratum')!='unsupported']
+only=os.environ.get('EVAL_MODELS')
+c=[r for r in full if r['condition']=='C_broker' and r.get('stratum')!='unsupported' and (not only or r['model'] in only.split(','))]
 print('C answerable runs',len(c))
 cnt=C.Counter(classify2(r) for r in c)
 for k,v in cnt.most_common(): print(f'{v:5} {k}')

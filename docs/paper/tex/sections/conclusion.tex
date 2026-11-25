@@ -10,6 +10,7 @@ while the two strongest open-weight models lost accuracy. Raw context over-expos
 \expRatioAC{}, and \sys{} leaked in \leakPooledC{} of privacy runs against \leakPooledA{} for raw context and
 \leakPooledB{} for open tools. On PHIA, \sys{} refused what it does not support far more reliably than either
 baseline but answered fewer of the answerable questions, mostly because it released threshold counts as yes or no and
-denied a metric its grant did not cover; both are design choices that the broker's logged reasons made visible, and
-both point to changes we leave for a fresh evaluation. Code, data and the scripts that produce every number in this
+denied a metric its grant did not cover; both are design choices that the broker's logged reasons made visible. Changing them, and measuring the
+change on fresh questions, brought pooled accuracy level with raw context for the open-weight models, without making
+\sys{} better for the models that were already strong. Code, data and the scripts that produce every number in this
 paper are available at \codeurl{}.

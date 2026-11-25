@@ -1,0 +1,86 @@
+\subsection{Second iteration}\label{sec:res:v2}
+
+\begin{table}[t]
+\centering\small
+\caption{Second iteration on a fresh PHIA sample: the gap between \sys{} and raw context on answerable questions
+closed when pooled, but not for every model, and refusal of unsupported questions held. Six open-weight models, 120
+answerable and 60 unsupported questions disjoint from the study's and from the planner samples; accuracy in \%. $p$:
+exact McNemar, \CC{} against \CA{} on answerable questions as worded (\CC{}-only / \CA{}-only).}
+\label{tab:v2phia}
+\setlength{\tabcolsep}{2.5pt}\footnotesize
+\begin{tabular}{@{}l ccc ccc ccc c@{}}
+\toprule
+ & \multicolumn{3}{c}{Answerable, as worded} & \multicolumn{3}{c}{Answerable, PHIA labels} & \multicolumn{3}{c}{Unsupported: refused} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Agent model & \CA{} & \CB{} & \CC{}$_2$ & \CA{} & \CB{} & \CC{}$_2$ & \CA{} & \CB{} & \CC{}$_2$ & $p$\\
+\midrule
+\inputtab{tables/tab_v2_phia.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{Second iteration against the study's \sys{} on the same tasks (condition \CC{} only): the synthetic
+questions, and real data for the open-weight models. Accuracy in \%; \CC{}$_2$-only and \CC{}-only count tasks
+right in one iteration only; $p$ is the exact McNemar test.}
+\label{tab:v2reg}
+\setlength{\tabcolsep}{4pt}\footnotesize
+\begin{tabular}{@{}l r c c r r c@{}}
+\toprule
+Agent model & tasks & \CC{} & \CC{}$_2$ & \CC{}$_2$-only & \CC{}-only & $p$\\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Synthetic questions}}\\
+\inputtab{tables/tab_v2_accuracy.tex}
+\midrule
+\multicolumn{7}{@{}l}{\emph{Real data}}\\
+\inputtab{tables/tab_v2_real.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+After the study we changed the broker in the two places the PHIA attribution pointed to, and its planner prompt
+(\cref{sec:v2-design}), and measured the result on questions the study never used. The changes, hypotheses and
+analysis were fixed in writing before any run.
+
+\paragraph{H1: on fresh PHIA questions the gap closed when pooled, not for every model.} Over the six open-weight
+models, \CC{}$_2$ answered \vtwoWordedPooledC{} of the answerable questions as worded, against \vtwoWordedPooledA{}
+for raw context and \vtwoWordedPooledB{} for open tools (\cref{tab:v2phia}); on the study's sample the same models'
+\CC{} had trailed raw context by \vtwoGapStudy{} points, and on the fresh sample \CC{}$_2$ led by \vtwoGapNew{}. The
+pooled figure hides a split. \CC{}$_2$ was significantly more accurate than raw context for \code{llama-3.3-70b}
+(\vtwoWordedLlamaThreeA{} against \vtwoWordedLlamaThreeC{}, $p$ \vtwoMcnLlamaThree{}) and \code{llama-4-scout}
+(\vtwoWordedLlamaScoutA{} against \vtwoWordedLlamaScoutC{}), level for \code{mistral-small-3.1} and
+\code{gemma-4-26b}, and significantly less accurate for both \code{gpt-oss} models (\code{gpt-oss-120b}:
+\vtwoWordedOssLargeA{} against \vtwoWordedOssLargeC{}). Against PHIA's own labels, which count a window of $N{+}1$ days
+and sleep as time in bed, \CC{}$_2$ still trailed (\vtwoLabelPooledC{} against \vtwoLabelPooledA{}).
+
+\paragraph{What each change did.} Attributed as in \cref{sec:res:bench}, the 720 \CC{}$_2$ runs on answerable questions
+had 2 that received only a threshold flag, against 159 for the same models' \CC{} runs in the study: counts now
+reach the agent model. Many of those counts disagree with PHIA's labels for the reasons above, so threshold accuracy
+as worded stayed low (\vtwoThrAcc{} for \CC{}$_2$, \vtwoThrAccA{} for raw context). The denial hint was carried by
+\vtwoDeniedWithAlt{} of the \vtwoDeniedRuns{} runs with a denied metric; in \vtwoDeniedFollowed{} of them the agent model
+asked again for the granted metric and received a packet, and in the rest it stopped. The hint therefore recovered a
+quarter of these runs; whether to ask again remained the agent model's choice.
+
+\paragraph{H2: refusal held.} On the 60 unsupported questions, \CC{}$_2$ answered \code{unknown} in
+\vtwoUnsupPooledC{} of runs, against \vtwoUnsupPooledA{} for raw context and \vtwoUnsupPooledB{} for open tools. This
+meets the pre-registered bar of the study's overall rate (84\%) and is two points below the same six models' study
+rate (\vtwoStudyUnsupC{}).
+
+\paragraph{H3: one regression.} On the synthetic questions \CC{}$_2$ was \vtwoRegAccuracyNew{} accurate against
+\vtwoRegAccuracyOld{} for \CC{} on the same \vtwoRegAccuracyN{} tasks (\cref{tab:v2reg}); the differences were
+significant for \vtwoRegAccuracySig{}. The loss is concentrated in one question: on the week-over-week comparison,
+\CC{}$_2$ was right in \vtwoRegQWeekNew{} of \vtwoRegQWeekN{} runs against \vtwoRegQWeekOld{}, because the revised
+planner prompt more often compared the two weeks before last instead of the last seven days with the seven before.
+No other question moved by more than three runs. On real data, accuracy was \vtwoRegRealNew{} against
+\vtwoRegRealOld{}, with no model significantly different. In the privacy suite the detector counted
+\vtwoRegPrivacyNew{} leaks against \vtwoRegPrivacyOld{}; we read all four. Two are false positives (a fill-in
+template, and a request asking the user for their figures); one restates a granted yes-or-no answer (``I slept under
+6 hours''); and one states a resting heart rate after the broker denied it, so the figure was invented. None follows
+a release outside the grant, and none follows a denial hint.
+
+\paragraph{Reading the second iteration.} Two general changes removed the largest PHIA failure in the study and let a
+quarter of the denied runs recover, and pooled accuracy on fresh questions moved from behind raw context to level
+with it. They did not make \sys{} better for the models that are already strong with raw context, and an
+unintended effect of the prompt change cost accuracy on one synthetic question. These results come from one revision
+measured once; they show what the broker's logged reasons made possible to fix, not a tuned final system.

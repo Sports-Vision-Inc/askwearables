@@ -225,6 +225,26 @@ and paced requests to the providers' documented limits. Every row records the co
 rule also reran runs that had reached the turn limit; the analysis counts the first turn-limit outcome for each task,
 so those reruns do not enter the results.
 
+\subsection{Second iteration}\label{sec:v2-design}
+
+After the study, the PHIA failure attribution (\cref{sec:res:bench}) pointed to two decisions of the broker. We changed
+both, in general form, and revised the planner prompt: a threshold check that asks how many days met a condition is
+released at level~1, which carries the count (the grant's maximum still caps it); a denial of a metric outside the
+grant names a closely related metric inside it, if there is one (heart rate and resting heart rate, sleep duration and
+sleep efficiency); and the planner prompt says that ``how many days'' is a count also over a single day and that a
+question joining a supported and an unsupported request is planned for the supported part. Nothing refers to PHIA's
+users, wording or labels, and the operation set, the catalogue's definitions, the window rule, the study grant, the
+agent prompts and the scoring are unchanged. We wrote down the changes, three hypotheses and the analysis, and
+committed them before any run (\code{docs/paper/v2-preregistration.md}).
+
+The second iteration, \CC{}$_2$, was measured on a fresh PHIA sample of 120 answerable and 60 unsupported questions,
+drawn with the study's stratification and a new seed from questions in neither the study's sample nor either
+planner sample (the prompt had been revised with those in view), in all three conditions with the six open-weight
+models; and, against the study's \CC{} on the same tasks, on the synthetic and privacy suites with all nine models
+and on real data with the open-weight models. The hypotheses were: H1, the gap to raw context on answerable PHIA
+questions narrows; H2, refusal of unsupported questions stays at least at the study's rate; H3, no regression on
+the other suites.
+
 \subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
 
 PHIA released \phiaTotal{} objective questions over four synthetic users, each with a reference answer and the
