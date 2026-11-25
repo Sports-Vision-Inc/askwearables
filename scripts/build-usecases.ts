@@ -82,7 +82,22 @@ export async function buildUsecases(today = USECASE_TODAY) {
   // "unknown" is the point.
   const DEVICE_PERSON = "p1";
   const dp = people.get(DEVICE_PERSON)!;
-  const ds = await buildStore(dp);
+  // The study cohort records no SpO2, respiratory rate or skin-temperature deviation. For the device view only, add
+  // plausible nightly readings for this person (seeded, at the same moment as each night's HRV sample) and run them
+  // through the same ingest and engine. The study's stores never see these records.
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648);
+  const showcase = dp.records.filter((r) => r.kind === "sample" && r.metric === "hrv_rmssd").flatMap((r) => {
+    if (r.kind !== "sample") return [];
+    const base = { kind: "sample" as const, start: r.start, end: r.end, source_id: r.source_id, method: "measured" as const, tz_offset_min: r.tz_offset_min };
+    const day = r.external_id?.slice(4) ?? r.start.slice(0, 10);
+    return [
+      { ...base, metric: "spo2" as const, value: Math.round((96.2 + rnd() * 2) * 10) / 10, unit: "percent", external_id: `spo2-${day}` },
+      { ...base, metric: "respiratory_rate" as const, value: Math.round((14.1 + rnd() * 1.4) * 10) / 10, unit: "breaths/min", external_id: `rr-${day}` },
+      { ...base, metric: "skin_temp_deviation" as const, value: Math.round((rnd() - 0.5) * 0.6 * 100) / 100, unit: "degC", external_id: `temp-${day}` },
+    ];
+  });
+  const ds = await buildStore(dp, showcase);
   const SIGNALS = ["steps", "sleep_duration", "resting_hr", "hrv_rmssd", "workout", "spo2", "respiratory_rate", "skin_temp_deviation"] as const;
   const og = grantFor(dp, "owner", { purpose: "personal_research", metrics: [...SIGNALS], max_level: 2 });
   const otoken = { valid: true, agent_id: og.agent_id, user_id: og.user_id, grant_id: og.grant_id };
@@ -110,7 +125,7 @@ export async function buildUsecases(today = USECASE_TODAY) {
     }
     signals[metric] = out;
   }
-  const device = { person: DEVICE_PERSON, trap: dp.trap, signals, not_in_cohort: missing };
+  const device = { person: DEVICE_PERSON, trap: dp.trap, signals, not_in_cohort: missing, display_only_signals: ["spo2", "respiratory_rate", "skin_temp_deviation"] };
 
   const pack = (x: typeof a, extraFields: Json = {}) => ({ person: x.p.id, trap: x.p.trap, grant: grantView(x.grant), asks: x.asks, ...extraFields });
   return {

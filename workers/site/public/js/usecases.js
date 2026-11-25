@@ -99,12 +99,13 @@
     { key: "resting_hr", label: "Resting HR", metrics: ["resting_hr"] },
     { key: "hrv", label: "HRV", metrics: ["hrv_rmssd"] },
     { key: "workout", label: "Workouts", metrics: ["workout"] },
+    { key: "vitals", label: "Night vitals", metrics: ["spo2", "respiratory_rate", "skin_temp_deviation"] },
   ];
   const WEARS = [
-    ["Ring", ["sleep_duration", "hrv_rmssd", "skin_temp_deviation"]],
-    ["Band", ["steps", "resting_hr"]],
+    ["Ring", ["sleep_duration", "hrv_rmssd", "skin_temp_deviation", "spo2"]],
+    ["Band", ["steps", "resting_hr", "respiratory_rate"]],
   ];
-  const SIGNAL_SHORT = { skin_temp_deviation: "Temperature" };
+  const SIGNAL_SHORT = { skin_temp_deviation: "Temperature", spo2: "SpO2", respiratory_rate: "Breathing" };
   function badge(usual) {
     if (!usual || !usual.direction || usual.direction === "unknown") return h("span", { class: "fbadge fb-none" }, h("span", { class: "nd-ico", "aria-hidden": "true" }), "no usual yet");
     if (usual.direction === "within") return h("span", { class: "fbadge fb-within", text: "within usual" });
@@ -136,6 +137,19 @@
       return h("div", { class: "fscreen fs-activity" }, h("p", { class: "fs-label", text: "Activity" }), rings,
         h("p", { class: "fs-val" }, Math.round(st.value).toLocaleString("en-US"), h("span", { class: "fs-u", text: " steps" })),
         h("p", { class: "fs-sub", text: `${hm(sl.value)} sleep` }), h("p", { class: "fs-foot", text: day(st.day) }));
+    }
+    if (key === "vitals") {
+      const rows = [["spo2", "SpO2", (v) => `${v}%`], ["respiratory_rate", "Breath", (v) => `${v}`], ["skin_temp_deviation", "Temp", (v) => `${v > 0 ? "+" : ""}${v}°C`]]
+        .filter(([m]) => S[m]);
+      if (!rows.length) return noData();
+      const mark = (u) => {
+        if (!u || !u.direction || u.direction === "unknown") return h("span", { class: "fv-dir", title: "no usual yet", text: "·" });
+        if (u.direction === "within") return h("span", { class: "fv-dir fv-in", title: "within your usual range", text: "●" });
+        return h("span", { class: "fv-dir fv-off", title: `${u.direction} your usual range`, text: u.direction === "above" ? "↗" : "↘" });
+      };
+      return h("div", { class: "fscreen fs-vitals" }, h("p", { class: "fs-label", text: "Vitals" }),
+        ...rows.map(([m, lab, f]) => h("p", { class: "fv-row" }, h("span", { class: "fv-lab", text: lab }), h("span", { class: "fv-val", text: f(S[m].value) }), mark(S[m].usual))),
+        h("p", { class: "fs-foot", text: "● usual  ↘ low  ↗ high" }));
     }
     if (key === "sleep") {
       const sl = S.sleep_duration;

@@ -212,9 +212,133 @@
      }
     ],
     "week_value": 131
+   },
+   "spo2": {
+    "value": 96.6,
+    "unit": "percent",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "below",
+     "magnitude": "slight"
+    },
+    "statement": "Blood oxygen on 2026-11-23: 96.6%, slightly below usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 96.7
+     },
+     {
+      "day": "2026-11-18",
+      "value": 97
+     },
+     {
+      "day": "2026-11-19",
+      "value": 98.1
+     },
+     {
+      "day": "2026-11-20",
+      "value": 98
+     },
+     {
+      "day": "2026-11-21",
+      "value": 98
+     },
+     {
+      "day": "2026-11-22",
+      "value": 97.7
+     },
+     {
+      "day": "2026-11-23",
+      "value": 96.6
+     }
+    ],
+    "week_value": 97.4
+   },
+   "respiratory_rate": {
+    "value": 14.4,
+    "unit": "breaths/min",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "within",
+     "magnitude": "none"
+    },
+    "statement": "Respiratory rate on 2026-11-23: 14.4 breaths/min, within usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 14.4
+     },
+     {
+      "day": "2026-11-18",
+      "value": 15.2
+     },
+     {
+      "day": "2026-11-19",
+      "value": 15.2
+     },
+     {
+      "day": "2026-11-20",
+      "value": 14.6
+     },
+     {
+      "day": "2026-11-21",
+      "value": 14.7
+     },
+     {
+      "day": "2026-11-22",
+      "value": 15.4
+     },
+     {
+      "day": "2026-11-23",
+      "value": 14.4
+     }
+    ],
+    "week_value": 14.8
+   },
+   "skin_temp_deviation": {
+    "value": -0.1,
+    "unit": "degC",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "below",
+     "magnitude": "slight"
+    },
+    "statement": "Skin temperature deviation on 2026-11-23: -0.1 °C, slightly below usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 0
+     },
+     {
+      "day": "2026-11-18",
+      "value": 0
+     },
+     {
+      "day": "2026-11-19",
+      "value": 0
+     },
+     {
+      "day": "2026-11-20",
+      "value": 0.05
+     },
+     {
+      "day": "2026-11-21",
+      "value": -0.1
+     },
+     {
+      "day": "2026-11-22",
+      "value": 0.22
+     },
+     {
+      "day": "2026-11-23",
+      "value": -0.1
+     }
+    ],
+    "week_value": 0.01
    }
   },
-  "not_in_cohort": [
+  "not_in_cohort": [],
+  "display_only_signals": [
    "spo2",
    "respiratory_rate",
    "skin_temp_deviation"
@@ -280,7 +404,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_8db00724abb03ea4ee4429ef"
       },
-      "receipt_id": "rc_0mwvmdpwwqui8e7b888",
+      "receipt_id": "rc_0mww7h917dp47od9boq",
       "reasons": [
        "level:1"
       ]
@@ -350,7 +474,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_b43bfda86352a727c87bf26b"
       },
-      "receipt_id": "rc_0mwvmdpyzkuymavazfu",
+      "receipt_id": "rc_0mww7h93a7zlnzbpbar",
       "reasons": [
        "level:1"
       ]
@@ -403,7 +527,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_549f38f9ff06aef885d938c8"
       },
-      "receipt_id": "rc_0mwvmdpz0qp7zoth530",
+      "receipt_id": "rc_0mww7h93b67astsiydu",
       "reasons": [
        "level:1"
       ]
@@ -461,7 +585,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_a8477b0f1eeb4035290fa340"
       },
-      "receipt_id": "rc_0mwvmdpz123hzoywibd",
+      "receipt_id": "rc_0mww7h93c1t3wygzo8r",
       "reasons": [
        "level:1"
       ]
@@ -530,7 +654,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_9d21aada7f01f808a69c37f9"
       },
-      "receipt_id": "rc_0mwvmdq17ptwbfgewca",
+      "receipt_id": "rc_0mww7h95hc6kyf3dq4c",
       "reasons": [
        "level:1"
       ]
@@ -583,7 +707,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_f68f54d4393ef41a3a082574"
       },
-      "receipt_id": "rc_0mwvmdq17bcqwnvoite",
+      "receipt_id": "rc_0mww7h95il64alvzbzi",
       "reasons": [
        "level:1"
       ]
@@ -636,7 +760,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_80f8a7662f526832d4400db5"
       },
-      "receipt_id": "rc_0mwvmdq187rati4lqm4",
+      "receipt_id": "rc_0mww7h95jy8mkkhq1ph",
       "reasons": [
        "level:1"
       ]
@@ -689,7 +813,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_575240045d59fcaab8269dfc"
       },
-      "receipt_id": "rc_0mwvmdq19r937jodetp",
+      "receipt_id": "rc_0mww7h95j4ckcnh7xve",
       "reasons": [
        "level:1"
       ]
@@ -742,7 +866,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_c5b3c07eb3404c935ed6a486"
       },
-      "receipt_id": "rc_0mwvmdq19jflzjme5f4",
+      "receipt_id": "rc_0mww7h95kf21hvw5na2",
       "reasons": [
        "level:1"
       ]
@@ -795,7 +919,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_9bbf4c774cdfd3d9d61cc0f5"
       },
-      "receipt_id": "rc_0mwvmdq1aayw49sn5r5",
+      "receipt_id": "rc_0mww7h95lhntvm9f406",
       "reasons": [
        "level:1"
       ]
@@ -848,7 +972,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_7653ad0a0d510a934f6e345d"
       },
-      "receipt_id": "rc_0mwvmdq1b89svnkpic6",
+      "receipt_id": "rc_0mww7h95l3r3qq6km90",
       "reasons": [
        "level:1"
       ]
@@ -901,7 +1025,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_cb1803496f139bdc7e5126eb"
       },
-      "receipt_id": "rc_0mwvmdq1bq2ur3dvb11",
+      "receipt_id": "rc_0mww7h95mnx94ybiwmw",
       "reasons": [
        "level:1"
       ]
@@ -954,7 +1078,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_23b76782247aefe004bc6e7b"
       },
-      "receipt_id": "rc_0mwvmdq1cldo5sprnjo",
+      "receipt_id": "rc_0mww7h95mnahdf0giil",
       "reasons": [
        "level:1"
       ]
@@ -1007,7 +1131,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_5f861e1b63a48bbe4b0141ae"
       },
-      "receipt_id": "rc_0mwvmdq1cqsopnhh0qk",
+      "receipt_id": "rc_0mww7h95n75p6lf6hdr",
       "reasons": [
        "level:1"
       ]
@@ -1060,7 +1184,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_13714febc3f3e30d5aaa72ec"
       },
-      "receipt_id": "rc_0mwvmdq1dx6halb2xhq",
+      "receipt_id": "rc_0mww7h95o7gi9tvmnsh",
       "reasons": [
        "level:1"
       ]
@@ -1113,7 +1237,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_da8f8a7d1f01f09e52797306"
       },
-      "receipt_id": "rc_0mwvmdq1e4d5egjmdbq",
+      "receipt_id": "rc_0mww7h95oz0gwshwekn",
       "reasons": [
        "level:1"
       ]
@@ -1166,7 +1290,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_0ca381440963c4955706341f"
       },
-      "receipt_id": "rc_0mwvmdq1ez6d7e72214",
+      "receipt_id": "rc_0mww7h95pz5mhxiy63h",
       "reasons": [
        "level:1"
       ]
@@ -1219,7 +1343,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_3e5360cf8b64c774b665f96c"
       },
-      "receipt_id": "rc_0mwvmdq1f666toznoo8",
+      "receipt_id": "rc_0mww7h95ptsomy3la36",
       "reasons": [
        "level:1"
       ]
@@ -1262,7 +1386,7 @@
      },
      "response": {
       "status": "denied",
-      "receipt_id": "rc_0mwvmdq3krix9gbsbbr",
+      "receipt_id": "rc_0mww7h982tsvc4q5ldn",
       "reasons": [
        "metric_not_in_grant:weight"
       ]
@@ -1315,7 +1439,7 @@
        "not_medical_advice": true,
        "packet_id": "pk_4051a829de33727a29356e4c"
       },
-      "receipt_id": "rc_0mwvmdq4aqa0yybyzqm",
+      "receipt_id": "rc_0mww7h98bak11zd6y17",
       "reasons": [
        "level:1"
       ]

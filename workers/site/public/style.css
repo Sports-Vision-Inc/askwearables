@@ -1228,3 +1228,13 @@ svg.chart .mark:focus-visible .hit { fill: var(--surface-2); stroke: var(--accen
 .foot-legal { align-items: center; }
 .foot-legal > span { display: inline-flex; align-items: center; min-height: var(--tap); }
 .site-footer nav a { justify-content: flex-start; }
+
+/* Vitals watch screen: label, value and a direction mark per row, sized to the face */
+.fs-vitals { gap: 3%; align-content: center; }
+.fv-row { display: grid; grid-template-columns: auto minmax(0, 1fr) 0.9em; align-items: baseline; gap: 0 3%; width: 96%; margin: 0; font-size: 5.4cqi; line-height: 1.2; text-align: left; white-space: nowrap; }
+.fv-lab { color: #a3a6ae; overflow: hidden; text-overflow: ellipsis; }
+.fv-val { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.fv-dir { text-align: center; font-size: 0.9em; color: #a3a6ae; }
+.fv-in { color: #34d399; font-size: 0.6em; }
+.fv-off { color: #fbbf24; }
+.fs-vitals .fs-foot { font-size: 4.2cqi; white-space: nowrap; }
