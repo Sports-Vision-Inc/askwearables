@@ -46,3 +46,21 @@ PHIA's N+1-day labelling is not adopted.
 - Secondary: the PHIA failure attribution rerun on C2.
 
 Whatever the outcome, all of the above is reported.
+
+## Addendum: third revision (written before its runs)
+
+The second iteration's planner prompt cost accuracy on the synthetic week-over-week question: the planner more often
+compared the two weeks before last. The third revision changes only the planner prompt: it lists, for comparisons
+with the period before, both windows for 3, 7, 14, 28 and 30 days and for this week against last week (computed from
+today, as the prompt already does for single windows), adds one comparison example, and says that a compound
+question with an unsupported part is planned for its supported part and refused only when no part is supported.
+
+Checked first on the planner alone (`eval/scripts/planner-windows.ts`): a held-out set of 16 window questions with
+expected windows (`eval/paper/benchmarks/planner_windows.json`, committed before the prompt change), and every ask
+agent models sent on the week-over-week task. Then measured end to end, condition C only, with the third-revision
+broker on the same tasks as the second iteration: the synthetic and privacy suites (nine models), real data and the
+fresh PHIA sample (six open-weight models). The fresh PHIA sample is reused, not redrawn; this is disclosed.
+
+Hypotheses: on the synthetic suite, C3 is not less accurate than the study's C (H3 again, pooled and on the
+week-over-week question); on fresh PHIA, C3's accuracy on answerable questions as worded is not lower than C2's and
+its refusal of unsupported questions not lower than C2's; privacy leaks no more than C2's.
