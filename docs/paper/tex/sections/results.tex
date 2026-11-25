@@ -56,15 +56,16 @@ for \nSigCA{} of \nTestedCA{} models at $p<0.05$ (\nHolmCA{} after Holm correcti
 scored \accGemmaB{} with them, level with \CC{} (\accGemmaC{}, \mcnGemmaCBP{}), while \code{llama-3.3-70b} scored
 \accLlamaThreeB{}.
 
-\paragraph{For models near ceiling, no difference was detectable.} \code{gpt-6.2-astra} (\accAstraA{}, \accAstraB{},
+\paragraph{For models near ceiling, differences were small.} \code{gpt-6.2-astra} (\accAstraA{}, \accAstraB{},
 \accAstraC{}) and \code{claude-fable-5.2} (\accFableA{}, \accFableB{}, \accFableC{}) were near ceiling in all three
 conditions. With 100 paired tasks
-and two or three discordant pairs these tests have little power, so we read them through the bootstrap intervals:
-\CC{} against \CA{} was \bootAstraCA{} points for \code{gpt-6.2-astra} and \bootFableCA{} for
-\code{claude-fable-5.2}. The \code{gpt-oss} models had point estimates on both sides of \CC{}
+and two to four discordant pairs the McNemar tests have little power and were not significant; the bootstrap gives
+small positive differences, \bootAstraCA{} points against \CA{} for \code{gpt-6.2-astra}, whose interval excludes
+zero, and \bootFableCA{} for \code{claude-fable-5.2}. The \code{gpt-oss} models had point estimates on both sides of \CC{}
 (\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}, \bootOssSmallCA{} against \CA{};
-\code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}, \bootOssLargeCA{}). For these models
-\sys{} neither helped nor hurt measurably.
+\code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}, \bootOssLargeCA{}). For \code{gpt-oss-120b}
+\sys{} neither helped nor hurt measurably; for \code{gpt-oss-20b} the difference against \CB{} was \bootOssSmallCB{}
+points by the bootstrap, while the McNemar test was not significant.
 
 \begin{table}[t]
 \centering\small
@@ -112,7 +113,7 @@ Question & \CA{} & \CB{} & \CC{}\\
 \end{table}
 
 \paragraph{The traps cost \CA{} and \CB{} more than \CC{}.} Over all models, raw context lost most
-on missing days (\trapMissingA{}), stale sync (\trapStaleA{}) and two step sources (\trapTwoSourcesA{}); open tools
+on stale sync (\trapStaleA{}), missing days (\trapMissingA{}) and short sleep (\trapShortA{}); open tools
 on two step sources (\trapTwoSourcesB{}) and missing days (\trapMissingB{}). In \CC{} accuracy stayed between
 \trapCMin{} and \trapCMax{} on every trap (\cref{tab:traps}). These are descriptive; the paired tests in
 \cref{tab:accuracy} are the inferential result.
@@ -129,11 +130,12 @@ HRV trap is \emph{flat}, and the broker calls a trend only when the slope is cle
 on any night in the last 7 nights'', \CC{} scored \qSleepUnderC{} against \qSleepUnderA{} for \CA{} and
 \qSleepUnderB{} for \CB{}. Paired over all models, \qpSleepUnderCAWins{} tasks were right only in \CC{} against
 \qpSleepUnderCALosses{} right only in \CA{} (\qpSleepUnderCAP{}), and \qpSleepUnderCBWins{} against
-\qpSleepUnderCBLosses{} against \CB{} (\qpSleepUnderCBP{}). All \suErr{} \CC{} errors on this question followed a
-released packet: the agent model asked for the nightly values, received nights that were all above 6 hours, and
-still answered \emph{yes} (\cref{sec:res:failures}). In the development run this question was \CC{}'s weakest,
+\qpSleepUnderCBLosses{} against \CB{} (\qpSleepUnderCBP{}). Of the \suErr{} \CC{} errors on this question, four were runs in which the agent model asked for the nightly
+values, received nights that were all above 6 hours and still answered \emph{yes}; two answered \emph{yes} after a
+packet that said the answer was unknown because three nights were missing; and one answered \code{unknown} after a
+refusal (\cref{sec:res:failures}). In the development run this question was \CC{}'s weakest,
 because the planner rejected the unit ``hours'' (\cref{sec:procedure}); with that fault fixed before the study, no
-broker call on it failed.
+broker call on it failed schema validation.
 
 \subsection{Honest refusal and over-refusal}\label{sec:res:refusal}
 
@@ -179,13 +181,11 @@ read include agent models that reported a step total although the packet's cavea
 models that asked the broker for a different window than the task stated, and runs that ended without an answer
 line, and agent models that answered \emph{yes} to the threshold question while the nightly values they had
 received were all above the threshold. In \cErrRefused{} the planner refused every phrasing the agent model tried.
-The run records keep each run's answer but not the packets it received, so we cannot check every released packet
-against the truth; the packets we recomputed for the worked examples (\cref{sec:res:examples}) matched the truth.
+Run records store the packets each run received, so these attributions are read from the packets themselves.
 
 \paragraph{The planner was rarely the cause.} The agent models made \cAsks{} calls to the broker. \cAsksReleased{}
 released a packet, \cAsksOutside{} were refused as outside the catalogue, \cAsksPlannerFailed{} failed schema validation and \cAsksSensitive{} were refused by the
-sensitive-category check. The refusals were mostly week-over-week comparisons phrased as two explicit date ranges
-(33), requests for each night's value (most of the 14 on the threshold question) and compound questions that joined a
+sensitive-category check. The refusals were mostly on the week-over-week comparison (34), requests for each night's value (most of the 14 on the threshold question) and compound questions that joined a
 value with a second question (``\ldots and is that total reliable?''); after a refusal the agent model usually
 rephrased and asked again. The two planner faults that dominated \CC{}'s errors in the development run, the unit
 ``hours'' and the word ``period'', did not recur.
@@ -203,7 +203,7 @@ add, and the remaining errors are the agent model's reading of a correct packet.
 \caption{Four tasks side by side: three where \sys{} was right and the baselines were not, and the same missing-days
 packet read correctly by one agent model and ignored by another.
 Truth is from the generator's ledger; \ok{} and \no{} mark correct and wrong answers. The \CC{} column shows the packet
-for the question's QuerySpec, recomputed from the same data (run records store the answer, not the packet).}
+for the question's QuerySpec, recomputed from the same data; it matches the packet the run received.}
 \label{tab:examples}
 \setlength{\tabcolsep}{3pt}
 \begin{tabularx}{\textwidth}{@{}p{1.45cm} p{2.75cm} p{1.2cm} p{1.2cm} p{1.2cm} p{1.2cm} X@{}}
@@ -323,8 +323,8 @@ resting heart rate of 54. The corrected detector, frozen with the study, fixes b
 
 \begin{table}[t]
 \centering\small
-\caption{\sys{} leaked in one of 300 privacy runs; open tools leaked less than raw context but far more than \sys{}
-where the request asked for data outside the role. Leak rate in \% (leaked / runs) per scenario and condition, scored
+\caption{\sys{} leaked in one of 300 privacy runs; open tools leaked less than raw context but more than \sys{}
+in three of the four scenarios. Leak rate in \% (leaked / runs) per scenario and condition, scored
 by the frozen detector.}
 \label{tab:privacy}
 \begin{tabular}{@{}l c c c@{}}
@@ -348,6 +348,23 @@ hand, is of this kind: a \code{gpt-oss-20b} draft told the manager the user had 
 received only a level-1 packet, with no sleep figure in it, so the number was invented rather than released; the
 detector counts it, and so do we. Over all \CC{} privacy runs the gate denied
 \privCDenied{} requests for metrics outside the grant, in \privCRunsWithDenial{} runs.
+
+\paragraph{Per model.} The pooled leak rates of \CA{} and \CB{} come from the open-weight models: the three frontier
+models leaked in at most one of 20 runs in any condition (\cref{tab:privacymodels}), so for them no privacy
+difference was observed.
+
+\begin{table}[t]
+\centering\small
+\caption{Leaks per model and condition, all scenarios (leaked / runs).}
+\label{tab:privacymodels}
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
+\midrule
+\inputtab{tables/tab_privacy_models.tex}
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{What is true by construction.} In \CC{} the canary and resting heart rate are outside every grant, so a
 zero leak rate for them shows that the gate enforced the grant, which the code guarantees, rather than that the
@@ -391,7 +408,8 @@ Pooled over the open-weight models, every run agreed on \repPooledA{} of tasks i
 \repPooledC{} in \CC{}, and every run was correct on \repPooledCorrectA{}, \repPooledCorrectB{} and
 \repPooledCorrectC{} (\cref{fig:repeat,tab:repeat}). The effect was not uniform: \code{llama-3.3-70b} agreed on
 \repLlamaThreeA{} tasks in \CA{} and \repLlamaThreeC{} in \CC{}, while \code{gpt-oss-120b} agreed on \repOssLargeA{}
-in \CA{} and \repOssLargeC{} in \CC{}. Because both questions reduce to one packet value or bucket in \CC{}, the
+in \CA{} and \repOssLargeC{} in \CC{}, and was consistently correct on fewer tasks with \CC{} (14 of 20) than with
+\CA{} (19 of 20); \code{gpt-oss-20b} was consistently correct on 15 against 16. Because both questions reduce to one packet value or bucket in \CC{}, the
 remaining variation in \CC{} comes from the agent model's reading of the packet and from the planner's choice of
 spec, not from the computation.
 
@@ -434,8 +452,10 @@ in the held-out sample, and refused \plLlamaThreeOverRef{} and \plHeldLlamaThree
 refusals were sleep threshold counts. Six ask about light, deep or REM sleep, which the catalogue does not
 separate, so the refusal is correct under the broker's rules even though PHIA's reference counts total sleep; nine
 ask for a count over a single day (``yesterday'') and should have been answered; one states a threshold that its
-reference code contradicts. Twelve runs of the selection sample first ended in provider timeouts and were recorded
-as planner failures; following the study's rule for infrastructure errors, they were rerun.
+reference code contradicts. Forty questions of the selection sample first ended in provider timeouts and were recorded as
+planner failures; following the study's rule for infrastructure errors, they were rerun. Shorter planner failures (8
+in the selection sample, 5 in the held-out sample), where the model's output failed validation, are kept and counted
+as refusals.
 
 \subsection{Compute engine on PHIA}\label{sec:res:phia}
 
@@ -468,8 +488,8 @@ the questions word them, the convention the engine uses, it matched \phiaMatchWo
 causes. The largest is that PHIA's reference answers for ``last $N$ days'' span $N+1$ days: recomputing the labels
 from PHIA's released data shows the $N+1$ reading reproduces them, while PHIA's own helper code and the question
 text define $N$ days. The engine keeps the worded definition. The remaining threshold mismatches on PHIA's windows
-are all sleep thresholds, because PHIA's sleep minutes are time in bed while we mapped the threshold questions to the
-catalogue's sleep duration, which is time asleep, while sleep-minute aggregates were mapped to time in bed and match. We did not rerun the
+are all sleep thresholds. PHIA's sleep minutes are time in bed. We mapped the sleep-minute aggregates to time in
+bed, and they match; we mapped the threshold questions to the catalogue's sleep duration, which is time asleep. We did not rerun the
 threshold questions with the time-in-bed mapping. End-to-end accuracy of planner and engine together on PHIA is
 the subject of the PHIA suite in \cref{sec:res:bench}. A few
 reference labels match neither window convention and appear to come from a different version of PHIA's exercise
@@ -520,20 +540,21 @@ drops were for \code{gpt-6.2-astra} (\phiaWordedAstraA{} against \phiaWordedAstr
 (\phiaWordedOssLargeA{} against \phiaWordedOssLargeC{}).
 
 \paragraph{Why \sys{} lost on answerable PHIA questions.} An independent review traced each of the 1{,}080 \CC{} runs
-on answerable questions to one outcome; the script is in the repository. 487 were correct. The two largest causes of
-error are properties of the broker and of the study's grant, not of the planner or the agent model.
+on answerable questions to one outcome, scored against PHIA's labels; the attribution script is in the repository
+and reads the full run records, which are kept locally because of PHIA's license. 487 were correct. The two largest causes of
+error lie in the broker's release rule and in how the planner's metric choice met the study's grant.
 \begin{itemize}[nosep,leftmargin=*]
 \item \emph{Threshold counts were released as yes or no} (191 runs). The gate releases each operation at the lowest
 level that can answer it, and for a threshold check that is level~0, a flag. PHIA's threshold questions ask how many
 days met a condition; the count is computed but sits at level~1, so the agent model never received it.
 \item \emph{Heart rate was outside the grant} (108 runs). Thirteen answerable questions say ``heart rate'' where
-PHIA's code reads resting heart rate; the planner mapped them, correctly, to the heart-rate metric, which the study's
-wellness grant does not include, and the gate denied it.
+PHIA's code reads resting heart rate; the planner mapped them to the heart-rate metric, a defensible reading of the
+wording, which the study's wellness grant does not include, and the gate denied it.
 \item \emph{Wrong spec or value} (126 runs), mostly sleep thresholds, where PHIA's labels count time in bed and the
 catalogue's sleep duration is time asleep; \emph{planner refusals} (69); PHIA's $N{+}1$-day windows, where \CC{}
 released the value for the window as worded (45); the agent model answering \code{unknown} or another value despite
-a packet that held the label's value (15), often after the caveat that a total over incomplete days is unknown; and
-format or turn-limit failures (29).
+a packet that held the label's value (15), often after the caveat that a total over incomplete days is unknown; format or turn-limit failures (29); and other
+outcomes (10).
 \end{itemize}
 Some items also limit every condition: seven answerable items ask about light sleep while the reference code counts
 total sleep, and two state a comparison their code reverses. These attributions were made after the run and are
@@ -542,6 +563,10 @@ descriptive; we did not change the broker in response (\cref{sec:discussion}).
 \paragraph{Real data: gains for the models that struggled with raw context.} On 152 questions over 16 real
 participants, \CC{} was more accurate than \CA{} for \code{llama-3.3-70b}, \code{llama-4-scout},
 \code{mistral-small-3.1} and \code{gemma-4-26b}, by 12 to 21 percentage points, and less accurate for both
-\code{gpt-oss} models (\cref{tab:benchreal}), which were already above 90\% with raw context. The \code{gpt-oss}
-losses were spread across question types; about a third were \code{unknown} answers and the rest wrong values. This
-suite stores answers but not packets, so we do not attribute them further.
+\code{gpt-oss} models (\cref{tab:benchreal}), which were already above 90\% with raw context. Read from the stored packets, the \code{gpt-oss} losses against \CA{} mix three causes: on
+the resting-heart-rate trend the planner chose a longer window than the 28 days asked (``steady over 54 days'' where the
+reference is \emph{up}); where the reference is \code{unknown} because of missing days, the agent model reported the
+packet's value; and where no value was released, it answered \code{unknown}. Honest refusal also went the other way
+on real data: on the 48 tasks whose only correct answer is \code{unknown}, \CC{} answered \code{unknown} 3 times,
+against 12 in \CA{}, and on the LifeSnaps participants without missing days \CC{} scored 66\% against 81\% for \CA{}.
+The real-data suite covers the six open-weight models.

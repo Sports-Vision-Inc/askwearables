@@ -147,10 +147,13 @@ We evaluated \nModels{} agent models. Six open-weight models were served on Clou
 \code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI), \code{llama-3.3-70b} and \code{llama-4-scout} (Meta),
 \code{gemma-4-26b} (Google, a mixture of experts with about 4B active parameters) and \code{mistral-small-3.1}
 (Mistral). Three frontier models were reached through OpenRouter: \code{claude-fable-5.2} (Anthropic),
-\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). Two further models were run and excluded before
-analysis because their runs could not be completed under the providers' documented request limits:
-\code{inkling-2-small} (Workers AI limits it to 20 requests per minute) and \code{nemotron-3-ultra-550b} (served on a
-free tier with a daily request limit). Their partial rows are published with the results and are not analysed. The
+\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). Two further models were run and excluded from
+analysis. \code{nemotron-3-ultra-550b} was served on a free tier whose daily request limit kept its runs from
+completing. \code{inkling-2-small} completed the synthetic accuracy, privacy and repeatability suites but not the PHIA
+and real-data suites, which Workers AI's limit of 20 requests per minute for it kept from finishing; we excluded it
+throughout so that the open-weight set is the same in every suite. Its completed results are published with the
+others: on the synthetic questions it was near ceiling in every condition (99\% in \CA{}, 98\% in \CB{} and 99\% in
+\CC{}), and on its incomplete PHIA runs \CC{} trailed \CA{}, as for the other strong models. The
 model set does not include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
 temperature 0.
 
@@ -178,8 +181,8 @@ correct answer (total cost divided by the number of correct answers). We also re
 provider-reported cost for the frontier models on OpenRouter, and Workers AI list prices (Cloudflare's published
 Workers AI pricing, read 2026-11-25\footnote{\url{https://developers.cloudflare.com/workers-ai/platform/pricing/}})
 for the open-weight models. In \CC{}, the planner's tokens and cost (\code{llama-3.3-70b} at Workers AI list price)
-are included, logged per run (\plannerLogged{} of the \plannerLoggedOf{} \CC{} runs carry a planner record; the
-remaining run made no broker call).
+are included, logged per run (\plannerLogged{} of the \plannerLoggedOf{} \CC{} runs carry a planner record; for the remaining run,
+which reached the turn limit after eight broker calls, planner usage is estimated from measured per-call usage).
 
 \paragraph{Leak rate.} A leak is scored by a deterministic detector from the agent model's final text: the canary
 weight within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message, sleep
@@ -191,8 +194,9 @@ judging the manager message on the draft rather than on advice to the user aroun
 over-flagged (\cref{tab:audit}), so we corrected it: it now scores only the draft in the manager scenario, parses more
 number formats (decimal bpm, ``6\,\textonehalf{} hours'', spelled-out hours) and requires a weight or heart-rate
 number to appear in its context. Because the corrected detector was written with that sample in view, we checked it
-on the 38 development rows outside the sample where its verdict differed from the first rule, and we read every \CC{}
-positive in the frozen study by hand.
+on the 38 development rows outside the sample where its verdict differed from the first rule, none of which we
+judged wrong, and we read every \CC{} positive in the frozen study by hand. In development it still counted more
+manager-message leaks in \CB{} than the hand labels did, so its \CB{} rate in that scenario may be high.
 
 \paragraph{Repeatability.} \repTasks{} tasks, the mean-sleep and sleep-versus-usual questions for each person, run
 \repRuns{} times each with the open-weight models. Agreement is the share of tasks on which every run gave the same

@@ -8,15 +8,13 @@ results are consistent with an explanation: the questions those models got wrong
 over many days, a fitted trend, or knowledge that two sources report the same steps, and a packet hands the agent
 model a computed value with its caveats. The study does not isolate this cause. \CC{} bundles computed values,
 data-quality caveats, a second, larger model as planner, and a tool description that tells the agent model to rely
-on the numbers. The decomposition in \cref{sec:res:failures} shows that runs with a released packet were correct far
-as often as they were, and that almost no run was left without a packet, which fits the explanation but is not an
+on the numbers. The decomposition in \cref{sec:res:failures} shows that runs with a released packet were nearly all correct and that almost no run was left without a packet, which fits the explanation but is not an
 ablation. The pattern agrees with
 the program-aided reasoning literature~\citep{gao2022pal,chen2023pot} and with PHIA's finding that computing in code
 beats reasoning over the numbers~\citep{merrill2024phia}; in \sys{} the agent model writes no code at all.
 
 \paragraph{For models near ceiling, the benefit is not accuracy.} The strongest models answered almost every
-question correctly in every condition, and we claim no accuracy gain for them; the bootstrap intervals include zero
-or touch it. What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
+question correctly in every condition, and we claim no accuracy gain for them; the differences are at most a few points. What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
 read \ctxRatioCAMin{}--\ctxRatioCAMax{} of its raw-context input; the release was limited to the level the question
 needed, so a scheduling assistant receives a bucket rather than a night's sleep in minutes; and every release and
 denial left a hash-chained receipt. For \code{claude-fable-5.2} and \code{gemini-4-neon} it also lowered the cost per
@@ -66,7 +64,7 @@ and studies should state how text-format tool calls are handled.
 
 \subsection{Implications for agent builders}
 
-For people building agents over personal data, we draw three lessons. First, give agent models computed answers
+For people building agents over personal data, we draw four lessons. First, give agent models computed answers
 with caveats rather than records; the packet contract cost the strongest models nothing measurable in accuracy and
 helped the weaker ones. Second, decide disclosure in code, outside the model, and bind purpose at consent time rather
 than in the request. Third, log both releases and denials with their reasons; the logged reasons let us find and fix
