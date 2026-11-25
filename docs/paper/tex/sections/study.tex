@@ -214,8 +214,8 @@ cycle tracking; requests for each day's values were often refused rather than pl
 prompt, which reduced but did not remove these refusals); the harness did not execute tool
 calls written as text; and the first leak detector over-flagged (\cref{sec:measures}). We then froze the broker, the
 planner prompt, the scoring and the leak detector (one commit, recorded in every row), fixed the evaluation date at
-2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run; no development row
-is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
+2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run, except the second
+iteration (\cref{sec:res:v2}), run afterwards on a changed broker; no development row is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
 
 During the frozen run we changed only how the harness talks to providers, never the broker or the scoring: tool-call
 arguments that were not valid JSON are replaced by an empty object and the tool result says so, and
@@ -243,7 +243,9 @@ planner sample (the prompt had been revised with those in view), in all three co
 models; and, against the study's \CC{} on the same tasks, on the synthetic and privacy suites with all nine models
 and on real data with the open-weight models. The hypotheses were: H1, the gap to raw context on answerable PHIA
 questions narrows; H2, refusal of unsupported questions stays at least at the study's rate; H3, no regression on
-the other suites.
+the other suites. Deviations from the pre-registration: the frontier models were not run on the fresh PHIA sample
+(the pre-registration allowed this; their $n$ is zero), and the analyses marked in \cref{sec:res:v2} as not
+pre-registered were added after the runs. The pre-registration is in commit \code{1a47899}, before the first run.
 
 \subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
 

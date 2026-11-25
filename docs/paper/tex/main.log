@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 11:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 11:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1080,9 +1080,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 31.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 31.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
 )
 (./sections/introduction.tex
 
@@ -1174,7 +1174,7 @@ Underfull \hbox (badness 8132) in paragraph at lines 141--141
 [12]
 
 [13]) (./sections/results.tex
-<figures/fig_accuracy_cost.pdf, id=624, 621.52202pt x 332.44202pt>
+<figures/fig_accuracy_cost.pdf, id=626, 621.52202pt x 332.44202pt>
 File: figures/fig_accuracy_cost.pdf Graphic file (type pdf)
 <use figures/fig_accuracy_cost.pdf>
 Package pdftex.def Info: figures/fig_accuracy_cost.pdf  used on input line 12.
@@ -1188,13 +1188,13 @@ Underfull \hbox (badness 2478) in paragraph at lines 59--69
 d
  []
 
-(./tables/tab_bootstrap.tex) (./tables/tab_traps.tex)
-(./tables/tab_questions.tex)
 
-[15 <./figures/fig_accuracy_cost.pdf>]
+
+[15 <./figures/fig_accuracy_cost.pdf>] (./tables/tab_bootstrap.tex)
+(./tables/tab_traps.tex) (./tables/tab_questions.tex)
 
 [16] (./tables/tab_refusal.tex)
-<figures/fig_c_outcomes.pdf, id=710, 448.07399pt x 148.8762pt>
+<figures/fig_c_outcomes.pdf, id=712, 448.07399pt x 148.8762pt>
 File: figures/fig_c_outcomes.pdf Graphic file (type pdf)
 <use figures/fig_c_outcomes.pdf>
 Package pdftex.def Info: figures/fig_c_outcomes.pdf  used on input line 172.
@@ -1245,7 +1245,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--8
 )
 
 [18 <./figures/fig_c_outcomes.pdf>]
-<figures/fig_exposure.pdf, id=771, 375.804pt x 173.448pt>
+<figures/fig_exposure.pdf, id=773, 375.804pt x 173.448pt>
 File: figures/fig_exposure.pdf Graphic file (type pdf)
 <use figures/fig_exposure.pdf>
 Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 232.
@@ -1256,7 +1256,7 @@ Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 232.
 (./tables/tab_privacy.tex)
 
 [20] (./tables/tab_privacy_models.tex)
-<figures/fig_repeat.pdf, id=846, 469.755pt x 216.81pt>
+<figures/fig_repeat.pdf, id=848, 469.755pt x 216.81pt>
 File: figures/fig_repeat.pdf Graphic file (type pdf)
 <use figures/fig_repeat.pdf>
 Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 384.
@@ -1274,15 +1274,15 @@ Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 384.
 [25] (./sections/v2.tex (./tables/tab_v2_phia.tex)
 (./tables/tab_v2_accuracy.tex) (./tables/tab_v2_real.tex)
 
-[26])) (./sections/discussion.tex
+[26]
 
-[27]
+[27])) (./sections/discussion.tex
 
 [28]) (./sections/scope.tex
 
-[29]) (./sections/conclusion.tex) (./sections/ethics.tex
+[29]
 
-[30]
+[30]) (./sections/conclusion.tex) (./sections/ethics.tex
 Underfull \hbox (badness 1910) in paragraph at lines 12--22
 []\T1/ptm/m/n/10.95 (+20) The bro-ker, the syn-thetic gen-er-a-tor, the ques-ti
 on set and scor-ing rules, the pri-vacy sce-nar-ios,
@@ -1347,9 +1347,11 @@ aper/run-v2.sh \T1/ptm/m/n/10.95 (+20) and \T1/lmtt/m/n/10.95 eval/paper/v2_rep
 ort.py \T1/ptm/m/n/10.95 (+20) (the sec-ond
  []
 
-) (./main.bbl
 
-[31]
+
+[31]) (./main.bbl
+
+[32]
 Underfull \hbox (badness 5316) in paragraph at lines 105--110
 []\T1/ptm/m/n/10.95 (+20) OWASP Foun-da-tion.  API3:2019 Ex-ces-sive Data Ex-po
 -sure.  OWASP API Se-cu-rity Top
@@ -1363,18 +1365,18 @@ https : / / owasp . org / API-[]Security / editions / 2019 / en /
 
 
 
-[32]
-
 [33]
 
 [34]
 
 [35]
 
-[36])
+[36]
 
-[37] (./sections/appendix.tex (./tables/tab_usage.tex)
-<figures/fig_accuracy.pdf, id=1157, 693.792pt x 245.718pt>
+[37])
+
+[38] (./sections/appendix.tex (./tables/tab_usage.tex)
+<figures/fig_accuracy.pdf, id=1163, 693.792pt x 245.718pt>
 File: figures/fig_accuracy.pdf Graphic file (type pdf)
 <use figures/fig_accuracy.pdf>
 Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
@@ -1383,7 +1385,7 @@ Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_traps.pdf, id=1160, 375.804pt x 303.534pt>
+<figures/fig_traps.pdf, id=1166, 375.804pt x 303.534pt>
 File: figures/fig_traps.pdf Graphic file (type pdf)
 <use figures/fig_traps.pdf>
 Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
@@ -1391,7 +1393,7 @@ Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_privacy.pdf, id=1163, 469.755pt x 216.81pt>
+<figures/fig_privacy.pdf, id=1169, 469.755pt x 216.81pt>
 File: figures/fig_privacy.pdf Graphic file (type pdf)
 <use figures/fig_privacy.pdf>
 Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
@@ -1399,7 +1401,7 @@ Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_planner_phia.pdf, id=1166, 462.52798pt x 151.767pt>
+<figures/fig_planner_phia.pdf, id=1172, 462.52798pt x 151.767pt>
 File: figures/fig_planner_phia.pdf Graphic file (type pdf)
 <use figures/fig_planner_phia.pdf>
 Package pdftex.def Info: figures/fig_planner_phia.pdf  used on input line 49.
@@ -1409,13 +1411,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 )
 
-[38
+[39
 
 ]
 
-[39 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
+[40 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
 
-[40 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>] (./main.aux)
+[41 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1424,11 +1426,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 6F3CC9BD257BA75C8B99355F04D6B390;6856.
  ) 
 Here is how much of TeX's memory you used:
- 32191 strings out of 473190
- 597686 string characters out of 5715801
+ 32200 strings out of 473190
+ 597869 string characters out of 5715801
  1009478 words of memory out of 5000000
- 53763 multiletter control sequences out of 15000+600000
- 694215 words of font info for 670 fonts, out of 8000000 for 9000
+ 53774 multiletter control sequences out of 15000+600000
+ 694090 words of font info for 668 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1001b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1442,10 +1444,10 @@ onts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/
 utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pf
 b></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (40 pages, 472036 bytes).
+Output written on main.pdf (41 pages, 474433 bytes).
 PDF statistics:
- 1486 PDF objects out of 1728 (max. 8388607)
- 1059 compressed objects within 11 object streams
- 272 named destinations out of 1000 (max. 500000)
+ 1492 PDF objects out of 1728 (max. 8388607)
+ 1064 compressed objects within 11 object streams
+ 273 named destinations out of 1000 (max. 500000)
  129426 words of extra memory for PDF output out of 154059 (max. 10000000)
 

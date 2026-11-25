@@ -2,8 +2,9 @@
 
 \begin{table}[t]
 \centering\small
-\caption{Second iteration on a fresh PHIA sample: the gap between \sys{} and raw context on answerable questions
-closed when pooled, but not for every model, and refusal of unsupported questions held. Six open-weight models, 120
+\caption{Second iteration on a fresh PHIA sample: on answerable questions as worded \sys{} was level with raw context
+when pooled (not significantly different), better for two models and worse for two; refusal of unsupported questions
+held. Six open-weight models, 120
 answerable and 60 unsupported questions disjoint from the study's and from the planner samples; accuracy in \%. $p$:
 exact McNemar, \CC{} against \CA{} on answerable questions as worded (\CC{}-only / \CA{}-only).}
 \label{tab:v2phia}
@@ -41,46 +42,55 @@ Agent model & tasks & \CC{} & \CC{}$_2$ & \CC{}$_2$-only & \CC{}-only & $p$\\
 
 After the study we changed the broker in the two places the PHIA attribution pointed to, and its planner prompt
 (\cref{sec:v2-design}), and measured the result on questions the study never used. The changes, hypotheses and
-analysis were fixed in writing before any run.
+analysis were committed before any run; analyses we added afterwards are marked as not pre-registered.
 
-\paragraph{H1: on fresh PHIA questions the gap closed when pooled, not for every model.} Over the six open-weight
-models, \CC{}$_2$ answered \vtwoWordedPooledC{} of the answerable questions as worded, against \vtwoWordedPooledA{}
-for raw context and \vtwoWordedPooledB{} for open tools (\cref{tab:v2phia}); on the study's sample the same models'
-\CC{} had trailed raw context by \vtwoGapStudy{} points, and on the fresh sample \CC{}$_2$ led by \vtwoGapNew{}. The
+\paragraph{H1: level with raw context when pooled, not for every model, and not on PHIA's labels.} Over the six
+open-weight models, \CC{}$_2$ answered \vtwoWordedPooledC{} \vtwoWordedPooledCIC{} of the answerable questions as
+worded, against \vtwoWordedPooledA{} \vtwoWordedPooledCIA{} for raw context and \vtwoWordedPooledB{}
+\vtwoWordedPooledCIB{} for open tools (\cref{tab:v2phia}); paired, \CC{}$_2$ and raw context did not differ
+($p=$ \vtwoPooledMcn{}, \vtwoPooledMcnPairs{} discordant questions). Both pre-registered parts of H1 were met on these
+terms: \CC{}$_2$'s pooled accuracy was above the study's \CC{} (\vtwoStudyWordedC{}), and its difference to raw
+context moved from \vtwoGapStudy{} to \vtwoGapNew{} points. These are different question samples; raw context scored
+\vtwoStudyWordedA{} on the study's and \vtwoWordedPooledA{} on the fresh one, which supports comparing them. The
 pooled figure hides a split. \CC{}$_2$ was significantly more accurate than raw context for \code{llama-3.3-70b}
 (\vtwoWordedLlamaThreeA{} against \vtwoWordedLlamaThreeC{}, $p$ \vtwoMcnLlamaThree{}) and \code{llama-4-scout}
 (\vtwoWordedLlamaScoutA{} against \vtwoWordedLlamaScoutC{}), level for \code{mistral-small-3.1} and
 \code{gemma-4-26b}, and significantly less accurate for both \code{gpt-oss} models (\code{gpt-oss-120b}:
-\vtwoWordedOssLargeA{} against \vtwoWordedOssLargeC{}). Against PHIA's own labels, which count a window of $N{+}1$ days
-and sleep as time in bed, \CC{}$_2$ still trailed (\vtwoLabelPooledC{} against \vtwoLabelPooledA{}).
+\vtwoWordedOssLargeA{} against \vtwoWordedOssLargeC{}). Against PHIA's own labels the gap grew: \CC{}$_2$ scored
+\vtwoLabelPooledC{} against \vtwoLabelPooledA{} for raw context ($p$ \vtwoLabelPooledMcn{}), where the study's \CC{} had
+scored \vtwoStudyLabelC{} against \vtwoStudyLabelA{}.
 
-\paragraph{What each change did.} Attributed as in \cref{sec:res:bench}, the 720 \CC{}$_2$ runs on answerable questions
-had 2 that received only a threshold flag, against 159 for the same models' \CC{} runs in the study: counts now
-reach the agent model. Many of those counts disagree with PHIA's labels for the reasons above, so threshold accuracy
-as worded stayed low (\vtwoThrAcc{} for \CC{}$_2$, \vtwoThrAccA{} for raw context). The denial hint was carried by
-\vtwoDeniedWithAlt{} of the \vtwoDeniedRuns{} runs with a denied metric; in \vtwoDeniedFollowed{} of them the agent model
-asked again for the granted metric and received a packet, and in the rest it stopped. The hint therefore recovered a
-quarter of these runs; whether to ask again remained the agent model's choice.
+\paragraph{What each change did (not pre-registered).} Attributed against PHIA's labels as in \cref{sec:res:bench},
+the 720 \CC{}$_2$ runs on answerable questions had 2 that received only a threshold flag, against 159 for the same
+models' \CC{} runs in the study: counts now reach the agent model. Those counts follow the catalogue's definitions,
+in which sleep is time asleep, while PHIA's reference code, both as worded and in its labels, counts time in bed; so
+threshold accuracy stayed low (\vtwoThrAcc{} as worded for \CC{}$_2$, \vtwoThrAccA{} for raw context), and runs whose
+released value differed from the label rose from 40 to 148, and those with PHIA's $N{+}1$-day window from 33 to 118,
+which is why the gap on labels grew. The denial hint was carried by \vtwoDeniedWithAlt{} of the \vtwoDeniedRuns{}
+runs with a denied metric; in \vtwoDeniedFollowed{} of them the agent model asked again for the granted metric and
+received a packet, and \vtwoDeniedFollowedCorrect{} of those were correct as worded. In the rest it stopped.
 
-\paragraph{H2: refusal held.} On the 60 unsupported questions, \CC{}$_2$ answered \code{unknown} in
-\vtwoUnsupPooledC{} of runs, against \vtwoUnsupPooledA{} for raw context and \vtwoUnsupPooledB{} for open tools. This
-meets the pre-registered bar of the study's overall rate (84\%) and is two points below the same six models' study
-rate (\vtwoStudyUnsupC{}).
+\paragraph{H2: met.} On the 60 unsupported questions, \CC{}$_2$ answered \code{unknown} in \vtwoUnsupPooledC{} of
+runs, against \vtwoUnsupPooledA{} for raw context and \vtwoUnsupPooledB{} for open tools, above the pre-registered bar
+of the study's overall rate (84\%). For the same six models the study's rate had been \vtwoStudyUnsupC{} (not
+pre-registered).
 
-\paragraph{H3: one regression.} On the synthetic questions \CC{}$_2$ was \vtwoRegAccuracyNew{} accurate against
-\vtwoRegAccuracyOld{} for \CC{} on the same \vtwoRegAccuracyN{} tasks (\cref{tab:v2reg}); the differences were
-significant for \vtwoRegAccuracySig{}. The loss is concentrated in one question: on the week-over-week comparison,
-\CC{}$_2$ was right in \vtwoRegQWeekNew{} of \vtwoRegQWeekN{} runs against \vtwoRegQWeekOld{}, because the revised
-planner prompt more often compared the two weeks before last instead of the last seven days with the seven before.
-No other question moved by more than three runs. On real data, accuracy was \vtwoRegRealNew{} against
-\vtwoRegRealOld{}, with no model significantly different. In the privacy suite the detector counted
-\vtwoRegPrivacyNew{} leaks against \vtwoRegPrivacyOld{}; we read all four. Two are false positives (a fill-in
-template, and a request asking the user for their figures); one restates a granted yes-or-no answer (``I slept under
-6 hours''); and one states a resting heart rate after the broker denied it, so the figure was invented. None follows
-a release outside the grant, and none follows a denial hint.
+\paragraph{H3: met on real data, not met on two counts.} \emph{Synthetic questions:} \CC{}$_2$ was
+\vtwoRegAccuracyNew{} accurate against \vtwoRegAccuracyOld{} for \CC{} on the same \vtwoRegAccuracyN{} tasks (pooled
+$p=$ \vtwoRegAccuracyPooledP{}, \vtwoRegAccuracyPooledPairs{} discordant; \cref{tab:v2reg}), with one significant drop,
+\code{mistral-small-3.1}, and one significant gain, \code{gpt-oss-120b}. By question (not pre-registered), the loss is
+in the week-over-week comparison, right in \vtwoRegQWeekNew{} of \vtwoRegQWeekN{} runs against \vtwoRegQWeekOld{},
+because the revised planner prompt more often compared the two weeks before last instead of the last seven days with
+the seven before; no other question moved by more than three runs. \emph{Real data:} \vtwoRegRealNew{} against
+\vtwoRegRealOld{}, no model significantly different; met. \emph{Privacy:} the pre-registered criterion, no more leaks
+than \CC{}, was not met by the detector, which counted \vtwoRegPrivacyNew{} against \vtwoRegPrivacyOld{}. Reading the
+four (not pre-registered): two are false positives, a fill-in template and a request asking the user for their
+figures; one restates a granted yes-or-no answer (``I slept under 6 hours''); and one states a resting heart rate
+after the broker denied the whole request (weight outside the grant), so no heart-rate figure was released and the
+number was invented. None follows a release outside the grant.
 
-\paragraph{Reading the second iteration.} Two general changes removed the largest PHIA failure in the study and let a
-quarter of the denied runs recover, and pooled accuracy on fresh questions moved from behind raw context to level
-with it. They did not make \sys{} better for the models that are already strong with raw context, and an
-unintended effect of the prompt change cost accuracy on one synthetic question. These results come from one revision
-measured once; they show what the broker's logged reasons made possible to fix, not a tuned final system.
+\paragraph{Reading the second iteration.} The two changes removed the largest PHIA failure of the study and let some
+denied runs recover, and pooled accuracy on fresh questions, as worded, was level with raw context rather than behind
+it. They did not make \sys{} better for the models already strong with raw context, they widened the gap on PHIA's
+own labels, the prompt change cost accuracy on one synthetic question, and the privacy criterion was not met by the
+detector. These results come from one revision measured once.
