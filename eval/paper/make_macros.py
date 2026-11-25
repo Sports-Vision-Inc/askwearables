@@ -43,8 +43,6 @@ MODELS = [  # (id, macro key, group)
     ("gemma-4-26b", "Gemma", "open"),
     ("gpt-oss-20b", "OssSmall", "open"),
     ("gpt-oss-120b", "OssLarge", "open"),
-    ("inkling-2-small", "Inkling", "open"),
-    ("nemotron-3-ultra-550b", "Nemotron", "large"),
     ("gemini-4-neon", "Gemini", "frontier"),
     ("gpt-6.2-astra", "Astra", "frontier"),
     ("claude-fable-5.2", "Fable", "frontier"),
@@ -115,15 +113,29 @@ def mcnemar(pairs):
 
 
 def load(suite):
-    """Same rule as report.py: last row per (condition, model, task, run) wins; an error row reopens the key."""
+    """Same rules as report.py: last row per (condition, model, task, run) wins and an error row reopens the key; a
+    context-length refusal is a failed answer; the first step-limit (max_steps) outcome is final, scored as no answer."""
     rows = {}
+    step_limited = set()
     for path in sorted(glob.glob(os.path.join(RES, f"{suite}-*.jsonl"))):
         for line in open(path):
             if not line.strip():
                 continue
             r = json.loads(line)
             key = (r["condition"], r["model"], r["task"], r["run"])
-            rows[key] = None if r.get("error") else r
+            if key in step_limited:
+                continue  # the first step-limit outcome is final
+            err = r.get("error")
+            if err == "max_steps":
+                r.update({"answer": None, "correct": False, "max_steps": True, "final": "", "leaked": False})
+                rows[key] = r
+                step_limited.add(key)
+            elif err and re.search(r"maximum context length|context window|too many tokens", err, re.I):
+                r.update({"answer": None, "correct": False, "context_exceeded": True, "final": "", "leaked": False,
+                          "prompt_tokens": 0, "completion_tokens": 0, "cost": 0, "latency_ms": 0, "tool_calls": 0, "transcript_tools": []})
+                rows[key] = r
+            else:
+                rows[key] = None if err else r
     ok = [r for r in rows.values() if r]
     # Strict scoring, as in report.py and in every condition: an answer counts only on an explicit ANSWER: line.
     for r in ok:

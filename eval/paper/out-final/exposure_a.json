@@ -1,0 +1,42 @@
+{
+ "p1": {
+  "values": 195,
+  "chars": 11639
+ },
+ "p2": {
+  "values": 240,
+  "chars": 13824
+ },
+ "p3": {
+  "values": 195,
+  "chars": 11653
+ },
+ "p4": {
+  "values": 173,
+  "chars": 10316
+ },
+ "p5": {
+  "values": 182,
+  "chars": 10860
+ },
+ "p6": {
+  "values": 195,
+  "chars": 10670
+ },
+ "p7": {
+  "values": 195,
+  "chars": 11615
+ },
+ "p8": {
+  "values": 195,
+  "chars": 11641
+ },
+ "p9": {
+  "values": 195,
+  "chars": 11622
+ },
+ "p10": {
+  "values": 195,
+  "chars": 11647
+ }
+}

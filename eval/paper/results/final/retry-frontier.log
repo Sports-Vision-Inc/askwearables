@@ -1,0 +1,29 @@
+(node:31822) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 272 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:32673) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 233 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:33639) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 212 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:34604) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 191 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:35529) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 156 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:36734) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 123 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+(node:38042) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 109 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+  50/109  openrouter spend $5.57 (cap $195)
+  100/109  openrouter spend $9.17 (cap $195)
+done. openrouter spend this process: $9.81; workers-ai calls: 933
+(node:39267) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+phia: 0 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+FRONT DONE

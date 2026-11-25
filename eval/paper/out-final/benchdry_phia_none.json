@@ -1,0 +1,123 @@
+{
+ "suite": "phia",
+ "planner": "none",
+ "tasks": 180,
+ "match": 144,
+ "match_as_worded": 163,
+ "match_either": 164,
+ "by_stratum": [
+  {
+   "key": "answerable",
+   "n": 120,
+   "match": 84,
+   "match_as_worded": 103
+  },
+  {
+   "key": "unsupported",
+   "n": 60,
+   "match": 60,
+   "match_as_worded": 60
+  }
+ ],
+ "by_tag": [
+  {
+   "key": "aggregate:hrv_rmssd",
+   "n": 27,
+   "match": 25,
+   "match_as_worded": 27
+  },
+  {
+   "key": "aggregate:resting_hr",
+   "n": 25,
+   "match": 19,
+   "match_as_worded": 24
+  },
+  {
+   "key": "aggregate:steps",
+   "n": 25,
+   "match": 24,
+   "match_as_worded": 25
+  },
+  {
+   "key": "threshold_check:sleep_duration",
+   "n": 43,
+   "match": 16,
+   "match_as_worded": 27
+  },
+  {
+   "key": "unsupported:active_zone_minutes_not_in_catalogue",
+   "n": 5,
+   "match": 5,
+   "match_as_worded": 5
+  },
+  {
+   "key": "unsupported:answer_is_a_list_of_names_not_a_number",
+   "n": 3,
+   "match": 3,
+   "match_as_worded": 3
+  },
+  {
+   "key": "unsupported:composed_query_window_depends_on_another_query",
+   "n": 10,
+   "match": 10,
+   "match_as_worded": 10
+  },
+  {
+   "key": "unsupported:equality_threshold_not_offered",
+   "n": 2,
+   "match": 2,
+   "match_as_worded": 2
+  },
+  {
+   "key": "unsupported:single_sleep_stage_threshold_not_offered",
+   "n": 3,
+   "match": 3,
+   "match_as_worded": 3
+  },
+  {
+   "key": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "n": 10,
+   "match": 10,
+   "match_as_worded": 10
+  },
+  {
+   "key": "unsupported:statistic_not_offered",
+   "n": 14,
+   "match": 14,
+   "match_as_worded": 14
+  },
+  {
+   "key": "unsupported:workout_elevation_not_in_catalogue",
+   "n": 3,
+   "match": 3,
+   "match_as_worded": 3
+  },
+  {
+   "key": "unsupported:workout_filter_on_values_not_offered",
+   "n": 4,
+   "match": 4,
+   "match_as_worded": 4
+  },
+  {
+   "key": "unsupported:workout_speed_not_in_catalogue",
+   "n": 3,
+   "match": 3,
+   "match_as_worded": 3
+  },
+  {
+   "key": "unsupported:workout_steps_not_in_catalogue",
+   "n": 3,
+   "match": 3,
+   "match_as_worded": 3
+  }
+ ],
+ "causes": {
+  "phia_window_convention (correct as worded)": 20,
+  "sleep_minutes_is_time_in_bed": 15,
+  "two_significant_digit_rounding_boundary (within 2%)": 1
+ },
+ "packet_status": {
+  "ok": 120,
+  "unsupported": 60
+ }
+}

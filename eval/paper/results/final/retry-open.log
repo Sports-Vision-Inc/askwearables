@@ -1,0 +1,7 @@
+(node:31821) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 8 runs to do (7 models × 3 conditions × 20 tasks × 5)
+done. openrouter spend this process: $0.00; workers-ai calls: 83
+(node:32115) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 31 runs to do

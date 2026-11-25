@@ -1,0 +1,62 @@
+(node:32672) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 22 runs to do
+(node:33638) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 22 runs to do
+(node:34607) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 21 runs to do
+(node:35530) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 21 runs to do
+(node:36733) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 0 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:36758) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 0 runs to do (6 models × 3 conditions × 20 tasks × 5)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:36777) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 0 runs to do (6 models × 3 conditions × 100 tasks × 1)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:36798) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 0 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:36817) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 0 runs to do (6 models × 3 conditions × 20 tasks × 5)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:36836) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 0 runs to do (6 models × 3 conditions × 100 tasks × 1)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+SMALL DONE
+(node:38044) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 0 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:38088) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 0 runs to do (6 models × 3 conditions × 20 tasks × 5)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:38116) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 0 runs to do (6 models × 3 conditions × 100 tasks × 1)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:38137) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 0 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:38156) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 0 runs to do (6 models × 3 conditions × 20 tasks × 5)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:38172) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 0 runs to do (6 models × 3 conditions × 100 tasks × 1)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+SMALL DONE
