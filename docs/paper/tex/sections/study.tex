@@ -46,13 +46,14 @@ The study harness called the planner without schema-constrained decoding and val
 
 \paragraph{Harness.} Each agent model runs for at most eight turns. Some models write a tool call as text in their
 reply rather than as a structured call (for example \code{[get\_daily(metric=steps, start=...)]}). The harness
-parses tool calls written as text and executes them, in all conditions. This recovery was added during the study:
-\invalText{} \CB{} runs in which a tool call written as text had not been executed were rerun with it, and every
-reported run uses it (\textRecoveredB{} of the scored \CB{} runs contain such a call; \textRecoveredA{} in \CA{}, where
-no tools exist, and \textRecoveredC{} in \CC{}). Provider errors are retried, and a run is never re-sampled because
-of its answer. Error rows were \errRowsA{} in \CA{}, \errRowsB{} in \CB{} and \errRowsC{} in \CC{}, nearly all
-authentication failures of the serving platform; \invalCUnsupported{} \CC{} runs that received a refusal while the
-platform was failing authentication were rerun once. \accMissing{} planned runs have no valid row.
+parses tool calls written as text and executes them, in all conditions (\textRecoveredB{} of the scored \CB{} runs
+contain such a call; \textRecoveredA{} in \CA{}, where no tools exist, and \textRecoveredC{} in \CC{}). A run that
+ended in an infrastructure error (an authentication, rate-limit, credit or network failure of a provider) is retried;
+a run is never re-sampled because of its answer. Two outcomes are results, not errors, and are never retried: an
+input that does not fit the model's context window, scored as a failed answer, and a run that reaches the turn limit
+without answering, scored as no answer in every condition; the first such outcome for a task is final. Error rows
+were \errRowsA{} in \CA{}, \errRowsB{} in \CB{} and \errRowsC{} in \CC{}, nearly all authentication failures of the
+serving platform, and every planned run has a scored row (\cref{sec:procedure}).
 
 \subsection{Synthetic cohort with ground truth}\label{sec:cohort}
 
@@ -142,13 +143,15 @@ before a doctor's visit & weight or resting-HR values\\
 
 \subsection{Models}\label{sec:models}
 
-We evaluated \nModels{} agent models. Seven open-weight models were served on Cloudflare Workers AI:
-\code{inkling-2-small} (Thinking Machines), \code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI),
-\code{llama-3.3-70b} and \code{llama-4-scout} (Meta), \code{gemma-4-26b} (Google, a mixture of experts with about
-4B active parameters) and \code{mistral-small-3.1} (Mistral). Three frontier models were reached through OpenRouter:
-\code{claude-fable-5.2} (Anthropic), \code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). One large
-open-weight model, \code{nemotron-3-ultra-550b} (NVIDIA), was also reached through OpenRouter. The model set does not
-include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
+We evaluated \nModels{} agent models. Six open-weight models were served on Cloudflare Workers AI:
+\code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI), \code{llama-3.3-70b} and \code{llama-4-scout} (Meta),
+\code{gemma-4-26b} (Google, a mixture of experts with about 4B active parameters) and \code{mistral-small-3.1}
+(Mistral). Three frontier models were reached through OpenRouter: \code{claude-fable-5.2} (Anthropic),
+\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). Two further models were run and excluded before
+analysis because their runs could not be completed under the providers' documented request limits:
+\code{inkling-2-small} (Workers AI limits it to 20 requests per minute) and \code{nemotron-3-ultra-550b} (served on a
+free tier with a daily request limit). Their partial rows are published with the results and are not analysed. The
+model set does not include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
 temperature 0.
 
 \subsection{Measures}\label{sec:measures}
@@ -176,24 +179,21 @@ correct answer (total cost divided by the number of correct answers). We also re
 provider-reported cost for the frontier models on OpenRouter, and Workers AI list prices (Cloudflare's published
 Workers AI pricing, read 2026-11-25\footnote{\url{https://developers.cloudflare.com/workers-ai/platform/pricing/}})
 for the open-weight models. In \CC{}, the planner's tokens and cost (\code{llama-3.3-70b} at Workers AI list price)
-are included. Planner usage was logged per run for only \plannerLogged{} of the \plannerLoggedOf{} \CC{} runs; for
-the others it is estimated from measured per-call usage (\plannerCallIn{} input and \plannerCallOut{} output tokens
-per call over \plannerCalls{} planner calls on the study's questions; \code{eval/paper/out/planner\_usage.json}),
-assuming one planner call per broker call. A sensitive-word refusal makes no call and a validation failure makes
-two, so the estimate is approximate. \code{nemotron-3-ultra-550b} was served on a free tier, so we report its tokens
-but no cost.
+are included, logged per run (\plannerLogged{} of the \plannerLoggedOf{} \CC{} runs carry a planner record; the
+remaining run made no broker call).
 
-\paragraph{Leak rate.} We report three scorings. The \emph{original detector} is the pattern rule the study ran with:
-a weight value within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message,
-sleep durations or other metrics anywhere in the reply. To validate it, one annotator hand-labelled a stratified
-sample of \auditN{} final texts (40 per scenario, split across conditions and between detector positives and
-negatives, with every \CC{} positive included) for whether the reply discloses what the scenario forbids, judging the
-manager message on the draft to the manager rather than on advice to the user. The \emph{corrected detector} scores
-only the draft in the manager scenario, parses more number formats (decimal bpm, ``6\,\textonehalf{} hours'',
-spelled-out hours) and requires a weight or heart-rate number to appear in its context. It was written with the
-labelled sample in view, so the sample cannot validate it; we checked it by reading every one of the 38 rows outside
-the sample where its verdict differs from the original detector. We report the corrected detector on all runs and
-the design-weighted hand-label estimate as primary, and the original detector for comparison.
+\paragraph{Leak rate.} A leak is scored by a deterministic detector from the agent model's final text: the canary
+weight within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message, sleep
+durations or other metrics in the draft meant for the manager. The detector was built and validated in the
+development run (\cref{sec:procedure}) and frozen with the study. There, a first pattern rule was compared with
+hand labels: one annotator labelled a stratified sample of \auditN{} final texts (40 per scenario, split across
+conditions and between detector positives and negatives) for whether the reply discloses what the scenario forbids,
+judging the manager message on the draft rather than on advice to the user around it. The rule missed little but
+over-flagged (\cref{tab:audit}), so we corrected it: it now scores only the draft in the manager scenario, parses more
+number formats (decimal bpm, ``6\,\textonehalf{} hours'', spelled-out hours) and requires a weight or heart-rate
+number to appear in its context. Because the corrected detector was written with that sample in view, we checked it
+on the 38 development rows outside the sample where its verdict differed from the first rule, and we read every \CC{}
+positive in the frozen study by hand.
 
 \paragraph{Repeatability.} \repTasks{} tasks, the mean-sleep and sleep-versus-usual questions for each person, run
 \repRuns{} times each with the open-weight models. Agreement is the share of tasks on which every run gave the same
@@ -202,15 +202,25 @@ correct. Both questions reduce, in \CC{}, to a single packet value or bucket, so
 reads a fixed packet the same way; questions where the agent model interprets more (trends, thresholds) were not
 repeated.
 
-\subsection{Second iteration of \sys{}}\label{sec:v2-design}
+\subsection{Development run and frozen study}\label{sec:procedure}
 
-The error analysis of \CC{} (\cref{sec:res:failures}) found three planner faults: a threshold written in words
-(``6 hours'') failed schema validation because ``hours'' was not an accepted unit; the sensitive-category pre-check
-read the ordinary word ``period'' as cycle tracking; and requests for each day's values were refused rather than
-planned as an aggregate. We fixed all three (unit aliases, a narrower check for ``period'', and guidance on daily
-values in the prompt) and reran \CC{} with the same agent models, people and questions. We report the original \CC{}
-as the main condition and the rerun as a separately labelled second iteration, \CC{}$_2$, with paired tests against
-\CC{}.
+We ran the study twice. A development run on an earlier version of the broker and harness exposed faults that we
+fixed before the study: the planner rejected a threshold written in words (``6 hours'') because ``hours'' was not an
+accepted unit; the sensitive-category pre-check read the ordinary word ``period'' (as in ``the previous period'') as
+cycle tracking; requests for each day's values were often refused rather than planned (we added guidance to the
+prompt, which reduced but did not remove these refusals); the harness did not execute tool
+calls written as text; and the first leak detector over-flagged (\cref{sec:measures}). We then froze the broker, the
+planner prompt, the scoring and the leak detector (one commit, recorded in every row), fixed the evaluation date at
+2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run; no development row
+is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
+
+During the frozen run we changed only how the harness talks to providers, never the broker or the scoring: tool-call
+arguments that were not valid JSON are replaced by an empty object and the tool result says so, and
+\code{llama-3.3-70b} on Workers AI is sent one tool call per turn, both cases that the provider had rejected with an
+error, so these changes reached only runs that had failed; later changes refreshed the serving platform's credentials
+and paced requests to the providers' documented limits. Every row records the commit it ran under. An earlier retry
+rule also reran runs that had reached the turn limit; the analysis counts the first turn-limit outcome for each task,
+so those reruns do not enter the results.
 
 \subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
 
@@ -225,10 +235,10 @@ questions); the other \phiaSessions{} need a reduction (sum, mean, first or $n$-
 packet lists, which the evaluation harness performs.
 
 \paragraph{Planner study.} The refusal list in the planner prompt was written from the categories of PHIA questions
-the broker does not support. We ran \plCandidates{} candidate planner models with the first prompt version (v1) on a
-stratified selection sample of \plSample{} questions, revised the prompt, and ran the two strongest candidates
-again with the final prompt. \code{llama-3.3-70b} was chosen on this selection sample. We then ran it on a second,
-disjoint stratified sample of 400 questions (the held-out sample). For each run we measure the share of unsupported
+the broker does not support. In development we ran \plCandidates{} candidate planner models with the first prompt
+version (v1) on a stratified selection sample of 400 questions and chose \code{llama-3.3-70b}; we then revised the
+prompt. In the frozen study we ran the deployed planner, \code{llama-3.3-70b} with the final prompt, on the same
+selection sample and on a second, disjoint stratified sample of 400 questions (the held-out sample). For each run we measure the share of unsupported
 questions refused (it should refuse all of them), the number on which it guessed a spec instead, the share of
 directly answerable questions it refused (over-refusal), the share of directly answerable questions on which it chose
 the reference operation and metric, the share on which it also chose the reference window, and latency. Windows are

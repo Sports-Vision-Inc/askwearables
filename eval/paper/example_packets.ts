@@ -24,5 +24,5 @@ for (const ex of EXAMPLES) {
   const res = await answerSpec(s.sql, plainCipher, { token, grant, agent, spec: ex.spec, now: new Date(`${TODAY}T15:00:00Z`), today: TODAY });
   out[ex.key] = { person: ex.person, trap: p.trap, spec: ex.spec, response: res };
 }
-writeFileSync(new URL("./out/example_packets.json", import.meta.url), JSON.stringify(out, null, 1));
+writeFileSync(new URL(`./${process.env.EVAL_OUT_DIR ?? "out"}/example_packets.json`, import.meta.url), JSON.stringify(out, null, 1));
 console.log(JSON.stringify(out, null, 1).slice(0, 4000));

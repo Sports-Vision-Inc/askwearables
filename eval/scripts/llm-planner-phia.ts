@@ -25,28 +25,41 @@ if (sample) {
   };
   qs = [...pick(qs.filter((q) => byId.get(q.id)!.status === "mapped"), sample / 2), ...pick(qs.filter((q) => byId.get(q.id)!.status === "unsupported"), sample / 2)];
 }
+// Last row per question wins. A planner failure caused by the infrastructure (provider error or timeout) is not a
+// result and is retried, as in the main study. Rows written before errors were recorded are classed by duration: a
+// failure that took over 300 s was a provider timeout; shorter failures are kept as the planner's outcome.
+export const isInfraRow = (r: { reason?: string | null; ms: number; infra_error?: boolean }) =>
+  r.infra_error === true || (r.reason === "planner_failed" && r.infra_error === undefined && r.ms > 300_000);
 const done = new Set<string>();
-if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) done.add(JSON.parse(l).id + "|" + JSON.parse(l).planner);
+if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) {
+  const r = JSON.parse(l); const k = r.id + "|" + r.planner;
+  if (isInfraRow(r)) done.delete(k); else done.add(k);
+}
 const today = new Map<string, string>();
 for (const q of qs) if (!today.has(q.user)) today.set(q.user, userToday(toPhiaData(loadUserFiles(dataDir, q.user))));
 const planner = models.join("+");
 const todo = qs.filter((q) => !done.has(q.id + "|" + planner));
 console.log(`${todo.length} questions to plan with ${planner}`);
-const complete = async (model: string, system: string, user: string) => {
+const callErrors = new Map<string, string[]>();
+const completeFor = (qid: string) => async (model: string, system: string, user: string) => {
   const m = specs.find((x) => x.model === model)!;
   const r = await chat(m, [{ role: "system", content: system }, { role: "user", content: user }], { max_tokens: 2500, temperature: 0 });
-  if (r.error) throw new Error(r.error);
+  if (r.error) { callErrors.set(qid, [...(callErrors.get(qid) ?? []), r.error]); throw new Error(r.error); }
   return r.message.content ?? "";
 };
+const INFRA = /^(http_(401|402|408|429|5\d\d)|network:|spend_cap)/;
 let i = 0, n = 0;
 await Promise.all(Array.from({ length: 40 }, async () => {
   while (i < todo.length) {
     const q = todo[i++]!;
     const m = byId.get(q.id)!;
     const t0 = Date.now();
-    const r = await planWithLlm(complete, specs.map((s) => s.model), q.question, today.get(q.user)!, "UTC");
+    const r = await planWithLlm(completeFor(q.id), specs.map((s) => s.model), q.question, today.get(q.user)!, "UTC");
+    const errs = callErrors.get(q.id) ?? [];
+    // planner_failed because every model call hit the infrastructure: not a planner outcome.
+    const infra_error = r.status === "unsupported" && r.reason === "planner_failed" && errs.length > 0 && errs.every((e) => INFRA.test(e));
     const same = r.status === "ok" && m.status === "mapped" && r.spec.operation === m.spec!.operation && r.spec.metrics.join() === m.spec!.metrics.join();
-    appendFileSync(out, JSON.stringify({ commit: process.env.STUDY_COMMIT ?? "uncommitted", id: q.id, planner, mapping: m.status, mapping_reason: m.reason ?? null, status: r.status, reason: r.status === "unsupported" ? r.reason : null, operation: r.status === "ok" ? r.spec.operation : null, metrics: r.status === "ok" ? r.spec.metrics : null, window: r.status === "ok" ? r.spec.window : null, map_operation: m.spec?.operation ?? null, map_metrics: m.spec?.metrics ?? null, map_window: m.spec?.window ?? null, same_op_metric: same, ms: Date.now() - t0 }) + "\n");
+    appendFileSync(out, JSON.stringify({ commit: process.env.STUDY_COMMIT ?? "uncommitted", id: q.id, planner, mapping: m.status, mapping_reason: m.reason ?? null, status: r.status, reason: r.status === "unsupported" ? r.reason : null, operation: r.status === "ok" ? r.spec.operation : null, metrics: r.status === "ok" ? r.spec.metrics : null, window: r.status === "ok" ? r.spec.window : null, map_operation: m.spec?.operation ?? null, map_metrics: m.spec?.metrics ?? null, map_window: m.spec?.window ?? null, same_op_metric: same, ms: Date.now() - t0, call_errors: errs.map((e) => e.slice(0, 80)), infra_error }) + "\n");
     if (++n % 200 === 0) console.log(`  ${n}/${todo.length}`);
   }
 }));

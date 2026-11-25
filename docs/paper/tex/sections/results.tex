@@ -14,7 +14,7 @@ their $n$; pooled figures use only the \nModelsComplete{} models with all runs i
 cheapest per correct answer; for the strongest models the three conditions are close in accuracy and differ mainly
 in cost. Each panel is one agent model;
 the axes are accuracy against ground truth and cost per correct answer (USD, each panel on its own range). Up and to
-the left is better. \code{nemotron-3-ultra-550b} has no cost and is omitted.}
+the left is better.}
 \label{fig:acccost}
 \end{figure}
 
@@ -53,14 +53,13 @@ for \nSigCA{} of \nTestedCA{} models at $p<0.05$ (\nHolmCA{} after Holm correcti
 (\accLlamaThreeA{} in \CA{}, \accLlamaThreeB{} in \CB{}, \accLlamaThreeC{} in \CC{}), \code{llama-4-scout}
 (\accLlamaScoutA{}, \accLlamaScoutB{}, \accLlamaScoutC{}) and \code{mistral-small-3.1} (\accMistralA{},
 \accMistralB{}, \accMistralC{}). The frontier model \code{gemini-4-neon} behaved like these models (\accGeminiA{} in
-\CA{}, \accGeminiC{} in \CC{}, \mcnGeminiCAP{}), and so did \code{nemotron-3-ultra-550b} (\accNemotronA{},
-\accNemotronB{}, \accNemotronC{}). Open tools were not a uniform improvement over raw context: \code{gemma-4-26b}
+\CA{}, \accGeminiC{} in \CC{}, \mcnGeminiCAP{}). Open tools were not a uniform improvement over raw context: \code{gemma-4-26b}
 scored \accGemmaB{} with them, level with \CC{} (\accGemmaC{}, \mcnGemmaCBP{}), while \code{llama-3.3-70b} scored
 \accLlamaThreeB{}.
 
 \paragraph{For models near ceiling, no difference was detectable.} \code{gpt-6.2-astra} (\accAstraA{}, \accAstraB{},
 \accAstraC{}) and \code{claude-fable-5.2} (\accFableA{}, \accFableB{}, \accFableC{}) were near ceiling in all three
-conditions, as was \code{inkling-2-small} (\accInklingA{}, \accInklingB{}, \accInklingC{}). With 100 paired tasks
+conditions. With 100 paired tasks
 and two or three discordant pairs these tests have little power, so we read them through the bootstrap intervals:
 \CC{} against \CA{} was \bootAstraCA{} points for \code{gpt-6.2-astra} and \bootFableCA{} for
 \code{claude-fable-5.2}. The \code{gpt-oss} models had point estimates on both sides of \CC{}
@@ -100,8 +99,8 @@ Trap & \CA{} & \CB{} & \CC{}\\
 \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.56\textwidth}\centering
-\caption{\CC{} helped most on the trend and multi-day aggregates and was significantly worse than \CA{} on the
-threshold question. Accuracy (\%) over the \nModelsComplete{} models with complete runs.}
+\caption{\CC{} helped most on the trend and multi-day aggregates; on the threshold question it was level with
+\CA{}. Accuracy (\%) over the \nModelsComplete{} models.}
 \label{tab:questions}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c@{}}
@@ -128,12 +127,15 @@ trend is a fitted slope with a significance threshold rather than an impression 
 \qStepsTotalC{}). The trend result partly reflects the study's design: the reference label for a person without an
 HRV trap is \emph{flat}, and the broker calls a trend only when the slope is clearly non-zero (\cref{sec:scope}).
 
-\paragraph{\CC{} was significantly worse on the threshold question.} On ``did I sleep less than 6 hours on any night
-in the last 7 nights'', \CC{} scored \qSleepUnderC{} against \qSleepUnderA{} for \CA{}. Pooled over the complete
-models the paired result is \qpSleepUnderCAWins{} tasks right only in \CC{} against \qpSleepUnderCALosses{} right
-only in \CA{} (\qpSleepUnderCAP{}); against \CB{} it is \qpSleepUnderCBWins{} against \qpSleepUnderCBLosses{}
-(\qpSleepUnderCBP{}). Of the \suErr{} \CC{} errors on this question, \suErrRefused{} followed a planner refusal of
-every attempt and \suErrReleased{} followed a released packet (\cref{sec:res:failures}).
+\paragraph{The threshold question was the one where raw context held its own.} On ``did I sleep less than 6 hours
+on any night in the last 7 nights'', \CC{} scored \qSleepUnderC{} against \qSleepUnderA{} for \CA{} and
+\qSleepUnderB{} for \CB{}. Paired over all models, \qpSleepUnderCAWins{} tasks were right only in \CC{} against
+\qpSleepUnderCALosses{} right only in \CA{} (\qpSleepUnderCAP{}), and \qpSleepUnderCBWins{} against
+\qpSleepUnderCBLosses{} against \CB{} (\qpSleepUnderCBP{}). All \suErr{} \CC{} errors on this question followed a
+released packet: the agent model asked for the nightly values, received nights that were all above 6 hours, and
+still answered \emph{yes} (\cref{sec:res:failures}). In the development run this question was \CC{}'s weakest,
+because the planner rejected the unit ``hours'' (\cref{sec:procedure}); with that fault fixed before the study, no
+broker call on it failed.
 
 \subsection{Honest refusal and over-refusal}\label{sec:res:refusal}
 
@@ -163,12 +165,12 @@ is over-refusal: on tasks where \code{unknown} is not accepted, \CC{} answered \
 (\overRefPctC{}), against \overRefA{} in \CA{} and \overRefB{} in \CB{}; \overRefAfterRefusal{} of the \CC{} runs followed
 at least one refusal by the broker (\cref{sec:res:failures}). The counts of unanswerable tasks are small, and we do not test them.
 
-\subsection{Where \sys{} fails, and a second iteration}\label{sec:res:failures}
+\subsection{Where \sys{} fails}\label{sec:res:failures}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/fig_c_outcomes.pdf}
-\caption{Most \CC{} errors happened after a packet was released; the rest followed a planner refusal of every
+\caption{Nearly every \CC{} error happened after a packet was released; one followed a planner refusal of every
 attempt. Outcomes of all \CC{} runs (log scale).}
 \label{fig:coutcomes}
 \end{figure}
@@ -177,46 +179,31 @@ attempt. Outcomes of all \CC{} runs (log scale).}
 \cErrReleased{} a packet was released and the agent model's final answer still disagreed with the truth; the cases we
 read include agent models that reported a step total although the packet's caveats named the missing days, agent
 models that asked the broker for a different window than the task stated, and runs that ended without an answer
-line. In \cErrRefused{} the planner refused every phrasing the agent model tried. The run records keep each run's
-answer but not the packets it received, so we cannot check every released packet against the truth; the packets we
-recomputed for the worked examples (\cref{sec:res:examples}) matched the truth.
+line, and agent models that answered \emph{yes} to the threshold question while the nightly values they had
+received were all above the threshold. In \cErrRefused{} the planner refused every phrasing the agent model tried.
+The run records keep each run's answer but not the packets it received, so we cannot check every released packet
+against the truth; the packets we recomputed for the worked examples (\cref{sec:res:examples}) matched the truth.
 
-\paragraph{Planner refusals have identifiable causes.} The agent models made \cAsks{} calls to the broker; \cAsksOutside{}
-were refused as outside the catalogue, \cAsksPlannerFailed{} failed schema validation on both planner models, and
-\cAsksSensitive{} were refused by the sensitive-category keyword check. All \plannerFailedAll{} validation failures
-were on the threshold question, where the planner wrote the unit as ``hours'', which the schema did not accept. All
-\cAsksSensitive{} keyword refusals were false positives: the agent model's rephrasing contained the word ``period''
-(as in ``the previous period''), which the check reads as cycle tracking; \periodOnWeek{} of them were on the
-week-over-week question and \periodElsewhere{} on other questions.
+\paragraph{The planner was rarely the cause.} The agent models made \cAsks{} calls to the broker. \cAsksReleased{}
+released a packet, \cAsksOutside{} were refused as outside the catalogue, \cAsksPlannerFailed{} failed schema validation and \cAsksSensitive{} were refused by the
+sensitive-category check. The refusals were mostly week-over-week comparisons phrased as two explicit date ranges
+(33), requests for each night's value (most of the 14 on the threshold question) and compound questions that joined a
+value with a second question (``\ldots and is that total reliable?''); after a refusal the agent model usually
+rephrased and asked again. The two planner faults that dominated \CC{}'s errors in the development run, the unit
+``hours'' and the word ``period'', did not recur.
 
 \paragraph{Release against refusal.} Over the complete models, \CC{} runs in which at least one packet was released
 (\cReleasedN{}) were correct in \cReleasedAcc{} of cases; the \cRefusedN{} runs in which every attempt was refused were
 correct in \cRefusedAcc{}. If every fully refused run had been answered correctly, \CC{} accuracy over these models
-would rise from \cAccNow{} to \cAccPerfectPlanner{}: an upper bound on what a perfect planner would add.
-
-\paragraph{Second iteration.} We fixed the three planner faults and reran \CC{} (\cref{sec:v2-design}). On the
-\vtwoRuns{} rerun tasks scored so far, accuracy was \vtwoAccOne{} for the original \CC{} and \vtwoAccTwo{} for
-\CC{}$_2$ on the same tasks (\cref{tab:v2}). All other results in this paper use the original \CC{}.
-
-\begin{table}[t]
-\centering\small
-\caption{Second iteration of \sys{} (\CC{}$_2$, planner faults fixed) against the original \CC{} on the same tasks.
-$p$ is the exact McNemar test. \ifaccuracydone\else Runs still finishing.\fi}
-\label{tab:v2}
-\begin{tabular}{@{}l r c c c c c@{}}
-\toprule
-Agent model & tasks & \CC{} \% & \CC{}$_2$ \% & \CC{}$_2$-only & \CC{}-only & $p$\\
-\midrule
-\inputtab{tables/tab_v2.tex}
-\bottomrule
-\end{tabular}
-\end{table}
+would rise from \cAccNow{} to \cAccPerfectPlanner{}: on these questions a better planner has almost nothing left to
+add, and the remaining errors are the agent model's reading of a correct packet.
 
 \subsection{Worked examples}\label{sec:res:examples}
 
 \begin{table}[t]
 \centering\footnotesize
-\caption{Four tasks side by side, three where \sys{} was right and the baselines were not, and one where it was wrong.
+\caption{Four tasks side by side: three where \sys{} was right and the baselines were not, and the same missing-days
+packet read correctly by one agent model and ignored by another.
 Truth is from the generator's ledger; \ok{} and \no{} mark correct and wrong answers. The \CC{} column shows the packet
 for the question's QuerySpec, recomputed from the same data (run records store the answer, not the packet).}
 \label{tab:examples}
@@ -236,9 +223,9 @@ devices in \CA{} and \CB{}, while the packet reports one source per day. \emph{M
 no steps; \code{mistral-small-3.1} misaligned the dates and summed a total in \CA{} and reported a total in \CB{}, while the
 packet says the total is unknown and why. \emph{Daylight saving}: HRV has no trend; \code{llama-3.3-70b} compared weekly
 averages and saw a decline in \CA{}, and answered \emph{down} in \CB{} as well, while the packet reports a fitted slope that is not
-significant. \emph{Short sleep}, where \CC{} was wrong: the last three nights were short; \code{llama-3.3-70b} found
-them in \CA{} and \CB{}, but in \CC{} the planner's spec failed validation on the unit ``hours'', no packet was
-released, and the agent model answered \code{unknown}.
+significant. The last row is a \CC{} error: \code{llama-3.3-70b} received the same missing-days packet as
+\code{mistral-small-3.1}, including the statement that the true total is unknown, and reported the partial sum
+anyway. The packet was right; the agent model did not use its caveat. This is the most common kind of \CC{} error.
 
 \subsection{Data delivered to the agent model}\label{sec:res:exposure}
 
