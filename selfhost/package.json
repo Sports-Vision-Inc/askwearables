@@ -1,0 +1,59 @@
+{
+  "name": "askwearables-selfhost",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AskWearables, self-host edition: one Cloudflare Worker that answers AI agents' questions about your own wearable data.",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "dev": "wrangler d1 migrations apply DB --local && wrangler dev",
+    "build:client": "node scripts/build-client.mjs",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.client.json",
+    "test": "vitest run",
+    "e2e": "node scripts/e2e.mjs"
+  },
+  "dependencies": {
+    "@cloudflare/workers-oauth-provider": "1.3.0",
+    "@modelcontextprotocol/server": "2.4.0",
+    "@simplewebauthn/server": "14.1.0",
+    "agents": "0.34.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261124.2",
+    "@types/node": "24.19.2",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3",
+    "vitest": "3.2.7",
+    "wrangler": "4.168.0"
+  },
+  "cloudflare": {
+    "bindings": {
+      "MASTER_KEY": {
+        "description": "32 random bytes, base64. Encrypts your health data at rest. Generate one with `openssl rand -base64 32` and **keep a copy somewhere safe**: losing or changing it makes stored data unreadable."
+      },
+      "OWNER_SETUP_TOKEN": {
+        "description": "A one-time token that opens the owner setup page at `/setup?token=...`. Generate one with `openssl rand -hex 24`. It stops working once the owner passkey exists."
+      },
+      "DB": {
+        "description": "D1 database for the control plane: the owner, passkeys, sessions, connected agents and their grants, API keys. No health data."
+      },
+      "OAUTH_KV": {
+        "description": "KV namespace for OAuth clients, authorization codes and tokens (stored as hashes)."
+      },
+      "USER_VAULT": {
+        "description": "Durable Object (SQLite) that holds your health data, computes answers, and keeps the receipt log and daily budgets."
+      },
+      "AI": {
+        "description": "Workers AI, used to turn an agent's question into a query (`@cf/meta/llama-3.3-70b-instruct-fp8-fast`, falling back to `@cf/openai/gpt-oss-120b`). Billed to your account as Workers AI usage."
+      },
+      "PLANNER_MODEL": {
+        "description": "Workers AI model that plans questions. Leave the default unless you know you want another."
+      },
+      "PLANNER_FALLBACK_MODEL": {
+        "description": "Second Workers AI model, tried when the first is unavailable or returns an invalid plan."
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# Secrets for the self-host edition. The Deploy to Cloudflare button asks for each one.
+# For local development, copy this file to .dev.vars and fill it in (.dev.vars is git-ignored).
+
+# 32 random bytes, base64: openssl rand -base64 32
+# Encrypts your health data at rest. Keep a copy: losing or changing it makes stored data unreadable.
+MASTER_KEY=
+
+# One-time owner setup token: openssl rand -hex 24
+# Open https://<your-worker>.workers.dev/setup?token=<this value> to create your passkey.
+OWNER_SETUP_TOKEN=

@@ -4,6 +4,13 @@
 import { importAppleHealth } from "@askwearables/importers";
 import { type CanonicalRecord, type Source, planWithRules, todayIn } from "@askwearables/core";
 
+// Host-specific links. The hosted console uses the defaults; the self-host edition marks <html data-selfhost="1">,
+// where everything is on one origin and developer keys are not offered.
+const SELFHOST = document.documentElement.dataset.selfhost === "1";
+const CFG = SELFHOST
+  ? { mcpUrl: `${location.origin}/mcp`, logoutUrl: "/logout", devKeys: false }
+  : { mcpUrl: "https://mcp.askwearables.app/mcp", logoutUrl: "https://auth.askwearables.app/logout", devKeys: true };
+
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 const esc = (v: unknown) => String(v ?? "").replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
@@ -39,7 +46,7 @@ async function render() {
 <section id="grants"><h2>Agents with access</h2>
  <div class="scroll"><table class="stack"><thead><tr><th>Agent</th><th>Purpose</th><th>Metrics</th><th>Level</th><th>Window</th><th>Per day</th><th>Expires</th><th></th></tr></thead><tbody>
  ${s.grants.map((g: any) => `<tr><td class="lead">${esc(g.agent_name)}${g.verified_domain ? `<br><span class="muted">${esc(g.verified_domain)}</span>` : ""}</td><td data-label="Purpose">${esc(g.purpose)}</td><td data-label="Metrics">${esc(g.metrics.join(", "))}</td><td data-label="Level">${g.max_level}</td><td data-label="Window">${g.max_window_days} d</td><td data-label="Per day">${g.daily_packet_budget}</td><td data-label="Expires">${esc(g.expires_at.slice(0, 10))}</td>
-   <td class="act">${g.revoked_at ? '<span class="muted">revoked</span>' : `<button class="danger" data-revoke="${esc(g.grant_id)}">Revoke</button>`}</td></tr>`).join("") || `<tr><td colspan="8" class="muted">No agents yet. Connect one with the MCP URL <code>https://mcp.askwearables.app/mcp</code>.</td></tr>`}
+   <td class="act">${g.revoked_at ? '<span class="muted">revoked</span>' : `<button class="danger" data-revoke="${esc(g.grant_id)}">Revoke</button>`}</td></tr>`).join("") || `<tr><td colspan="8" class="muted">No agents yet. Connect one with the MCP URL <code>${esc(CFG.mcpUrl)}</code>.</td></tr>`}
  </tbody></table></div>
 </section>
 
@@ -54,7 +61,7 @@ async function render() {
 
 <section id="keys"><h2>Keys</h2>
  <div class="row"><button id="ownerkey">New owner API key</button><button id="synckey">New phone sync key</button></div>
- <div class="row"><input id="org" placeholder="Organization"><input id="agentname" placeholder="Agent name"><input id="webhook" placeholder="Webhook URL (optional)" size="30"><button id="devkey">New developer key</button></div>
+ ${CFG.devKeys ? `<div class="row"><input id="org" placeholder="Organization"><input id="agentname" placeholder="Agent name"><input id="webhook" placeholder="Webhook URL (optional)" size="30"><button id="devkey">New developer key</button></div>` : ""}
  <pre id="keyout" class="muted">Keys are shown once. Store them in a secrets manager.</pre>
 </section>
 
@@ -62,7 +69,7 @@ async function render() {
  <div class="row">Releases are <strong class="${s.vault.paused ? "bad" : "ok"}">${s.vault.paused ? "paused" : "on"}</strong>
   <button id="pause">${s.vault.paused ? "Resume releases" : "Pause all releases"}</button></div>
  <div class="row"><input id="confirm" placeholder="type: delete everything" size="24"><button class="danger" id="delete">Delete everything</button></div>
- <form method="post" action="https://auth.askwearables.app/logout"><button>Sign out</button></form>
+ <form method="post" action="${esc(CFG.logoutUrl)}"><button>Sign out</button></form>
 </section>`;
 
   let before: number | undefined;
@@ -104,7 +111,7 @@ async function render() {
     const r = await call("keys", { kind: "sync", source: { provider, device_model: provider === "apple_health" ? "iPhone" : "Android", device_class: "phone", earliest_readable: null } });
     $("#keyout").textContent = `Sync key for ${provider} (shown once; paste into the phone app):\n${r.key}`;
   };
-  $("#devkey").onclick = async () => {
+  if (CFG.devKeys) $("#devkey").onclick = async () => {
     const r = await call("developer", { org: ($("#org") as HTMLInputElement).value || "My organization", agent: ($("#agentname") as HTMLInputElement).value || "My agent", webhook_url: ($("#webhook") as HTMLInputElement).value || undefined });
     $("#keyout").textContent = `Developer API key:\n${r.api_key}\nSigning secret:\n${r.signing_secret}${r.webhook_secret ? `\nWebhook secret:\n${r.webhook_secret}` : ""}\nAgent id: ${r.agent_id}\n(shown once)`;
   };

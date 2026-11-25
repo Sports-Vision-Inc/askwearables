@@ -1,0 +1,314 @@
+{
+  "note": "Written by scripts/sync-selfhost.mjs. Do not edit vendored files; edit the source and re-run the script.",
+  "mappings": [
+    {
+      "source": "packages/core/src",
+      "dest": "vendor/core/src",
+      "kind": "dir"
+    },
+    {
+      "source": "packages/importers/src",
+      "dest": "vendor/importers/src",
+      "kind": "dir"
+    },
+    {
+      "source": "workers/auth/src/flows.ts",
+      "dest": "vendor/workers/auth/src/flows.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/auth/src/pages.ts",
+      "dest": "vendor/workers/auth/src/pages.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/auth/src/rpc.ts",
+      "dest": "vendor/workers/auth/src/rpc.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/auth/src/vendor/webauthn-browser.ts",
+      "dest": "vendor/workers/auth/src/vendor/webauthn-browser.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/edge/src/handlers.ts",
+      "dest": "vendor/workers/edge/src/handlers.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/edge/src/openapi.ts",
+      "dest": "vendor/workers/edge/src/openapi.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/gate/src/index.ts",
+      "dest": "vendor/workers/gate/src/index.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/gate/src/rpc.ts",
+      "dest": "vendor/workers/gate/src/rpc.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/vault/src/index.ts",
+      "dest": "vendor/workers/vault/src/index.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/vault/src/rpc.ts",
+      "dest": "vendor/workers/vault/src/rpc.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/planner/src/index.ts",
+      "dest": "vendor/workers/planner/src/index.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/planner/src/rpc.ts",
+      "dest": "vendor/workers/planner/src/rpc.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/src/api.ts",
+      "dest": "vendor/workers/console/src/api.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/client/app.ts",
+      "dest": "vendor/workers/console/client/app.ts",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/public/app.css",
+      "dest": "public/app.css",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/public/favicon.svg",
+      "dest": "public/favicon.svg",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/public/favicon.ico",
+      "dest": "public/favicon.ico",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/public/favicon-32.png",
+      "dest": "public/favicon-32.png",
+      "kind": "file"
+    },
+    {
+      "source": "workers/console/public/apple-touch-icon.png",
+      "dest": "public/apple-touch-icon.png",
+      "kind": "file"
+    },
+    {
+      "source": "migrations",
+      "dest": "migrations",
+      "kind": "dir"
+    },
+    {
+      "source": "LICENSE",
+      "dest": "LICENSE",
+      "kind": "file"
+    }
+  ],
+  "files": {
+    "vendor/core/src/broker.ts": {
+      "source": "packages/core/src/broker.ts",
+      "sha256": "1d938c4554b56a91fb7a1eaa1532ea4b26eb07f312e6d6a38ea68145263ce46b"
+    },
+    "vendor/core/src/catalogue.ts": {
+      "source": "packages/core/src/catalogue.ts",
+      "sha256": "4318d004e755b82fc6e606b8b728b5a73e89920065f86d8c3d275fa8d4fe49d2"
+    },
+    "vendor/core/src/compute.ts": {
+      "source": "packages/core/src/compute.ts",
+      "sha256": "63fb572d041ef176051647bcbfc0b900c5fc2212d8a8df8102641a5bd5f40bb7"
+    },
+    "vendor/core/src/crypto.ts": {
+      "source": "packages/core/src/crypto.ts",
+      "sha256": "f475f1a04e65fc156be135d90a55a8192ed68c66cd228868df06c0f754d13b47"
+    },
+    "vendor/core/src/format.ts": {
+      "source": "packages/core/src/format.ts",
+      "sha256": "ebdb9cd99fe62d17eeb3c47a34cc5bafb91e5cbecbcd4f5fc9b692181960722b"
+    },
+    "vendor/core/src/gate.ts": {
+      "source": "packages/core/src/gate.ts",
+      "sha256": "c48bc6904943f1c6358725f424d5c6920703e6a6dd47d03290c14c8d5228570d"
+    },
+    "vendor/core/src/hash.ts": {
+      "source": "packages/core/src/hash.ts",
+      "sha256": "30e256a3b3dbcd64a734ab6ff8c54bfde4f23d8cff29bbbb4e149fc8cda22bdd"
+    },
+    "vendor/core/src/index.ts": {
+      "source": "packages/core/src/index.ts",
+      "sha256": "ce274292ec664dee648aedbfa98025b8ea8c15bf41ccb56a01080c2af9040336"
+    },
+    "vendor/core/src/packet.ts": {
+      "source": "packages/core/src/packet.ts",
+      "sha256": "7c15da076063e34f714fc44b1faf52b9411c5def0e67bdf3afe03ffe5eb3b8ee"
+    },
+    "vendor/core/src/planner.ts": {
+      "source": "packages/core/src/planner.ts",
+      "sha256": "08efeb25323819807ef82a73710dd5b9d0fc5dad966e8d8c49198bfbb4ce4eea"
+    },
+    "vendor/core/src/queryspec.ts": {
+      "source": "packages/core/src/queryspec.ts",
+      "sha256": "21ce16e2e0d9424003a2e6cea906e1a402b310708129ff1df23c8ef9bb578350"
+    },
+    "vendor/core/src/receipts.ts": {
+      "source": "packages/core/src/receipts.ts",
+      "sha256": "352fc9b0d5355bae53f46721488d7055821790e5a2d8129fd877b50b1415c644"
+    },
+    "vendor/core/src/sql.ts": {
+      "source": "packages/core/src/sql.ts",
+      "sha256": "07c00d1cd7fca476540a8e9d3b6d112986641d051b4623286a6af868fa50545c"
+    },
+    "vendor/core/src/store.ts": {
+      "source": "packages/core/src/store.ts",
+      "sha256": "3ddf9ee88d18c91ba2617b58c4412876950d0ab3e7384b1901b22d642350aeaf"
+    },
+    "vendor/core/src/time.ts": {
+      "source": "packages/core/src/time.ts",
+      "sha256": "e29c4867e731b4aa2a4ac3bdb90ca7657d224034eb74f3d7efca20f43baeddc3"
+    },
+    "vendor/core/src/types.ts": {
+      "source": "packages/core/src/types.ts",
+      "sha256": "a5a8828626fb8947e79789fb1873a988432e984719e99555330b7fe9c1a36199"
+    },
+    "vendor/importers/src/apple-health.ts": {
+      "source": "packages/importers/src/apple-health.ts",
+      "sha256": "0f6f62c01ede484fa9b9fb5df569c214fc6d73d6fc6a20971f2933eb149660aa"
+    },
+    "vendor/importers/src/common.ts": {
+      "source": "packages/importers/src/common.ts",
+      "sha256": "2aee0a65ae695b3d47ba30a2159c2384ee6b3c40bd0b43d480eadcff0224f7db"
+    },
+    "vendor/importers/src/csv.ts": {
+      "source": "packages/importers/src/csv.ts",
+      "sha256": "82ffdc4699392fb28222a044495c7c1c189c223f234cf2f32c395f168a15f96c"
+    },
+    "vendor/importers/src/index.ts": {
+      "source": "packages/importers/src/index.ts",
+      "sha256": "81fb91a61bf9c7b7e1c41cc5cf15d92c71fb84f00ee4e338d863d787d7f2c310"
+    },
+    "vendor/importers/src/lifesnaps.ts": {
+      "source": "packages/importers/src/lifesnaps.ts",
+      "sha256": "130da89c44602b92d101c40a1594b5d42881c194b00459ca08011b7197d5e63b"
+    },
+    "vendor/importers/src/mmash.ts": {
+      "source": "packages/importers/src/mmash.ts",
+      "sha256": "0daa187ef5d476881b84e3b65ed76dc2cbd5fd1dd6550c49fe5c6f7d81dd1a48"
+    },
+    "vendor/importers/src/phia.ts": {
+      "source": "packages/importers/src/phia.ts",
+      "sha256": "b07afa2934b0a0999a2a0dba65b9d20a527d18bdb803ecde5e447407ac4a66fe"
+    },
+    "vendor/importers/src/pmdata.ts": {
+      "source": "packages/importers/src/pmdata.ts",
+      "sha256": "268b14e02677acf66776fe6aecc1f52a487b8769966e2af6ccdc4c455a18e7f7"
+    },
+    "vendor/importers/src/xml.ts": {
+      "source": "packages/importers/src/xml.ts",
+      "sha256": "7c3eae0bfa7108c394b32d03b89b95a2720c3eb9dba32ff8f4e2b2b3dca73070"
+    },
+    "vendor/workers/auth/src/flows.ts": {
+      "source": "workers/auth/src/flows.ts",
+      "sha256": "b8daca69ef9f160cab6c6266f74d6514f68fe1896b79f5802face44bf8c1c599"
+    },
+    "vendor/workers/auth/src/pages.ts": {
+      "source": "workers/auth/src/pages.ts",
+      "sha256": "ad75e5437854240861a189e90a404afa9036b1e67b07879a6f0042ad35c2fd3a"
+    },
+    "vendor/workers/auth/src/rpc.ts": {
+      "source": "workers/auth/src/rpc.ts",
+      "sha256": "8a0f2c9f07eb9d069965ba1e7863e08a93ca19008674d08e0a04f059e6d6def8"
+    },
+    "vendor/workers/auth/src/vendor/webauthn-browser.ts": {
+      "source": "workers/auth/src/vendor/webauthn-browser.ts",
+      "sha256": "084ffd4f9250ee44717ddbc98681e02b44761aa9614b14ad4ad92a5aa68fab93"
+    },
+    "vendor/workers/edge/src/handlers.ts": {
+      "source": "workers/edge/src/handlers.ts",
+      "sha256": "8b13b06626497f61d53ced49f3ac23b64c63de016abddb1719290e91ff2fee4f"
+    },
+    "vendor/workers/edge/src/openapi.ts": {
+      "source": "workers/edge/src/openapi.ts",
+      "sha256": "7427eabd7c69f090783dbdaee58e953a20c8866bfc48ef4cd0996b344cdc08fd"
+    },
+    "vendor/workers/gate/src/index.ts": {
+      "source": "workers/gate/src/index.ts",
+      "sha256": "355772f3052fff3c33bf8a6c3a222801f7cdc98c19ddf3f0ba7774a8f0a7ad2f"
+    },
+    "vendor/workers/gate/src/rpc.ts": {
+      "source": "workers/gate/src/rpc.ts",
+      "sha256": "5871b197024233fb966a1c2ac9441323f20acbd1fcb79e7d4cb4adf3cdb63ab3"
+    },
+    "vendor/workers/vault/src/index.ts": {
+      "source": "workers/vault/src/index.ts",
+      "sha256": "1755fb417649b626b099dabf135e16fc0c630c22a5388952584b9dc727c09315"
+    },
+    "vendor/workers/vault/src/rpc.ts": {
+      "source": "workers/vault/src/rpc.ts",
+      "sha256": "6afd0c0c90d5939dcef33cb8e9ecb04c0521e728d7f5c797fca47c87693bfeb9"
+    },
+    "vendor/workers/planner/src/index.ts": {
+      "source": "workers/planner/src/index.ts",
+      "sha256": "3b7a33b037c9529e03f4ce29a1fe366ce50ca7f3a41e50dd9b7ce33cdf00cde7"
+    },
+    "vendor/workers/planner/src/rpc.ts": {
+      "source": "workers/planner/src/rpc.ts",
+      "sha256": "851ff9f0be0dbe6ed6567a39cea7d7d42297522c736609495fe6270301037188"
+    },
+    "vendor/workers/console/src/api.ts": {
+      "source": "workers/console/src/api.ts",
+      "sha256": "afa660e92e04c75ca8e49062080bbdabb3d131b5b13bab9da62f91933aca70e6"
+    },
+    "vendor/workers/console/client/app.ts": {
+      "source": "workers/console/client/app.ts",
+      "sha256": "943394b9d7bc5abe84103c29258b5102e49082b86fbd8c1a3b20bc63d4727642"
+    },
+    "public/app.css": {
+      "source": "workers/console/public/app.css",
+      "sha256": "0b748bbdf300d5e8714aff3cc87c0ffd2c95f1051ef65aec10ce36200defd13b"
+    },
+    "public/favicon.svg": {
+      "source": "workers/console/public/favicon.svg",
+      "sha256": "5d4c7731ae0dbe1d79a40be769ebafd83fc7f272a786690297ed5575fe42f788"
+    },
+    "public/favicon.ico": {
+      "source": "workers/console/public/favicon.ico",
+      "sha256": "5f9251109ea7bf3a814cd1df6a1de4462ca7e751470c54f6e5791eba74b6d359"
+    },
+    "public/favicon-32.png": {
+      "source": "workers/console/public/favicon-32.png",
+      "sha256": "af188b2b62f58685c184f356e1329329aa0e26b231abe44da09b095fe331efbe"
+    },
+    "public/apple-touch-icon.png": {
+      "source": "workers/console/public/apple-touch-icon.png",
+      "sha256": "689973e478556802b49aed5a5cb00fad0185e0b4bb9f8dc5eff698c839747f7d"
+    },
+    "migrations/0001_control.sql": {
+      "source": "migrations/0001_control.sql",
+      "sha256": "e9464c5536b17066b4e42bb8dd8e1f294a164e5b0b7e5d96db3dfce8a19852ab"
+    },
+    "migrations/0002_nonces.sql": {
+      "source": "migrations/0002_nonces.sql",
+      "sha256": "337b588624f1d2bb84392799f50af012b887524d11bb0ab49b6058dfd74028b7"
+    },
+    "migrations/0003_terms_acceptance.sql": {
+      "source": "migrations/0003_terms_acceptance.sql",
+      "sha256": "f3efee6215f91099f11263672ea9de5b19b8eb24edeab09a7a06a08cc4b25f4b"
+    },
+    "LICENSE": {
+      "source": "LICENSE",
+      "sha256": "6e7943aae9ae4cbcb76cdcc5c9ea6c41a6effdf5504be8e421bcc3754edc2ad1"
+    }
+  }
+}
