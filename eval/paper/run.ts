@@ -19,7 +19,10 @@ const modelArg = arg("models", "open")!;
 const limit = Number(arg("limit", "1000000"));
 const conds = (arg("conditions", "A_raw,B_tools,C_broker")!).split(",") as Condition[];
 const ALL = [...OPEN_MODELS, ...FRONTIER_MODELS, ...FREE_MODELS];
-const models: ModelSpec[] = modelArg === "open" ? OPEN_MODELS : modelArg === "frontier" ? FRONTIER_MODELS : modelArg === "free" ? FREE_MODELS : modelArg === "all" ? ALL : modelArg.split(",").map((id) => ALL.find((m) => m.id === id)!).filter(Boolean);
+// Excluded from the final study: Workers AI limits paid-tier models to 20 requests/minute, which kept its runs from completing.
+const EXCLUDED = new Set(["inkling-2-small"]);
+const STUDY_OPEN = OPEN_MODELS.filter((m) => !EXCLUDED.has(m.id));
+const models: ModelSpec[] = modelArg === "open" ? STUDY_OPEN : modelArg === "frontier" ? FRONTIER_MODELS : modelArg === "free" ? FREE_MODELS : modelArg === "all" ? ALL : modelArg.split(",").map((id) => ALL.find((m) => m.id === id)!).filter(Boolean);
 
 const outDir = resolve(here, process.env.EVAL_RESULTS_DIR ?? "results");
 // The frozen code version and evaluation date, recorded in every row.

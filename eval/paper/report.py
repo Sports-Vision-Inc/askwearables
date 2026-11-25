@@ -16,7 +16,7 @@ COND_LABEL = {"A_raw": "A: raw data in context", "B_tools": "B: open data tools"
 # Reference palette (dataviz skill), validated: categorical slots 1-3 in fixed order.
 COLOR = {"A_raw": "#2a78d6", "B_tools": "#eb6834", "C_broker": "#1baf7a"}
 INK, INK2, GRID, SURF = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"
-MODEL_ORDER = ["llama-3.3-70b", "llama-4-scout", "mistral-small-3.1", "gemma-4-26b", "gpt-oss-20b", "gpt-oss-120b", "inkling-2-small",
+MODEL_ORDER = ["llama-3.3-70b", "llama-4-scout", "mistral-small-3.1", "gemma-4-26b", "gpt-oss-20b", "gpt-oss-120b",
                "nemotron-3-ultra-550b", "gemini-4-neon", "gpt-6.2-astra", "claude-fable-5.2"]
 
 
