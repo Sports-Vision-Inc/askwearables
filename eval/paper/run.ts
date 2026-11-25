@@ -35,7 +35,15 @@ const done = new Set<string>();
 // Last row per key wins: a later error row (including an invalidation) reopens the key. A context-length refusal is a
 // result (the input did not fit the model), not an infrastructure failure, so it is not retried.
 const isContextLimit = (e: string) => /maximum context length|context length|too many tokens|context window/i.test(e);
-if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) { const r = JSON.parse(l); const k = `${r.condition}|${r.model}|${r.task}|${r.run}`; if (r.error && !isContextLimit(r.error)) done.delete(k); else done.add(k); }
+// Hitting the step limit (max_steps) is the model's behaviour, not an infrastructure failure: it is a final outcome
+// (scored as no answer in every condition) and is never retried, so retries cannot select favourable outcomes.
+const terminal = new Set<string>();
+if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) {
+  const r = JSON.parse(l); const k = `${r.condition}|${r.model}|${r.task}|${r.run}`;
+  if (terminal.has(k)) continue;
+  if (r.error === "max_steps") { terminal.add(k); done.add(k); }
+  else if (r.error && !isContextLimit(r.error)) done.delete(k); else done.add(k);
+}
 const write = (r: Record<string, unknown>) => appendFileSync(out, JSON.stringify({ commit: STUDY_COMMIT, ...r }) + "\n");
 
 /** Round-robin across models so a slow or rate-limited model does not occupy every worker. */

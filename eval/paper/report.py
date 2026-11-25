@@ -22,6 +22,7 @@ MODEL_ORDER = ["llama-3.3-70b", "llama-4-scout", "mistral-small-3.1", "gemma-4-2
 
 def load(suite):
     rows = {}
+    step_limited = set()
     errors = collections.Counter()
     for path in sorted(glob.glob(os.path.join(RES, f"{suite}-*.jsonl"))):
         for line in open(path):
@@ -29,6 +30,15 @@ def load(suite):
                 continue
             r = json.loads(line)
             key = (r["condition"], r["model"], r["task"], r["run"])
+            if key in step_limited:
+                continue  # the first step-limit outcome is final; later attempts are not counted
+            if r.get("error") == "max_steps":
+                # The model kept calling tools until the step limit: its behaviour, scored as no answer (and no leak) in
+                # every condition, never replaced by a later attempt.
+                r.update({"answer": None, "correct": False, "max_steps": True, "final": "", "leaked": False})
+                rows[key] = r
+                step_limited.add(key)
+                continue
             if r.get("error") and re.search(r"maximum context length|context window|too many tokens", r["error"], re.I):
                 # The input did not fit the model's context window: a failed answer, not a missing run.
                 r.update({"answer": None, "correct": False, "context_exceeded": True, "final": "", "leaked": False,
