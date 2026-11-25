@@ -29,8 +29,10 @@ const version = arg("version", "")!;
 const out = resolve(outDir, `${suite}${version ? `_${version}` : ""}-${modelArg.replace(/[^a-z0-9.-]+/gi, "_")}.jsonl`);
 const done = new Set<string>();
 // Runs that ended in a provider error (rate limit, timeout) are retried on resume; the report keeps the last row per key.
-// Last row per key wins: a later error row (including an invalidation) reopens the key.
-if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) { const r = JSON.parse(l); const k = `${r.condition}|${r.model}|${r.task}|${r.run}`; if (r.error) done.delete(k); else done.add(k); }
+// Last row per key wins: a later error row (including an invalidation) reopens the key. A context-length refusal is a
+// result (the input did not fit the model), not an infrastructure failure, so it is not retried.
+const isContextLimit = (e: string) => /maximum context length|context length|too many tokens|context window/i.test(e);
+if (existsSync(out)) for (const l of readFileSync(out, "utf8").split("\n")) if (l) { const r = JSON.parse(l); const k = `${r.condition}|${r.model}|${r.task}|${r.run}`; if (r.error && !isContextLimit(r.error)) done.delete(k); else done.add(k); }
 const write = (r: Record<string, unknown>) => appendFileSync(out, JSON.stringify({ commit: STUDY_COMMIT, ...r }) + "\n");
 
 /** Round-robin across models so a slow or rate-limited model does not occupy every worker. */

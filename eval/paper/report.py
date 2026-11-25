@@ -4,7 +4,7 @@ Run: eval/.venv/bin/python eval/paper/report.py
 Writes eval/paper/out/summary.md (all tables) and eval/paper/out/fig_*.{png,pdf}.
 Every number in the paper comes from this script. Runs that ended in a provider error are excluded and counted.
 """
-import collections, glob, json, math, os, statistics
+import collections, glob, json, math, os, re, statistics
 from scipy.stats import binomtest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -29,6 +29,12 @@ def load(suite):
                 continue
             r = json.loads(line)
             key = (r["condition"], r["model"], r["task"], r["run"])
+            if r.get("error") and re.search(r"maximum context length|context window|too many tokens", r["error"], re.I):
+                # The input did not fit the model's context window: a failed answer, not a missing run.
+                r.update({"answer": None, "correct": False, "context_exceeded": True, "final": "", "leaked": False,
+                          "prompt_tokens": 0, "completion_tokens": 0, "cost": 0, "latency_ms": 0, "tool_calls": 0, "transcript_tools": []})
+                rows[key] = r
+                continue
             if r.get("error"):
                 errors[(r["model"], r["condition"])] += 1
                 rows[key] = None  # an error or invalidation after a success reopens the key

@@ -113,6 +113,12 @@ export async function chat(m: ModelSpec, messages: Msg[], opts: { tools?: Tool[]
         continue;
       }
       const latency = Date.now() - t0;
+      // The Wrangler OAuth token expires hourly. On a 401 from Workers AI, refresh it (any wrangler command does)
+      // and retry, instead of recording an infrastructure failure.
+      if (res.status === 401 && m.provider === "workers-ai" && attempt < 4) {
+        try { (await import("node:child_process")).execSync("npx wrangler whoami", { stdio: "ignore", timeout: 60_000 }); } catch { /* retry anyway */ }
+        continue;
+      }
       if (res.status === 429 || res.status >= 500) {
         const ra = Number(res.headers.get("retry-after"));
         await new Promise((r) => setTimeout(r, (Number.isFinite(ra) && ra > 0 ? ra * 1000 : 2000 * 2 ** attempt)));

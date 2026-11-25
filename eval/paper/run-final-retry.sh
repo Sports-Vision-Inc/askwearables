@@ -4,7 +4,7 @@ set -uo pipefail
 cd "$(dirname "$0")/../.."
 until grep -q "LANE1 DONE" eval/paper/results/final/lane1.log; do sleep 60; done
 set -a; . .secrets/openrouter.env; set +a
-export STUDY_COMMIT="$(git rev-parse --short study-v1.1)"
+export STUDY_COMMIT="$(git rev-parse --short HEAD)"
 export EVAL_TODAY="$(sed -n 's/.*today=\([0-9-]*\).*/\1/p' eval/paper/results/final/STUDY.txt)"
 export EVAL_RESULTS_DIR="results/final"
 R="npx tsx eval/paper/run.ts"
@@ -16,6 +16,7 @@ R="npx tsx eval/paper/run.ts"
     EVAL_CF_RPM=150 $R --suite repeat --models open --runs 5
     EVAL_CF_RPM=150 $R --suite phia --models open
     EVAL_CF_RPM=150 $R --suite real --models open
+    EVAL_CF_RPM=60 EVAL_OR_CONCURRENCY=8 $R --suite phia --models frontier
   done
   echo "RETRY DONE"
 } >> eval/paper/results/final/retry.log 2>&1
