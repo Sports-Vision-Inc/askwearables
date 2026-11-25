@@ -1,1 +1,2 @@
 nemotron-3-ultra-550b (free tier) excluded from the final study: OpenRouter's free-model daily limit prevented a complete run. Partial rows kept here for transparency, not analysed.
+inkling-2-small (Workers AI, paid tier) excluded from the final study: Workers AI limits paid-tier models to 20 requests per minute, which kept its PHIA and real-data runs from completing. Its rows (all suites) are kept here as inkling-*.jsonl for transparency, not analysed.
