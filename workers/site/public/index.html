@@ -473,8 +473,8 @@ const res = await aw.ask("How did I sleep this week?");</code></pre>
     <div class="grid-2">
       <div class="card">
         <h3>One-click deploy</h3>
-        <p class="deploy-row"><!-- deploy-button --><span class="deploy-btn" aria-disabled="true" data-href="https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR-ORG/askwearables"><svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>Deploy to Cloudflare</span><span class="deploy-state">Not available for this project yet. Use the manual steps.</span><!-- /deploy-button --></p>
-        <p>Cloudflare's Deploy button deploys one Worker from one public repository, and needs that Worker's code and dependencies isolated in its own directory. AskWearables is seven Workers that call each other through service bindings and share a core package and a D1 schema, so a single button cannot set it up. Until a single-Worker template exists, deploy by hand.</p>
+        <p class="deploy-row"><!-- deploy-button --><a class="deploy-btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/Sports-Vision-Inc/askwearables/tree/main/selfhost" rel="noopener"><svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>Deploy to Cloudflare</a><!-- /deploy-button --></p>
+        <p>The button deploys the self-host edition: one Worker with the same planner, gate, compute engine and receipts, plus a Durable Object, D1, KV and Workers AI, all provisioned for you. Set two secrets, open <code>/setup</code>, create a passkey, import your data and connect your agent to <code>/mcp</code>. It runs as a single Worker, so it does not have the hosted service's seven-Worker trust-zone separation. Source and steps: <a href="https://github.com/Sports-Vision-Inc/askwearables/tree/main/selfhost">selfhost/</a> on GitHub. The seven-Worker production layout can still be deployed by hand, as below.</p>
       </div>
       <div class="card">
         <h3>Manual steps</h3>

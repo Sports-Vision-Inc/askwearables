@@ -10,8 +10,8 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync, statSy
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const DEPLOY_REPO_URL = "https://github.com/YOUR-ORG/askwearables";
-export const DEPLOY_BUTTON_ENABLED = false;
+export const DEPLOY_REPO_URL = "https://github.com/Sports-Vision-Inc/askwearables/tree/main/selfhost";
+export const DEPLOY_BUTTON_ENABLED = true;
 const CLOUD = `<svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>`;
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");

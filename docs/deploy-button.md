@@ -1,3 +1,5 @@
+> **Status (2026-11-25): live.** The button deploys `selfhost/` from https://github.com/Sports-Vision-Inc/askwearables/tree/main/selfhost. A test deploy confirmed Cloudflare auto-provisions the D1 database and KV namespace; the deploy script runs `wrangler deploy` before the D1 migrations so the database exists first.
+
 # Deploy to Cloudflare button
 
 Status: **not enabled.** The site shows the button in a disabled state with an explanation and the manual steps. This file says why, and what would have to change to turn it on.

@@ -6,7 +6,7 @@
   "description": "AskWearables, self-host edition: one Cloudflare Worker that answers AI agents' questions about your own wearable data.",
   "license": "MIT",
   "scripts": {
-    "deploy": "wrangler d1 migrations apply DB --remote && wrangler deploy",
+    "deploy": "wrangler deploy && wrangler d1 migrations apply DB --remote",
     "dev": "wrangler d1 migrations apply DB --local && wrangler dev",
     "build:client": "node scripts/build-client.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.client.json",
