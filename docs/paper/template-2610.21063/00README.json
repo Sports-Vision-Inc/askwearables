@@ -1,0 +1,41 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "main.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "main.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "refs.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "tables/tab_agentdojo_suites.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "tables/tab_attacks.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "tables/tab_audit.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "tables/tab_formal_baselines.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "tables/tab_llm_models.tex"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

@@ -1,0 +1,202 @@
+{
+ "today": "2026-11-25",
+ "two_step_steps_yesterday": {
+  "person": "p2",
+  "trap": "two_step_sources",
+  "spec": {
+   "metrics": [
+    "steps"
+   ],
+   "operation": "latest",
+   "window": {
+    "start": "2026-11-24",
+    "end": "2026-11-24"
+   },
+   "params": {}
+  },
+  "response": {
+   "status": "ok",
+   "packet": {
+    "packet_version": "1",
+    "level": 2,
+    "operation": "latest",
+    "metrics": [
+     "steps"
+    ],
+    "window": {
+     "start": "2026-11-24",
+     "end": "2026-11-24"
+    },
+    "findings": [
+     {
+      "metric": "steps",
+      "direction": "within",
+      "magnitude": "none",
+      "statement": "Steps on 2026-11-24: 7,409, within usual range",
+      "value": 7409,
+      "unit": "count",
+      "values": [
+       {
+        "day": "2026-11-24",
+        "value": 7409
+       }
+      ]
+     }
+    ],
+    "data_quality": {
+     "freshness_hours": 7,
+     "coverage": 1,
+     "sources": [
+      "apple_health"
+     ],
+     "baseline_days": 28,
+     "caveats": []
+    },
+    "as_of": "2026-11-25T15:00:00.000Z",
+    "data_version": "sha256:69525f41e543016e831539748833d87dd06a9ec55bd087fd53d9acd1e2ea06e1",
+    "not_medical_advice": true,
+    "packet_id": "pk_f503e0375039127dc838e788"
+   },
+   "receipt_id": "rc_0mwvk8ehw86dv3nufmw",
+   "reasons": [
+    "level:2"
+   ]
+  }
+ },
+ "missing_steps_total_7d": {
+  "person": "p4",
+  "trap": "missing_days",
+  "spec": {
+   "metrics": [
+    "steps"
+   ],
+   "operation": "aggregate",
+   "window": {
+    "start": "2026-11-18",
+    "end": "2026-11-24"
+   },
+   "params": {
+    "statistic": "total"
+   }
+  },
+  "response": {
+   "status": "ok",
+   "packet": {
+    "packet_version": "1",
+    "level": 2,
+    "operation": "aggregate",
+    "metrics": [
+     "steps"
+    ],
+    "window": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "findings": [
+     {
+      "metric": "steps",
+      "direction": "within",
+      "magnitude": "none",
+      "statement": "Total steps 2026-11-18 to 2026-11-24: 29,680 (average 7,420 per day); covers only 4 of 7 days, so the true total is unknown",
+      "value": 29680,
+      "unit": "count",
+      "values": [
+       {
+        "day": "2026-11-21",
+        "value": 8794
+       },
+       {
+        "day": "2026-11-22",
+        "value": 8291
+       },
+       {
+        "day": "2026-11-23",
+        "value": 6598
+       },
+       {
+        "day": "2026-11-24",
+        "value": 5997
+       }
+      ]
+     }
+    ],
+    "data_quality": {
+     "freshness_hours": 7,
+     "coverage": 0.57,
+     "sources": [
+      "apple_health"
+     ],
+     "baseline_days": 26,
+     "caveats": [
+      "3 of 7 days have no steps data"
+     ]
+    },
+    "as_of": "2026-11-25T15:00:00.000Z",
+    "data_version": "sha256:b791de6556d06174a84bfaf4adbf9ca60b4f459b365e4dfc79c3eeb0a74f07bc",
+    "not_medical_advice": true,
+    "packet_id": "pk_96a72016e177244b3569306b"
+   },
+   "receipt_id": "rc_0mwvk8eixhs9z97tflz",
+   "reasons": [
+    "level:2"
+   ]
+  }
+ },
+ "dst_hrv_trend_28d": {
+  "person": "p10",
+  "trap": "dst",
+  "spec": {
+   "metrics": [
+    "hrv_rmssd"
+   ],
+   "operation": "trend",
+   "window": {
+    "start": "2026-10-28",
+    "end": "2026-11-24"
+   },
+   "params": {}
+  },
+  "response": {
+   "status": "ok",
+   "packet": {
+    "packet_version": "1",
+    "level": 1,
+    "operation": "trend",
+    "metrics": [
+     "hrv_rmssd"
+    ],
+    "window": {
+     "start": "2026-10-28",
+     "end": "2026-11-24"
+    },
+    "findings": [
+     {
+      "metric": "hrv_rmssd",
+      "direction": "flat",
+      "magnitude": "none",
+      "statement": "HRV (RMSSD) steady over 28 nights"
+     }
+    ],
+    "data_quality": {
+     "freshness_hours": 7,
+     "coverage": 1,
+     "sources": [
+      "apple_health"
+     ],
+     "baseline_days": null,
+     "caveats": [
+      "Local time offset changed in this period (travel or daylight saving); days follow local time"
+     ]
+    },
+    "as_of": "2026-11-25T15:00:00.000Z",
+    "data_version": "sha256:6047d477c17e17890e9857af73f6d9ce307aa452461a311c910f1aa2c8ac7358",
+    "not_medical_advice": true,
+    "packet_id": "pk_890e99b7449ea56b1457f164"
+   },
+   "receipt_id": "rc_0mwvk8ek3uaimyorzxm",
+   "reasons": [
+    "level:1"
+   ]
+  }
+ }
+}

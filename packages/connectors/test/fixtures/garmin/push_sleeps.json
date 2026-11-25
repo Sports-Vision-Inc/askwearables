@@ -1,0 +1,51 @@
+{
+ "sleeps": [
+  {
+   "userId": "fake-garmin-user-1",
+   "summaryId": "x-fake-sleep-1",
+   "calendarDate": "2026-11-20",
+   "startTimeInSeconds": 1795126800,
+   "startTimeOffsetInSeconds": 3600,
+   "durationInSeconds": 27000,
+   "validation": "ENHANCED_FINAL",
+   "sleepLevelsMap": {
+    "deep": [
+     {
+      "startTimeInSeconds": 1795127400,
+      "endTimeInSeconds": 1795131000
+     },
+     {
+      "startTimeInSeconds": 1795138800,
+      "endTimeInSeconds": 1795140600
+     }
+    ],
+    "light": [
+     {
+      "startTimeInSeconds": 1795131000,
+      "endTimeInSeconds": 1795138800
+     },
+     {
+      "startTimeInSeconds": 1795140600,
+      "endTimeInSeconds": 1795146600
+     }
+    ],
+    "rem": [
+     {
+      "startTimeInSeconds": 1795146600,
+      "endTimeInSeconds": 1795152600
+     }
+    ],
+    "awake": [
+     {
+      "startTimeInSeconds": 1795126800,
+      "endTimeInSeconds": 1795127400
+     },
+     {
+      "startTimeInSeconds": 1795152600,
+      "endTimeInSeconds": 1795153800
+     }
+    ]
+   }
+  }
+ ]
+}

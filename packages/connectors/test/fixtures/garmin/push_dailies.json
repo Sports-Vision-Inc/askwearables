@@ -1,0 +1,29 @@
+{
+ "dailies": [
+  {
+   "userId": "fake-garmin-user-1",
+   "userAccessToken": "fake-legacy-oauth1-token",
+   "summaryId": "x-fake-daily-1",
+   "calendarDate": "2026-11-20",
+   "startTimeInSeconds": 1795129200,
+   "startTimeOffsetInSeconds": 3600,
+   "durationInSeconds": 86400,
+   "steps": 9120,
+   "distanceInMeters": 7012.0,
+   "activeKilocalories": 455,
+   "bmrKilocalories": 1680,
+   "floorsClimbed": 6,
+   "minHeartRateInBeatsPerMinute": 48,
+   "averageHeartRateInBeatsPerMinute": 66,
+   "maxHeartRateInBeatsPerMinute": 158,
+   "restingHeartRateInBeatsPerMinute": 51,
+   "timeOffsetHeartRateSamples": {
+    "0": 58,
+    "15": 57
+   },
+   "moderateIntensityDurationInSeconds": 1200,
+   "vigorousIntensityDurationInSeconds": 600,
+   "averageStressLevel": 32
+  }
+ ]
+}

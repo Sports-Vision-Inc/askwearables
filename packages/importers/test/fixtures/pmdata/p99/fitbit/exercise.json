@@ -1,0 +1,2 @@
+[{"logId": 26451905128, "activityName": "Run", "activityTypeId": 90009, "averageHeartRate": 151, "calories": 312, "duration": 1800000, "activeDuration": 1800000, "steps": 4400, "logType": "auto_detected", "startTime": "2019-11-01 17:00:00", "distance": 5.1, "distanceUnit": "Kilometer", "elevationGain": 24.4},
+ {"logId": 26451905129, "activityName": "Walk", "activityTypeId": 90013, "averageHeartRate": 94, "calories": 192, "duration": 1331000, "activeDuration": 1331000, "steps": 1878, "logType": "auto_detected", "startTime": "2019-11-01 14:56:32"}]

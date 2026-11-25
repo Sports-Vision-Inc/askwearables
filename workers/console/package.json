@@ -1,0 +1,1 @@
+{"name": "@askwearables/console", "private": true, "type": "module", "dependencies": {"@askwearables/core": "*", "@askwearables/importers": "*"}}

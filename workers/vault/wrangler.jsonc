@@ -1,0 +1,38 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "askwearables-vault",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "upload_source_maps": true,
+  "workers_dev": false,
+  "preview_urls": false,
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "USER_VAULT",
+        "class_name": "UserVault"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "UserVault"
+      ]
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ANCHORS",
+      "bucket_name": "askwearables-anchors"
+    }
+  ]
+}

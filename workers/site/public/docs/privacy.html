@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy model · AskWearables</title>
+<meta name="description" content="How the AskWearables gate decides, what a receipt records, and exactly what a user approves on the consent screen.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="inner">
+  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="/docs/">Docs</a>
+    <a href="/docs/quickstart">Quickstart</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API</a>
+    <a href="https://app.askwearables.app/">Console</a>
+  </nav>
+</div></header>
+
+<div class="docs">
+<nav class="docs-nav" aria-label="Documentation">
+  <h2>Docs</h2>
+  <ul>
+    <li><a href="/docs/">Overview</a></li>
+    <li><a href="/docs/quickstart">Quickstart</a></li>
+    <li><a href="/docs/packets">Packets and levels</a></li>
+    <li><a href="/docs/privacy" aria-current="page">Privacy model</a></li>
+    <li><a href="/docs/api">API reference</a></li>
+    <li><a href="/docs/self-hosting">Self-hosting</a></li>
+    <li><a href="/results">Study results</a></li>
+  </ul>
+  <h2>Files</h2>
+  <ul>
+    <li><a href="/openapi.json">openapi.json</a></li>
+    <li><a href="/privacy">Privacy policy (draft)</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<h1>Privacy model</h1>
+<p>The gate releases the coarsest answer that satisfies the question, and only for metrics the user granted to that agent for that purpose. It is plain code, separate from any model, and runs before any data is read. A model can never raise what the gate allows. This page describes how it decides, what it records, and what the user approves. For how personal data is handled as a matter of policy, see the <a href="/privacy">privacy policy draft</a>.</p>
+
+<div class="toc"><ol>
+  <li><a href="#untrusted">Agents are untrusted</a></li>
+  <li><a href="#order">Decision order</a></li>
+  <li><a href="#receipts">Receipts</a></li>
+  <li><a href="#consent">What the user approves</a></li>
+  <li><a href="#not-covered">What approval does not cover</a></li>
+  <li><a href="#logins">Three logins, kept apart</a></li>
+  <li><a href="#controls">User controls</a></li>
+  <li><a href="#limits">What the gate cannot do</a></li>
+</ol></div>
+
+<h2 id="untrusted">Agents are untrusted</h2>
+<ul>
+  <li><strong>The question is data.</strong> It reaches the planner, whose only output is a QuerySpec that must validate against a strict schema. The question text never reaches the gate's logic or a database query.</li>
+  <li><strong>The planner never sees data.</strong> It runs in its own Worker with no binding to storage or policy, and receives only the question, today's date, the user's time zone and the metric catalogue.</li>
+  <li><strong>The purpose is fixed at consent.</strong> An agent cannot restate its purpose in a request. A different purpose in a request is recorded as <code>purpose_claim_ignored</code> and has no effect.</li>
+  <li><strong>The gate checks credentials itself.</strong> The edge validates tokens, and the gate validates them again; it never takes another Worker's word for who is asking.</li>
+  <li><strong>Deny by default,</strong> with a structured reason on every decision, such as <code>metric_not_in_grant:hrv_rmssd</code>.</li>
+</ul>
+
+<h2 id="order">Decision order</h2>
+<p>The gate runs these steps in order for every request. The first step that fails decides the outcome.</p>
+<ol class="flow">
+  <li><span class="who">Token and grant.</span> The token is valid and bound to this agent; the grant belongs to this user and agent, and is neither expired nor revoked. If the user paused all releases, stop here.</li>
+  <li><span class="who">Metrics.</span> Every requested metric is in the grant. Any that is not is denied by name.</li>
+  <li><span class="who">Provider terms.</span> Data from a source whose terms forbid AI use or intermediaries is never released to a model-facing agent; such sources are left out of the computation.</li>
+  <li><span class="who">Sensitive categories.</span> Cycle and pregnancy data, glucose, ECG and rhythm notifications, and sleep-apnea events are excluded unless the grant names each one.</li>
+  <li><span class="who">Window.</span> The date window is clamped to the grant's <code>max_window_days</code> and to today. A window wholly outside the grant is denied.</li>
+  <li><span class="who">Level.</span> The release level is the lower of the grant's maximum and the lowest level that can answer the operation.</li>
+  <li><span class="who">Budget.</span> If the agent has used its daily packet budget, stop. Only released packets count, so rejected requests cannot exhaust it, and many narrow questions cannot rebuild the raw series.</li>
+  <li><span class="who">Purpose check.</span> A contextual-integrity check compares the metrics and level with what the grant's purpose plausibly needs. It can lower the level or deny; it can never raise anything.</li>
+  <li><span class="who">Receipt.</span> The decision is written to the user's receipt log, including denials.</li>
+</ol>
+
+<h2 id="receipts">Receipts</h2>
+<p>Each user has an append-only receipt log inside their own store. Every release and every denial adds one row.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Field</th><th scope="col">Records</th></tr></thead>
+  <tbody>
+    <tr><td><code>time</code>, <code>agent_id</code>, <code>grant_id</code></td><td>When, which agent, under which grant</td></tr>
+    <tr><td><code>decision</code></td><td><code>released</code>, <code>denied</code> or <code>unsupported</code></td></tr>
+    <tr><td><code>purpose</code>, <code>spec</code>, <code>level</code>, <code>metrics</code>, <code>window</code></td><td>What was asked and what was released</td></tr>
+    <tr><td><code>packet_hash</code></td><td>The SHA-256 of the released packet, so a packet can later be matched to its receipt</td></tr>
+    <tr><td><code>reasons</code></td><td>Why the gate decided as it did</td></tr>
+    <tr><td><code>prev_hash</code>, <code>hash</code></td><td>The chain: each row's hash covers the previous row's hash</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li><strong>Tamper-evident.</strong> Changing or removing any row breaks the chain, and the console shows whether the chain verifies. Once a day the head of each user's chain is copied to separate object storage, so a rewrite of the whole log is detectable from outside it.</li>
+  <li><strong>Encrypted.</strong> The details of each receipt are encrypted with the user's own data key; the chain itself holds only hashes.</li>
+  <li><strong>Readable by the user.</strong> The console lists receipts newest first, with export. Owners can also read them with <code>GET /v1/receipts</code>.</li>
+  <li><strong>Erasable without breaking the chain.</strong> Deleting a user's data destroys the key that encrypts receipt details. The rows and hashes stay, so the record that releases happened survives; what was released can no longer be read.</li>
+</ul>
+
+<h2 id="consent">What the user approves</h2>
+<p>Approval creates one grant, and the consent screen shows that grant in full before anything is released. It states eight things in plain words:</p>
+<ol>
+  <li><strong>Which agent:</strong> its name, who registered it, and its verified domain if it has one.</li>
+  <li><strong>For what purpose:</strong> one purpose from a fixed list, such as scheduling or training advice.</li>
+  <li><strong>Which metrics:</strong> listed one by one. Nothing is ticked in advance.</li>
+  <li><strong>How much detail:</strong> the level, with a live example built from the user's own recent data, such as "Sleep duration moderately below usual range on 3 of the last 3 nights".</li>
+  <li><strong>How far back:</strong> the window in days.</li>
+  <li><strong>How often:</strong> the most answers per day.</li>
+  <li><strong>Until when:</strong> the expiry date, 90 days at most.</li>
+  <li><strong>What is not approved:</strong> raw data unless chosen, any metric not ticked, sensitive categories not named, any change to the data, passing data to another agent, and anything older than the window.</li>
+</ol>
+<p>When a developer sends a user to the consent screen, the user can narrow the developer's request (fewer metrics, a lower level, a shorter window or expiry, a smaller budget) but never widen it.</p>
+
+<h2 id="not-covered">What approval does not cover</h2>
+<ul>
+  <li><strong>More than the grant.</strong> A request for a new metric, a higher level or a longer window is denied with a reason. Widening needs a new consent screen; an agent cannot obtain it inside a chat.</li>
+  <li><strong>Each individual question.</strong> The user approves the boundary, not every call. The receipt log is how they see each release afterwards.</li>
+  <li><strong>The agent's own behaviour.</strong> Once a packet is released, what the agent or its provider stores is outside this system. The consent screen says so.</li>
+</ul>
+
+<h2 id="logins">Three logins, kept apart</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Relationship</th><th scope="col">Proves</th><th scope="col">Token lives in</th><th scope="col">Used by</th></tr></thead>
+  <tbody>
+    <tr><td>Owner sign-in</td><td>The person is who they say (passkey)</td><td>A session cookie from <code>auth</code></td><td>console</td></tr>
+    <tr><td>Agent authorization</td><td>This agent may ask for this person, within one grant</td><td>An access token from <code>auth</code> (OAuth 2.1, PKCE)</td><td>edge, checked again by gate</td></tr>
+    <tr><td>Provider connection</td><td>AskWearables may read this person's account at a wearable vendor</td><td>Encrypted in <code>vault</code>, never returned to any other Worker</td><td>Ingestion only</td></tr>
+  </tbody>
+</table></div>
+<p>An agent token never unlocks the console, a console session never calls a provider, and a provider token never leaves the vault. The part an attacker can reach holds no long-lived secrets.</p>
+
+<h2 id="controls">User controls</h2>
+<ul>
+  <li><strong>Pause</strong> all releases at once. Every request is denied with <code>paused</code> until resumed.</li>
+  <li><strong>Revoke</strong> one agent. Its grant ends and its tokens are revoked; a developer is notified by webhook.</li>
+  <li><strong>Export</strong> everything as one JSON file.</li>
+  <li><strong>Delete</strong> everything. Health data is removed, every grant and key is revoked, and receipt details are made unreadable as described above.</li>
+</ul>
+
+<h2 id="limits">What the gate cannot do</h2>
+<p>A deterministic gate is strong against an agent that asks for more than it was given. It is not a complete answer, and these limits apply:</p>
+<ul>
+  <li>Individually permitted answers can add up to more than any one of them. Daily budgets and the level system reduce this; they do not remove it.</li>
+  <li>A compromise of the machines running the gate defeats it. Splitting the system into trust zones reduces what any one flaw can reach.</li>
+  <li>It does not stop a model from being deceived by other content in its context, or from misusing what it was legitimately given.</li>
+</ul>
+
+<div class="pager"><a href="/docs/packets">← Packets and levels</a><a href="/docs/api">Next: API reference →</a></div>
+</main>
+</div>
+
+<footer class="site-footer"><div class="inner">
+  <span>AskWearables. Wellness information only; not medical advice.</span>
+  <nav aria-label="Footer">
+    <a href="/docs/">Docs</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API reference</a>
+    <a href="/openapi.json">OpenAPI</a>
+    <a href="/privacy">Privacy policy</a>
+  </nav>
+</div></footer>
+</body>
+</html>

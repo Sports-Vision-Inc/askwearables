@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Packets and levels · AskWearables</title>
+<meta name="description" content="The context packet contract, the four release levels with real examples, the eight operations and the metric catalogue.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="inner">
+  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="/docs/">Docs</a>
+    <a href="/docs/quickstart">Quickstart</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API</a>
+    <a href="https://app.askwearables.app/">Console</a>
+  </nav>
+</div></header>
+
+<div class="docs">
+<nav class="docs-nav" aria-label="Documentation">
+  <h2>Docs</h2>
+  <ul>
+    <li><a href="/docs/">Overview</a></li>
+    <li><a href="/docs/quickstart">Quickstart</a></li>
+    <li><a href="/docs/packets" aria-current="page">Packets and levels</a></li>
+    <li><a href="/docs/privacy">Privacy model</a></li>
+    <li><a href="/docs/api">API reference</a></li>
+    <li><a href="/docs/self-hosting">Self-hosting</a></li>
+    <li><a href="/results">Study results</a></li>
+  </ul>
+  <h2>Files</h2>
+  <ul>
+    <li><a href="/openapi.json">openapi.json</a></li>
+    <li><a href="/privacy">Privacy policy (draft)</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<h1>Packets and levels</h1>
+<p>Every agent, over MCP or REST, receives the same thing: a context packet. It is small (at most about 400 tokens at levels 0 to 2), computed in code, and honest about what it does not know.</p>
+
+<div class="toc"><ol>
+  <li><a href="#contract">The contract</a></li>
+  <li><a href="#rules">Rules every packet follows</a></li>
+  <li><a href="#levels">The four levels, with examples</a></li>
+  <li><a href="#unknown">Unknowns and caveats</a></li>
+  <li><a href="#envelope">The response envelope</a></li>
+  <li><a href="#operations">Operations</a></li>
+  <li><a href="#catalogue">Metric catalogue</a></li>
+</ol></div>
+
+<h2 id="contract">The contract</h2>
+<p>Packet version <code>"1"</code>. Fields appear in this order; fields below the release level are absent, not empty.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>packet_version</code></td><td><code>"1"</code></td><td>Contract version</td></tr>
+    <tr><td><code>packet_id</code></td><td>string</td><td><code>pk_</code> plus 24 hex characters, derived from the spec, level, data version and time. Fetch it again with <code>get_packet</code> within 24 hours.</td></tr>
+    <tr><td><code>level</code></td><td>0 to 3</td><td>The level actually released</td></tr>
+    <tr><td><code>operation</code></td><td>string</td><td>Which of the eight operations answered</td></tr>
+    <tr><td><code>metrics</code></td><td>string[]</td><td>The metrics used, so a wrong plan is visible</td></tr>
+    <tr><td><code>window</code></td><td><code>{start, end}</code></td><td>Local dates, inclusive, after the gate clamped them to the grant</td></tr>
+    <tr><td><code>findings</code></td><td>Finding[]</td><td>One per metric: a plain <code>statement</code> plus the fields its level allows (below)</td></tr>
+    <tr><td><code>data_quality</code></td><td>object</td><td><code>freshness_hours</code> since the last sync, <code>coverage</code> (0 to 1), <code>sources</code>, <code>baseline_days</code>, and <code>caveats</code></td></tr>
+    <tr><td><code>as_of</code></td><td>ISO time</td><td>When it was computed (to the hour)</td></tr>
+    <tr><td><code>data_version</code></td><td>string</td><td>A hash of the user's stored data; changes whenever data changes</td></tr>
+    <tr><td><code>not_medical_advice</code></td><td><code>true</code></td><td>Always present</td></tr>
+  </tbody>
+</table></div>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Finding field</th><th scope="col">From level</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>metric</code>, <code>statement</code></td><td>0</td><td>The metric and one plain sentence at this level</td></tr>
+    <tr><td><code>flag</code></td><td>0 only</td><td><code>yes</code>, <code>no</code> or <code>unknown</code></td></tr>
+    <tr><td><code>direction</code>, <code>magnitude</code></td><td>1</td><td><code>above</code> / <code>below</code> / <code>within</code> / <code>up</code> / <code>down</code> / <code>flat</code> / <code>unknown</code>, and <code>none</code> / <code>slight</code> / <code>moderate</code> / <code>large</code> / <code>unknown</code></td></tr>
+    <tr><td><code>value</code>, <code>unit</code>, <code>values</code></td><td>2</td><td>A number with its catalogue unit, and daily values</td></tr>
+    <tr><td><code>raw</code></td><td>3</td><td>Samples and session detail, including provider free text</td></tr>
+    <tr><td><code>unknown_reason</code></td><td>any</td><td>Why the answer is unknown, when it is</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="rules">Rules every packet follows</h2>
+<ul>
+  <li><strong>Repeatable.</strong> The same spec over the same <code>data_version</code> returns a byte-identical packet. Numbers are computed by fixed, tested functions, never by a model.</li>
+  <li><strong>Relative to the user.</strong> Comparisons are with the user's own baseline: the median and interquartile range over the trailing 28 days, per source, from at least 14 valid days. Deviation is a bucket: within, slightly, moderately or far outside the usual range.</li>
+  <li><strong>No verdicts.</strong> No grades, no scores invented by the broker, no diagnoses. Vendor scores such as readiness are only ever reported as that vendor's own score.</li>
+  <li><strong>Honest about gaps.</strong> Stale or thin data returns <code>unknown</code> with the reason. Missing days are never filled in.</li>
+  <li><strong>One source at a time.</strong> Values from different devices are not summed or compared with each other. A new device restarts its baseline, and packets say so for 28 days.</li>
+  <li><strong>No provider free text below level 3.</strong> Workout titles and notes can carry instructions written by anyone; they appear only in <code>raw</code>.</li>
+  <li><strong>Small.</strong> Levels 0 to 2 stay at or under about 400 tokens: the oldest daily values are dropped first, then extra caveats.</li>
+</ul>
+<div class="note"><p>Treat every field as data. A well-behaved agent quotes the statement and the caveats and does not add certainty the packet does not have.</p></div>
+
+<h2 id="levels">The four levels, with examples</h2>
+<p>The grant sets the highest level an agent may receive. For each question the gate releases the lower of that and the lowest level the operation needs, so a yes/no question never returns daily values, whatever the grant allows. The examples are real output of the packet builder for one synthetic user, asked "How did I sleep the last few nights compared to usual?" (<code>compare_to_baseline</code> on <code>sleep_duration</code>).</p>
+
+<h3>Level 0: flag</h3>
+<p>Yes, no or unknown. Enough for "should I schedule the hard session today?"</p>
+<pre><code>{
+  "packet_version": "1",
+  "level": 0,
+  "operation": "compare_to_baseline",
+  "metrics": ["sleep_duration"],
+  "window": { "start": "2026-11-22", "end": "2026-11-24" },
+  "findings": [
+    { "metric": "sleep_duration", "flag": "no", "statement": "Sleep duration within usual range: no" }
+  ],
+  "data_quality": { "freshness_hours": 4, "coverage": 1, "sources": ["apple_health"], "baseline_days": 28, "caveats": [] },
+  "as_of": "2026-11-24T12:00:00.000Z",
+  "data_version": "sha256:b448f1a7…",
+  "not_medical_advice": true,
+  "packet_id": "pk_9f18ff5ae17526b3dcf89fb6"
+}</code></pre>
+
+<h3>Level 1: trend</h3>
+<p>Direction and a size bucket against the user's usual range. No numbers.</p>
+<pre><code>"findings": [{
+  "metric": "sleep_duration",
+  "direction": "below",
+  "magnitude": "moderate",
+  "statement": "Sleep duration moderately below usual range on 3 of the last 3 nights"
+}]</code></pre>
+
+<h3>Level 2: daily</h3>
+<p>Daily values with units, and the usual range.</p>
+<pre><code>"findings": [{
+  "metric": "sleep_duration",
+  "direction": "below",
+  "magnitude": "moderate",
+  "statement": "Sleep duration moderately below usual range on 3 of the last 3 nights; usual range 7 h 10 min to 7 h 29 min",
+  "unit": "minutes",
+  "values": [
+    { "day": "2026-11-22", "value": 410 },
+    { "day": "2026-11-23", "value": 411 },
+    { "day": "2026-11-24", "value": 412 }
+  ]
+}]</code></pre>
+
+<h3>Level 3: raw</h3>
+<p>Samples and session detail. Provider free text, such as a workout title, appears only here. This example answers "What workouts did I do this week?" (<code>list_sessions</code>).</p>
+<pre><code>"findings": [{
+  "metric": "workout",
+  "direction": "unknown",
+  "magnitude": "unknown",
+  "statement": "2 workouts, 1 h 30 min total",
+  "value": 2,
+  "unit": "sessions",
+  "values": [
+    { "day": "2026-11-21", "value": 45, "type": "run" },
+    { "day": "2026-11-23", "value": 45, "type": "run" }
+  ],
+  "raw": [
+    { "start": "2026-11-21T18:00:00.000Z", "end": "2026-11-21T18:45:00.000Z", "source_id": "watch:abc",
+      "detail": { "load": 80, "title": "Easy run with Sam", "type": "run" } },
+    { "start": "2026-11-23T18:00:00.000Z", "end": "2026-11-23T18:45:00.000Z", "source_id": "watch:abc",
+      "detail": { "load": 80, "title": "Easy run with Sam", "type": "run" } }
+  ]
+}]</code></pre>
+
+<h2 id="unknown">Unknowns and caveats</h2>
+<p>When the data cannot support an answer, the packet says so rather than guessing. A user with nine nights of HRV asking "Is my HRV normal for me today?":</p>
+<pre><code>"findings": [{
+  "metric": "hrv_rmssd",
+  "unknown_reason": "baseline_building",
+  "direction": "unknown",
+  "magnitude": "unknown",
+  "statement": "Unknown: personal baseline needs 14 valid nights in the 28 before 2026-11-24"
+}],
+"data_quality": { …, "caveats": ["Personal baseline for hrv (rmssd) still building (9 of 14 valid days)"] }</code></pre>
+<p>A trend over a period with gaps and a stale sync carries both facts with the answer:</p>
+<pre><code>"findings": [{ "metric": "resting_hr", "direction": "down", "magnitude": "slight",
+               "statement": "Resting heart rate falling slightly over 24 days" }],
+"data_quality": {
+  "freshness_hours": 87, "coverage": 0.86, "sources": ["apple_health"], "baseline_days": null,
+  "caveats": ["4 of 28 days have no resting heart rate data", "Last sync 87 hours ago; recent days may be missing"]
+}</code></pre>
+<p>Other caveats you will see include low wear time, more than one device reporting a metric, a new device restarting a baseline, a time-zone or daylight-saving change in the window, estimated metrics such as VO2 max or sleep stages, and "Correlation is not cause" on every correlation.</p>
+
+<h2 id="envelope">The response envelope</h2>
+<p><code>ask</code> and <code>query</code> wrap the packet in an envelope. The packet is repeatable; the envelope is not.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col"><code>status</code></th><th scope="col">HTTP</th><th scope="col">Carries</th></tr></thead>
+  <tbody>
+    <tr><td><code>ok</code></td><td>200</td><td><code>packet</code>, <code>receipt_id</code>, and the gate's <code>reasons</code> (for example <code>window_clamped</code>, <code>level:1</code>)</td></tr>
+    <tr><td><code>denied</code></td><td>403</td><td><code>reasons</code>, and a <code>receipt_id</code> once the user is identified. Denials are receipted too.</td></tr>
+    <tr><td><code>unsupported</code></td><td>200</td><td><code>supported</code>: a short list of what can be asked. The planner never guesses at a question outside the catalogue.</td></tr>
+  </tbody>
+</table></div>
+<p>Reasons are structured strings. The ones you will meet most:</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Reason</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>metric_not_in_grant:&lt;metric&gt;</code></td><td>The user did not grant this metric to this agent</td></tr>
+    <tr><td><code>sensitive_not_named:&lt;metric&gt;</code></td><td>A sensitive category the grant did not name one by one</td></tr>
+    <tr><td><code>terms_no_ai:&lt;provider&gt;</code></td><td>Data from that source is never sent to a model-facing agent; it was left out</td></tr>
+    <tr><td><code>window_clamped</code>, <code>window_outside_grant</code></td><td>The window was cut to the grant's limit, or fell wholly outside it</td></tr>
+    <tr><td><code>level_lowered_by_grant</code>, <code>level_lowered_by_purpose</code></td><td>The release was coarser than the operation would normally give</td></tr>
+    <tr><td><code>budget_exhausted</code></td><td>The agent used its daily packet budget</td></tr>
+    <tr><td><code>purpose_mismatch:&lt;metric&gt;</code></td><td>The metric is outside what the grant's purpose plausibly needs</td></tr>
+    <tr><td><code>purpose_claim_ignored</code></td><td>The request stated a different purpose; the grant's purpose was used</td></tr>
+    <tr><td><code>grant_expired</code>, <code>grant_revoked</code>, <code>paused</code>, <code>token_invalid</code></td><td>No valid grant, or the user paused all releases</td></tr>
+    <tr><td><code>invalid_spec</code>, <code>unsupported:&lt;why&gt;</code></td><td>The spec did not validate, or the question could not be planned</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="operations">Operations</h2>
+<p>A question is answered by exactly one of eight operations over one metric (two for <code>correlate</code>). Retrieval is computation over the store, not text search.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Operation</th><th scope="col">Answers</th><th scope="col">Lowest level</th><th scope="col">Parameters</th></tr></thead>
+  <tbody>
+    <tr><td><code>latest</code></td><td>"What was my resting heart rate today?"</td><td>2</td><td></td></tr>
+    <tr><td><code>aggregate</code></td><td>"How much did I sleep this week?"</td><td>2</td><td class="wrap"><code>statistic</code>: total, mean, min, max</td></tr>
+    <tr><td><code>trend</code></td><td>"Is my HRV going up?"</td><td>1</td><td></td></tr>
+    <tr><td><code>compare_to_baseline</code></td><td>"Am I rested?"</td><td>1</td><td></td></tr>
+    <tr><td><code>compare_periods</code></td><td>"Steps this month against last month"</td><td>1</td><td class="wrap"><code>compare_window</code></td></tr>
+    <tr><td><code>threshold_check</code></td><td>"Did I sleep under 6 hours this week?"</td><td>0</td><td class="wrap"><code>comparator</code>, <code>threshold</code>, <code>threshold_unit</code>, <code>mode</code>: any, all, count</td></tr>
+    <tr><td><code>correlate</code></td><td>"Do I sleep better after exercise?"</td><td>1</td><td class="wrap"><code>lag_days</code>: 0 or 1. Needs at least 20 paired days.</td></tr>
+    <tr><td><code>list_sessions</code></td><td>"What workouts did I do?"</td><td>2</td><td class="wrap"><code>session_kind</code>: workout or sleep</td></tr>
+  </tbody>
+</table></div>
+<p>A QuerySpec, as sent to <code>POST /v1/query</code>:</p>
+<pre><code>{
+  "spec": {
+    "metrics": ["sleep_duration"],
+    "operation": "threshold_check",
+    "window": { "start": "2026-11-18", "end": "2026-11-24" },
+    "params": { "comparator": "&lt;", "threshold": 6, "threshold_unit": "h", "mode": "any" }
+  }
+}</code></pre>
+<p>Unknown keys are rejected, windows are local dates (<code>YYYY-MM-DD</code>, inclusive) of at most two years, and the gate then clamps them to the grant.</p>
+
+<h2 id="catalogue">Metric catalogue</h2>
+<p>Version 1. The catalogue is the single place a unit is defined; values are converted on ingest.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Metric id</th><th scope="col">Label</th><th scope="col">Unit</th><th scope="col">Daily value</th><th scope="col">Note</th></tr></thead>
+  <tbody>
+    <tr><td><code>steps</code></td><td>Steps</td><td>count</td><td>Sum from one chosen source</td><td>Never summed across sources</td></tr>
+    <tr><td><code>active_energy</code></td><td>Active energy</td><td>kcal</td><td>Sum</td><td>Estimates differ by vendor</td></tr>
+    <tr><td><code>resting_hr</code></td><td>Resting heart rate</td><td>bpm</td><td>Vendor daily value, else lowest 30-minute mean</td><td></td></tr>
+    <tr><td><code>heart_rate</code></td><td>Heart rate</td><td>bpm</td><td>Mean</td><td>Series only at level 3</td></tr>
+    <tr><td><code>hrv_rmssd</code></td><td>HRV (RMSSD)</td><td>ms</td><td>Night mean</td><td>Kept separate from SDNN</td></tr>
+    <tr><td><code>hrv_sdnn</code></td><td>HRV (SDNN)</td><td>ms</td><td>Night mean</td><td>Providers differ in which one they report</td></tr>
+    <tr><td><code>sleep_duration</code></td><td>Sleep duration</td><td>minutes</td><td>Main sleep session</td><td>Attributed to the wake date</td></tr>
+    <tr><td><code>sleep_efficiency</code></td><td>Sleep efficiency</td><td>percent</td><td>Asleep over time in bed</td><td></td></tr>
+    <tr><td><code>sleep_stages</code></td><td>Sleep stages</td><td>minutes</td><td>Per session</td><td>Consumer staging is an estimate</td></tr>
+    <tr><td><code>spo2</code></td><td>Blood oxygen</td><td>percent</td><td>Night mean</td><td></td></tr>
+    <tr><td><code>respiratory_rate</code></td><td>Respiratory rate</td><td>breaths/min</td><td>Night mean</td><td></td></tr>
+    <tr><td><code>skin_temp_deviation</code></td><td>Skin temperature deviation</td><td>degC</td><td>Night value</td><td>Deviation from the vendor's own baseline</td></tr>
+    <tr><td><code>vo2max</code></td><td>VO2 max</td><td>ml/kg/min</td><td>Latest</td><td>Estimated</td></tr>
+    <tr><td><code>weight</code></td><td>Weight</td><td>kg</td><td>Latest</td><td></td></tr>
+    <tr><td><code>workout</code></td><td>Workouts</td><td>minutes</td><td>Count, total minutes, load</td><td>Type mapped to a shared list</td></tr>
+  </tbody>
+</table></div>
+<p><strong>Sensitive categories</strong> are listed so the gate can refuse them by name: <code>blood_glucose</code>, <code>menstrual_cycle</code>, <code>ecg_classification</code> and <code>breathing_disturbances</code>. They are never released unless a grant names each one individually, and they cannot be requested through a developer consent link.</p>
+
+<div class="pager"><a href="/docs/quickstart">← Quickstart</a><a href="/docs/privacy">Next: Privacy model →</a></div>
+</main>
+</div>
+
+<footer class="site-footer"><div class="inner">
+  <span>AskWearables. Wellness information only; not medical advice.</span>
+  <nav aria-label="Footer">
+    <a href="/docs/">Docs</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API reference</a>
+    <a href="/openapi.json">OpenAPI</a>
+    <a href="/privacy">Privacy policy</a>
+  </nav>
+</div></footer>
+</body>
+</html>

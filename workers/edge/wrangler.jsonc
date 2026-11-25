@@ -1,0 +1,57 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "askwearables-edge",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "upload_source_maps": true,
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "mcp.askwearables.app",
+      "custom_domain": true
+    },
+    {
+      "pattern": "api.askwearables.app",
+      "custom_domain": true
+    }
+  ],
+  "services": [
+    {
+      "binding": "AUTH",
+      "service": "askwearables-auth"
+    },
+    {
+      "binding": "GATE",
+      "service": "askwearables-gate"
+    },
+    {
+      "binding": "PLANNER",
+      "service": "askwearables-planner"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "RL",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 120,
+        "period": 60
+      }
+    }
+  ],
+  "vars": {
+    "ISSUER": "https://auth.askwearables.app",
+    "MCP_RESOURCE": "https://mcp.askwearables.app/mcp",
+    "API_RESOURCE": "https://api.askwearables.app/v1",
+    "MCP_HOST": "mcp.askwearables.app",
+    "API_HOST": "api.askwearables.app"
+  }
+}

@@ -1,0 +1,8 @@
+{
+ "access_token": "fake-garmin-access-2",
+ "refresh_token": "fake-garmin-refresh-2",
+ "expires_in": 86400,
+ "refresh_token_expires_in": 7775998,
+ "token_type": "bearer",
+ "scope": "PARTNER_WRITE PARTNER_READ CONNECT_READ CONNECT_WRITE"
+}

@@ -1,0 +1,35 @@
+{
+  "note": "Hand-picked example ids from results.json (examples[].id = model/task), in the order the landing page plays them. Only the curation and the one-line framing live here; every question, answer, verdict and packet is read from results.json at runtime.",
+  "examples": [
+    {
+      "id": "nemotron-3-ultra-550b/p4-steps_total_7d",
+      "emoji": "1f4c5",
+      "title": "Missing days",
+      "why": "Some days have no data. Adding up the days that are there gives a confident total that is wrong."
+    },
+    {
+      "id": "nemotron-3-ultra-550b/p6-hrv_trend_28d",
+      "emoji": "231a",
+      "title": "New watch",
+      "why": "A new device starts a new baseline. Reading the two series as one invents a trend."
+    },
+    {
+      "id": "nemotron-3-ultra-550b/p5-sleep_vs_usual_3d",
+      "emoji": "23f3",
+      "title": "Stale sync",
+      "why": "The watch has not synced lately. No recent nights means the answer is unknown, not no."
+    },
+    {
+      "id": "nemotron-3-ultra-550b/p10-hrv_trend_28d",
+      "emoji": "1f4c8",
+      "title": "HRV trend",
+      "why": "Night-to-night wobble reads as a slide. A fixed trend test over local days, across a clock change, says steady."
+    },
+    {
+      "id": "gpt-oss-120b/p2-steps_total_7d",
+      "emoji": "1f45f",
+      "title": "Steps counted twice",
+      "why": "The phone and the watch both count the same walk. Adding the two sources double-counts."
+    }
+  ]
+}

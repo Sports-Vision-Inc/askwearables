@@ -1,0 +1,15 @@
+{
+  "name": "@askwearables/eval",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetch-datasets.ts",
+    "phia:mapping": "vite-node scripts/build-phia-mapping.ts",
+    "eval:phia": "vite-node scripts/phia-eval.ts",
+    "eval:mmash": "vite-node scripts/mmash-hrv.ts"
+  },
+  "dependencies": {
+    "@askwearables/core": "*",
+    "@askwearables/importers": "*"
+  }
+}

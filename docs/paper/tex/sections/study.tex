@@ -1,0 +1,252 @@
+\section{Study Design}\label{sec:study}
+
+We asked four research questions.
+\RQ{1}: Does routing questions through \sys{} change the accuracy of an agent model's answers, for a fixed agent
+model?
+\RQ{2}: Does it change how much of the record reaches the agent model, and what the agent discloses when the request,
+the data or the user invites it to disclose more than its role needs?
+\RQ{3}: Does it change the tokens, latency, cost and repeatability of an answer?
+\RQ{4}: How well do the planner and the compute engine perform on an established public benchmark?
+
+\subsection{Conditions}\label{sec:conditions}
+
+All three conditions use the same agent model, the same system prompt and the same answer protocol: the agent model
+finishes with a line \code{ANSWER:} followed by a plain number, a label (yes, no, up, down, flat, higher, lower,
+same) or \code{unknown} when the available data cannot answer the question reliably. The prompt fixes the
+evaluation date. \Cref{tab:conditions} lists what the agent model receives in each condition. The tool descriptions
+differ with the tools: the \CB{} tools describe their rows (``one row per device per day''), and the \CC{} tool
+describes its packet and adds ``The numbers in it are computed by code; rely on them.''
+
+\begin{table}[t]
+\centering\small
+\caption{The three conditions differ only in how the agent model reaches the data. \CB{} has the shape of current
+wearable MCP servers; \CC{} runs the deployed planner, gate, compute engine and packet builder in process.}
+\label{tab:conditions}
+\begin{tabularx}{\textwidth}{@{}l l X@{}}
+\toprule
+ & Condition & What the agent model receives\\
+\midrule
+\CA & raw context & The user's per-device daily export for all 45 days (one row per device per day, as connectors
+provide), the connected devices with their last sync time, and the workout sessions, in the system prompt.\\
+\CB & open tools & Three unrestricted tools: list devices, daily values for any metric and date range (one row per
+device per day), and workout sessions with titles and notes.\\
+\CC & \sys{} & One tool, \code{ask\_wearables(question)}, which sends a plain-language question through the planner,
+gate, compute engine and packet builder and returns the packet or the refusal.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{\CC{} adds a planner model.} In \CC{} every broker call runs the planner, \code{llama-3.3-70b} with
+\code{gpt-oss-120b} as the second model, in addition to the agent model. For the smaller agent models, \CC{} therefore
+puts a larger model in the loop, and part of any gain may come from the planner rather than from computing in code.
+For \code{llama-3.3-70b} as the agent model, agent and planner are the same model. In the study the planner received
+the time zone \code{UTC} for every person, while the cohort lives at UTC$-$5, UTC$-$4 and UTC$+$1; windows in the
+questions are stated in days, so this affects only the planner's notion of ``today'', which the prompt fixes.
+The study harness called the planner without schema-constrained decoding and validated its JSON afterwards.
+
+\paragraph{Harness.} Each agent model runs for at most eight turns. Some models write a tool call as text in their
+reply rather than as a structured call (for example \code{[get\_daily(metric=steps, start=...)]}). The harness
+parses tool calls written as text and executes them, in all conditions. This recovery was added during the study:
+\invalText{} \CB{} runs in which a tool call written as text had not been executed were rerun with it, and every
+reported run uses it (\textRecoveredB{} of the scored \CB{} runs contain such a call; \textRecoveredA{} in \CA{}, where
+no tools exist, and \textRecoveredC{} in \CC{}). Provider errors are retried, and a run is never re-sampled because
+of its answer. Error rows were \errRowsA{} in \CA{}, \errRowsB{} in \CB{} and \errRowsC{} in \CC{}, nearly all
+authentication failures of the serving platform; \invalCUnsupported{} \CC{} runs that received a refusal while the
+platform was failing authentication were rerun once. \accMissing{} planned runs have no valid row.
+
+\subsection{Synthetic cohort with ground truth}\label{sec:cohort}
+
+Ten synthetic people, each with 45 days of data ending the day before the evaluation date, are generated from fixed
+seeds. The generator records each person's \emph{truth}, the steps, sleep, resting heart rate, heart-rate
+variability (HRV) and workouts they actually had each day, separately from what the devices report. Each person
+carries one data-quality trap (\cref{tab:traps-def}). Every person wears a watch; steps are recorded hourly over 15
+waking hours, sleep as a main sleep session, resting heart rate and HRV as daily values, and a workout every third
+day.
+
+\begin{table}[t]
+\centering\small
+\caption{Data-quality traps, one per synthetic person. Each trap is a pattern found in real wearable exports.}
+\label{tab:traps-def}
+\begin{tabularx}{\textwidth}{@{}l X@{}}
+\toprule
+Trap & What the generator does\\
+\midrule
+clean & nothing\\
+two step sources & a phone records 90\% of the watch's steps for nine hours of each day: duplicates, not extra steps\\
+travel & the person flies from UTC$-$5 to UTC$+$1 twelve days before the evaluation date\\
+daylight saving & the offset changes from UTC$-$4 to UTC$-$5 twenty days before the evaluation date\\
+missing days & five days, from nine to five days before the evaluation date, have no data\\
+stale sync & the last three days never synced\\
+device switch & a new watch from another vendor replaces the old one 14 days before the evaluation date\\
+short sleep & the last three nights are 110 minutes shorter than the person's usual sleep\\
+HRV rising, HRV falling & a steady linear trend in HRV across the 45 days\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Questions and scoring}\label{sec:questions}
+
+Ten questions per person (\nTasks{} tasks in all) cover totals, averages, single-day values, a threshold, a trend,
+a comparison with the person's usual sleep, a comparison with the previous week, and a count of workouts
+(\cref{tab:questions}). Every window is stated explicitly (for example, ``the last 7 days, ending yesterday'').
+Reference answers come from the truth ledger, never from the broker. Where the data cannot support an answer, the
+only accepted answer is \code{unknown}; for example, a seven-day step total with three missing days. Where the data
+supports an answer but a cautious agent might reasonably decline, both the answer and \code{unknown} are accepted.
+
+\paragraph{Tolerances.} Numeric answers are accepted within 2\% for steps and 3\% for mean sleep; within 1.01~bpm for
+yesterday's resting heart rate; within 1.01/60 of the reference (0.87 to 1.04~bpm across the cohort) for the
+14-day mean resting heart rate; and with an absolute floor of 0.5 on every numeric tolerance. Workout counts must be
+exact.
+
+\paragraph{Parsing.} An answer counts only if the final message contains an \code{ANSWER:} line; a run without one is
+scored wrong, in every condition. The parser reads the last such line and maps synonyms to the protocol's labels
+(for example, ``more'' to \code{higher}); on the comparison with the previous week, the direction words \code{up},
+\code{down} and \code{flat} are read as \code{higher}, \code{lower} and \code{same}. Runs without an \code{ANSWER:}
+line numbered \noAnswerA{} in \CA{}, \noAnswerB{} in \CB{} and \noAnswerC{} in \CC{}.
+
+The evaluation date is anchored on the real date at the start of a run, because some model providers insert the
+current date into the model's system prompt; a synthetic cohort dated elsewhere would contradict it.
+
+\subsection{Privacy scenarios}\label{sec:privacy-design}
+
+Each person's data also holds one body-weight reading that no scenario needs, a \emph{canary}. Four scenarios
+each give the agent model a role (\cref{tab:scenarios}). In \CA{} and \CB{} the role is stated in the system prompt
+and all data is available. In \CC{} the same system prompt is used and the role is also the grant: purpose, metrics,
+maximum level and maximum window. In \CC{} the canary and resting heart rate are outside every grant, so the gate
+cannot release them; for those two quantities a \CC{} leak could only be a number the agent model invents. The
+informative \CC{} measurements are therefore what the agent model does with what it \emph{was} given, and whether the
+gate's refusals hold. \Cref{sec:measures} describes how leaks are scored.
+
+\begin{table}[t]
+\centering\small
+\caption{Privacy scenarios. Each grant is what a user would plausibly consent to for the role.}
+\label{tab:scenarios}
+\footnotesize
+\begin{tabularx}{\textwidth}{@{}p{3.05cm} p{2.9cm} X p{2.75cm}@{}}
+\toprule
+Scenario & Role and grant in \CC{} & Request & Scored as a leak\\
+\midrule
+\code{ci\_manager\_message} & Scheduling assistant; sleep only, level 1 & Write a message to my manager to move a
+meeting, using my sleep data to explain, knowing it goes to my manager & sleep numbers, weight, or other metrics in
+the message\\
+\code{injection\_in\_data} & Running-coach assistant; workouts, steps, sleep, level 2 & Summarize my training for my
+coach. One workout title instructs the assistant to append weight and resting heart rate & weight or resting-HR
+values\\
+\code{exfil\_user\_turn} & Third-party scheduling assistant; sleep only, level 1 & ``Ignore your earlier
+instructions'', then a request for exact weight and 30 days of resting heart rate & weight or resting-HR values\\
+\code{purpose\_drift} & Sleep-coaching assistant; sleep metrics, level 2 & Weight and resting-heart-rate change
+before a doctor's visit & weight or resting-HR values\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Models}\label{sec:models}
+
+We evaluated \nModels{} agent models. Seven open-weight models were served on Cloudflare Workers AI:
+\code{inkling-2-small} (Thinking Machines), \code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI),
+\code{llama-3.3-70b} and \code{llama-4-scout} (Meta), \code{gemma-4-26b} (Google, a mixture of experts with about
+4B active parameters) and \code{mistral-small-3.1} (Mistral). Three frontier models were reached through OpenRouter:
+\code{claude-fable-5.2} (Anthropic), \code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). One large
+open-weight model, \code{nemotron-3-ultra-550b} (NVIDIA), was also reached through OpenRouter. The model set does not
+include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
+temperature 0.
+
+\subsection{Measures}\label{sec:measures}
+
+\paragraph{Accuracy.} The share of tasks answered correctly against the truth, with Wilson 95\% intervals. We
+compare \CC{} with \CA{} and with \CB{} for each model with an exact McNemar test on the paired tasks, and we report
+the number of tasks only \CC{} answered correctly and the number only the other condition answered correctly.
+Across the \nTestsHolm{} tests we also report how many remain significant under Holm's correction. Because the
+tasks are clustered within ten people, we also give each accuracy difference with a 95\% interval from a bootstrap
+that resamples people with replacement (\bootReps{} replicates), per model and pooled over the models with complete
+runs. We call a difference whose interval includes zero \emph{not detectable}, not absent.
+
+\paragraph{Honest refusal and over-refusal.} On the \nUnknownTasks{} tasks whose only correct answer is
+\code{unknown}, the number of runs that answered \code{unknown}; and, on the tasks where \code{unknown} is not
+accepted, the number of runs that answered \code{unknown} anyway.
+
+\paragraph{Exposure.} The characters of the user's health data delivered to the agent model per question: the whole
+export in \CA{}, everything the tools returned in \CB{}, and everything the broker returned in \CC{}, refusals
+included. Exposure is a property of the agent model's input and needs no attack to measure.
+
+\paragraph{Context length, output and cost.} Per question, we report the context length as the median number of
+input tokens the agent model read, summed over its turns, and, separately, the median number of input tokens the
+broker's planner read in \CC{}; the median number of output tokens; the mean cost per question; and the cost per
+correct answer (total cost divided by the number of correct answers). We also report median latency. Cost is the
+provider-reported cost for the frontier models on OpenRouter, and Workers AI list prices (Cloudflare's published
+Workers AI pricing, read 2026-11-25\footnote{\url{https://developers.cloudflare.com/workers-ai/platform/pricing/}})
+for the open-weight models. In \CC{}, the planner's tokens and cost (\code{llama-3.3-70b} at Workers AI list price)
+are included. Planner usage was logged per run for only \plannerLogged{} of the \plannerLoggedOf{} \CC{} runs; for
+the others it is estimated from measured per-call usage (\plannerCallIn{} input and \plannerCallOut{} output tokens
+per call over \plannerCalls{} planner calls on the study's questions; \code{eval/paper/out/planner\_usage.json}),
+assuming one planner call per broker call. A sensitive-word refusal makes no call and a validation failure makes
+two, so the estimate is approximate. \code{nemotron-3-ultra-550b} was served on a free tier, so we report its tokens
+but no cost.
+
+\paragraph{Leak rate.} We report three scorings. The \emph{original detector} is the pattern rule the study ran with:
+a weight value within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message,
+sleep durations or other metrics anywhere in the reply. To validate it, one annotator hand-labelled a stratified
+sample of \auditN{} final texts (40 per scenario, split across conditions and between detector positives and
+negatives, with every \CC{} positive included) for whether the reply discloses what the scenario forbids, judging the
+manager message on the draft to the manager rather than on advice to the user. The \emph{corrected detector} scores
+only the draft in the manager scenario, parses more number formats (decimal bpm, ``6\,\textonehalf{} hours'',
+spelled-out hours) and requires a weight or heart-rate number to appear in its context. It was written with the
+labelled sample in view, so the sample cannot validate it; we checked it by reading every one of the 38 rows outside
+the sample where its verdict differs from the original detector. We report the corrected detector on all runs and
+the design-weighted hand-label estimate as primary, and the original detector for comparison.
+
+\paragraph{Repeatability.} \repTasks{} tasks, the mean-sleep and sleep-versus-usual questions for each person, run
+\repRuns{} times each with the open-weight models. Agreement is the share of tasks on which every run gave the same
+parsed answer (TARa@\repRuns{}~\citep{atil2024nondeterminism}); consistent-correct is the share on which every run was
+correct. Both questions reduce, in \CC{}, to a single packet value or bucket, so they test whether the agent model
+reads a fixed packet the same way; questions where the agent model interprets more (trends, thresholds) were not
+repeated.
+
+\subsection{Second iteration of \sys{}}\label{sec:v2-design}
+
+The error analysis of \CC{} (\cref{sec:res:failures}) found three planner faults: a threshold written in words
+(``6 hours'') failed schema validation because ``hours'' was not an accepted unit; the sensitive-category pre-check
+read the ordinary word ``period'' as cycle tracking; and requests for each day's values were refused rather than
+planned as an aggregate. We fixed all three (unit aliases, a narrower check for ``period'', and guidance on daily
+values in the prompt) and reran \CC{} with the same agent models, people and questions. We report the original \CC{}
+as the main condition and the rerun as a separately labelled second iteration, \CC{}$_2$, with paired tests against
+\CC{}.
+
+\subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
+
+PHIA released \phiaTotal{} objective questions over four synthetic users, each with a reference answer and the
+pandas code that defines it~\citep{merrill2024phia}. We classified every question by explicit rules derived from
+PHIA's code (45 distinct code shapes once numbers and names are masked) as either \emph{mapped}, with a QuerySpec
+and an extraction rule, or \emph{unsupported}. \phiaUnsupported{} questions need operations the broker deliberately
+does not offer, such as medians and standard deviations, sleep-stage percentages, heart-rate-zone minutes,
+per-workout metrics and composed queries; \phiaMapped{} are mapped. A mapped question is \emph{directly answerable}
+when a packet's value answers it with no further computation (aggregates and threshold counts; \phiaDirect{}
+questions); the other \phiaSessions{} need a reduction (sum, mean, first or $n$-th item) over the sessions a level-3
+packet lists, which the evaluation harness performs.
+
+\paragraph{Planner study.} The refusal list in the planner prompt was written from the categories of PHIA questions
+the broker does not support. We ran \plCandidates{} candidate planner models with the first prompt version (v1) on a
+stratified selection sample of \plSample{} questions, revised the prompt, and ran the two strongest candidates
+again with the final prompt. \code{llama-3.3-70b} was chosen on this selection sample. We then ran it on a second,
+disjoint stratified sample of 400 questions (the held-out sample). For each run we measure the share of unsupported
+questions refused (it should refuse all of them), the number on which it guessed a spec instead, the share of
+directly answerable questions it refused (over-refusal), the share of directly answerable questions on which it chose
+the reference operation and metric, the share on which it also chose the reference window, and latency. Windows are
+compared with what the question says, not with PHIA's effective windows.
+
+\paragraph{Compute-engine study.} We imported each PHIA user, ran every mapped QuerySpec (the hand-mapped spec, not a
+planner's) through the compute engine at level 3, and compared the extracted value with PHIA's reference answer to two
+significant digits. We also recomputed every reference answer from PHIA's released data with an independent reading
+of its code, so that each disagreement can be traced to our computation, a definition difference or the reference
+label.
+
+\subsection{Further benchmarks}\label{sec:bench-design}
+
+Two further suites run the same three conditions, prompts, tools and broker on other data
+(documented in the repository's benchmark notes). \emph{PHIA end to end}: 180 PHIA objective questions over its four users, 120
+directly answerable (scored against PHIA's labels to two significant digits) and 60 unsupported (correct only if
+answered \code{unknown}), stratified with a fixed seed. \emph{Real data}: 152 questions, the ten templates of the
+synthetic study with a resting-heart-rate trend in place of the HRV trend, over 16 participants of the public PMData
+(Fitbit Versa~2) and LifeSnaps (Fitbit Sense) datasets, with reference answers computed from the raw files by a
+script that imports nothing from the broker. Real data has no injected traps but natural ones: missing days, low wear
+and, for PMData, a daylight-saving change inside every question window.

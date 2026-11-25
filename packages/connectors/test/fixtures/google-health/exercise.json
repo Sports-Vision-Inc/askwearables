@@ -1,0 +1,1 @@
+{"dataPoints":[{"dataPointName":"users/123456789012345678/dataTypes/exercise/dataPoints/fake-ex-1","exercise":{"interval":{"startTime":"2026-11-20T16:00:00Z","startUtcOffset":"-28800s","endTime":"2026-11-20T16:40:00Z","endUtcOffset":"-28800s"},"exerciseType":"RUNNING","displayName":"Morning run","activeDuration":"2400s","exerciseMetadata":{"hasGps":false}}}],"nextPageToken":""}

@@ -1,0 +1,1 @@
+{"name":"@askwearables/edge","private":true,"type":"module","dependencies":{"@askwearables/core":"*","@modelcontextprotocol/server":"^2.4.0","agents":"^0.34.0","zod":"^4.6.7"}}

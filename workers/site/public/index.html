@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AskWearables</title>
+<meta name="description" content="A broker between wearable data and AI agents. Each question gets a small computed packet at the level the user approved, with a receipt for every release.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script src="/js/data.js" defer></script>
+<script src="/js/results.js" defer></script>
+<script src="/js/home.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="inner">
+  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="/docs/">Docs</a>
+    <a href="/docs/quickstart">Quickstart</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API</a>
+    <a href="https://app.askwearables.app/">Console</a>
+  </nav>
+</div></header>
+
+<main id="main">
+  <section class="hero-band">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><img class="emoji" src="/assets/emoji/twemoji/231a.svg" alt="" width="18" height="18"> Wearable data for AI agents</p>
+        <h1>Agents get the answer, not your whole health record.</h1>
+        <p class="lede">AskWearables sits between wearable data and any AI agent. A planner turns each question into a typed query, a gate checks it against the grant you approved, tested code computes the answer, and the agent gets a small packet with a receipt.</p>
+        <div class="actions">
+          <a class="btn primary" href="/docs/quickstart">Developer quickstart</a>
+          <a class="btn" href="#connect">Connect over MCP</a>
+          <a class="btn" href="/results">Study results</a>
+        </div>
+      </div>
+
+      <figure class="walk" id="walk" aria-labelledby="walk-title">
+        <div class="walk-top">
+          <figcaption class="walk-title" id="walk-title">Real runs from the study: one question, three routes</figcaption>
+          <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
+        </div>
+        <div class="walk-tabs" id="walk-tabs" role="tablist" aria-label="Examples"></div>
+        <div class="walk-progress" aria-hidden="true"><span id="walk-progress"></span></div>
+        <div class="walk-panel" id="walk-panel" role="tabpanel" tabindex="0">
+          <p class="walk-why" id="walk-why"></p>
+          <div class="walk-body">
+            <ol class="walk-steps" aria-label="Through AskWearables">
+              <li class="ws" data-step="ask">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-bot"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The agent asks <span class="ws-sub" data-f="model"></span></p>
+                  <p class="ws-bubble" data-f="ask"></p>
+                </div>
+              </li>
+              <li class="ws" data-step="plan">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-brain"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The LLM planner writes a typed QuerySpec <span class="ws-sub">sees the question, never data</span></p>
+                  <pre class="ws-spec" data-f="spec"></pre>
+                </div>
+              </li>
+              <li class="ws" data-step="gate">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-shield-check"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The policy gate checks the grant <span class="ws-sub">plain code, deny by default</span></p>
+                  <ul class="ws-checks" data-f="checks"></ul>
+                </div>
+              </li>
+              <li class="ws" data-step="vault">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-cpu"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The vault computes <span class="ws-sub">fixed operations, the user's local days</span></p>
+                  <div class="ws-vault" data-f="vault"></div>
+                </div>
+              </li>
+              <li class="ws" data-step="packet">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-receipt"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The agent receives a packet</p>
+                  <div class="ws-packet" data-f="packet"></div>
+                </div>
+              </li>
+            </ol>
+            <aside class="walk-compare" aria-label="The same question in all three conditions">
+              <p class="wc-truth"><span class="wc-truth-label">True answer</span> <strong data-f="truth"></strong></p>
+              <div class="wc-cards" data-f="cards"></div>
+            </aside>
+          </div>
+        </div>
+        <p class="walk-loading" id="walk-loading">Loading examples from the study…</p>
+        <noscript><p class="walk-loading">The walkthrough needs JavaScript. <a href="/results#examples">Browse the examples</a> on the results page.</p></noscript>
+      </figure>
+      <p class="fine hero-fine">Synthetic people, real model runs. For general wellness and personal insight only; not medical advice.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+  <section class="block" aria-labelledby="problem">
+    <p class="eyebrow">The problem</p>
+    <h2 id="problem">Today an agent either reads the raw export or calls a tool that can fetch anything.</h2>
+    <div class="grid-2">
+      <div class="card problem">
+        <h3><span class="ico ico-file-text" aria-hidden="true"></span>Models misread raw wearable data</h3>
+        <p>Real exports carry traps: a phone and a watch counting the same steps, a flight or a clock change that shifts a night, missing days, a stale sync, a new device with a new baseline. Doing arithmetic over hundreds of rows, models get these wrong, and answer the same question differently from run to run.</p>
+      </div>
+      <div class="card problem">
+        <h3><span class="ico ico-lock" aria-hidden="true"></span>Models see everything</h3>
+        <p>A connector or open data tool hands the agent whatever its credential reaches. A scheduling assistant that only needs "slept badly" can read your weight, and text planted in a workout title can steer it into repeating what it saw.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="sees">
+    <p class="eyebrow">What the agent sees</p>
+    <h2 id="sees">A wall of rows, or one short packet</h2>
+    <p>Median characters of health data that reached the agent model per question in the study, by condition.</p>
+    <div class="sees" id="sees-box">
+      <figure class="wall" aria-labelledby="wall-cap">
+        <div class="wall-head"><span class="ico ico-file-text" aria-hidden="true"></span><span class="wall-name">export.csv</span><span class="wall-meta" data-f="wall-meta"></span></div>
+        <div class="wall-window" aria-hidden="true"><div class="wall-roll" id="wall-roll"></div></div>
+        <figcaption id="wall-cap" class="fine" data-f="wall-cap">The opening rows of one synthetic person's export.</figcaption>
+      </figure>
+      <div class="sizes" id="sizes" role="list" aria-live="polite">
+        <p class="loading">Loading results…</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="how">
+    <p class="eyebrow">How it works</p>
+    <h2 id="how">The model plans. Code computes. A gate decides what leaves.</h2>
+    <div class="how-grid">
+      <figure class="flowfig">
+        <svg class="flowsvg" viewBox="0 0 360 616" role="img" aria-labelledby="flow-title flow-desc">
+          <title id="flow-title">Request flow</title>
+          <desc id="flow-desc">An agent sends a question to the edge, which authenticates the token. The planner turns the question into a typed QuerySpec without seeing data. The policy gate checks it against the grant. The per-user vault computes the answer, builds a packet at the released level and writes a receipt. The packet returns to the agent.</desc>
+          <defs>
+            <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="f-head" d="M0,0 L10,5 L0,10 z"/></marker>
+            <marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="f-head ret" d="M0,0 L10,5 L0,10 z"/></marker>
+          </defs>
+          <rect class="f-zone" x="4" y="4" width="352" height="80" rx="10"/>
+          <text class="f-zl" x="16" y="22">AGENT</text>
+          <rect class="f-box" x="20" y="30" width="270" height="46" rx="8"/>
+          <text class="f-t" x="155" y="49" text-anchor="middle">Any AI agent</text>
+          <text class="f-s" x="155" y="66" text-anchor="middle">ask(question) over MCP or REST</text>
+
+          <rect class="f-zone" x="4" y="96" width="352" height="202" rx="10"/>
+          <text class="f-zl" x="16" y="114">REQUEST PATH</text><text class="f-zs" x="314" y="114" text-anchor="end">no data, no policy</text>
+          <rect class="f-box" x="20" y="122" width="270" height="50" rx="8"/>
+          <text class="f-t" x="155" y="142" text-anchor="middle">Edge</text>
+          <text class="f-s" x="155" y="160" text-anchor="middle">OAuth 2.1 · token bound to one grant</text>
+          <rect class="f-box f-plan" x="20" y="198" width="270" height="90" rx="8"/>
+          <text class="f-t" x="155" y="218" text-anchor="middle">LLM planner</text>
+          <text class="f-s" x="155" y="236" text-anchor="middle">question → typed QuerySpec, or refuse</text>
+          <text class="f-s" x="155" y="252" text-anchor="middle">output checked against a schema</text>
+          <text class="f-s f-em" x="155" y="274" text-anchor="middle">never sees health data</text>
+
+          <rect class="f-zone f-prot" x="4" y="310" width="352" height="302" rx="10"/>
+          <text class="f-zl" x="16" y="328">PROTECTED</text><text class="f-zs" x="314" y="328" text-anchor="end">no public route</text>
+          <rect class="f-box" x="20" y="336" width="270" height="80" rx="8"/>
+          <text class="f-t" x="155" y="356" text-anchor="middle">Policy gate</text>
+          <text class="f-s" x="155" y="374" text-anchor="middle">grant · metrics · provider terms · sensitive</text>
+          <text class="f-s" x="155" y="390" text-anchor="middle">window · level · daily budget · purpose</text>
+          <text class="f-s f-em" x="155" y="407" text-anchor="middle">plain code, deny by default</text>
+          <rect class="f-box" x="20" y="440" width="270" height="162" rx="8"/>
+          <text class="f-t" x="155" y="460" text-anchor="middle">Per-user vault</text>
+          <rect class="f-in f-good" x="34" y="470" width="242" height="38" rx="6"/>
+          <text class="f-t f-sm" x="155" y="486" text-anchor="middle">Compute engine</text>
+          <text class="f-s" x="155" y="500" text-anchor="middle">8 fixed operations, tested code</text>
+          <rect class="f-in f-good" x="34" y="514" width="242" height="38" rx="6"/>
+          <text class="f-t f-sm" x="155" y="530" text-anchor="middle">Packet builder</text>
+          <text class="f-s" x="155" y="544" text-anchor="middle">coarsest level · caveats · ≤ 400 tokens</text>
+          <rect class="f-in" x="34" y="558" width="242" height="36" rx="6"/>
+          <text class="f-t f-sm" x="155" y="573" text-anchor="middle">Receipt</text>
+          <text class="f-s" x="155" y="587" text-anchor="middle">hash-chained, releases and denials</text>
+
+          <path class="f-line" d="M155,76 L155,120" marker-end="url(#fa)"/>
+          <path class="f-line" d="M155,172 L155,196" marker-end="url(#fa)"/>
+          <path class="f-line" d="M155,288 L155,334" marker-end="url(#fa)"/>
+          <path class="f-line" d="M155,416 L155,438" marker-end="url(#fa)"/>
+          <path class="f-ret" d="M290,533 L318,533 Q326,533 326,525 L326,61 Q326,53 318,53 L294,53" marker-end="url(#fr)"/>
+          <circle class="f-n" cx="174" cy="90" r="8"/><text class="f-nt" x="174" y="94" text-anchor="middle">1</text>
+          <circle class="f-n" cx="174" cy="185" r="8"/><text class="f-nt" x="174" y="189" text-anchor="middle">2</text>
+          <circle class="f-n" cx="174" cy="304" r="8"/><text class="f-nt" x="174" y="308" text-anchor="middle">3</text>
+          <circle class="f-n" cx="174" cy="428" r="8"/><text class="f-nt" x="174" y="432" text-anchor="middle">4</text>
+          <circle class="f-n ret" cx="326" cy="290" r="9"/><text class="f-nt" x="326" y="294" text-anchor="middle">5</text>
+          <text class="f-s f-rl" x="342" y="200" text-anchor="middle" transform="rotate(90 342 200)">packet + receipt</text>
+        </svg>
+      </figure>
+      <ol class="flow">
+        <li><span class="who"><span class="ico ico-bot" aria-hidden="true"></span>The agent asks a plain question</span> over MCP or REST. Its token is bound to one agent and one grant.</li>
+        <li><span class="who"><span class="ico ico-brain" aria-hidden="true"></span>The planner writes a typed query.</span> It sees the question, the date and the metric catalogue, never data. Anything that does not validate is refused.</li>
+        <li><span class="who"><span class="ico ico-shield-check" aria-hidden="true"></span>The gate checks the query against the grant</span> before any data is read: metrics, provider terms, sensitive categories, window, release level, daily budget and purpose.</li>
+        <li><span class="who"><span class="ico ico-cpu" aria-hidden="true"></span>The vault computes the answer</span> in the user's own encrypted store, with eight fixed operations. Sources are never summed; days are the user's local days; gaps are never filled in.</li>
+        <li><span class="who"><span class="ico ico-receipt" aria-hidden="true"></span>The agent receives a packet</span> at the coarsest level that answers the question: findings against the user's own baseline, caveats, freshness and sources, plus a receipt.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="proof">
+    <p class="eyebrow">Proof</p>
+    <h2 id="proof">Same models, same questions, three ways to reach the data</h2>
+    <p>We gave each agent model the same synthetic people, with ground truth recorded by construction and real-world data traps, in three conditions: <span class="key"><span class="sw sw-a"></span>A: raw data in the model's context</span>, <span class="key"><span class="sw sw-b"></span>B: open data tools</span> and <span class="key"><span class="sw sw-c"></span>C: AskWearables</span>. Every model we ran is shown, including the ones where AskWearables made no difference.</p>
+    <div class="tiles" id="proof-tiles" aria-live="polite"></div>
+<div class="chart-card" data-chart="accuracy-cost" id="cost-chart">
+      <div class="chart-head">
+        <label class="ctl">Models <select data-ctl="group">
+          <option value="all">All models</option>
+          <option value="open">Open models</option>
+          <option value="frontier">Frontier models</option>
+        </select></label>
+        <button class="toggle" type="button" aria-pressed="false" hidden>Table</button>
+      </div>
+      <p class="chart-sub">Each model in each condition: accuracy against what one correct answer cost. A thin line joins a model's A point to its C point.</p>
+      <div class="chart-body"><p class="loading">Loading results…</p></div>
+    </div>
+    <div class="chart-card" id="proof-chart" data-chart="accuracy-compact">
+      <div class="chart-head"><h3>Accuracy by model</h3><button class="toggle" type="button" aria-pressed="false" hidden>Table</button></div>
+      <p class="chart-sub">Share of questions answered correctly, with 95% intervals.</p>
+      <div class="chart-body"><p class="loading">Loading results…</p></div>
+    </div>
+    <noscript><p class="note">The charts need JavaScript. The underlying data is at <a href="/data/results.json">/data/results.json</a>.</p></noscript>
+    <div class="actions"><a class="btn primary" href="/results">Open the results explorer</a><a class="btn" href="/results#methodology">How we measured</a></div>
+  </section>
+
+  <section class="block" aria-labelledby="levels">
+    <p class="eyebrow">Minimum necessary</p>
+    <h2 id="levels">Four levels of detail. The gate releases the lowest that answers.</h2>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th scope="col">Level</th><th scope="col">The agent receives</th><th scope="col">Example</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">0 · Flag</th><td data-label="The agent receives">Yes, no or unknown</td><td data-label="Example">"Sleep duration under 6 h 0 min on any night from 2026-11-18 to 2026-11-24: no"</td></tr>
+        <tr><th scope="row">1 · Trend</th><td data-label="The agent receives">Direction and a size bucket against the user's usual range</td><td data-label="Example">"Sleep duration moderately below usual range on 3 of the last 3 nights"</td></tr>
+        <tr><th scope="row">2 · Daily</th><td data-label="The agent receives">Daily values with units</td><td data-label="Example">"… usual range 7 h 10 min to 7 h 29 min", with nightly values in minutes</td></tr>
+        <tr><th scope="row">3 · Raw</th><td data-label="The agent receives">Samples and session detail</td><td data-label="Example">A heart-rate series for one run</td></tr>
+      </tbody>
+    </table></div>
+    <p>The user picks the most an agent may see, per agent and per purpose. <a href="/docs/packets">Read the packet contract</a> or <a href="/docs/privacy">how the gate decides</a>.</p>
+  </section>
+
+  <section class="block" aria-labelledby="developers">
+    <p class="eyebrow">Developers</p>
+    <h2 id="developers">Start in a few minutes</h2>
+    <div class="dev-grid">
+      <div class="card" id="connect">
+        <h3>Connect an MCP client</h3>
+        <p>For a person connecting their own agent. The client signs in with OAuth and the person approves a grant.</p>
+        <p class="code-label">Claude Code</p>
+        <pre><code>claude mcp add --transport http askwearables \
+  https://mcp.askwearables.app/mcp</code></pre>
+        <p class="code-label">Project .mcp.json</p>
+        <pre><code>{
+  "mcpServers": {
+    "askwearables": {
+      "type": "http",
+      "url": "https://mcp.askwearables.app/mcp"
+    }
+  }
+}</code></pre>
+        <p><a href="/docs/quickstart#mcp">MCP connection details</a></p>
+      </div>
+      <div class="card">
+        <h3>Ask from your server</h3>
+        <p>For developers serving their own users with a signed developer key. The SDKs sign each request for you.</p>
+        <p class="code-label">TypeScript SDK</p>
+        <pre><code>npm install ./sdks/typescript</code></pre>
+        <pre><code>import { AskWearables } from "@askwearables/sdk";
+
+const aw = new AskWearables({
+  baseUrl: "https://api.askwearables.app",
+  apiKey: process.env.AW_DEV_KEY!,
+  signingSecret: process.env.AW_DEV_SIGNING_SECRET,
+  user: "user-123",
+});
+const res = await aw.ask("How did I sleep this week?");</code></pre>
+        <p class="code-label">Python SDK</p>
+        <pre><code>pip install ./sdks/python</code></pre>
+        <p><a href="/docs/quickstart">Full quickstart</a> · the SDKs live in the repository under <code>sdks/</code>.</p>
+      </div>
+    </div>
+    <div class="link-row">
+      <a class="link-card" href="/docs/api"><strong>API reference</strong><span>Every REST endpoint at <code>api.askwearables.app/v1</code></span></a>
+      <a class="link-card" href="/openapi.json"><strong>OpenAPI document</strong><span>For code generators and tools</span></a>
+      <a class="link-card" href="/docs/packets"><strong>Packet contract</strong><span>Fields, levels and caveats</span></a>
+      <a class="link-card" href="https://app.askwearables.app/"><strong>Console</strong><span>Sources, grants and receipts</span></a>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="selfhost">
+    <p class="eyebrow">Self-host</p>
+    <h2 id="selfhost">Run it on your own Cloudflare account</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>One-click deploy</h3>
+        <p class="deploy-row"><!-- deploy-button --><span class="deploy-btn" aria-disabled="true" data-href="https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR-ORG/askwearables"><svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>Deploy to Cloudflare</span><span class="deploy-state">Not available for this project yet. Use the manual steps.</span><!-- /deploy-button --></p>
+        <p>Cloudflare's Deploy button deploys one Worker from one public repository, and needs that Worker's code and dependencies isolated in its own directory. AskWearables is seven Workers that call each other through service bindings and share a core package and a D1 schema, so a single button cannot set it up. Until a single-Worker template exists, deploy by hand.</p>
+      </div>
+      <div class="card">
+        <h3>Manual steps</h3>
+        <ol class="steps">
+          <li>Clone the repository and run <code>npm install</code>.</li>
+          <li>Create the D1 database, the KV namespace and the R2 bucket, and put their ids in the Workers' configs.</li>
+          <li>Set three secrets: <code>MASTER_KEY</code> (vault), <code>GATE_SECRET</code> (gate), <code>OWNER_SETUP_TOKEN</code> (auth).</li>
+          <li>Replace the host names with your domain, apply the D1 migrations, and deploy vault, gate, planner, auth, edge, console and site in that order.</li>
+          <li>Open the setup link once to register the owner's passkey.</li>
+        </ol>
+        <p><a href="/docs/self-hosting">Self-hosting guide</a></p>
+      </div>
+    </div>
+    <details class="arch-details">
+      <summary>Seven Workers, four trust zones</summary>
+      <p>Only the protected zone touches stored data, and nothing public calls it directly. This site is the <code>site</code> Worker: static pages with no data bindings.</p>
+      <figure class="diagram">
+        <div class="diagram-scroll">
+        <svg class="arch" viewBox="0 0 680 640" role="img" aria-labelledby="arch-title arch-desc">
+          <title id="arch-title">AskWearables architecture</title>
+          <desc id="arch-desc">Four trust zones. Public: site and console. Identity: auth. Request path: edge and planner. Protected: gate and vault. Agents reach edge; edge asks planner to plan and gate to decide; gate asks vault to compute and release. The owner's browser reaches console, which reaches gate for the signed-in owner. Gate re-checks agent tokens with auth.</desc>
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0,0 L10,5 L0,10 z"/></marker>
+            <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead bind" d="M0,0 L10,5 L0,10 z"/></marker>
+          </defs>
+          <rect class="actor" x="30" y="12" width="180" height="50" rx="25"/>
+          <text class="w-name" x="120" y="34" text-anchor="middle">AI agents</text>
+          <text class="w-sub" x="120" y="50" text-anchor="middle">MCP clients, developer servers</text>
+          <rect class="actor" x="250" y="12" width="180" height="50" rx="25"/>
+          <text class="w-name" x="340" y="34" text-anchor="middle">Owner</text>
+          <text class="w-sub" x="340" y="50" text-anchor="middle">browser, passkey</text>
+          <rect class="zone z-public" x="10" y="84" width="660" height="108" rx="12"/>
+          <text class="zone-label" x="656" y="106" text-anchor="end">Public</text>
+          <rect class="zone z-identity" x="10" y="202" width="660" height="108" rx="12"/>
+          <text class="zone-label" x="656" y="224" text-anchor="end">Identity</text>
+          <rect class="zone z-request" x="10" y="320" width="660" height="108" rx="12"/>
+          <text class="zone-label" x="656" y="342" text-anchor="end">Request path</text>
+          <rect class="zone z-protected" x="10" y="438" width="660" height="190" rx="12"/>
+          <text class="zone-label" x="656" y="460" text-anchor="end">Protected</text>
+          <rect class="worker" x="250" y="120" width="180" height="54" rx="8"/>
+          <text class="w-name" x="340" y="143" text-anchor="middle">console</text>
+          <text class="w-sub" x="340" y="161" text-anchor="middle">sources, grants, receipts</text>
+          <rect class="worker" x="470" y="120" width="180" height="54" rx="8"/>
+          <text class="w-name" x="560" y="143" text-anchor="middle">site</text>
+          <text class="w-sub" x="560" y="161" text-anchor="middle">static pages and docs</text>
+          <rect class="worker" x="470" y="238" width="180" height="54" rx="8"/>
+          <text class="w-name" x="560" y="261" text-anchor="middle">auth</text>
+          <text class="w-sub" x="560" y="279" text-anchor="middle">OAuth 2.1, passkeys, consent</text>
+          <rect class="worker" x="30" y="356" width="180" height="54" rx="8"/>
+          <text class="w-name" x="120" y="379" text-anchor="middle">edge</text>
+          <text class="w-sub" x="120" y="397" text-anchor="middle">MCP and REST adapters</text>
+          <rect class="worker" x="470" y="356" width="180" height="54" rx="8"/>
+          <text class="w-name" x="560" y="379" text-anchor="middle">planner</text>
+          <text class="w-sub" x="560" y="397" text-anchor="middle">question to QuerySpec, no data</text>
+          <rect class="worker" x="250" y="474" width="180" height="54" rx="8"/>
+          <text class="w-name" x="340" y="497" text-anchor="middle">gate</text>
+          <text class="w-sub" x="340" y="515" text-anchor="middle">policy, budgets, receipts</text>
+          <rect class="worker" x="470" y="474" width="180" height="54" rx="8"/>
+          <text class="w-name" x="560" y="497" text-anchor="middle">vault</text>
+          <text class="w-sub" x="560" y="515" text-anchor="middle">store, compute, packets</text>
+          <rect class="store" x="250" y="552" width="180" height="56" rx="8"/>
+          <text class="s-text" x="340" y="575" text-anchor="middle">D1: users, agents,</text>
+          <text class="s-text" x="340" y="592" text-anchor="middle">grants, keys, nonces</text>
+          <rect class="store" x="470" y="552" width="180" height="56" rx="8"/>
+          <text class="s-text" x="560" y="575" text-anchor="middle">One encrypted SQLite store</text>
+          <text class="s-text" x="560" y="592" text-anchor="middle">per user; R2 chain anchors</text>
+          <path class="edge" d="M120,62 L120,354" marker-end="url(#ah)"/>
+          <text class="edge-label" x="128" y="250">token or signed key</text>
+          <path class="edge" d="M340,62 L340,118" marker-end="url(#ah)"/>
+          <path class="edge" d="M430,160 L486,236" marker-end="url(#ah)"/>
+          <text class="edge-label" x="454" y="216" text-anchor="end">sign-in</text>
+          <path class="edge bind" d="M210,372 L468,372" marker-end="url(#ahb)"/>
+          <text class="edge-label" x="226" y="365">plan the question</text>
+          <path class="edge bind" d="M120,410 L120,500 L248,500" marker-end="url(#ahb)"/>
+          <text class="edge-label" x="128" y="490">ask, capabilities</text>
+          <path class="edge bind" d="M340,174 L340,472" marker-end="url(#ahb)"/>
+          <text class="edge-label" x="334" y="300" text-anchor="end">owner session</text>
+          <path class="edge bind" d="M470,280 L405,280 L405,472" marker-end="url(#ahb)"/>
+          <text class="edge-label" x="411" y="456">re-check token</text>
+          <path class="edge bind" d="M430,501 L468,501" marker-end="url(#ahb)"/>
+          <path class="edge" d="M340,528 L340,550" marker-end="url(#ah)"/>
+          <path class="edge" d="M560,528 L560,550" marker-end="url(#ah)"/>
+        </svg>
+        </div>
+        <figcaption>
+          <span class="legend"><span><span class="sw-line"></span>HTTPS</span><span><span class="sw-line bind"></span>service binding (no public route)</span></span>
+          On a narrow screen, scroll the diagram sideways.
+        </figcaption>
+      </figure>
+    </details>
+  </section>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <div class="foot-text">
+    <span>AskWearables. Wellness information only; not medical advice.</span>
+    <span class="attrib">Icons: <a href="https://lucide.dev/">Lucide</a> (<a href="/assets/icons/lucide/LICENSE.txt">ISC</a>). Emoji: <a href="https://github.com/jdecked/twemoji">Twemoji</a> by Twitter, Inc and contributors (<a href="/assets/emoji/twemoji/LICENSE.txt">CC-BY 4.0</a>). Both self-hosted.</span>
+  </div>
+  <nav aria-label="Footer">
+    <a href="/docs/">Docs</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API reference</a>
+    <a href="/openapi.json">OpenAPI</a>
+    <a href="/privacy">Privacy policy</a>
+  </nav>
+</div></footer>
+</body>
+</html>

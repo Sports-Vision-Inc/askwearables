@@ -1,0 +1,29 @@
+\begin{abstract}
+\noindent
+People ask general-purpose AI agents about their own sleep, heart rate and training, and today the agent either
+reads the wearable record in its context or fetches whatever an unrestricted tool server returns. Both designs
+leave three jobs to the language model: computing over the numbers, deciding what to disclose, and answering the
+same way twice. We present \sys{}, a broker that takes those jobs away from the agent model. An LLM planner that
+never sees health data turns each question into a typed query over a tested metric layer; a policy gate written as
+plain code checks the query against a per-agent, per-purpose grant and releases the coarsest of four levels that
+answers it; and every agent receives the same short packet, with a hash-chained receipt for every release and
+denial. We compare \sys{} with raw context and with open tools, holding the agent model fixed, across \nModels{}
+models and \nTasks{} questions over a synthetic cohort whose ground truth is known by construction and which contains
+the data-quality traps of real wearable data. With \sys{}, accuracy ranged from \accCMin{} to \accCMax{} across the
+models with complete runs, against \accAMin{} to \accAMax{} with raw context and \accBMin{} to \accBMax{} with open
+tools; the pooled gain over raw context was \bootPooledCA{} percentage points (95\% interval from a bootstrap over
+people). \sys{} was more accurate than raw context for \nSigCA{} of \nTestedCA{} models (exact McNemar, $p<0.05$) and
+significantly less accurate for none, but it was worse on one of ten question types, a sleep threshold, partly
+because its planner rejected the unit ``hours''. For the strongest models no accuracy difference was detectable. We
+name handing the model more of the record than the question needs \emph{context over-exposure} and measure it apart
+from leakage: raw context put \expRatioAC{} times as much of the record in front of the model as \sys{}; open tools
+delivered a similar volume but could reach the whole record. Under a leak detector corrected after a hand-label
+audit, \sys{} leaked in \leakPooledC{} of privacy runs, against \leakPooledA{} for raw context and \leakPooledB{} for open
+tools; for data outside a grant this is enforced by construction. On PHIA, the planner refused \plHeldLlamaThreeRefUnsup{} of
+unsupported questions in a held-out sample, from categories its prompt was written to refuse, and, given hand-mapped queries, the compute
+engine matched \phiaAccRef{} of reference answers on PHIA's window convention and \phiaAccWorded{} on the convention
+the questions state.
+\end{abstract}
+
+\noindent\textit{Keywords}\enspace AI agents $\cdot$ wearable data $\cdot$ personal health informatics $\cdot$
+data minimization $\cdot$ contextual integrity $\cdot$ policy enforcement $\cdot$ Model Context Protocol

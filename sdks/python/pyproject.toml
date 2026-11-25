@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "askwearables"
+version = "1.0.0"
+description = "Python client for the AskWearables API: signed developer requests, typed packets, retries on 429."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Documentation = "https://askwearables.app/docs/"
+
+[tool.setuptools]
+packages = ["askwearables"]
+
+[tool.setuptools.package-data]
+askwearables = ["py.typed"]

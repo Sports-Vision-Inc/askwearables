@@ -1,0 +1,86 @@
+\pdfoutput=1
+% AskWearables: Computed, Minimum-Necessary Context for AI Agents over Personal Wearable Data
+% Build:  latexmk -pdf main.tex      (or: pdflatex main; bibtex main; pdflatex main; pdflatex main)
+% Numbers: eval/.venv/bin/python eval/paper/report.py && eval/.venv/bin/python eval/paper/make_macros.py
+%          (writes results-macros.tex, tables/*.tex and figures/fig_accuracy.pdf, fig_privacy.pdf)
+% Layout follows the authors' preprint arXiv:2610.21063 (docs/paper/template-2610.21063/).
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[scaled=0.92]{helvet}
+\IfFileExists{t1lmtt.fd}{\renewcommand{\ttdefault}{lmtt}}{}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage[table]{xcolor}
+\usepackage{pifont}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric}
+\usepackage{fancyhdr}
+\usepackage{orcidlink}
+\usepackage[round,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage[capitalize,nameinlink,noabbrev]{cleveref}
+
+\input{macros}
+\input{results-macros}
+\hypersetup{colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,
+  pdftitle={AskWearables: Computed, Minimum-Necessary Context for AI Agents over Personal Wearable Data},
+  pdfauthor={Sai Varun Kodathala}}
+
+% ------------------------------------------------------------------ preprint style
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\small\textsc{Preprint}}
+\fancyhead[R]{\small AskWearables}
+\fancyfoot[C]{\thepage}
+\captionsetup{font=small,labelfont=bf,skip=5pt}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\emergencystretch}{3em}
+
+\title{\bfseries AskWearables\\[2pt]
+\Large Computed, Minimum-Necessary Context for AI Agents over Personal Wearable Data}
+\author{%
+  Sai Varun Kodathala\,\orcidlink{0009-0002-3124-633X}\\
+  SportsVision AI\\
+  Minnetonka, MN}
+% Further authors, in the format of arXiv:2610.21063, are added here by the authors:
+%  \and Name\\ SportsVision AI\\ Minnetonka, MN
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/design}
+\input{sections/study}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/scope}
+\input{sections/conclusion}
+\input{sections/ethics}
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+
+\clearpage
+\appendix
+\input{sections/appendix}
+
+\end{document}

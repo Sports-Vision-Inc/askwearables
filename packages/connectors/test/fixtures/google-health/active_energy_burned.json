@@ -1,0 +1,1 @@
+{"dataPoints":[{"dataPointName":"users/123456789012345678/dataTypes/active-energy-burned/dataPoints/fake-ae-1","activeEnergyBurned":{"kcal":3.2,"interval":{"startTime":"2026-11-20T15:05:00Z","startUtcOffset":"-28800s","endTime":"2026-11-20T15:06:00Z","endUtcOffset":"-28800s"}}}],"nextPageToken":""}

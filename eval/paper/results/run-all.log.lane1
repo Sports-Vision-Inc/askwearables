@@ -1,0 +1,162 @@
+(node:26394) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 1980 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/1980  openrouter spend $0.00 (cap $45)
+(node:27087) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 1914 runs to do (7 models × 3 conditions × 100 tasks × 1)
+(node:28044) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 1877 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/1877  openrouter spend $0.00 (cap $45)
+  100/1877  openrouter spend $0.00 (cap $45)
+  150/1877  openrouter spend $0.00 (cap $45)
+  200/1877  openrouter spend $0.00 (cap $45)
+(node:29299) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 1677 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/1677  openrouter spend $0.00 (cap $45)
+  100/1677  openrouter spend $0.00 (cap $45)
+  150/1677  openrouter spend $0.00 (cap $45)
+  200/1677  openrouter spend $0.00 (cap $45)
+  250/1677  openrouter spend $0.00 (cap $45)
+  300/1677  openrouter spend $0.00 (cap $45)
+  350/1677  openrouter spend $0.00 (cap $45)
+  400/1677  openrouter spend $0.00 (cap $45)
+  450/1677  openrouter spend $0.00 (cap $45)
+  500/1677  openrouter spend $0.00 (cap $45)
+  550/1677  openrouter spend $0.00 (cap $45)
+  600/1677  openrouter spend $0.00 (cap $45)
+  650/1677  openrouter spend $0.00 (cap $45)
+  700/1677  openrouter spend $0.00 (cap $45)
+  750/1677  openrouter spend $0.00 (cap $45)
+  800/1677  openrouter spend $0.00 (cap $45)
+  850/1677  openrouter spend $0.00 (cap $45)
+  900/1677  openrouter spend $0.00 (cap $45)
+  950/1677  openrouter spend $0.00 (cap $45)
+  1000/1677  openrouter spend $0.00 (cap $45)
+  1050/1677  openrouter spend $0.00 (cap $45)
+  1100/1677  openrouter spend $0.00 (cap $45)
+  1150/1677  openrouter spend $0.00 (cap $45)
+  1200/1677  openrouter spend $0.00 (cap $45)
+  1250/1677  openrouter spend $0.00 (cap $45)
+  1300/1677  openrouter spend $0.00 (cap $45)
+  1350/1677  openrouter spend $0.00 (cap $45)
+  1400/1677  openrouter spend $0.00 (cap $45)
+  1450/1677  openrouter spend $0.00 (cap $45)
+  1500/1677  openrouter spend $0.00 (cap $45)
+  1550/1677  openrouter spend $0.00 (cap $45)
+(node:33753) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 918 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/918  openrouter spend $0.00 (cap $45)
+(node:33952) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 867 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/867  openrouter spend $0.00 (cap $45)
+  100/867  openrouter spend $0.00 (cap $45)
+  150/867  openrouter spend $0.00 (cap $45)
+  200/867  openrouter spend $0.00 (cap $45)
+  250/867  openrouter spend $0.00 (cap $45)
+  300/867  openrouter spend $0.00 (cap $45)
+/Users/varunkodathala/Downloads/AskWearables/eval/paper/conditions.ts:21
+    run: (q, ...b) => Number(db.prepare(q).run(...b).changes),
+                                           ^
+
+
+Error: UNIQUE constraint failed: receipts.seq
+    at Object.run (/Users/varunkodathala/Downloads/AskWearables/eval/paper/conditions.ts:21:44)
+    at appendReceipt (/Users/varunkodathala/Downloads/AskWearables/packages/core/src/receipts.ts:49:7)
+    at async release (/Users/varunkodathala/Downloads/AskWearables/packages/core/src/broker.ts:56:13)
+    at async brokerAsk (/Users/varunkodathala/Downloads/AskWearables/eval/paper/conditions.ts:114:15)
+    at async runAgent (/Users/varunkodathala/Downloads/AskWearables/eval/paper/conditions.ts:163:40)
+    at async <anonymous> (/Users/varunkodathala/Downloads/AskWearables/eval/paper/run.ts:59:15)
+    at async <anonymous> (/Users/varunkodathala/Downloads/AskWearables/eval/paper/run.ts:42:86)
+    at async Promise.all (index 24)
+    at async pool (/Users/varunkodathala/Downloads/AskWearables/eval/paper/run.ts:42:3)
+    at async <anonymous> (/Users/varunkodathala/Downloads/AskWearables/eval/paper/run.ts:58:3) {
+  code: 'ERR_SQLITE_ERROR',
+  errcode: 1555,
+  errstr: 'constraint failed'
+}
+
+Node.js v24.6.0
+(node:35507) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 840 runs to do
+(node:35774) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 531 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/531  openrouter spend $0.00 (cap $45)
+  100/531  openrouter spend $0.00 (cap $45)
+  150/531  openrouter spend $0.00 (cap $45)
+  200/531  openrouter spend $0.00 (cap $45)
+  250/531  openrouter spend $0.00 (cap $45)
+  300/531  openrouter spend $0.00 (cap $45)
+  350/531  openrouter spend $0.00 (cap $45)
+  400/531  openrouter spend $0.00 (cap $45)
+  450/531  openrouter spend $0.00 (cap $45)
+  500/531  openrouter spend $0.00 (cap $45)
+done. openrouter spend this process: $0.00; workers-ai calls: 1900
+(node:39530) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 733 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 2518
+(node:44232) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 2100 runs to do (7 models × 3 conditions × 20 tasks × 5)
+  50/2100  openrouter spend $0.00 (cap $45)
+  100/2100  openrouter spend $0.00 (cap $45)
+  150/2100  openrouter spend $0.00 (cap $45)
+  200/2100  openrouter spend $0.00 (cap $45)
+  250/2100  openrouter spend $0.00 (cap $45)
+  300/2100  openrouter spend $0.00 (cap $45)
+  350/2100  openrouter spend $0.00 (cap $45)
+  400/2100  openrouter spend $0.00 (cap $45)
+  450/2100  openrouter spend $0.00 (cap $45)
+  500/2100  openrouter spend $0.00 (cap $45)
+  550/2100  openrouter spend $0.00 (cap $45)
+  600/2100  openrouter spend $0.00 (cap $45)
+  650/2100  openrouter spend $0.00 (cap $45)
+  700/2100  openrouter spend $0.00 (cap $45)
+  750/2100  openrouter spend $0.00 (cap $45)
+  800/2100  openrouter spend $0.00 (cap $45)
+(node:45529) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 74 runs to do (7 models × 3 conditions × 100 tasks × 1)
+  50/74  openrouter spend $0.00 (cap $45)
+done. openrouter spend this process: $0.00; workers-ai calls: 156
+(node:45717) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 88 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 566
+(node:46530) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+repeat: 1260 runs to do (7 models × 3 conditions × 20 tasks × 5)
+  50/1260  openrouter spend $0.00 (cap $45)
+  100/1260  openrouter spend $0.00 (cap $45)
+  150/1260  openrouter spend $0.00 (cap $45)
+  200/1260  openrouter spend $0.00 (cap $45)
+  250/1260  openrouter spend $0.00 (cap $45)
+  300/1260  openrouter spend $0.00 (cap $45)
+  350/1260  openrouter spend $0.00 (cap $45)
+  400/1260  openrouter spend $0.00 (cap $45)
+  450/1260  openrouter spend $0.00 (cap $45)
+  500/1260  openrouter spend $0.00 (cap $45)
+  550/1260  openrouter spend $0.00 (cap $45)
+  600/1260  openrouter spend $0.00 (cap $45)
+  650/1260  openrouter spend $0.00 (cap $45)
+  700/1260  openrouter spend $0.00 (cap $45)
+  750/1260  openrouter spend $0.00 (cap $45)
+  800/1260  openrouter spend $0.00 (cap $45)
+  850/1260  openrouter spend $0.00 (cap $45)
+  900/1260  openrouter spend $0.00 (cap $45)
+  950/1260  openrouter spend $0.00 (cap $45)
+  1000/1260  openrouter spend $0.00 (cap $45)
+  1050/1260  openrouter spend $0.00 (cap $45)
+  1100/1260  openrouter spend $0.00 (cap $45)
+  1150/1260  openrouter spend $0.00 (cap $45)
+  1200/1260  openrouter spend $0.00 (cap $45)
+  1250/1260  openrouter spend $0.00 (cap $45)
+done. openrouter spend this process: $0.00; workers-ai calls: 3628
+LANE1 DONE

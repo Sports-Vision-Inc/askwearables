@@ -1,0 +1,629 @@
+\begin{thebibliography}{73}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Merrill et~al.(2024{\natexlab{a}})Merrill, Tan, Gupta, Hartvigsen, and
+  Althoff]{merrill2024timeseries}
+Mike~A. Merrill, Mingtian Tan, Vinayak Gupta, Tom Hartvigsen, and Tim Althoff.
+\newblock {Language Models Still Struggle to Zero-shot Reason about Time
+  Series}.
+\newblock arXiv preprint arXiv:2404.11757, 2024{\natexlab{a}}.
+\newblock URL \url{https://arxiv.org/abs/2404.11757}.
+
+\bibitem[Dziri et~al.(2023)Dziri, Lu, Sclar, Li, Jiang, Lin, West, Bhagavatula,
+  Bras, Hwang, Sanyal, Welleck, Ren, Ettinger, Harchaoui, and
+  Choi]{dziri2023faith}
+Nouha Dziri, Ximing Lu, Melanie Sclar, Xiang~Lorraine Li, Liwei Jiang,
+  Bill~Yuchen Lin, Peter West, Chandra Bhagavatula, Ronan~Le Bras, Jena~D.
+  Hwang, Soumya Sanyal, Sean Welleck, Xiang Ren, Allyson Ettinger, Zaid
+  Harchaoui, and Yejin Choi.
+\newblock {Faith and Fate: Limits of Transformers on Compositionality}.
+\newblock arXiv preprint arXiv:2305.18654, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.18654}.
+
+\bibitem[Merrill et~al.(2024{\natexlab{b}})Merrill, Paruchuri, Rezaei, Kovacs,
+  Perez, Liu, Schenck, Hammerquist, Sunshine, Tailor, Ayush, Su, He, McLean,
+  Malhotra, Patel, Zhan, Althoff, McDuff, and Liu]{merrill2024phia}
+Mike~A. Merrill, Akshay Paruchuri, Naghmeh Rezaei, Geza Kovacs, Javier Perez,
+  Yun Liu, Erik Schenck, Nova Hammerquist, Jake Sunshine, Shyam Tailor, Kumar
+  Ayush, Hao-Wei Su, Qian He, Cory~Y. McLean, Mark Malhotra, Shwetak Patel,
+  Jiening Zhan, Tim Althoff, Daniel McDuff, and Xin Liu.
+\newblock {Transforming Wearable Data into Personal Health Insights using Large
+  Language Model Agents}.
+\newblock arXiv preprint arXiv:2406.06464, 2024{\natexlab{b}}.
+\newblock URL \url{https://arxiv.org/abs/2406.06464}.
+\newblock Accepted to Nature Communications (per arXiv comment).
+
+\bibitem[Shao et~al.(2024)Shao, Li, Shi, Liu, and Yang]{shao2024privacylens}
+Yijia Shao, Tianshi Li, Weiyan Shi, Yanchen Liu, and Diyi Yang.
+\newblock {PrivacyLens: Evaluating Privacy Norm Awareness of Language Models in
+  Action}.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)
+  Datasets and Benchmarks Track}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2409.00138}.
+
+\bibitem[Wang et~al.(2025)Wang, Yu, Liu, Qin, Zhang, Lin, Zhang, and
+  Rajmohan]{wang2025privacyinaction}
+Shouju Wang, Fenglin Yu, Xirui Liu, Xiaoting Qin, Jue Zhang, Qingwei Lin,
+  Dongmei Zhang, and Saravan Rajmohan.
+\newblock {Privacy in Action: Towards Realistic Privacy Mitigation and
+  Evaluation for LLM-Powered Agents}.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2509.17488}.
+
+\bibitem[Greshake et~al.(2023)Greshake, Abdelnabi, Mishra, Endres, Holz, and
+  Fritz]{greshake2023indirect}
+Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten
+  Holz, and Mario Fritz.
+\newblock {Not what you've signed up for: Compromising Real-World
+  LLM-Integrated Applications with Indirect Prompt Injection}.
+\newblock arXiv preprint arXiv:2302.12173, 2023.
+\newblock URL \url{https://arxiv.org/abs/2302.12173}.
+
+\bibitem[Atil et~al.(2024)Atil, Aykent, Chittams, Fu, Passonneau, Radcliffe,
+  Rajagopal, Sloan, Tudrej, Ture, Wu, Xu, and Baldwin]{atil2024nondeterminism}
+Berk Atil, Sarp Aykent, Alexa Chittams, Lisheng Fu, Rebecca~J. Passonneau, Evan
+  Radcliffe, Guru~Rajan Rajagopal, Adam Sloan, Tomasz Tudrej, Ferhan Ture, Zhe
+  Wu, Lixinyu Xu, and Breck Baldwin.
+\newblock {Non-Determinism of "Deterministic" LLM Settings}.
+\newblock arXiv preprint arXiv:2408.04667, 2024.
+\newblock URL \url{https://arxiv.org/abs/2408.04667}.
+
+\bibitem[Mireshghallah et~al.(2024)Mireshghallah, Kim, Zhou, Tsvetkov, Sap,
+  Shokri, and Choi]{mireshghallah2024confaide}
+Niloofar Mireshghallah, Hyunwoo Kim, Xuhui Zhou, Yulia Tsvetkov, Maarten Sap,
+  Reza Shokri, and Yejin Choi.
+\newblock {Can LLMs Keep a Secret? Testing Privacy Implications of Language
+  Models via Contextual Integrity Theory}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2310.17884}.
+
+\bibitem[{European Parliament and Council of the European
+  Union}(2016)]{gdpr2016}
+{European Parliament and Council of the European Union}.
+\newblock {Regulation (EU) 2016/679 of the European Parliament and of the
+  Council (General Data Protection Regulation), Article 5: Principles relating
+  to processing of personal data}.
+\newblock Official Journal of the European Union, L 119, 2016.
+\newblock URL \url{https://gdpr-info.eu/art-5-gdpr/}.
+
+\bibitem[{U.S. Department of Health and Human Services}(2024)]{hipaa164502}
+{U.S. Department of Health and Human Services}.
+\newblock {45 CFR \S 164.502(b): Standard: Minimum necessary}.
+\newblock Code of Federal Regulations, Title 45, Part 164 (HIPAA Privacy Rule),
+  2024.
+\newblock URL \url{https://www.law.cornell.edu/cfr/text/45/164.502}.
+\newblock 65 FR 82802, Dec. 28, 2000, as last amended at 89 FR 33063, Apr. 26,
+  2024; text read at Cornell LII.
+
+\bibitem[{OWASP Foundation}(2019)]{owasp2019api3}
+{OWASP Foundation}.
+\newblock {API3:2019 Excessive Data Exposure}.
+\newblock OWASP API Security Top 10 (2019 edition), 2019.
+\newblock URL
+  \url{https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure/}.
+
+\bibitem[{OWASP Foundation}(2023)]{owasp2023api3}
+{OWASP Foundation}.
+\newblock {API3:2023 Broken Object Property Level Authorization}.
+\newblock OWASP API Security Top 10 (2023 edition), 2023.
+\newblock URL
+  \url{https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/}.
+
+\bibitem[Fu et~al.(2026)Fu, Qin, Zhang, Lin, Wutschitz, Sim, Rajmohan, and
+  Zhang]{fu2026ciwork}
+Wenjie Fu, Xiaoting Qin, Jue Zhang, Qingwei Lin, Lukas Wutschitz, Robert Sim,
+  Saravan Rajmohan, and Dongmei Zhang.
+\newblock {CI-Work: Benchmarking Contextual Integrity in Enterprise LLM
+  Agents}.
+\newblock arXiv preprint arXiv:2604.21308, 2026.
+\newblock URL \url{https://arxiv.org/abs/2604.21308}.
+
+\bibitem[Mireshghallah et~al.(2025)Mireshghallah, Mangaokar, Kokhlikyan,
+  Zharmagambetov, Zaheer, Mahloujifar, and
+  Chaudhuri]{mireshghallah2025cimemories}
+Niloofar Mireshghallah, Neal Mangaokar, Narine Kokhlikyan, Arman
+  Zharmagambetov, Manzil Zaheer, Saeed Mahloujifar, and Kamalika Chaudhuri.
+\newblock {CIMemories: A Compositional Benchmark for Contextual Integrity of
+  Persistent Memory in LLMs}.
+\newblock arXiv preprint arXiv:2511.14937, 2025.
+\newblock URL \url{https://arxiv.org/abs/2511.14937}.
+
+\bibitem[Bagdasarian et~al.(2024)Bagdasarian, Yi, Ghalebikesabi, Kairouz,
+  Gruteser, Oh, Balle, and Ramage]{bagdasarian2024airgap}
+Eugene Bagdasarian, Ren Yi, Sahra Ghalebikesabi, Peter Kairouz, Marco Gruteser,
+  Sewoong Oh, Borja Balle, and Daniel Ramage.
+\newblock {AirGapAgent: Protecting Privacy-Conscious Conversational Agents}.
+\newblock In \emph{ACM Conference on Computer and Communications Security
+  (CCS)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2405.05175}.
+
+\bibitem[Gao et~al.(2022)Gao, Madaan, Zhou, Alon, Liu, Yang, Callan, and
+  Neubig]{gao2022pal}
+Luyu Gao, Aman Madaan, Shuyan Zhou, Uri Alon, Pengfei Liu, Yiming Yang, Jamie
+  Callan, and Graham Neubig.
+\newblock {PAL: Program-aided Language Models}.
+\newblock arXiv preprint arXiv:2211.10435, 2022.
+\newblock URL \url{https://arxiv.org/abs/2211.10435}.
+
+\bibitem[Chen et~al.(2023)Chen, Ma, Wang, and Cohen]{chen2023pot}
+Wenhu Chen, Xueguang Ma, Xinyi Wang, and William~W. Cohen.
+\newblock {Program of Thoughts Prompting: Disentangling Computation from
+  Reasoning for Numerical Reasoning Tasks}.
+\newblock \emph{Transactions on Machine Learning Research (TMLR)}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2211.12588}.
+
+\bibitem[Shi et~al.(2025)Shi, He, Wang, Li, Wu, Guo, and Song]{shi2025progent}
+Tianneng Shi, Jingxuan He, Zhun Wang, Hongwei Li, Linyu Wu, Wenbo Guo, and Dawn
+  Song.
+\newblock {Progent: Securing AI Agents with Privilege Control}.
+\newblock arXiv preprint arXiv:2504.11703, 2025.
+\newblock URL \url{https://arxiv.org/abs/2504.11703}.
+
+\bibitem[Debenedetti et~al.(2025)Debenedetti, Shumailov, Fan, Hayes, Carlini,
+  Fabian, Kern, Shi, Terzis, and Tramèr]{debenedetti2025camel}
+Edoardo Debenedetti, Ilia Shumailov, Tianqi Fan, Jamie Hayes, Nicholas Carlini,
+  Daniel Fabian, Christoph Kern, Chongyang Shi, Andreas Terzis, and Florian
+  Tramèr.
+\newblock {Defeating Prompt Injections by Design}.
+\newblock arXiv preprint arXiv:2503.18813, 2025.
+\newblock URL \url{https://arxiv.org/abs/2503.18813}.
+
+\bibitem[Kodathala(2026)]{kodathala2026aiauthz}
+Sai~Varun Kodathala.
+\newblock {aiAuthZ: Off-Host, Identity-Bound Authorization for AI Agents}.
+\newblock arXiv preprint arXiv:2607.05518, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.05518}.
+\newblock Technical report. Code: https://github.com/Sports-Vision-Inc/aiAuthZ.
+
+\bibitem[Liu et~al.(2023)Liu, McDuff, Kovacs, Galatzer-Levy, Sunshine, Zhan,
+  Poh, Liao, Achille, and Patel]{liu2023fewshot}
+Xin Liu, Daniel McDuff, Geza Kovacs, Isaac Galatzer-Levy, Jacob Sunshine,
+  Jiening Zhan, Ming-Zher Poh, Shun Liao, Paolo~Di Achille, and Shwetak Patel.
+\newblock {Large Language Models are Few-Shot Health Learners}.
+\newblock arXiv preprint arXiv:2305.15525, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.15525}.
+
+\bibitem[Kim et~al.(2024)Kim, Xu, McDuff, Breazeal, and Park]{kim2024healthllm}
+Yubin Kim, Xuhai Xu, Daniel McDuff, Cynthia Breazeal, and Hae~Won Park.
+\newblock {Health-LLM: Large Language Models for Health Prediction via Wearable
+  Sensor Data}.
+\newblock arXiv preprint arXiv:2401.06866, 2024.
+\newblock URL \url{https://arxiv.org/abs/2401.06866}.
+
+\bibitem[Cosentino et~al.(2024)Cosentino, Belyaeva, Liu, Furlotte, Yang, Lee,
+  Schenck, Patel, Cui, Schneider, Bryant, Gomes, Jiang, Lee, Liu, Perez,
+  Rogers, Speed, Tailor, Walker, Yu, Althoff, Heneghan, Hernandez, Malhotra,
+  Stern, Matias, Corrado, Patel, Shetty, Zhan, Prabhakara, McDuff, and
+  McLean]{cosentino2024phllm}
+Justin Cosentino, Anastasiya Belyaeva, Xin Liu, Nicholas~A. Furlotte, Zhun
+  Yang, Chace Lee, Erik Schenck, Yojan Patel, Jian Cui, Logan~Douglas
+  Schneider, Robby Bryant, Ryan~G. Gomes, Allen Jiang, Roy Lee, Yun Liu, Javier
+  Perez, Jameson~K. Rogers, Cathy Speed, Shyam Tailor, Megan Walker, Jeffrey
+  Yu, Tim Althoff, Conor Heneghan, John Hernandez, Mark Malhotra, Leor Stern,
+  Yossi Matias, Greg~S. Corrado, Shwetak Patel, Shravya Shetty, Jiening Zhan,
+  Shruthi Prabhakara, Daniel McDuff, and Cory~Y. McLean.
+\newblock {Towards a Personal Health Large Language Model}.
+\newblock arXiv preprint arXiv:2406.06474, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.06474}.
+
+\bibitem[Tan et~al.(2024)Tan, Merrill, Gupta, Althoff, and
+  Hartvigsen]{tan2024forecasting}
+Mingtian Tan, Mike~A. Merrill, Vinayak Gupta, Tim Althoff, and Thomas
+  Hartvigsen.
+\newblock {Are Language Models Actually Useful for Time Series Forecasting?}
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.16964}.
+
+\bibitem[Jin et~al.(2024)Jin, Wang, Ma, Chu, Zhang, Shi, Chen, Liang, Li, Pan,
+  and Wen]{jin2024timellm}
+Ming Jin, Shiyu Wang, Lintao Ma, Zhixuan Chu, James~Y. Zhang, Xiaoming Shi,
+  Pin-Yu Chen, Yuxuan Liang, Yuan-Fang Li, Shirui Pan, and Qingsong Wen.
+\newblock {Time-LLM: Time Series Forecasting by Reprogramming Large Language
+  Models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2310.01728}.
+
+\bibitem[Li et~al.(2026)Li, Xiao, Joshi, Metwally, McDuff, Wang, and
+  Yang]{li2026hearts}
+Sirui Li, Shuhan Xiao, Mihir Joshi, Ahmed Metwally, Daniel McDuff, Wei Wang,
+  and Yuzhe Yang.
+\newblock {HEARTS: Benchmarking LLM Reasoning on Health Time Series}.
+\newblock arXiv preprint arXiv:2603.06638, 2026.
+\newblock URL \url{https://arxiv.org/abs/2603.06638}.
+
+\bibitem[Cai et~al.(2024)Cai, Choudhry, Goswami, and
+  Dubrawski]{cai2024timeseriesexam}
+Yifu Cai, Arjun Choudhry, Mononito Goswami, and Artur Dubrawski.
+\newblock {TimeSeriesExam: A time series understanding exam}.
+\newblock arXiv preprint arXiv:2410.14752, 2024.
+\newblock URL \url{https://arxiv.org/abs/2410.14752}.
+\newblock NeurIPS 2024 Workshop on Time Series in the Age of Large Models.
+
+\bibitem[Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and
+  Cao]{yao2023react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao.
+\newblock {ReAct: Synergizing Reasoning and Acting in Language Models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2210.03629}.
+
+\bibitem[Zhang et~al.(2026)Zhang, Xia, Emmerich, Wu, Spathis, Liu, McDuff, and
+  Mascolo]{zhang2026weqa}
+Yuwei Zhang, Tong Xia, Bianca Emmerich, Yu~Yvonne Wu, Dimitris Spathis, Xin
+  Liu, Daniel McDuff, and Cecilia Mascolo.
+\newblock {WEQA: Wearable hEalth Question Answering with Query-Adaptive Agentic
+  Reasoning}.
+\newblock arXiv preprint arXiv:2606.18147, 2026.
+\newblock URL \url{https://arxiv.org/abs/2606.18147}.
+
+\bibitem[Heydari et~al.(2025)Heydari, Gu, Srinivas, Yu, Zhang, Zhang,
+  Paruchuri, He, Palangi, Hammerquist, Metwally, Winslow, Kim, Ayush, Yang,
+  Narayanswamy, Xu, Garrison, Lee, Vafeiadou, Graef, Galatzer-Levy, Schenck,
+  Barakat, Perez, Shreibati, Hernandez, Faranesh, Prieto, Heneghan, Liu, Zhan,
+  Malhotra, Patel, Althoff, Liu, McDuff, and Xu]{heydari2025anatomy}
+A.~Ali Heydari, Ken Gu, Vidya Srinivas, Hong Yu, Zhihan Zhang, Yuwei Zhang,
+  Akshay Paruchuri, Qian He, Hamid Palangi, Nova Hammerquist, Ahmed~A.
+  Metwally, Brent Winslow, Yubin Kim, Kumar Ayush, Yuzhe Yang, Girish
+  Narayanswamy, Maxwell~A. Xu, Jake Garrison, Amy~Armento Lee, Jenny Vafeiadou,
+  Ben Graef, Isaac~R. Galatzer-Levy, Erik Schenck, Andrew Barakat, Javier
+  Perez, Jacqueline Shreibati, John Hernandez, Anthony~Z. Faranesh, Javier~L.
+  Prieto, Connor Heneghan, Yun Liu, Jiening Zhan, Mark Malhotra, Shwetak Patel,
+  Tim Althoff, Xin Liu, Daniel McDuff, and Xuhai~"Orson" Xu.
+\newblock {The Anatomy of a Personal Health Agent}.
+\newblock arXiv preprint arXiv:2508.20148, 2025.
+\newblock URL \url{https://arxiv.org/abs/2508.20148}.
+
+\bibitem[Reichman et~al.(2025)Reichman, Yu, Hu, Truxal, Jain, Chandrupatla,
+  Šimunić Rosing, and Heck]{reichman2025sensorqa}
+Benjamin Reichman, Xiaofan Yu, Lanxiang Hu, Jack Truxal, Atishay Jain, Rushil
+  Chandrupatla, Tajana Šimunić Rosing, and Larry Heck.
+\newblock {SensorQA: A Question Answering Benchmark for Daily-Life Monitoring}.
+\newblock arXiv preprint arXiv:2501.04974, 2025.
+\newblock URL \url{https://arxiv.org/abs/2501.04974}.
+
+\bibitem[Lee et~al.(2026)Lee, Chen, Chuang, Shenoy, Wei, Ko, Kim, and
+  Corda]{lee2026wearableqa}
+Ji~Soo Lee, Xilun Chen, Pierce Chuang, Ashish Shenoy, Jason Wei, Dohwan Ko,
+  Hyunwoo~J. Kim, and Benoit Corda.
+\newblock {WearableQA: A Benchmark for Health Reasoning over Real-World
+  Wearable Data}.
+\newblock arXiv preprint arXiv:2609.05405, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.05405}.
+
+\bibitem[Li et~al.(2024)Li, Liang, Zeng, Chen, Hausman, Sadigh, Levine,
+  Fei-Fei, Xia, and Ichter]{li2024chaincode}
+Chengshu Li, Jacky Liang, Andy Zeng, Xinyun Chen, Karol Hausman, Dorsa Sadigh,
+  Sergey Levine, Li~Fei-Fei, Fei Xia, and Brian Ichter.
+\newblock {Chain of Code: Reasoning with a Language Model-Augmented Code
+  Emulator}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2312.04474}.
+
+\bibitem[Schick et~al.(2023)Schick, Dwivedi-Yu, Dessì, Raileanu, Lomeli,
+  Zettlemoyer, Cancedda, and Scialom]{schick2023toolformer}
+Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli,
+  Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom.
+\newblock {Toolformer: Language Models Can Teach Themselves to Use Tools}.
+\newblock arXiv preprint arXiv:2302.04761, 2023.
+\newblock URL \url{https://arxiv.org/abs/2302.04761}.
+
+\bibitem[Kodathala and Vunnam(2026)]{kodathala2026equations}
+Sai~Varun Kodathala and Rakesh Vunnam.
+\newblock {Can Large Language Models Solve Engineering Equations? A Systematic
+  Comparison of Direct Prediction and Solver-Assisted Approaches}.
+\newblock arXiv preprint arXiv:2601.01774, 2026.
+\newblock URL \url{https://arxiv.org/abs/2601.01774}.
+
+\bibitem[Hu et~al.(2024)Hu, Zhao, Wei, Chai, Ma, Wang, Wang, Su, Xu, Zhu,
+  Cheng, Yuan, Li, Kuang, Yang, Yang, and Wu]{hu2024dabench}
+Xueyu Hu, Ziyu Zhao, Shuang Wei, Ziwei Chai, Qianli Ma, Guoyin Wang, Xuwu Wang,
+  Jing Su, Jingjing Xu, Ming Zhu, Yao Cheng, Jianbo Yuan, Jiwei Li, Kun Kuang,
+  Yang Yang, Hongxia Yang, and Fei Wu.
+\newblock {InfiAgent-DABench: Evaluating Agents on Data Analysis Tasks}.
+\newblock arXiv preprint arXiv:2401.05507, 2024.
+\newblock URL \url{https://arxiv.org/abs/2401.05507}.
+
+\bibitem[Cheng et~al.(2024)Cheng, Wan, Abueg, Ghalebikesabi, Yi, Bagdasarian,
+  Balle, Mellem, and O'Banion]{cheng2024cibench}
+Zhao Cheng, Diane Wan, Matthew Abueg, Sahra Ghalebikesabi, Ren Yi, Eugene
+  Bagdasarian, Borja Balle, Stefan Mellem, and Shawn O'Banion.
+\newblock {CI-Bench: Benchmarking Contextual Integrity of AI Assistants on
+  Synthetic Data}.
+\newblock arXiv preprint arXiv:2409.13903, 2024.
+\newblock URL \url{https://arxiv.org/abs/2409.13903}.
+
+\bibitem[Guo et~al.(2026)Guo, Chen, Lin, Liu, and Li]{guo2026agentciscope}
+Chengquan Guo, Zhaorun Chen, Zinan Lin, Xiaodong Liu, and Bo~Li.
+\newblock {AgentCIScope: Grounded Contextual Integrity Evaluation for LLM
+  Agents}.
+\newblock arXiv preprint arXiv:2610.19158, 2026.
+\newblock URL \url{https://arxiv.org/abs/2610.19158}.
+
+\bibitem[Zhou et~al.(2025{\natexlab{a}})Zhou, Mireshghallah, and
+  Li]{zhou2025dataminimization}
+Jijie Zhou, Niloofar Mireshghallah, and Tianshi Li.
+\newblock {Operationalizing Data Minimization for Privacy-Preserving LLM
+  Prompting}.
+\newblock arXiv preprint arXiv:2510.03662, 2025{\natexlab{a}}.
+\newblock URL \url{https://arxiv.org/abs/2510.03662}.
+
+\bibitem[Zhou et~al.(2025{\natexlab{b}})Zhou, Xu, Wu, and
+  Li]{zhou2025rescriber}
+Jijie Zhou, Eryue Xu, Yaoyao Wu, and Tianshi Li.
+\newblock {Rescriber: Smaller-LLM-Powered User-Led Data Minimization for
+  LLM-Based Chatbots}.
+\newblock In \emph{CHI Conference on Human Factors in Computing Systems},
+  2025{\natexlab{b}}.
+\newblock URL \url{https://arxiv.org/abs/2410.11876}.
+
+\bibitem[Yu et~al.(2026)Yu, Zhang, Jin, Shi, Zhang, Hou, and Lou]{yu2026minim}
+Hexuan Yu, Chaoyu Zhang, Heng Jin, Shanghao Shi, Ning Zhang, Y.~Thomas Hou, and
+  Wenjing Lou.
+\newblock {Minim: Privacy-Aware Minimal View for Agents via Trusted Local
+  Sanitization}.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2026.
+\newblock URL \url{https://arxiv.org/abs/2606.13949}.
+
+\bibitem[Li and Xu(2026)]{li2026toolminimize}
+Wenbiao Li and Yuqiao Xu.
+\newblock {ToolMinimize: Auditing and Rewriting LLM Agent Tool Calls to
+  Minimize Privacy Exposure}.
+\newblock arXiv preprint arXiv:2608.24957, 2026.
+\newblock URL \url{https://arxiv.org/abs/2608.24957}.
+
+\bibitem[Maeda et~al.(2026)Maeda, Sekiya, Sugimura, Asai, Tsuda, Ikeda, Fujii,
+  and Watanabe]{maeda2026puda}
+Akinori Maeda, Yuto Sekiya, Sota Sugimura, Tomoya Asai, Yu~Tsuda, Kohei Ikeda,
+  Hiroshi Fujii, and Kohei Watanabe.
+\newblock {Puda: Private User Dataset Agent for User-Sovereign and
+  Privacy-Preserving Personalized AI}.
+\newblock arXiv preprint arXiv:2602.08268, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.08268}.
+
+\bibitem[Kochar et~al.(2026)Kochar, Sugsavanvit, Gupta, Calandrino, Kumar,
+  Frischmann, and Zimmeck]{kochar2026preference}
+Shreya Kochar, Peeranat Sugsavanvit, Vidur Gupta, Joseph~A. Calandrino, Deepak
+  Kumar, Brett Frischmann, and Sebastian Zimmeck.
+\newblock {Privacy Preference Controls for Agentic Systems}.
+\newblock arXiv preprint arXiv:2610.29929, 2026.
+\newblock URL \url{https://arxiv.org/abs/2610.29929}.
+
+\bibitem[Dong et~al.(2026)Dong, Guo, Lu, and Wang]{dong2026claw}
+Ben Dong, Zhonghao Guo, Tianyi Lu, and Qian Wang.
+\newblock {The Claws in Plain Sight: Unauthorized Context Disclosure through
+  LLM Agent Tool Calls}.
+\newblock arXiv preprint arXiv:2608.20658, 2026.
+\newblock URL \url{https://arxiv.org/abs/2608.20658}.
+
+\bibitem[Abdelnabi et~al.(2025)Abdelnabi, Gomaa, Bagdasarian, Kristensson, and
+  Shokri]{abdelnabi2025firewalls}
+Sahar Abdelnabi, Amr Gomaa, Eugene Bagdasarian, Per~Ola Kristensson, and Reza
+  Shokri.
+\newblock {Firewalls to Secure Dynamic LLM Agentic Networks}.
+\newblock arXiv preprint arXiv:2502.01822, 2025.
+\newblock URL \url{https://arxiv.org/abs/2502.01822}.
+
+\bibitem[Zhan et~al.(2024)Zhan, Liang, Ying, and Kang]{zhan2024injecagent}
+Qiusi Zhan, Zhixiang Liang, Zifan Ying, and Daniel Kang.
+\newblock {InjecAgent: Benchmarking Indirect Prompt Injections in
+  Tool-Integrated Large Language Model Agents}.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  ACL}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2403.02691}.
+
+\bibitem[Debenedetti et~al.(2024)Debenedetti, Zhang, Balunović,
+  Beurer-Kellner, Fischer, and Tramèr]{debenedetti2024agentdojo}
+Edoardo Debenedetti, Jie Zhang, Mislav Balunović, Luca Beurer-Kellner, Marc
+  Fischer, and Florian Tramèr.
+\newblock {AgentDojo: A Dynamic Environment to Evaluate Prompt Injection
+  Attacks and Defenses for LLM Agents}.
+\newblock arXiv preprint arXiv:2406.13352, 2024.
+\newblock URL \url{https://arxiv.org/abs/2406.13352}.
+
+\bibitem[Willison(2023)]{willison2023dual}
+Simon Willison.
+\newblock {The Dual LLM pattern for building AI assistants that can resist
+  prompt injection}.
+\newblock Blog post, 2023.
+\newblock URL \url{https://simonwillison.net/2023/Apr/25/dual-llm-pattern/}.
+
+\bibitem[Beurer-Kellner et~al.(2025)Beurer-Kellner, Buesser, Creţu,
+  Debenedetti, Dobos, Fabian, Fischer, Froelicher, Grosse, Naeff, Ozoani,
+  Paverd, Tramèr, and Volhejn]{beurerkellner2025patterns}
+Luca Beurer-Kellner, Beat Buesser, Ana-Maria Creţu, Edoardo Debenedetti,
+  Daniel Dobos, Daniel Fabian, Marc Fischer, David Froelicher, Kathrin Grosse,
+  Daniel Naeff, Ezinwanne Ozoani, Andrew Paverd, Florian Tramèr, and Václav
+  Volhejn.
+\newblock {Design Patterns for Securing LLM Agents against Prompt Injections}.
+\newblock arXiv preprint arXiv:2506.08837, 2025.
+\newblock URL \url{https://arxiv.org/abs/2506.08837}.
+
+\bibitem[Costa et~al.(2025)Costa, Köpf, Kolluri, Paverd, Russinovich, Salem,
+  Tople, Wutschitz, and Zanella-Béguelin]{costa2025fides}
+Manuel Costa, Boris Köpf, Aashish Kolluri, Andrew Paverd, Mark Russinovich,
+  Ahmed Salem, Shruti Tople, Lukas Wutschitz, and Santiago Zanella-Béguelin.
+\newblock {Securing AI Agents with Information-Flow Control}.
+\newblock arXiv preprint arXiv:2505.23643, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.23643}.
+
+\bibitem[Wu et~al.(2025)Wu, Roesner, Kohno, Zhang, and Iqbal]{wu2025isolategpt}
+Yuhao Wu, Franziska Roesner, Tadayoshi Kohno, Ning Zhang, and Umar Iqbal.
+\newblock {IsolateGPT: An Execution Isolation Architecture for LLM-Based
+  Agentic Systems}.
+\newblock In \emph{Network and Distributed System Security Symposium (NDSS)},
+  2025.
+\newblock URL \url{https://arxiv.org/abs/2403.04960}.
+
+\bibitem[Chen et~al.(2025)Chen, Piet, Sitawarin, and Wagner]{chen2025struq}
+Sizhe Chen, Julien Piet, Chawin Sitawarin, and David Wagner.
+\newblock {StruQ: Defending Against Prompt Injection with Structured Queries}.
+\newblock In \emph{USENIX Security Symposium}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2402.06363}.
+
+\bibitem[Tsai and Bagdasarian(2025)]{tsai2025conseca}
+Lillian Tsai and Eugene Bagdasarian.
+\newblock {Contextual Agent Security: A Policy for Every Purpose}.
+\newblock In \emph{Workshop on Hot Topics in Operating Systems (HotOS)}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2501.17070}.
+
+\bibitem[Uchibeke(2026)]{uchibeke2026oap}
+Uchi Uchibeke.
+\newblock {Before the Tool Call: Deterministic Pre-Action Authorization for
+  Autonomous AI Agents}.
+\newblock arXiv preprint arXiv:2603.20953, 2026.
+\newblock URL \url{https://arxiv.org/abs/2603.20953}.
+
+\bibitem[Suresh and Gao(2026)]{suresh2026agentcap}
+Aravinda Kashyap~Kabbinamakki Suresh and Peng Gao.
+\newblock {AgentCap: Capability-Based Runtime Authorization for Secure LLM
+  Agent Execution}.
+\newblock arXiv preprint arXiv:2611.00729, 2026.
+\newblock URL \url{https://arxiv.org/abs/2611.00729}.
+\newblock NeurIPS 2026 Workshop on Agents in the Wild (non-archival).
+
+\bibitem[Aljumaily et~al.(2026)Aljumaily, Alseelawi, and
+  Alshabandar]{aljumaily2026untrusted}
+Mustafa~S. Aljumaily, Nawar~S. Alseelawi, and Raghad Alshabandar.
+\newblock {Treating the Model as an Untrusted Component: Deterministic Policy
+  Enforcement, Human Approval and Taint Tracking Against Prompt Injection in
+  Tool-Using Agents, with Validation on Open-Weights Models}.
+\newblock arXiv preprint arXiv:2611.11571, 2026.
+\newblock URL \url{https://arxiv.org/abs/2611.11571}.
+
+\bibitem[Kodathala et~al.(2026)Kodathala, Pollishetty, and
+  Cargill]{kodathala2026stepup}
+Sai~Varun Kodathala, Prashanth Pollishetty, and Jaylen Cargill.
+\newblock {Approve What, Exactly? Effect Binding and Trusted Rendering for
+  Agent Step-Up Authorization}.
+\newblock arXiv preprint arXiv:2610.21063, 2026.
+\newblock URL \url{https://arxiv.org/abs/2610.21063}.
+
+\bibitem[Hou et~al.(2025)Hou, Zhao, Wang, and Wang]{hou2025mcp}
+Xinyi Hou, Yanjie Zhao, Shenao Wang, and Haoyu Wang.
+\newblock {Model Context Protocol (MCP): Landscape, Security Threats, and
+  Future Research Directions}.
+\newblock arXiv preprint arXiv:2503.23278, 2025.
+\newblock URL \url{https://arxiv.org/abs/2503.23278}.
+
+\bibitem[Radosevich and Halloran(2025)]{radosevich2025mcpaudit}
+Brandon Radosevich and John Halloran.
+\newblock {MCP Safety Audit: LLMs with the Model Context Protocol Allow Major
+  Security Exploits}.
+\newblock arXiv preprint arXiv:2504.03767, 2025.
+\newblock URL \url{https://arxiv.org/abs/2504.03767}.
+
+\bibitem[Hasan et~al.(2025)Hasan, Li, Fallahzadeh, Rajbahadur, Adams, and
+  Hassan]{hasan2025mcp}
+Mohammed~Mehedi Hasan, Hao Li, Emad Fallahzadeh, Gopi~Krishnan Rajbahadur, Bram
+  Adams, and Ahmed~E. Hassan.
+\newblock {Model Context Protocol (MCP) at First Glance: Studying the Security
+  and Maintainability of MCP Servers}.
+\newblock arXiv preprint arXiv:2506.13538, 2025.
+\newblock URL \url{https://arxiv.org/abs/2506.13538}.
+
+\bibitem[Dinur and Nissim(2003)]{dinur2003revealing}
+Irit Dinur and Kobbi Nissim.
+\newblock {Revealing Information while Preserving Privacy}.
+\newblock In \emph{Proceedings of the 22nd ACM SIGMOD-SIGACT-SIGART Symposium
+  on Principles of Database Systems (PODS)}, pages 202--210, 2003.
+\newblock \doi{10.1145/773153.773173}.
+
+\bibitem[Dwork et~al.(2017)Dwork, Smith, Steinke, and Ullman]{dwork2017exposed}
+Cynthia Dwork, Adam Smith, Thomas Steinke, and Jonathan Ullman.
+\newblock {Exposed! A Survey of Attacks on Private Data}.
+\newblock \emph{Annual Review of Statistics and Its Application}, 4:\penalty0
+  61--84, 2017.
+\newblock \doi{10.1146/annurev-statistics-060116-054123}.
+
+\bibitem[Garfinkel et~al.(2018)Garfinkel, Abowd, and
+  Martindale]{garfinkel2018reconstruction}
+Simson Garfinkel, John~M. Abowd, and Christian Martindale.
+\newblock {Understanding Database Reconstruction Attacks on Public Data}.
+\newblock \emph{ACM Queue}, 16\penalty0 (5):\penalty0 28--53, 2018.
+\newblock \doi{10.1145/3291276.3295691}.
+
+\bibitem[Dwork et~al.(2006)Dwork, McSherry, Nissim, and
+  Smith]{dwork2006calibrating}
+Cynthia Dwork, Frank McSherry, Kobbi Nissim, and Adam Smith.
+\newblock {Calibrating Noise to Sensitivity in Private Data Analysis}.
+\newblock In \emph{Theory of Cryptography Conference (TCC)}, volume 3876 of
+  \emph{Lecture Notes in Computer Science}, pages 265--284, 2006.
+\newblock \doi{10.1007/11681878_14}.
+
+\bibitem[Dwork and Roth(2014)]{dwork2014algorithmic}
+Cynthia Dwork and Aaron Roth.
+\newblock {The Algorithmic Foundations of Differential Privacy}.
+\newblock \emph{Foundations and Trends in Theoretical Computer Science},
+  9\penalty0 (3--4):\penalty0 211--487, 2014.
+\newblock \doi{10.1561/0400000042}.
+\newblock URL \url{https://www.cis.upenn.edu/~aaroth/Papers/privacybook.pdf}.
+
+\bibitem[Kenthapadi et~al.(2005)Kenthapadi, Mishra, and
+  Nissim]{kenthapadi2005simulatable}
+Krishnaram Kenthapadi, Nina Mishra, and Kobbi Nissim.
+\newblock {Simulatable Auditing}.
+\newblock In \emph{Proceedings of the 24th ACM SIGMOD-SIGACT-SIGART Symposium
+  on Principles of Database Systems (PODS)}, pages 118--127, 2005.
+\newblock \doi{10.1145/1065167.1065183}.
+
+\bibitem[Yuan et~al.(2025)Yuan, Li, Ding, Xie, Li, Zhao, Wan, Shi, Hu, and
+  Liu]{yuan2025nondeterminism}
+Jiayi Yuan, Hao Li, Xinheng Ding, Wenya Xie, Yu-Jhe Li, Wentian Zhao, Kun Wan,
+  Jing Shi, Xia Hu, and Zirui Liu.
+\newblock {Understanding and Mitigating Numerical Sources of Nondeterminism in
+  LLM Inference}.
+\newblock arXiv preprint arXiv:2506.09501, 2025.
+\newblock URL \url{https://arxiv.org/abs/2506.09501}.
+
+\bibitem[He and {Thinking Machines Lab}(2025)]{he2025nondeterminism}
+Horace He and {Thinking Machines Lab}.
+\newblock {Defeating Nondeterminism in LLM Inference}.
+\newblock Thinking Machines Lab: Connectionism (blog), 2025.
+\newblock URL
+  \url{https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/}.
+
+\bibitem[Faghih et~al.(2026)Faghih, Cheng, Saha, Pournemat, Gerami, and
+  Feizi]{faghih2026samequestion}
+Kazem Faghih, Yize Cheng, Shoumik Saha, Mobina Pournemat, Armin Gerami, and
+  Soheil Feizi.
+\newblock {Same Question, Different Answers: Evaluating LLM Reliability Beyond
+  Accuracy}.
+\newblock arXiv preprint arXiv:2607.22554, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.22554}.
+
+\bibitem[Wang et~al.(2023)Wang, Wei, Schuurmans, Le, Chi, Narang, Chowdhery,
+  and Zhou]{wang2023selfconsistency}
+Xuezhi Wang, Jason Wei, Dale Schuurmans, Quoc Le, Ed~Chi, Sharan Narang,
+  Aakanksha Chowdhery, and Denny Zhou.
+\newblock {Self-Consistency Improves Chain of Thought Reasoning in Language
+  Models}.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2203.11171}.
+
+\bibitem[Manakul et~al.(2023)Manakul, Liusie, and
+  Gales]{manakul2023selfcheckgpt}
+Potsawee Manakul, Adian Liusie, and Mark J.~F. Gales.
+\newblock {SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for
+  Generative Large Language Models}.
+\newblock In \emph{Conference on Empirical Methods in Natural Language
+  Processing (EMNLP)}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2303.08896}.
+
+\bibitem[Patil et~al.(2025)Patil, Stengel-Eskin, and Bansal]{patil2025sumleaks}
+Vaidehi Patil, Elias Stengel-Eskin, and Mohit Bansal.
+\newblock {The Sum Leaks More Than Its Parts: Compositional Privacy Risks and
+  Mitigations in Multi-Agent Collaboration}.
+\newblock arXiv preprint arXiv:2509.14284, 2025.
+\newblock URL \url{https://arxiv.org/abs/2509.14284}.
+
+\end{thebibliography}

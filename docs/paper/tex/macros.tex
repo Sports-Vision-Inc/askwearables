@@ -1,0 +1,41 @@
+% Shared macros and colours (palette and conventions from arXiv:2610.21063).
+\definecolor{linkblue}{HTML}{1F5FAD}
+\definecolor{aok}{HTML}{DCEFE3}
+\definecolor{abad}{HTML}{F8D8CC}
+\definecolor{ana}{HTML}{F1F0EC}
+\definecolor{condA}{HTML}{2A78D6}   % A: raw context (same colours as the figures)
+\definecolor{condB}{HTML}{EB6834}   % B: open tools
+\definecolor{condC}{HTML}{1BAF7A}   % C: AskWearables
+\definecolor{inkgray}{HTML}{52514E}
+\definecolor{pendingred}{HTML}{C0262D}
+
+\newcommand{\sys}{AskWearables}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\RQ}[1]{\textbf{RQ#1}}
+\newcommand{\ok}{\ding{51}}
+\newcommand{\no}{\ding{55}}
+
+% The three conditions. Always named this way in the text.
+\newcommand{\CA}{\textsf{A}}  % raw context
+\newcommand{\CB}{\textsf{B}}  % open tools
+\newcommand{\CC}{\textsf{C}}  % AskWearables
+\newcommand{\condA}{\CA{} (raw context)}
+\newcommand{\condB}{\CB{} (open tools)}
+\newcommand{\condC}{\CC{} (\sys{})}
+
+% Results that are still running render visibly; nothing provisional is printed as a number.
+\newcommand{\pending}{\textcolor{pendingred}{\textbf{[pending]}}}
+\newcommand{\TODO}[1]{\textcolor{pendingred}{\textbf{[pending: #1]}}}
+\newcommand{\pendingbox}[1]{\par\noindent\fcolorbox{pendingred}{white}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\centering\small
+  \textcolor{pendingred}{\textbf{[pending]}} #1}}\par}
+
+% Code availability. The repository URL is filled in at release time.
+\newcommand{\codeurl}{\TODO{repository URL}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\crefname{definition}{Definition}{Definitions}
+% primitive input for generated table bodies (LaTeX's \input is not expandable inside tabular)
+\makeatletter
+\newcommand{\inputtab}[1]{\@@input #1 }
+\makeatother

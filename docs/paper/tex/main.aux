@@ -1,0 +1,431 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\newlabel{sec:intro@cref}{{[section][1][]1}{[1][1][]1}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}The problem: the model is asked to do three jobs it does poorly}{1}{subsection.1.1}\protected@file@percent }
+\citation{merrill2024timeseries}
+\citation{dziri2023faith}
+\citation{merrill2024phia}
+\citation{shao2024privacylens,wang2025privacyinaction}
+\citation{greshake2023indirect}
+\citation{atil2024nondeterminism}
+\citation{mireshghallah2024confaide,shao2024privacylens}
+\citation{gdpr2016}
+\citation{hipaa164502}
+\citation{owasp2019api3}
+\citation{owasp2023api3}
+\citation{shao2024privacylens}
+\citation{fu2026ciwork}
+\citation{mireshghallah2025cimemories}
+\citation{greshake2023indirect,bagdasarian2024airgap}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Approach}{2}{subsection.1.2}\protected@file@percent }
+\citation{gao2022pal,chen2023pot}
+\citation{merrill2024phia}
+\citation{shi2025progent,debenedetti2025camel,kodathala2026aiauthz}
+\citation{liu2023fewshot,kim2024healthllm}
+\citation{cosentino2024phllm}
+\citation{merrill2024timeseries}
+\citation{tan2024forecasting}
+\citation{jin2024timellm}
+\citation{li2026hearts}
+\citation{cai2024timeseriesexam}
+\citation{merrill2024phia}
+\citation{yao2023react}
+\citation{zhang2026weqa}
+\citation{heydari2025anatomy}
+\citation{reichman2025sensorqa}
+\citation{lee2026wearableqa}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Contributions}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{3}{Related Work}{section.2}{}}
+\newlabel{sec:related@cref}{{[section][2][]2}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Language models over personal health data.}{3}{section*.1}\protected@file@percent }
+\citation{gao2022pal,chen2023pot,li2024chaincode}
+\citation{schick2023toolformer}
+\citation{dziri2023faith}
+\citation{kodathala2026equations}
+\citation{hu2024dabench}
+\citation{mireshghallah2024confaide}
+\citation{shao2024privacylens}
+\citation{cheng2024cibench}
+\citation{wang2025privacyinaction}
+\citation{guo2026agentciscope}
+\citation{wang2025privacyinaction}
+\citation{bagdasarian2024airgap}
+\citation{zhou2025dataminimization}
+\citation{zhou2025rescriber}
+\citation{yu2026minim}
+\citation{li2026toolminimize}
+\citation{maeda2026puda}
+\citation{kochar2026preference}
+\citation{fu2026ciwork}
+\citation{mireshghallah2025cimemories}
+\citation{dong2026claw}
+\citation{abdelnabi2025firewalls}
+\citation{li2026toolminimize}
+\citation{zhou2025dataminimization}
+\citation{greshake2023indirect}
+\citation{zhan2024injecagent,debenedetti2024agentdojo}
+\citation{willison2023dual}
+\citation{beurerkellner2025patterns}
+\citation{debenedetti2025camel}
+\citation{costa2025fides}
+\citation{wu2025isolategpt}
+\citation{chen2025struq}
+\citation{shi2025progent}
+\citation{tsai2025conseca}
+\citation{uchibeke2026oap}
+\citation{suresh2026agentcap}
+\citation{aljumaily2026untrusted}
+\citation{kodathala2026aiauthz}
+\citation{kodathala2026stepup}
+\citation{hou2025mcp,radosevich2025mcpaudit,hasan2025mcp}
+\@writefile{toc}{\contentsline {paragraph}{Computation outside the model.}{4}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Privacy for language-model agents.}{4}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Authorization outside the model.}{4}{section*.4}\protected@file@percent }
+\citation{dinur2003revealing,dwork2017exposed,garfinkel2018reconstruction}
+\citation{dwork2006calibrating,dwork2014algorithmic}
+\citation{kenthapadi2005simulatable}
+\citation{atil2024nondeterminism}
+\citation{yuan2025nondeterminism,he2025nondeterminism}
+\citation{faghih2026samequestion}
+\citation{wang2023selfconsistency}
+\citation{manakul2023selfcheckgpt}
+\@writefile{toc}{\contentsline {paragraph}{Reconstruction from aggregate answers.}{5}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Repeatability.}{5}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}System Design}{5}{section.3}\protected@file@percent }
+\newlabel{sec:design}{{3}{5}{System Design}{section.3}{}}
+\newlabel{sec:design@cref}{{[section][3][]3}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Data model and metric layer}{5}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:metric}{{3.1}{5}{Data model and metric layer}{subsection.3.1}{}}
+\newlabel{sec:metric@cref}{{[subsection][1][3]3.1}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Records.}{5}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{One source per metric and day.}{5}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Coverage.}{5}{section*.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Request flow. The agent sends a question (1); the planner turns it into a QuerySpec without seeing any data (2); the gate checks the QuerySpec against the user's grant and picks the coarsest release level (3, step 7 in the gate box is the daily release limit, ``daily budget'' in the figure); only the per-user vault reads health data, computes the answer and builds the packet (4); the packet and a receipt identifier return to the agent (5). Seven Cloudflare Workers form four trust zones: public (site, console), identity (auth), request path (edge, planner) and protected (gate, vault). The planner and the edge hold no binding to data or policy, and a test checks the bindings between Workers.}}{6}{figure.caption.7}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:arch}{{1}{6}{Request flow. The agent sends a question (1); the planner turns it into a QuerySpec without seeing any data (2); the gate checks the QuerySpec against the user's grant and picks the coarsest release level (3, step 7 in the gate box is the daily release limit, ``daily budget'' in the figure); only the per-user vault reads health data, computes the answer and builds the packet (4); the packet and a receipt identifier return to the agent (5). Seven Cloudflare Workers form four trust zones: public (site, console), identity (auth), request path (edge, planner) and protected (gate, vault). The planner and the edge hold no binding to data or policy, and a test checks the bindings between Workers}{figure.caption.7}{}}
+\newlabel{fig:arch@cref}{{[figure][1][]1}{[1][5][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Personal baseline.}{6}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Catalogue.}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Operations.}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Planner}{6}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:planner}{{3.2}{6}{Planner}{subsection.3.2}{}}
+\newlabel{sec:planner@cref}{{[subsection][2][3]3.2}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Policy gate}{7}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:gate}{{3.3}{7}{Policy gate}{subsection.3.3}{}}
+\newlabel{sec:gate@cref}{{[subsection][3][3]3.3}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Purpose.}{7}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Coarsen rather than deny.}{7}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Packets and receipts}{7}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:packet}{{3.4}{7}{Packets and receipts}{subsection.3.4}{}}
+\newlabel{sec:packet@cref}{{[subsection][4][3]3.4}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Release levels.}{7}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Determinism.}{8}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Example.}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Receipts.}{8}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Study Design}{8}{section.4}\protected@file@percent }
+\newlabel{sec:study}{{4}{8}{Study Design}{section.4}{}}
+\newlabel{sec:study@cref}{{[section][4][]4}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Conditions}{8}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:conditions}{{4.1}{8}{Conditions}{subsection.4.1}{}}
+\newlabel{sec:conditions@cref}{{[subsection][1][4]4.1}{[1][8][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces The three conditions differ only in how the agent model reaches the data. \textsf  {B}{} has the shape of current wearable MCP servers; \textsf  {C}{} runs the deployed planner, gate, compute engine and packet builder in process.}}{9}{table.caption.20}\protected@file@percent }
+\newlabel{tab:conditions}{{1}{9}{The three conditions differ only in how the agent model reaches the data. \CB {} has the shape of current wearable MCP servers; \CC {} runs the deployed planner, gate, compute engine and packet builder in process}{table.caption.20}{}}
+\newlabel{tab:conditions@cref}{{[table][1][]1}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{\textsf  {C}{} adds a planner model.}{9}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Harness.}{9}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Synthetic cohort with ground truth}{9}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:cohort}{{4.2}{9}{Synthetic cohort with ground truth}{subsection.4.2}{}}
+\newlabel{sec:cohort@cref}{{[subsection][2][4]4.2}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Questions and scoring}{9}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:questions}{{4.3}{9}{Questions and scoring}{subsection.4.3}{}}
+\newlabel{sec:questions@cref}{{[subsection][3][4]4.3}{[1][9][]9}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Data-quality traps, one per synthetic person. Each trap is a pattern found in real wearable exports.}}{10}{table.caption.23}\protected@file@percent }
+\newlabel{tab:traps-def}{{2}{10}{Data-quality traps, one per synthetic person. Each trap is a pattern found in real wearable exports}{table.caption.23}{}}
+\newlabel{tab:traps-def@cref}{{[table][2][]2}{[1][9][]10}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Tolerances.}{10}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Parsing.}{10}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Privacy scenarios}{10}{subsection.4.4}\protected@file@percent }
+\newlabel{sec:privacy-design}{{4.4}{10}{Privacy scenarios}{subsection.4.4}{}}
+\newlabel{sec:privacy-design@cref}{{[subsection][4][4]4.4}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Models}{10}{subsection.4.5}\protected@file@percent }
+\newlabel{sec:models}{{4.5}{10}{Models}{subsection.4.5}{}}
+\newlabel{sec:models@cref}{{[subsection][5][4]4.5}{[1][10][]10}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Privacy scenarios. Each grant is what a user would plausibly consent to for the role.}}{11}{table.caption.26}\protected@file@percent }
+\newlabel{tab:scenarios}{{3}{11}{Privacy scenarios. Each grant is what a user would plausibly consent to for the role}{table.caption.26}{}}
+\newlabel{tab:scenarios@cref}{{[table][3][]3}{[1][10][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Measures}{11}{subsection.4.6}\protected@file@percent }
+\newlabel{sec:measures}{{4.6}{11}{Measures}{subsection.4.6}{}}
+\newlabel{sec:measures@cref}{{[subsection][6][4]4.6}{[1][11][]11}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Accuracy.}{11}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Honest refusal and over-refusal.}{11}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Exposure.}{11}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Context length, output and cost.}{11}{section*.30}\protected@file@percent }
+\citation{atil2024nondeterminism}
+\citation{merrill2024phia}
+\@writefile{toc}{\contentsline {paragraph}{Leak rate.}{12}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Repeatability.}{12}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Second iteration of AskWearables{}}{12}{subsection.4.7}\protected@file@percent }
+\newlabel{sec:v2-design}{{4.7}{12}{Second iteration of \sys {}}{subsection.4.7}{}}
+\newlabel{sec:v2-design@cref}{{[subsection][7][4]4.7}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Planner and compute engine on PHIA}{12}{subsection.4.8}\protected@file@percent }
+\newlabel{sec:phia-design}{{4.8}{12}{Planner and compute engine on PHIA}{subsection.4.8}{}}
+\newlabel{sec:phia-design@cref}{{[subsection][8][4]4.8}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Planner study.}{12}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Compute-engine study.}{13}{section*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Further benchmarks}{13}{subsection.4.9}\protected@file@percent }
+\newlabel{sec:bench-design}{{4.9}{13}{Further benchmarks}{subsection.4.9}{}}
+\newlabel{sec:bench-design@cref}{{[subsection][9][4]4.9}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{13}{section.5}\protected@file@percent }
+\newlabel{sec:results}{{5}{13}{Results}{section.5}{}}
+\newlabel{sec:results@cref}{{[section][5][]5}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Accuracy}{13}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:res:accuracy}{{5.1}{13}{Accuracy}{subsection.5.1}{}}
+\newlabel{sec:res:accuracy@cref}{{[subsection][1][5]5.1}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{AskWearables{} narrowed the spread of accuracy across models.}{13}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The gain was significant for models that were weak with raw context.}{13}{section*.38}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces For the models that are weak with raw context, AskWearables{} (\textsf  {C}{}) is the most accurate condition and among the cheapest per correct answer; for the strongest models the three conditions are close in accuracy and differ mainly in cost. Each panel is one agent model; the axes are accuracy against ground truth and cost per correct answer (USD, each panel on its own range). Up and to the left is better. \texttt  {nemotron-3-ultra-550b} has no cost and is omitted.}}{14}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:acccost}{{2}{14}{For the models that are weak with raw context, \sys {} (\CC {}) is the most accurate condition and among the cheapest per correct answer; for the strongest models the three conditions are close in accuracy and differ mainly in cost. Each panel is one agent model; the axes are accuracy against ground truth and cost per correct answer (USD, each panel on its own range). Up and to the left is better. \code {nemotron-3-ultra-550b} has no cost and is omitted}{figure.caption.35}{}}
+\newlabel{fig:acccost@cref}{{[figure][2][]2}{[1][13][]14}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{For models near ceiling, no difference was detectable.}{14}{section*.39}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Data-quality traps and question types}{14}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:res:traps}{{5.2}{14}{Data-quality traps and question types}{subsection.5.2}{}}
+\newlabel{sec:res:traps@cref}{{[subsection][2][5]5.2}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{The traps cost \textsf  {A}{} and \textsf  {B}{} more than \textsf  {C}{}.}{14}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Trend and multi-day questions separated the conditions most.}{14}{section*.43}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces AskWearables{} raised accuracy for the models that were weak with raw context; no model was significantly less accurate with it. Accuracy in \% with Wilson 95\% intervals; $p$ is the exact McNemar test on paired tasks, with the number of tasks only \textsf  {C}{} answered correctly and only the other condition answered correctly in parentheses. Superscript $n$ marks cells with fewer than 100{} scored runs. 5{} of the 6{} significant differences against \textsf  {A}{}, and 3{} of the 4{} against \textsf  {B}{}, remain significant after Holm correction over all 22{} tests.}}{15}{table.caption.36}\protected@file@percent }
+\newlabel{tab:accuracy}{{4}{15}{\sys {} raised accuracy for the models that were weak with raw context; no model was significantly less accurate with it. Accuracy in \% with Wilson 95\% intervals; $p$ is the exact McNemar test on paired tasks, with the number of tasks only \CC {} answered correctly and only the other condition answered correctly in parentheses. Superscript $n$ marks cells with fewer than \nTasks {} scored runs. \nHolmCA {} of the \nSigCA {} significant differences against \CA {}, and \nHolmCB {} of the \nSigCB {} against \CB {}, remain significant after Holm correction over all \nTestsHolm {} tests}{table.caption.36}{}}
+\newlabel{tab:accuracy@cref}{{[table][4][]4}{[1][13][]15}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{\textsf  {C}{} was significantly worse on the threshold question.}{15}{section*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Honest refusal and over-refusal}{15}{subsection.5.3}\protected@file@percent }
+\newlabel{sec:res:refusal}{{5.3}{15}{Honest refusal and over-refusal}{subsection.5.3}{}}
+\newlabel{sec:res:refusal@cref}{{[subsection][3][5]5.3}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Where AskWearables{} fails, and a second iteration}{15}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:res:failures}{{5.4}{15}{Where \sys {} fails, and a second iteration}{subsection.5.4}{}}
+\newlabel{sec:res:failures@cref}{{[subsection][4][5]5.4}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Error analysis.}{15}{section*.47}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Accuracy differences in percentage points with 95\% intervals from a bootstrap that resamples the ten people (2{,}000{} replicates). Intervals that include zero mark differences we could not detect.}}{16}{table.caption.40}\protected@file@percent }
+\newlabel{tab:bootstrap}{{5}{16}{Accuracy differences in percentage points with 95\% intervals from a bootstrap that resamples the ten people (\bootReps {} replicates). Intervals that include zero mark differences we could not detect}{table.caption.40}{}}
+\newlabel{tab:bootstrap@cref}{{[table][5][]5}{[1][14][]16}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces \textsf  {C}{} was the most accurate condition on every trap. Accuracy (\%) over the 9{} models with complete runs.}}{16}{table.caption.41}\protected@file@percent }
+\newlabel{tab:traps}{{6}{16}{\CC {} was the most accurate condition on every trap. Accuracy (\%) over the \nModelsComplete {} models with complete runs}{table.caption.41}{}}
+\newlabel{tab:traps@cref}{{[table][6][]6}{[1][14][]16}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces \textsf  {C}{} helped most on the trend and multi-day aggregates and was significantly worse than \textsf  {A}{} on the threshold question. Accuracy (\%) over the 9{} models with complete runs.}}{16}{table.caption.41}\protected@file@percent }
+\newlabel{tab:questions}{{7}{16}{\CC {} helped most on the trend and multi-day aggregates and was significantly worse than \CA {} on the threshold question. Accuracy (\%) over the \nModelsComplete {} models with complete runs}{table.caption.41}{}}
+\newlabel{tab:questions@cref}{{[table][7][]7}{[1][14][]16}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Planner refusals have identifiable causes.}{16}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Release against refusal.}{16}{section*.49}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces On tasks the data cannot answer, AskWearables{} raised the rate of honest \texttt  {unknown} answers for the models that guessed most; on answerable tasks it also answered \texttt  {unknown} more often. Runs answering \texttt  {unknown} out of the 5{} unanswerable tasks per model and condition.}}{17}{table.caption.45}\protected@file@percent }
+\newlabel{tab:refusal}{{8}{17}{On tasks the data cannot answer, \sys {} raised the rate of honest \code {unknown} answers for the models that guessed most; on answerable tasks it also answered \code {unknown} more often. Runs answering \code {unknown} out of the \nUnknownTasks {} unanswerable tasks per model and condition}{table.caption.45}{}}
+\newlabel{tab:refusal@cref}{{[table][8][]8}{[1][15][]17}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Most \textsf  {C}{} errors happened after a packet was released; the rest followed a planner refusal of every attempt. Outcomes of all \textsf  {C}{} runs (log scale).}}{17}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:coutcomes}{{3}{17}{Most \CC {} errors happened after a packet was released; the rest followed a planner refusal of every attempt. Outcomes of all \CC {} runs (log scale)}{figure.caption.46}{}}
+\newlabel{fig:coutcomes@cref}{{[figure][3][]3}{[1][15][]17}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Second iteration.}{17}{section*.50}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Worked examples}{17}{subsection.5.5}\protected@file@percent }
+\newlabel{sec:res:examples}{{5.5}{17}{Worked examples}{subsection.5.5}{}}
+\newlabel{sec:res:examples@cref}{{[subsection][5][5]5.5}{[1][17][]17}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Second iteration of AskWearables{} (\textsf  {C}{}$_2$, planner faults fixed) against the original \textsf  {C}{} on the same tasks. $p$ is the exact McNemar test. Runs still finishing.}}{18}{table.caption.51}\protected@file@percent }
+\newlabel{tab:v2}{{9}{18}{Second iteration of \sys {} (\CC {}$_2$, planner faults fixed) against the original \CC {} on the same tasks. $p$ is the exact McNemar test. \ifaccuracydone \else Runs still finishing.\fi }{table.caption.51}{}}
+\newlabel{tab:v2@cref}{{[table][9][]9}{[1][17][]18}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Four tasks side by side, three where AskWearables{} was right and the baselines were not, and one where it was wrong. Truth is from the generator's ledger; {\fontfamily  {pzd}\fontencoding  {U}\fontseries  {m}\fontshape  {n}\selectfont  \char 51}{} and {\fontfamily  {pzd}\fontencoding  {U}\fontseries  {m}\fontshape  {n}\selectfont  \char 55}{} mark correct and wrong answers. The \textsf  {C}{} column shows the packet for the question's QuerySpec, recomputed from the same data (run records store the answer, not the packet).}}{18}{table.caption.52}\protected@file@percent }
+\newlabel{tab:examples}{{10}{18}{Four tasks side by side, three where \sys {} was right and the baselines were not, and one where it was wrong. Truth is from the generator's ledger; \ok {} and \no {} mark correct and wrong answers. The \CC {} column shows the packet for the question's QuerySpec, recomputed from the same data (run records store the answer, not the packet)}{table.caption.52}{}}
+\newlabel{tab:examples@cref}{{[table][10][]10}{[1][17][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Data delivered to the agent model}{18}{subsection.5.6}\protected@file@percent }
+\newlabel{sec:res:exposure}{{5.6}{18}{Data delivered to the agent model}{subsection.5.6}{}}
+\newlabel{sec:res:exposure@cref}{{[subsection][6][5]5.6}{[1][17][]18}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Raw context over-exposes the record.}{18}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Against open tools the difference is reach, not volume.}{18}{section*.56}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Raw context delivered about 12.3{} times the health data AskWearables{} delivered per question; open tools delivered a similar volume to AskWearables{}. Median characters of health data delivered to the agent model per question, all models (log scale).}}{19}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:exposure}{{4}{19}{Raw context delivered about \expRatioAC {} times the health data \sys {} delivered per question; open tools delivered a similar volume to \sys {}. Median characters of health data delivered to the agent model per question, all models (log scale)}{figure.caption.53}{}}
+\newlabel{fig:exposure@cref}{{[figure][4][]4}{[1][17][]19}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Context length, output and cost}{19}{subsection.5.7}\protected@file@percent }
+\newlabel{sec:res:efficiency}{{5.7}{19}{Context length, output and cost}{subsection.5.7}{}}
+\newlabel{sec:res:efficiency@cref}{{[subsection][7][5]5.7}{[1][18][]19}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{The agent model read a fraction of the context.}{19}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cost per correct answer favored \textsf  {C}{} for two frontier models but not the third.}{19}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\textsf  {C}{} added latency for fast models.}{19}{section*.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8}Privacy}{19}{subsection.5.8}\protected@file@percent }
+\newlabel{sec:res:privacy}{{5.8}{19}{Privacy}{subsection.5.8}{}}
+\newlabel{sec:res:privacy@cref}{{[subsection][8][5]5.8}{[1][19][]19}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{The original detector was not good enough to report alone.}{19}{section*.61}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Characters of the user's health data delivered to the agent model per question (median): the whole per-device export in \textsf  {A}{} (the workout list is not counted), everything the tools returned in \textsf  {B}{}, and every broker response in \textsf  {C}{}, refusals included. The last column counts \textsf  {B}{} runs that answered without calling any tool.}}{20}{table.caption.54}\protected@file@percent }
+\newlabel{tab:exposure}{{11}{20}{Characters of the user's health data delivered to the agent model per question (median): the whole per-device export in \CA {} (the workout list is not counted), everything the tools returned in \CB {}, and every broker response in \CC {}, refusals included. The last column counts \CB {} runs that answered without calling any tool}{table.caption.54}{}}
+\newlabel{tab:exposure@cref}{{[table][11][]11}{[1][18][]20}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Validating the original leak detector against hand labels: it missed little but one in three of its positives was wrong, all in the two scenarios with free-form replies. Decided rows of the hand-labelled sample (1{} ambiguous row excluded).}}{20}{table.caption.60}\protected@file@percent }
+\newlabel{tab:audit}{{12}{20}{Validating the original leak detector against hand labels: it missed little but one in three of its positives was wrong, all in the two scenarios with free-form replies. Decided rows of the hand-labelled sample (\auditAmbiguous {} ambiguous row excluded)}{table.caption.60}{}}
+\newlabel{tab:audit@cref}{{[table][12][]12}{[1][19][]20}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Leak rates.}{20}{section*.63}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What is true by construction.}{20}{section*.64}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Under hand labels and the corrected detector, AskWearables{} leaked in no scenario; open tools leaked less than raw context but far more than AskWearables{} where the request asked for data outside the role. Leak rate (\%) per scenario and condition: corrected detector on all runs (leaked / runs), the design-weighted hand-label estimate, and the original detector.}}{21}{table.caption.62}\protected@file@percent }
+\newlabel{tab:privacy}{{13}{21}{Under hand labels and the corrected detector, \sys {} leaked in no scenario; open tools leaked less than raw context but far more than \sys {} where the request asked for data outside the role. Leak rate (\%) per scenario and condition: corrected detector on all runs (leaked / runs), the design-weighted hand-label estimate, and the original detector}{table.caption.62}{}}
+\newlabel{tab:privacy@cref}{{[table][13][]13}{[1][20][]21}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces On the two repeated sleep questions, AskWearables{} gave the same answer across runs more often for most open-weight models, but not for all. Share of questions with identical answers across runs (TARa@5{}).}}{21}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:repeat}{{5}{21}{On the two repeated sleep questions, \sys {} gave the same answer across runs more often for most open-weight models, but not for all. Share of questions with identical answers across runs (TARa@\repRuns {})}{figure.caption.65}{}}
+\newlabel{fig:repeat@cref}{{[figure][5][]5}{[1][21][]21}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9}Repeatability}{21}{subsection.5.9}\protected@file@percent }
+\newlabel{sec:res:repeat}{{5.9}{21}{Repeatability}{subsection.5.9}{}}
+\newlabel{sec:res:repeat@cref}{{[subsection][9][5]5.9}{[1][21][]21}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Repeatability over 5{} runs of 20{} tasks: tasks on which every run gave the same answer (agree, TARa@5{}) and tasks on which every run was correct.}}{22}{table.caption.66}\protected@file@percent }
+\newlabel{tab:repeat}{{14}{22}{Repeatability over \repRuns {} runs of \repTasks {} tasks: tasks on which every run gave the same answer (agree, TARa@\repRuns {}) and tasks on which every run was correct}{table.caption.66}{}}
+\newlabel{tab:repeat@cref}{{[table][14][]14}{[1][21][]22}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Every planner candidate refused nearly all PHIA questions outside the operation set; agreement on answerable questions varied widely, and the deployed planner held its refusal rate on the held-out sample. Selection and held-out samples of 400 questions each; op.+metric in \% with Wilson 95\% interval.}}{22}{table.caption.67}\protected@file@percent }
+\newlabel{tab:planner}{{15}{22}{Every planner candidate refused nearly all PHIA questions outside the operation set; agreement on answerable questions varied widely, and the deployed planner held its refusal rate on the held-out sample. Selection and held-out samples of 400 questions each; op.+metric in \% with Wilson 95\% interval}{table.caption.67}{}}
+\newlabel{tab:planner@cref}{{[table][15][]15}{[1][21][]22}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.10}Planner on PHIA}{22}{subsection.5.10}\protected@file@percent }
+\newlabel{sec:res:planner}{{5.10}{22}{Planner on PHIA}{subsection.5.10}{}}
+\newlabel{sec:res:planner@cref}{{[subsection][10][5]5.10}{[1][21][]22}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Refusal of unsupported questions was near complete, by design.}{22}{section*.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Agreement on answerable questions was moderate, and the choice of planner rests on latency.}{22}{section*.69}\protected@file@percent }
+\citation{gao2022pal,chen2023pot}
+\citation{merrill2024phia}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Given hand-mapped QuerySpecs, the compute engine matched 94.7\%{} of PHIA's reference answers on PHIA's window convention and 78.1\%{} on the convention the questions state; every disagreement was traced to one of seven documented causes. The 1{,}837{} mapped questions are 1{,}837{} of PHIA's 4{,}000{}; session questions are reduced by the evaluation harness over the level-3 session list.}}{23}{table.caption.70}\protected@file@percent }
+\newlabel{tab:phia}{{16}{23}{Given hand-mapped QuerySpecs, the compute engine matched \phiaAccRef {} of PHIA's reference answers on PHIA's window convention and \phiaAccWorded {} on the convention the questions state; every disagreement was traced to one of seven documented causes. The \phiaMapped {} mapped questions are \phiaMapped {} of PHIA's \phiaTotal {}; session questions are reduced by the evaluation harness over the level-3 session list}{table.caption.70}{}}
+\newlabel{tab:phia@cref}{{[table][16][]16}{[1][22][]23}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces PHIA questions answered end to end in all three conditions (120 answerable, 60 unsupported). Accuracy, \% [95\% CI].}}{23}{table.caption.73}\protected@file@percent }
+\newlabel{tab:benchphia}{{17}{23}{PHIA questions answered end to end in all three conditions (120 answerable, 60 unsupported). Accuracy, \% [95\% CI]}{table.caption.73}{}}
+\newlabel{tab:benchphia@cref}{{[table][17][]17}{[1][23][]23}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.11}Compute engine on PHIA}{23}{subsection.5.11}\protected@file@percent }
+\newlabel{sec:res:phia}{{5.11}{23}{Compute engine on PHIA}{subsection.5.11}{}}
+\newlabel{sec:res:phia@cref}{{[subsection][11][5]5.11}{[1][22][]23}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{What the engine number does and does not show.}{23}{section*.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The disagreements are definition differences.}{23}{section*.72}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.12}Further benchmarks}{23}{subsection.5.12}\protected@file@percent }
+\newlabel{sec:res:bench}{{5.12}{23}{Further benchmarks}{subsection.5.12}{}}
+\newlabel{sec:res:bench@cref}{{[subsection][12][5]5.12}{[1][23][]23}{}{}{}}
+\citation{li2026toolminimize,dong2026claw}
+\citation{bagdasarian2024airgap,abdelnabi2025firewalls,li2026toolminimize}
+\citation{dinur2003revealing,patil2025sumleaks}
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces Real data (PMData and LifeSnaps, 16 participants, 152 questions) with references computed independently of the broker. Accuracy, \% [95\% CI].}}{24}{table.caption.74}\protected@file@percent }
+\newlabel{tab:benchreal}{{18}{24}{Real data (PMData and LifeSnaps, 16 participants, 152 questions) with references computed independently of the broker. Accuracy, \% [95\% CI]}{table.caption.74}{}}
+\newlabel{tab:benchreal@cref}{{[table][18][]18}{[1][23][]24}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{24}{section.6}\protected@file@percent }
+\newlabel{sec:discussion}{{6}{24}{Discussion}{section.6}{}}
+\newlabel{sec:discussion@cref}{{[section][6][]6}{[1][23][]24}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}What the results say}{24}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Computing outside the agent model was associated with large gains where the agent model was weak.}{24}{section*.75}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{For models near ceiling, the benefit is not accuracy.}{24}{section*.76}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Exposure and leakage are different quantities.}{24}{section*.77}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Measuring leakage needs a validated detector.}{24}{section*.78}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Errors move from computation to planning.}{25}{section*.79}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{The open-tools condition depends on how the model calls tools.}{25}{section*.80}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Implications for agent builders}{25}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Limitations of the design}{25}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Scope of the Study}{25}{section.7}\protected@file@percent }
+\newlabel{sec:scope}{{7}{25}{Scope of the Study}{section.7}{}}
+\newlabel{sec:scope@cref}{{[section][7][]7}{[1][25][]25}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Synthetic cohort.}{25}{section*.81}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scoring and broker designed by the same authors.}{25}{section*.82}\protected@file@percent }
+\citation{yuan2025nondeterminism,he2025nondeterminism}
+\citation{bagdasarian2024airgap}
+\citation{shi2025progent}
+\citation{wang2023selfconsistency}
+\@writefile{toc}{\contentsline {paragraph}{Public benchmark.}{26}{section*.83}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Models and serving.}{26}{section*.84}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Leak scoring.}{26}{section*.85}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Records.}{26}{section*.86}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Baselines and ablations.}{26}{section*.87}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{26}{section.8}\protected@file@percent }
+\newlabel{sec:conclusion}{{8}{26}{Conclusion}{section.8}{}}
+\newlabel{sec:conclusion@cref}{{[section][8][]8}{[1][26][]26}{}{}{}}
+\bibstyle{unsrtnat}
+\bibdata{references}
+\bibcite{merrill2024timeseries}{{1}{2024{a}}{{Merrill et~al.}}{{Merrill, Tan, Gupta, Hartvigsen, and Althoff}}}
+\bibcite{dziri2023faith}{{2}{2023}{{Dziri et~al.}}{{Dziri, Lu, Sclar, Li, Jiang, Lin, West, Bhagavatula, Bras, Hwang, Sanyal, Welleck, Ren, Ettinger, Harchaoui, and Choi}}}
+\bibcite{merrill2024phia}{{3}{2024{b}}{{Merrill et~al.}}{{Merrill, Paruchuri, Rezaei, Kovacs, Perez, Liu, Schenck, Hammerquist, Sunshine, Tailor, Ayush, Su, He, McLean, Malhotra, Patel, Zhan, Althoff, McDuff, and Liu}}}
+\bibcite{shao2024privacylens}{{4}{2024}{{Shao et~al.}}{{Shao, Li, Shi, Liu, and Yang}}}
+\bibcite{wang2025privacyinaction}{{5}{2025}{{Wang et~al.}}{{Wang, Yu, Liu, Qin, Zhang, Lin, Zhang, and Rajmohan}}}
+\bibcite{greshake2023indirect}{{6}{2023}{{Greshake et~al.}}{{Greshake, Abdelnabi, Mishra, Endres, Holz, and Fritz}}}
+\newlabel{sec:ethics}{{8}{27}{Ethics and Reproducibility Statement}{section*.89}{}}
+\newlabel{sec:ethics@cref}{{[section][8][]8}{[1][27][]27}{}{}{}}
+\@writefile{toc}{\contentsline {section}{Ethics and Reproducibility Statement}{27}{section*.89}\protected@file@percent }
+\bibcite{atil2024nondeterminism}{{7}{2024}{{Atil et~al.}}{{Atil, Aykent, Chittams, Fu, Passonneau, Radcliffe, Rajagopal, Sloan, Tudrej, Ture, Wu, Xu, and Baldwin}}}
+\bibcite{mireshghallah2024confaide}{{8}{2024}{{Mireshghallah et~al.}}{{Mireshghallah, Kim, Zhou, Tsvetkov, Sap, Shokri, and Choi}}}
+\bibcite{gdpr2016}{{9}{2016}{{European Parliament and Council of the European Union}}{{}}}
+\bibcite{hipaa164502}{{10}{2024}{{U.S. Department of Health and Human Services}}{{}}}
+\bibcite{owasp2019api3}{{11}{2019}{{OWASP Foundation}}{{}}}
+\bibcite{owasp2023api3}{{12}{2023}{{OWASP Foundation}}{{}}}
+\bibcite{fu2026ciwork}{{13}{2026}{{Fu et~al.}}{{Fu, Qin, Zhang, Lin, Wutschitz, Sim, Rajmohan, and Zhang}}}
+\bibcite{mireshghallah2025cimemories}{{14}{2025}{{Mireshghallah et~al.}}{{Mireshghallah, Mangaokar, Kokhlikyan, Zharmagambetov, Zaheer, Mahloujifar, and Chaudhuri}}}
+\bibcite{bagdasarian2024airgap}{{15}{2024}{{Bagdasarian et~al.}}{{Bagdasarian, Yi, Ghalebikesabi, Kairouz, Gruteser, Oh, Balle, and Ramage}}}
+\bibcite{gao2022pal}{{16}{2022}{{Gao et~al.}}{{Gao, Madaan, Zhou, Alon, Liu, Yang, Callan, and Neubig}}}
+\bibcite{chen2023pot}{{17}{2023}{{Chen et~al.}}{{Chen, Ma, Wang, and Cohen}}}
+\bibcite{shi2025progent}{{18}{2025}{{Shi et~al.}}{{Shi, He, Wang, Li, Wu, Guo, and Song}}}
+\bibcite{debenedetti2025camel}{{19}{2025}{{Debenedetti et~al.}}{{Debenedetti, Shumailov, Fan, Hayes, Carlini, Fabian, Kern, Shi, Terzis, and Tramèr}}}
+\bibcite{kodathala2026aiauthz}{{20}{2026}{{Kodathala}}{{}}}
+\bibcite{liu2023fewshot}{{21}{2023}{{Liu et~al.}}{{Liu, McDuff, Kovacs, Galatzer-Levy, Sunshine, Zhan, Poh, Liao, Achille, and Patel}}}
+\bibcite{kim2024healthllm}{{22}{2024}{{Kim et~al.}}{{Kim, Xu, McDuff, Breazeal, and Park}}}
+\bibcite{cosentino2024phllm}{{23}{2024}{{Cosentino et~al.}}{{Cosentino, Belyaeva, Liu, Furlotte, Yang, Lee, Schenck, Patel, Cui, Schneider, Bryant, Gomes, Jiang, Lee, Liu, Perez, Rogers, Speed, Tailor, Walker, Yu, Althoff, Heneghan, Hernandez, Malhotra, Stern, Matias, Corrado, Patel, Shetty, Zhan, Prabhakara, McDuff, and McLean}}}
+\bibcite{tan2024forecasting}{{24}{2024}{{Tan et~al.}}{{Tan, Merrill, Gupta, Althoff, and Hartvigsen}}}
+\bibcite{jin2024timellm}{{25}{2024}{{Jin et~al.}}{{Jin, Wang, Ma, Chu, Zhang, Shi, Chen, Liang, Li, Pan, and Wen}}}
+\bibcite{li2026hearts}{{26}{2026}{{Li et~al.}}{{Li, Xiao, Joshi, Metwally, McDuff, Wang, and Yang}}}
+\bibcite{cai2024timeseriesexam}{{27}{2024}{{Cai et~al.}}{{Cai, Choudhry, Goswami, and Dubrawski}}}
+\bibcite{yao2023react}{{28}{2023}{{Yao et~al.}}{{Yao, Zhao, Yu, Du, Shafran, Narasimhan, and Cao}}}
+\bibcite{zhang2026weqa}{{29}{2026}{{Zhang et~al.}}{{Zhang, Xia, Emmerich, Wu, Spathis, Liu, McDuff, and Mascolo}}}
+\bibcite{heydari2025anatomy}{{30}{2025}{{Heydari et~al.}}{{Heydari, Gu, Srinivas, Yu, Zhang, Zhang, Paruchuri, He, Palangi, Hammerquist, Metwally, Winslow, Kim, Ayush, Yang, Narayanswamy, Xu, Garrison, Lee, Vafeiadou, Graef, Galatzer-Levy, Schenck, Barakat, Perez, Shreibati, Hernandez, Faranesh, Prieto, Heneghan, Liu, Zhan, Malhotra, Patel, Althoff, Liu, McDuff, and Xu}}}
+\bibcite{reichman2025sensorqa}{{31}{2025}{{Reichman et~al.}}{{Reichman, Yu, Hu, Truxal, Jain, Chandrupatla, Šimunić Rosing, and Heck}}}
+\bibcite{lee2026wearableqa}{{32}{2026}{{Lee et~al.}}{{Lee, Chen, Chuang, Shenoy, Wei, Ko, Kim, and Corda}}}
+\bibcite{li2024chaincode}{{33}{2024}{{Li et~al.}}{{Li, Liang, Zeng, Chen, Hausman, Sadigh, Levine, Fei-Fei, Xia, and Ichter}}}
+\bibcite{schick2023toolformer}{{34}{2023}{{Schick et~al.}}{{Schick, Dwivedi-Yu, Dessì, Raileanu, Lomeli, Zettlemoyer, Cancedda, and Scialom}}}
+\bibcite{kodathala2026equations}{{35}{2026}{{Kodathala and Vunnam}}{{}}}
+\bibcite{hu2024dabench}{{36}{2024}{{Hu et~al.}}{{Hu, Zhao, Wei, Chai, Ma, Wang, Wang, Su, Xu, Zhu, Cheng, Yuan, Li, Kuang, Yang, Yang, and Wu}}}
+\bibcite{cheng2024cibench}{{37}{2024}{{Cheng et~al.}}{{Cheng, Wan, Abueg, Ghalebikesabi, Yi, Bagdasarian, Balle, Mellem, and O'Banion}}}
+\bibcite{guo2026agentciscope}{{38}{2026}{{Guo et~al.}}{{Guo, Chen, Lin, Liu, and Li}}}
+\bibcite{zhou2025dataminimization}{{39}{2025{a}}{{Zhou et~al.}}{{Zhou, Mireshghallah, and Li}}}
+\bibcite{zhou2025rescriber}{{40}{2025{b}}{{Zhou et~al.}}{{Zhou, Xu, Wu, and Li}}}
+\bibcite{yu2026minim}{{41}{2026}{{Yu et~al.}}{{Yu, Zhang, Jin, Shi, Zhang, Hou, and Lou}}}
+\bibcite{li2026toolminimize}{{42}{2026}{{Li and Xu}}{{}}}
+\bibcite{maeda2026puda}{{43}{2026}{{Maeda et~al.}}{{Maeda, Sekiya, Sugimura, Asai, Tsuda, Ikeda, Fujii, and Watanabe}}}
+\bibcite{kochar2026preference}{{44}{2026}{{Kochar et~al.}}{{Kochar, Sugsavanvit, Gupta, Calandrino, Kumar, Frischmann, and Zimmeck}}}
+\bibcite{dong2026claw}{{45}{2026}{{Dong et~al.}}{{Dong, Guo, Lu, and Wang}}}
+\bibcite{abdelnabi2025firewalls}{{46}{2025}{{Abdelnabi et~al.}}{{Abdelnabi, Gomaa, Bagdasarian, Kristensson, and Shokri}}}
+\bibcite{zhan2024injecagent}{{47}{2024}{{Zhan et~al.}}{{Zhan, Liang, Ying, and Kang}}}
+\bibcite{debenedetti2024agentdojo}{{48}{2024}{{Debenedetti et~al.}}{{Debenedetti, Zhang, Balunović, Beurer-Kellner, Fischer, and Tramèr}}}
+\bibcite{willison2023dual}{{49}{2023}{{Willison}}{{}}}
+\bibcite{beurerkellner2025patterns}{{50}{2025}{{Beurer-Kellner et~al.}}{{Beurer-Kellner, Buesser, Creţu, Debenedetti, Dobos, Fabian, Fischer, Froelicher, Grosse, Naeff, Ozoani, Paverd, Tramèr, and Volhejn}}}
+\bibcite{costa2025fides}{{51}{2025}{{Costa et~al.}}{{Costa, Köpf, Kolluri, Paverd, Russinovich, Salem, Tople, Wutschitz, and Zanella-Béguelin}}}
+\bibcite{wu2025isolategpt}{{52}{2025}{{Wu et~al.}}{{Wu, Roesner, Kohno, Zhang, and Iqbal}}}
+\bibcite{chen2025struq}{{53}{2025}{{Chen et~al.}}{{Chen, Piet, Sitawarin, and Wagner}}}
+\bibcite{tsai2025conseca}{{54}{2025}{{Tsai and Bagdasarian}}{{}}}
+\bibcite{uchibeke2026oap}{{55}{2026}{{Uchibeke}}{{}}}
+\bibcite{suresh2026agentcap}{{56}{2026}{{Suresh and Gao}}{{}}}
+\bibcite{aljumaily2026untrusted}{{57}{2026}{{Aljumaily et~al.}}{{Aljumaily, Alseelawi, and Alshabandar}}}
+\bibcite{kodathala2026stepup}{{58}{2026}{{Kodathala et~al.}}{{Kodathala, Pollishetty, and Cargill}}}
+\bibcite{hou2025mcp}{{59}{2025}{{Hou et~al.}}{{Hou, Zhao, Wang, and Wang}}}
+\bibcite{radosevich2025mcpaudit}{{60}{2025}{{Radosevich and Halloran}}{{}}}
+\bibcite{hasan2025mcp}{{61}{2025}{{Hasan et~al.}}{{Hasan, Li, Fallahzadeh, Rajbahadur, Adams, and Hassan}}}
+\bibcite{dinur2003revealing}{{62}{2003}{{Dinur and Nissim}}{{}}}
+\bibcite{dwork2017exposed}{{63}{2017}{{Dwork et~al.}}{{Dwork, Smith, Steinke, and Ullman}}}
+\bibcite{garfinkel2018reconstruction}{{64}{2018}{{Garfinkel et~al.}}{{Garfinkel, Abowd, and Martindale}}}
+\bibcite{dwork2006calibrating}{{65}{2006}{{Dwork et~al.}}{{Dwork, McSherry, Nissim, and Smith}}}
+\bibcite{dwork2014algorithmic}{{66}{2014}{{Dwork and Roth}}{{}}}
+\bibcite{kenthapadi2005simulatable}{{67}{2005}{{Kenthapadi et~al.}}{{Kenthapadi, Mishra, and Nissim}}}
+\bibcite{yuan2025nondeterminism}{{68}{2025}{{Yuan et~al.}}{{Yuan, Li, Ding, Xie, Li, Zhao, Wan, Shi, Hu, and Liu}}}
+\bibcite{he2025nondeterminism}{{69}{2025}{{He and {Thinking Machines Lab}}}{{}}}
+\bibcite{faghih2026samequestion}{{70}{2026}{{Faghih et~al.}}{{Faghih, Cheng, Saha, Pournemat, Gerami, and Feizi}}}
+\bibcite{wang2023selfconsistency}{{71}{2023}{{Wang et~al.}}{{Wang, Wei, Schuurmans, Le, Chi, Narang, Chowdhery, and Zhou}}}
+\bibcite{manakul2023selfcheckgpt}{{72}{2023}{{Manakul et~al.}}{{Manakul, Liusie, and Gales}}}
+\bibcite{patil2025sumleaks}{{73}{2025}{{Patil et~al.}}{{Patil, Stengel-Eskin, and Bansal}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Tables and Figures}{34}{appendix.A}\protected@file@percent }
+\newlabel{app:tables}{{A}{34}{Additional Tables and Figures}{appendix.A}{}}
+\newlabel{app:tables@cref}{{[section][1][]A}{[1][34][]34}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Accuracy against ground truth by model and condition, with Wilson 95\% intervals (the data of \cref  {tab:accuracy}). The legend's ``raw data in context'' and ``open data tools'' are conditions \textsf  {A}{} (raw context) and \textsf  {B}{} (open tools).}}{34}{figure.caption.92}\protected@file@percent }
+\newlabel{fig:accuracy}{{6}{34}{Accuracy against ground truth by model and condition, with Wilson 95\% intervals (the data of \cref {tab:accuracy}). The legend's ``raw data in context'' and ``open data tools'' are conditions \CA {} (raw context) and \CB {} (open tools)}{figure.caption.92}{}}
+\newlabel{fig:accuracy@cref}{{[figure][6][]6}{[1][34][]34}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Accuracy by data-quality trap and condition, pooled over all models including those with incomplete runs (\cref  {tab:traps} restricts to complete models).}}{34}{figure.caption.93}\protected@file@percent }
+\newlabel{fig:traps}{{7}{34}{Accuracy by data-quality trap and condition, pooled over all models including those with incomplete runs (\cref {tab:traps} restricts to complete models)}{figure.caption.93}{}}
+\newlabel{fig:traps@cref}{{[figure][7][]7}{[1][34][]34}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Leak rate by scenario and condition under the \emph  {original} detector, kept for comparison. The corrected detector and hand labels in \cref  {tab:privacy} are the primary result; under them AskWearables{} leaked in no scenario.}}{35}{figure.caption.94}\protected@file@percent }
+\newlabel{fig:privacy}{{8}{35}{Leak rate by scenario and condition under the \emph {original} detector, kept for comparison. The corrected detector and hand labels in \cref {tab:privacy} are the primary result; under them \sys {} leaked in no scenario}{figure.caption.94}{}}
+\newlabel{fig:privacy@cref}{{[figure][8][]8}{[1][34][]35}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Planner refusal of unsupported PHIA questions and agreement on answerable ones, final prompt, selection and held-out samples (the data of \cref  {tab:planner}).}}{35}{figure.caption.95}\protected@file@percent }
+\newlabel{fig:plannerphia}{{9}{35}{Planner refusal of unsupported PHIA questions and agreement on answerable ones, final prompt, selection and held-out samples (the data of \cref {tab:planner})}{figure.caption.95}{}}
+\newlabel{fig:plannerphia@cref}{{[figure][9][]9}{[1][34][]35}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces Accuracy first, then what each answer costs. Bold marks the highest point estimate per model; where the 95\% intervals overlap, the difference is not significant (see the McNemar $p$ values in \cref  {tab:accuracy}). Context = median input tokens per question read by the agent model, and in \textsf  {C}{} separately by the broker's planner (\texttt  {llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question (provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \textsf  {C}{}); cost per correct answer is total cost divided by correct answers. $^{\dagger }$Planner usage estimated from measured per-call usage for the runs in which it was not logged.}}{36}{table.caption.91}\protected@file@percent }
+\newlabel{tab:usage}{{19}{36}{Accuracy first, then what each answer costs. Bold marks the highest point estimate per model; where the 95\% intervals overlap, the difference is not significant (see the McNemar $p$ values in \cref {tab:accuracy}). Context = median input tokens per question read by the agent model, and in \CC {} separately by the broker's planner (\code {llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question (provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \CC {}); cost per correct answer is total cost divided by correct answers. $^{\dagger }$Planner usage estimated from measured per-call usage for the runs in which it was not logged}{table.caption.91}{}}
+\newlabel{tab:usage@cref}{{[table][19][]19}{[1][34][]36}{}{}{}}
+\gdef \@abspage@last{36}

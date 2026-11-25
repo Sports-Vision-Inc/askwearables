@@ -1,0 +1,56 @@
+\section{Additional Tables and Figures}\label{app:tables}
+
+\begin{table}[h]
+\centering\small
+\caption{Accuracy first, then what each answer costs. Bold marks the highest point estimate per model; where the
+95\% intervals overlap, the difference is not significant (see the McNemar $p$ values in \cref{tab:accuracy}).
+Context = median input tokens per question read by the agent model, and in \CC{} separately by the broker's planner
+(\code{llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question
+(provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \CC{});
+cost per correct answer is total cost divided by correct answers. $^{\dagger}$Planner usage estimated from measured
+per-call usage for the runs in which it was not logged.}
+\label{tab:usage}
+\setlength{\tabcolsep}{3pt}\footnotesize
+\begin{tabular}{@{}l c c r r r r r@{}}
+\toprule
+ & & & \multicolumn{2}{c}{Context (input tokens)} & & \multicolumn{2}{c}{Cost (USD)}\\
+\cmidrule(lr){4-5}\cmidrule(lr){7-8}
+Agent model & Cond. & Accuracy, \% [95\% CI] & Agent & Planner & Output & per question & per correct\\
+\midrule
+\inputtab{tables/tab_usage.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_accuracy.pdf}
+\caption{Accuracy against ground truth by model and condition, with Wilson 95\% intervals (the data of
+\cref{tab:accuracy}). The legend's ``raw data in context'' and ``open data tools'' are conditions \CA{} (raw context)
+and \CB{} (open tools).}
+\label{fig:accuracy}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/fig_traps.pdf}
+\caption{Accuracy by data-quality trap and condition, pooled over all models including those with incomplete runs
+(\cref{tab:traps} restricts to complete models).}
+\label{fig:traps}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/fig_privacy.pdf}
+\caption{Leak rate by scenario and condition under the \emph{original} detector, kept for comparison. The corrected
+detector and hand labels in \cref{tab:privacy} are the primary result; under them \sys{} leaked in no scenario.}
+\label{fig:privacy}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_planner_phia.pdf}
+\caption{Planner refusal of unsupported PHIA questions and agreement on answerable ones, final prompt, selection and
+held-out samples (the data of \cref{tab:planner}).}
+\label{fig:plannerphia}
+\end{figure}

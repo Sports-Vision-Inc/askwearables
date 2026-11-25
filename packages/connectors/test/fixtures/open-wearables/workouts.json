@@ -1,0 +1,4 @@
+{"data":[
+ {"id":"00000000-0000-4000-8000-000000000101","type":"running","name":"Evening Run","start_time":"2026-11-20T17:30:00+01:00","end_time":"2026-11-20T18:10:00+01:00","zone_offset":"+01:00","duration_seconds":2400,"moving_time_seconds":2350,"source":{"provider":"garmin","source":"garmin","device":"fr265","device_type":"watch","device_id":null},"entry_source":"device","intensity":null,"calories_kcal":455.0,"distance_meters":6800.0,"avg_heart_rate_bpm":149,"max_heart_rate_bpm":172},
+ {"id":"00000000-0000-4000-8000-000000000102","type":"cycling","name":"Commute","start_time":"2026-11-21T08:00:00+01:00","end_time":"2026-11-21T08:30:00+01:00","zone_offset":"+01:00","duration_seconds":1800,"source":{"provider":"strava","source":"strava","device":null,"device_type":null,"device_id":null},"calories_kcal":200.0,"distance_meters":9000.0}
+],"pagination":{"next_cursor":null,"previous_cursor":null,"has_more":false,"total_count":2},"metadata":{}}

@@ -1,0 +1,79 @@
+{
+ "suite": "real",
+ "planner": "llm",
+ "tasks": 152,
+ "match": 124,
+ "by_stratum": [
+  {
+   "key": "lifesnaps",
+   "n": 72,
+   "match": 57
+  },
+  {
+   "key": "pmdata",
+   "n": 80,
+   "match": 67
+  }
+ ],
+ "by_tag": [
+  {
+   "key": "rhr_avg_14d",
+   "n": 16,
+   "match": 13
+  },
+  {
+   "key": "rhr_trend_28d",
+   "n": 16,
+   "match": 12
+  },
+  {
+   "key": "rhr_yesterday",
+   "n": 16,
+   "match": 16
+  },
+  {
+   "key": "sleep_avg_7d",
+   "n": 16,
+   "match": 14
+  },
+  {
+   "key": "sleep_under_6h_7d",
+   "n": 16,
+   "match": 15
+  },
+  {
+   "key": "sleep_vs_usual_3d",
+   "n": 16,
+   "match": 13
+  },
+  {
+   "key": "steps_total_7d",
+   "n": 16,
+   "match": 12
+  },
+  {
+   "key": "steps_week_vs_prev",
+   "n": 16,
+   "match": 12
+  },
+  {
+   "key": "steps_yesterday",
+   "n": 16,
+   "match": 16
+  },
+  {
+   "key": "workouts_14d",
+   "n": 8,
+   "match": 1
+  }
+ ],
+ "causes": {
+  "planner_window_differs": 18,
+  "planner_chose_aggregate:workout": 7,
+  "label_differs_sleep_vs_usual_3d": 2,
+  "value_differs_steps_total_7d": 1
+ },
+ "packet_status": {
+  "ok": 152
+ }
+}

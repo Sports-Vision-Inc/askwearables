@@ -1,0 +1,17 @@
+{
+ "pulseox": [
+  {
+   "userId": "fake-garmin-user-1",
+   "summaryId": "x-fake-pulseox-1",
+   "calendarDate": "2026-11-20",
+   "startTimeInSeconds": 1795136400,
+   "startTimeOffsetInSeconds": 3600,
+   "durationInSeconds": 3600,
+   "timeOffsetSpo2Values": {
+    "0": 96,
+    "60": 95
+   },
+   "onDemand": false
+  }
+ ]
+}

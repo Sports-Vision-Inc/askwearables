@@ -1,0 +1,1 @@
+{"dataPoints":[{"dataPointName":"users/123456789012345678/dataTypes/daily-vo2-max/dataPoints/fake-vo2-1","dailyVo2Max":{"date":{"year":2026,"month":11,"day":20},"vo2Max":44.1,"cardioFitnessLevel":"GOOD","estimated":true}}],"nextPageToken":""}

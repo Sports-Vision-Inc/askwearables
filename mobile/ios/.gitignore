@@ -1,0 +1,6 @@
+.build/
+AskWearablesKit/.build/
+AskWearablesKit/.swiftpm/
+xcuserdata/
+DerivedData/
+*.xcresult

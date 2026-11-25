@@ -1,0 +1,92 @@
+\bigskip
+\section{Introduction}\label{sec:intro}
+
+\subsection{The problem: the model is asked to do three jobs it does poorly}
+
+People increasingly ask general-purpose AI agents about their own sleep, heart rate and training. Today an agent
+reaches wearable data in one of two ways. A connector exports the record and the model reads it in its context,
+or a tool server, often a Model Context Protocol (MCP) server, lets the model fetch whatever its credential
+reaches. Both designs put the full record in front of the model and leave three jobs to it: computing over the
+numbers, deciding what to disclose, and staying consistent from one question to the next.
+
+Each of these jobs is fragile when a language model does it. Language models reason poorly over raw numeric
+series~\citep{merrill2024timeseries}, and their errors on compositional arithmetic compound with the number of
+steps~\citep{dziri2023faith}; the Personal Health Insights Agent (PHIA) study found that an agent which writes and
+runs code answers objective questions over wearable data far better than direct numerical reasoning
+does~\citep{merrill2024phia}. Agents disclose information that is irrelevant to the task they were
+given~\citep{shao2024privacylens,wang2025privacyinaction}, and text injected into the data they read can steer
+them~\citep{greshake2023indirect}. Repeated questions over the same data yield different
+answers~\citep{atil2024nondeterminism}.
+
+Before any of these failures there is an earlier one. Privacy evaluations of language-model agents mostly ask
+whether the model \emph{leaks}: whether sensitive information in its context reaches an output where it should
+not~\citep{mireshghallah2024confaide,shao2024privacylens}. We argue that the step before is already a harm. Data
+protection law requires that personal data be ``limited to what is necessary'' for the purpose of
+processing~\citep{gdpr2016}, the principle of \emph{data minimization}, and health privacy law requires that
+protected health information be limited to the ``minimum necessary'' for the intended purpose~\citep{hipaa164502}.
+API security has long treated an interface that returns more fields than its client needs, and relies on the client
+to filter them, as a vulnerability in its own right: Excessive Data Exposure~\citep{owasp2019api3}, since folded into
+Broken Object Property Level Authorization~\citep{owasp2023api3}. An agent given a raw wearable record is exactly
+such a client. By analogy we name the failure \emph{context over-exposure}: the model's context receives personal
+data beyond what the question requires. A question about last night's sleep does not need six weeks of heart rate,
+workouts and body weight, yet a connector delivers all of it and a tool server makes all of it one call away.
+
+We keep \emph{exposure}, a property of the model's input, distinct from \emph{leakage}, a property of its output.
+Exposure matters because models are unreliable filters. Two strong models leaked in 25.68\% to 38.69\% of cases even
+when instructed to protect privacy~\citep{shao2024privacylens}; contextual-integrity violations rise as more
+entries enter the context~\citep{fu2026ciwork} and accumulate with use~\citep{mireshghallah2025cimemories}; and
+anything in the context can be extracted by injected instructions~\citep{greshake2023indirect,bagdasarian2024airgap}.
+Once delivered, the data also sits in the model provider's context, outside the user's control, whatever the model
+does next. \sys{} therefore minimizes what enters the context, not only what leaves it.
+
+\subsection{Approach}
+
+We present \sys{}, a broker that sits between wearable data and any agent and takes the three jobs away from the
+model (\cref{fig:arch}). It has three parts:
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+\item \textbf{Per-question retrieval by computation.} An LLM planner turns each question into a typed query, a
+  \emph{QuerySpec}, over a metric layer. Fixed, tested code computes the answer. The planner never sees health
+  data, and the model that reads the answer never computes it.
+\item \textbf{Deterministic minimum-necessary release.} A policy gate outside the model checks every query against
+  a grant that is specific to one agent and one purpose, and releases the coarsest of four levels (flag, bucket, values, raw) that answers it. It writes a hash-chained
+  receipt for every release and every denial, and can cap the number of packets an agent receives per day.
+\item \textbf{One response contract.} Every agent receives the same \emph{packet}: findings relative to the
+  user's own baseline, data-quality caveats, freshness and sources, in at most 400 tokens.
+\end{itemize}
+
+We set out to measure what this design changes when the agent model is held fixed. We compare three conditions
+that differ only in how the agent reaches the data: \condA{}, where the user's export is in the prompt; \condB{},
+where unrestricted data tools return whatever is asked; and \condC{}, where one tool sends the question through the
+broker. The comparison covers \nModels{} models, from open-weight models with a few billion active parameters to
+frontier systems, on a synthetic cohort whose ground truth is recorded by construction and which contains the data-quality
+traps real wearable data contains: duplicate step sources, time-zone travel, daylight-saving changes, missing
+days, stale syncs and device switches. We measure accuracy, honest refusal, tokens, latency and cost, leakage under
+contextual-integrity and injection scenarios, and repeatability. We also evaluate the planner alone on a stratified
+sample of the PHIA objective questions, and the compute engine on all of PHIA's questions that its operations
+cover.
+
+\subsection{Contributions}
+
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+\item \sys{}, a broker that separates planning (an LLM that sees only the question and a metric catalogue),
+  computation (tested code over a metric layer that handles duplicate sources, local days, coverage and personal
+  baselines) and release (a deterministic gate with purpose-bound grants, four release levels and hash-chained
+  receipts) (\cref{sec:design}).
+\item A controlled comparison of \sys{} with the two prevailing designs on \nModels{} agent models, scored against
+  ground truth rather than against the broker's own output, with paired exact tests and a bootstrap that resamples
+  people (\cref{sec:study,sec:results}).
+\item A measurement of context over-exposure, the share of the record each design puts in front of the model per
+  question, kept separate from leakage, which we score with a detector validated against hand labels
+  (\cref{sec:res:exposure,sec:res:privacy}).
+\item An account of where the benefit lies for each class of model, where \sys{} fails, and what one round of fixes
+  to its planner changed (\cref{sec:res:accuracy,sec:res:failures}).
+\item An evaluation of the planner and the compute engine on the public PHIA benchmark, with every candidate planner
+  and a held-out sample (\cref{sec:res:planner,sec:res:phia}).
+\end{itemize}
+
+Neither ingredient is new on its own. Computing outside the model is the idea behind program-aided
+reasoning~\citep{gao2022pal,chen2023pot} and PHIA's code-writing agent~\citep{merrill2024phia}, and deterministic
+policy outside the model has been built several times~\citep{shi2025progent,debenedetti2025camel,kodathala2026aiauthz}.
+Our contribution is the combination for personal wearable data, with release levels and purpose-bound grants, and
+the measurement of what it changes across models. \sys{} answers wellness questions about a person's own data; it
+makes no medical claims and gives no diagnosis.

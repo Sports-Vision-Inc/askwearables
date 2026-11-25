@@ -1,0 +1,298 @@
+\begin{thebibliography}{42}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Wang et~al.(2026{\natexlab{a}})Wang, Li, and Tian]{wang2026reframing}
+Peiran Wang, Ying Li, and Yuan Tian.
+\newblock Reframing {LLM} agent security as an agent-human interaction problem,
+  2026{\natexlab{a}}.
+\newblock URL \url{https://arxiv.org/abs/2605.24309}.
+
+\bibitem[{European Commission}(2018)]{psd2rts2018}
+{European Commission}.
+\newblock Commission delegated regulation ({EU}) 2018/389 on regulatory
+  technical standards for strong customer authentication and common and secure
+  open standards of communication.
+\newblock Official Journal of the European Union, L 69, 2018.
+
+\bibitem[Shapira et~al.(2026)Shapira, Wendler, Yen, Sarti, Pal, Floody, Belfki,
+  Loftus, Jannali, Prakash, Cui, Rogers, Brinkmann, Rager, Zur, Ripa,
+  Sankaranarayanan, Atkinson, Gandikota, Fiotto-Kaufman, Hwang, Orgad, Sahil,
+  Taglicht, Shabtay, Ambus, Alon, Oron, Gordon-Tapiero, Kaplan, Shwartz,
+  Rott~Shaham, Riedl, Mirsky, Sap, Manheim, Ullman, and Bau]{shapira2026agents}
+Natalie Shapira, Chris Wendler, Avery Yen, Gabriele Sarti, Koyena Pal, Olivia
+  Floody, Adam Belfki, Alex Loftus, Aditya~Ratan Jannali, Nikhil Prakash,
+  Jasmine Cui, Giordano Rogers, Jannik Brinkmann, Can Rager, Amir Zur, Michael
+  Ripa, Aruna Sankaranarayanan, David Atkinson, Rohit Gandikota, Jaden
+  Fiotto-Kaufman, EunJeong Hwang, Hadas Orgad, P~Sam Sahil, Negev Taglicht,
+  Tomer Shabtay, Atai Ambus, Nitay Alon, Shiri Oron, Ayelet Gordon-Tapiero,
+  Yotam Kaplan, Vered Shwartz, Tamar Rott~Shaham, Christoph Riedl, Reuth
+  Mirsky, Maarten Sap, David Manheim, Tomer Ullman, and David Bau.
+\newblock Agents of chaos, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.20021}.
+
+\bibitem[Arun~Kumar(2026)]{arunkumar2026loopjacking}
+Adithyan Arun~Kumar.
+\newblock Loopjacking: Hijacking human-in-the-loop approval, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.21081}.
+
+\bibitem[{Checkmarx}(2025)]{checkmarx2025lies}
+{Checkmarx}.
+\newblock Lies-in-the-loop: Bypassing {AI} agent defenses.
+\newblock Practitioner disclosure; catalogued by OWASP as ``Lies in the Loop'',
+  2025.
+\newblock URL \url{https://owasp.org/www-community/attacks/Lies_in_the_Loop}.
+
+\bibitem[{Wiz Research}(2026)]{wiz2026ghostapproval}
+{Wiz Research}.
+\newblock {GhostApproval}.
+\newblock Practitioner report on symlink and display mismatch in coding-agent
+  approvals, 2026.
+
+\bibitem[Kodathala(2026)]{kodathala2026aiauthz}
+Sai~Varun Kodathala.
+\newblock {aiAuthZ}: Off-host, identity-bound authorization for {AI} agents,
+  2026.
+\newblock URL \url{https://arxiv.org/abs/2607.05518}.
+
+\bibitem[Yu et~al.(2026)Yu, Geng, Zeng, and Knottenbelt]{yu2026sudp}
+Xiaohang Yu, Hejia Geng, Xinmeng Zeng, and William Knottenbelt.
+\newblock {SUDP}: Secret-use delegation protocol for agentic systems, 2026.
+\newblock URL \url{https://arxiv.org/abs/2604.24920}.
+
+\bibitem[{Microsoft Agent Governance Toolkit}(2026)]{microsoft2026adr0030}
+{Microsoft Agent Governance Toolkit}.
+\newblock {ADR} 0030: Use an action-bound, fail-closed approval protocol.
+\newblock Architecture decision record, accepted 2026-06-11, 2026.
+\newblock URL
+  \url{https://microsoft.github.io/agent-governance-toolkit/adr/0030-action-bound-approval-protocol/}.
+\newblock Accessed October 2026.
+
+\bibitem[Vyas and Bhattacharya(2026)]{vyas2026visamfa}
+Surendra Vyas and Som~Madhab Bhattacharya.
+\newblock Multi-factor authentication for {AI} agents.
+\newblock Technical Disclosure Commons, Defensive Publications Series,
+  No.~10478 (Visa), June 2026.
+\newblock URL \url{https://www.tdcommons.org/dpubs_series/10478}.
+
+\bibitem[{Google}(2025)]{ap2spec}
+{Google}.
+\newblock Agent payments protocol ({AP2}) specification.
+\newblock Specification and reference implementation; tested at commit
+  \texttt{e1ea56d} (v0.2.0), 2025.
+\newblock URL \url{https://ap2-protocol.org/specification/}.
+\newblock Accessed October 2026.
+
+\bibitem[Fernandez et~al.(2021)Fernandez, Walter, Nennker, Tonge, and
+  Campbell]{ciba2021}
+Gonzalo Fernandez, Florian Walter, Axel Nennker, Dave Tonge, and Brian
+  Campbell.
+\newblock {OpenID Connect} client-initiated backchannel authentication flow,
+  core 1.0.
+\newblock OpenID Foundation Final Specification, 2021.
+\newblock URL
+  \url{https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0.html}.
+
+\bibitem[Lodderstedt et~al.(2023)Lodderstedt, Richer, and Campbell]{rfc9396}
+Torsten Lodderstedt, Justin Richer, and Brian Campbell.
+\newblock {OAuth} 2.0 rich authorization requests.
+\newblock RFC 9396, IETF, 2023.
+
+\bibitem[Jiang et~al.(2026)Jiang, Yu, Chang, Jangid, Niu, Wang, and
+  Zhang]{jiang2026payment}
+Ke~Jiang, Mohan Yu, Yuan Chang, Mohit~Kumar Jangid, Jianyu Niu, Cong Wang, and
+  Yinqian Zhang.
+\newblock A formal analysis of agent payment protocols, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.00060}.
+
+\bibitem[Chen(2026)]{chen2026aith}
+Zhaoliang Chen.
+\newblock {AITH}: A post-quantum continuous delegation protocol for human-{AI}
+  trust establishment, 2026.
+\newblock URL \url{https://arxiv.org/abs/2604.07695}.
+
+\bibitem[{W3C}(2021)]{webauthn2}
+{W3C}.
+\newblock Web authentication: An {API} for accessing public key credentials,
+  level 2.
+\newblock W3C Recommendation, 2021.
+\newblock URL \url{https://www.w3.org/TR/webauthn-2/}.
+
+\bibitem[Rundgren et~al.(2020)Rundgren, Jordan, and Erdtman]{rfc8785}
+Anders Rundgren, Bret Jordan, and Samuel Erdtman.
+\newblock {JSON} canonicalization scheme ({JCS}).
+\newblock RFC 8785, IETF, 2020.
+
+\bibitem[M'Raihi et~al.(2011)M'Raihi, Machani, Pei, and Rydell]{rfc6238}
+David M'Raihi, Salah Machani, Mingliang Pei, and Johan Rydell.
+\newblock {TOTP}: Time-based one-time password algorithm.
+\newblock RFC 6238, IETF, 2011.
+
+\bibitem[{Anthropic}(2026)]{anthropic2026automode}
+{Anthropic}.
+\newblock Auto mode is now the default in {Claude Code}.
+\newblock Product announcement, 2026.
+\newblock URL \url{https://claude.com/blog/auto-mode-default-in-claude-code}.
+\newblock Accessed October 2026.
+
+\bibitem[{Model Context Protocol}(2025)]{mcp2025elicitation}
+{Model Context Protocol}.
+\newblock Model context protocol specification, version 2025-11-25:
+  Elicitation, 2025.
+\newblock URL
+  \url{https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation}.
+\newblock Accessed October 2026.
+
+\bibitem[Meier et~al.(2013)Meier, Schmidt, Cremers, and
+  Basin]{meier2013tamarin}
+Simon Meier, Benedikt Schmidt, Cas Cremers, and David Basin.
+\newblock The {TAMARIN} prover for the symbolic analysis of security protocols.
+\newblock In \emph{Computer Aided Verification (CAV)}, volume 8044 of
+  \emph{Lecture Notes in Computer Science}, pages 696--701. Springer, 2013.
+
+\bibitem[Debenedetti et~al.(2024)Debenedetti, Zhang, Balunovi{\'c},
+  Beurer-Kellner, Fischer, and Tram{\`e}r]{debenedetti2024agentdojo}
+Edoardo Debenedetti, Jie Zhang, Mislav Balunovi{\'c}, Luca Beurer-Kellner, Marc
+  Fischer, and Florian Tram{\`e}r.
+\newblock {AgentDojo}: A dynamic environment to evaluate prompt injection
+  attacks and defenses for {LLM} agents.
+\newblock In \emph{Advances in Neural Information Processing Systems, Datasets
+  and Benchmarks Track}, 2024.
+
+\bibitem[{Mastercard}(2026)]{mastercard2026vi}
+{Mastercard}.
+\newblock Verifiable intent.
+\newblock Specification, 2026.
+\newblock URL \url{https://verifiableintent.dev/}.
+\newblock Accessed October 2026.
+
+\bibitem[Aviv et~al.(2026)Aviv, Gandh, Bitton, and Shabtai]{aviv2026ap2}
+Avital Aviv, Parth~A. Gandh, Ron Bitton, and Asaf Shabtai.
+\newblock Beyond the mandate: A systematic security analysis of the agent
+  payments protocol ({AP2}), 2026.
+\newblock URL \url{https://arxiv.org/abs/2608.23858}.
+
+\bibitem[{Auth0}(2026)]{auth0asyncauth}
+{Auth0}.
+\newblock Asynchronous authorization.
+\newblock Auth0 for AI Agents documentation, 2026.
+\newblock URL \url{https://auth0.com/ai/docs/intro/asynchronous-authorization}.
+\newblock Accessed October 2026.
+
+\bibitem[Weng(2026)]{weng2026consent}
+Xiaoqi Weng.
+\newblock What you approve is what executes: Consent integrity for black-box
+  {LLM} agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2606.02668}.
+
+\bibitem[Irshad et~al.(2026)Irshad, Mughees, Mughees, Mughees, and
+  Soomro]{irshad2026vac}
+Hasnain Irshad, Anam Mughees, Neelam Mughees, Abdullah Mughees, and Imtiaz~Ali
+  Soomro.
+\newblock The verifiable action card: Trustworthy human-in-the-loop control for
+  secure autonomous agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.18411}.
+
+\bibitem[Wang(2026)]{wang2026laundering}
+Yang Wang.
+\newblock Approval laundering: Systematizing approval-execution binding
+  failures in {AI} coding-agent harnesses, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.38983}.
+
+\bibitem[Tong et~al.(2026)Tong, Dai, and Guo]{tong2026aidguard}
+Yingzhe Tong, Leyu Dai, and Songhui Guo.
+\newblock {AID-Guard}: Stateful authorization for delegated agent effects,
+  2026.
+\newblock URL \url{https://arxiv.org/abs/2608.21159}.
+
+\bibitem[Zhang(2026)]{zhang2026effectguard}
+Qi~Zhang.
+\newblock Approve the effect, not the tool call.
+\newblock In \emph{ICML 2026 Workshop on Agents in the Wild}, 2026.
+
+\bibitem[Zhang and Zhang(2026)]{zhang2026earned}
+Zhaoxi Zhang and Xiaomei Zhang.
+\newblock Are you still the agent {I} authorized? earned authority under a
+  fixed ceiling for evolving agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.23586}.
+
+\bibitem[Santos-Grueiro(2026)]{santosgrueiro2026commit}
+Igor Santos-Grueiro.
+\newblock Temporary authority, permanent effects: Commit-time authorization for
+  {LLM} agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.10487}.
+
+\bibitem[Fatmi(2026)]{fatmi2026faramesh}
+Amjad Fatmi.
+\newblock Faramesh: A protocol-agnostic execution control plane for autonomous
+  agent systems, 2026.
+\newblock URL \url{https://arxiv.org/abs/2601.17744}.
+
+\bibitem[Uchibeke(2026)]{uchibeke2026preaction}
+Uchi Uchibeke.
+\newblock Before the tool call: Deterministic pre-action authorization for
+  autonomous {AI} agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2603.20953}.
+
+\bibitem[Prakash(2026)]{prakash2026aip}
+Sunil Prakash.
+\newblock {AIP}: Agent identity protocol for verifiable delegation across {MCP}
+  and {A2A}, 2026.
+\newblock URL \url{https://arxiv.org/abs/2603.24775}.
+
+\bibitem[Zhu and Wang(2026)]{zhu2026intent}
+Genliang Zhu and Chu Wang.
+\newblock Intent-governed tool authorization for {AI} agents, 2026.
+\newblock URL \url{https://arxiv.org/abs/2606.22916}.
+
+\bibitem[Weng et~al.(2026)Weng, Weng, Chen, Li, Liu, Li, and
+  Zhang]{weng2026neural}
+Jiasi Weng, Jian Weng, Minrong Chen, Ming Li, Jia-Nan Liu, Zhi Li, and Yue
+  Zhang.
+\newblock From neural intent to cryptographic authorization: Securing
+  {AI}-driven enterprise workflows, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.15596}.
+
+\bibitem[Llamb{\'\i}-Morillas and
+  Fern{\'a}ndez-Fern{\'a}ndez(2026)]{llambimorillas2026cva}
+M.~Llamb{\'\i}-Morillas and D.~Fern{\'a}ndez-Fern{\'a}ndez.
+\newblock Cryptographically verifiable authorization for autonomous {AI}
+  agents: A falsifiable hypothesis and proof of concept, 2026.
+\newblock URL \url{https://arxiv.org/abs/2607.21325}.
+
+\bibitem[Kasselman et~al.(2026)Kasselman, Lombardo, Rosomakho, and
+  Campbell]{ietf2026klrc}
+Pieter Kasselman, Jean-Fran{\c{c}}ois Lombardo, Yaroslav Rosomakho, and Brian
+  Campbell.
+\newblock {AI} agent authentication and authorization.
+\newblock IETF Internet-Draft \texttt{draft-klrc-aiagent-auth}, 2026.
+
+\bibitem[Wang et~al.(2026{\natexlab{b}})Wang, Ba, Liu, Pan, Wei, Su, Luan, and
+  Du]{wang2026openclaw}
+Yuntao Wang, Jianle Ba, Han Liu, Yanghe Pan, Jintao Wei, Zhou Su, Tom~H. Luan,
+  and Linkang Du.
+\newblock Security of {OpenClaw} agents: Fundamentals, attacks, and
+  countermeasures, 2026{\natexlab{b}}.
+\newblock URL \url{https://arxiv.org/abs/2605.25435}.
+
+\bibitem[Kutasov et~al.(2025)Kutasov, Sun, Colognese, van~der Weij, Petrini,
+  Zhang, Hughes, Deng, Sleight, Tracy, Shlegeris, and Benton]{kutasov2025shade}
+Jonathan Kutasov, Yuqi Sun, Paul Colognese, Teun van~der Weij, Linda Petrini,
+  Chen Bo~Calvin Zhang, John Hughes, Xiang Deng, Henry Sleight, Tyler Tracy,
+  Buck Shlegeris, and Joe Benton.
+\newblock {SHADE-Arena}: Evaluating sabotage and monitoring in {LLM} agents,
+  2025.
+\newblock URL \url{https://arxiv.org/abs/2506.15740}.
+
+\bibitem[Za et~al.(2025)Za, Bainiaksina, Ostrovsky, Chopra, and
+  Krakovna]{za2025persuasion}
+Jennifer Za, Julija Bainiaksina, Nikita Ostrovsky, Tanush Chopra, and Victoria
+  Krakovna.
+\newblock Evaluating {AI} agent persuasion of safety monitors.
+\newblock Poster, Women in Machine Learning Workshop at NeurIPS 2025, 2025.
+\newblock URL \url{https://neurips.cc/virtual/2025/133902}.
+
+\end{thebibliography}

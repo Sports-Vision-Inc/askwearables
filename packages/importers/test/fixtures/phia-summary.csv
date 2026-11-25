@@ -1,0 +1,4 @@
+pseudo_id2,datetime,age,gender,weight_kg,resting_heart_rate,heart_rate_variability,fatburn_active_zone_minutes,cardio_active_zone_minutes,peak_active_zone_minutes,active_zone_minutes,steps,rem_sleep_minutes,deep_sleep_minutes,awake_minutes,light_sleep_minutes,sleep_minutes,bed_time,wake_up_time,stress_management_score,deep_sleep_percent,rem_sleep_percent,awake_percent,light_sleep_percent,height_cm
+900,2023-10-01,43,Female,74,58.59,15.73,,2.02,0.0,31.0,5820.81,125.34,55.91,74.19,316.31,571.75,2023-10-01 21:24:58,2023-10-02 06:56:42,77.64,9.78,21.92,12.98,55.32,149
+900,2023-10-02,43,Female,74,60.42,19.9,36.73,7.57,3.12,47.42,12124.82,72.09,79.66,58.0,287.02,496.77,2023-10-03 00:21:05,2023-10-03 08:37:51,,16.04,14.51,11.68,57.78,149
+900,2023-10-04,43,Female,74,,34.99,,,2.43,40.0,9858.2,,,,,,,,,,,,,149

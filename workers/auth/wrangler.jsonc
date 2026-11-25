@@ -1,0 +1,56 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "askwearables-auth",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "upload_source_maps": true,
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "auth.askwearables.app",
+      "custom_domain": true
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "askwearables-control",
+      "database_id": "9658e119-82e0-4461-81d2-69dde54f148d",
+      "migrations_dir": "../../migrations"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "OAUTH_KV",
+      "id": "5a194d211b454e1385f9d9f428c743e3"
+    }
+  ],
+  "services": [
+    {
+      "binding": "GATE",
+      "service": "askwearables-gate"
+    }
+  ],
+  "vars": {
+    "ISSUER": "https://auth.askwearables.app",
+    "MCP_RESOURCE": "https://mcp.askwearables.app/mcp",
+    "API_RESOURCE": "https://api.askwearables.app/v1",
+    "RP_ID": "askwearables.app",
+    "COOKIE_DOMAIN": "askwearables.app",
+    "CONSOLE_URL": "https://app.askwearables.app"
+  },
+  "triggers": {
+    "crons": [
+      "41 * * * *"
+    ]
+  }
+}

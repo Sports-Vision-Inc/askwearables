@@ -1,0 +1,4 @@
+{"data":[
+ {"timestamp":"2026-11-20T07:00:00Z","zone_offset":"+01:00","type":"heart_rate","value":62,"unit":"bpm","source":{"provider":"garmin","source":"garmin","device":"fr265","device_type":"watch","device_id":null,"device_name":"Example Watch"},"is_daily_total":false,"window_seconds":null,"period_end":null,"computed_by":null,"stats":null},
+ {"timestamp":"2026-11-20T03:00:00Z","zone_offset":"+01:00","type":"respiratory_rate","value":14.6,"unit":"brpm","source":{"provider":"oura","source":"oura","device":"ring4","device_type":"ring","device_id":null,"device_name":"Example Ring"},"is_daily_total":false,"window_seconds":null,"period_end":null,"computed_by":null,"stats":null}
+],"pagination":{"next_cursor":"ZmFrZS1jdXJzb3ItMQ==","previous_cursor":null,"has_more":true,"total_count":4},"metadata":{"resolution":"raw","sample_count":2,"start_time":"2026-11-20T00:00:00Z","end_time":"2026-11-24T12:00:00Z"}}

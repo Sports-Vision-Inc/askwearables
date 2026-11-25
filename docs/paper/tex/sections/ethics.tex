@@ -1,0 +1,19 @@
+\phantomsection
+\section*{Ethics and Reproducibility Statement}\label{sec:ethics}
+\addcontentsline{toc}{section}{Ethics and Reproducibility Statement}
+
+The study used only synthetic data and the public PHIA, PMData and LifeSnaps datasets under their licenses. No personal health data was
+collected, and no human subjects took part. Question text and reference answers from PHIA are not redistributed; the
+repository stores question identifiers and hashes only. \sys{} is a wellness tool: its packets carry a flag stating
+that they are not medical advice, the planner refuses requests for grades, diagnoses or medical advice, and nothing
+in this paper is a clinical claim.
+
+The broker, the synthetic generator, the question set and scoring rules, the privacy scenarios, the agent prompts,
+the per-run results (final text, parsed answer, tool calls and packet levels; not the packets themselves), the
+leak-detector audit with its hand labels, and the scripts that produce every table, figure and in-text number are
+available at \codeurl{}. The commands are \code{eval/paper/run-lane1.sh}, \code{eval/paper/run-lane2.sh} and
+\code{eval/paper/run-v2.sh} (runs), \code{eval/paper/report.py} (tables and figures),
+\code{eval/paper/leak\_audit.py} (detector audit), \code{eval/paper/example\_packets.ts} (packets of the worked
+examples), \code{eval/paper/summarize\_planner.py} (planner study) and \code{eval/paper/make\_macros.py} (the
+numbers in this paper). Every result in the text is a macro generated from
+the result files; a result that has not finished renders as \pending{}.

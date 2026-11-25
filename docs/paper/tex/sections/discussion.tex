@@ -1,0 +1,68 @@
+\section{Discussion}\label{sec:discussion}
+
+\subsection{What the results say}
+
+\paragraph{Computing outside the agent model was associated with large gains where the agent model was weak.} The
+accuracy gains in \cref{tab:accuracy} concentrate in models that were weak with raw context, and the per-question
+results are consistent with an explanation: the questions those models got wrong in \CA{} and \CB{} need arithmetic
+over many days, a fitted trend, or knowledge that two sources report the same steps, and a packet hands the agent
+model a computed value with its caveats. The study does not isolate this cause. \CC{} bundles computed values,
+data-quality caveats, a second, larger model as planner, and a tool description that tells the agent model to rely
+on the numbers. The decomposition in \cref{sec:res:failures} shows that runs with a released packet were correct far
+more often than runs the planner refused, which fits the explanation but is not an ablation. The pattern agrees with
+the program-aided reasoning literature~\citep{gao2022pal,chen2023pot} and with PHIA's finding that computing in code
+beats reasoning over the numbers~\citep{merrill2024phia}; in \sys{} the agent model writes no code at all.
+
+\paragraph{For models near ceiling, the benefit is not accuracy.} The strongest models answered almost every
+question correctly in every condition, and we claim no accuracy gain for them; the bootstrap intervals include zero
+or touch it. What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
+read \ctxRatioCAMin{}--\ctxRatioCAMax{} of its raw-context input; the release was limited to the level the question
+needed, so a scheduling assistant receives a bucket rather than a night's sleep in minutes; and every release and
+denial left a hash-chained receipt. For \code{claude-fable-5.2} and \code{gemini-4-neon} it also lowered the cost per
+correct answer; for \code{gpt-6.2-astra} it raised it, and it added latency for every fast model.
+
+\paragraph{Exposure and leakage are different quantities.} Exposure is fixed by the system before the agent model
+runs, so it can be measured, audited and bounded; leakage depends on the model, the prompt and the adversary, and
+prompt-level instructions reduce it without bounding it~\citep{li2026toolminimize,dong2026claw}. Our privacy results
+show both sides. Where the request asked for data outside the role, raw context and open tools leaked often and
+\sys{} did not, because the data was never delivered. Where the user asked for their own data to be used, as in the
+manager message, the difference came from the release level: the \CC{} agent model received a bucket and had no
+figure to restate. Upstream minimization has worked in other settings~\citep{bagdasarian2024airgap,abdelnabi2025firewalls,li2026toolminimize};
+\sys{} applies it with computed release levels rather than a second model. Minimal answers can still compose into a
+reconstruction of the record~\citep{dinur2003revealing,patil2025sumleaks}; the gate can cap releases per day, but
+this study did not exercise that limit or run a reconstruction attack.
+
+\paragraph{Measuring leakage needs a validated detector.} The leak detector we started with had a precision of
+\auditPrec{} against hand labels, and every one of its \CC{} positives was a false positive: advice to the user, a
+sync age, or a coincidental number. A study that reported it alone would have understated the difference between
+\sys{} and the baselines in some scenarios and misstated open tools in others. We recommend that agent-privacy
+evaluations report detector precision and recall on a labelled sample, as we do here.
+
+\paragraph{Errors move from computation to planning.} The failures that remain in \CC{} are planner refusals, planner
+validation failures, and agent models that misread the packet or asked a different question. Two of the planner
+failures were defects, not design choices: a schema that rejected ``hours'' as a unit, and a keyword check that read
+``period'' as cycle tracking. Both appeared as reasons in the broker's log, which is how we found them, and fixing
+them is what the second iteration measures (\cref{tab:v2}). Over-refusal is a cost of a planner told to refuse when
+unsure, both on PHIA and in the over-refusal counts of \cref{sec:res:refusal}.
+
+\paragraph{The open-tools condition depends on how the model calls tools.} Open tools were the worst condition for
+some models and the best for others. One model wrote most of its tool calls as text, which a harness that only
+reads structured calls would have scored as unanswered; after the harness was corrected, its open-tools accuracy was
+\accLlamaScoutB{}. A comparison of MCP-style designs therefore depends on the serving stack as much as on the design,
+and studies should state how text-format tool calls are handled.
+
+\subsection{Implications for agent builders}
+
+For people building agents over personal data, we draw three lessons. First, give agent models computed answers
+with caveats rather than records; the packet contract cost the strongest models nothing measurable in accuracy and
+helped the weaker ones. Second, decide disclosure in code, outside the model, and bind purpose at consent time rather
+than in the request. Third, log both releases and denials with their reasons; the logged reasons let us find and fix
+the planner defects.
+
+\subsection{Limitations of the design}
+
+The gate cannot stop an agent model from misreading a packet, and a released packet is outside the system's
+control once an agent's provider stores it. Within the ceiling the grant sets, what is requested is chosen by the
+planner and the agent model, so the release is deterministic in its limits, not in its content. The operation set is
+deliberately narrow, so \sys{} refuses questions a code-writing agent could answer (\phiaUnsupported{} of PHIA's
+\phiaTotal{} objective questions). The threat model assumes the hosting platform is not compromised.

@@ -1,0 +1,8 @@
+{
+ "sleeps": [
+  {
+   "userId": "fake-garmin-user-1",
+   "callbackURL": "https://apis.garmin.com/wellness-api/rest/sleeps?uploadStartTimeInSeconds=1795158000&uploadEndTimeInSeconds=1795161600"
+  }
+ ]
+}

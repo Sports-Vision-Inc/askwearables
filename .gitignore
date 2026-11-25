@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.local.*
+eval/data/
+coverage/
+.DS_Store
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/ios/build/
+mobile/ios/.build/
+.secrets/
+eval/.venv/

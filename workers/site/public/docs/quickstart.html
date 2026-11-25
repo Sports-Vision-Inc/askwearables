@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickstart · AskWearables</title>
+<meta name="description" content="From a fresh developer key to a signed question and a context packet, then connecting Claude or another MCP client.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="inner">
+  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="/docs/">Docs</a>
+    <a href="/docs/quickstart" aria-current="page">Quickstart</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API</a>
+    <a href="https://app.askwearables.app/">Console</a>
+  </nav>
+</div></header>
+
+<div class="docs">
+<nav class="docs-nav" aria-label="Documentation">
+  <h2>Docs</h2>
+  <ul>
+    <li><a href="/docs/">Overview</a></li>
+    <li><a href="/docs/quickstart" aria-current="page">Quickstart</a></li>
+    <li><a href="/docs/packets">Packets and levels</a></li>
+    <li><a href="/docs/privacy">Privacy model</a></li>
+    <li><a href="/docs/api">API reference</a></li>
+    <li><a href="/docs/self-hosting">Self-hosting</a></li>
+    <li><a href="/results">Study results</a></li>
+  </ul>
+  <h2>Files</h2>
+  <ul>
+    <li><a href="/openapi.json">openapi.json</a></li>
+    <li><a href="/privacy">Privacy policy (draft)</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<h1>Quickstart</h1>
+<p>This walks one end user from nothing to an answered question: register the user, push their records, send them to the consent screen, wait for approval, then ask with a signed request. The second part connects Claude, or any MCP client, to the MCP server.</p>
+
+<div class="toc"><ol>
+  <li><a href="#keys">Get a developer key</a></li>
+  <li><a href="#install">Install an SDK</a></li>
+  <li><a href="#signing">How requests are signed</a></li>
+  <li><a href="#user">Create a user</a></li>
+  <li><a href="#ingest">Push records</a></li>
+  <li><a href="#consent">Create a consent link</a></li>
+  <li><a href="#approve">The user approves</a></li>
+  <li><a href="#ask">Ask</a></li>
+  <li><a href="#script">Run it all with one script</a></li>
+  <li><a href="#mcp">Connect Claude or another MCP client</a></li>
+</ol></div>
+
+<div class="note warn"><p>Until the legal review of hosting other people's health data is done, the hosted service holds the owner's data only. Run these steps against your own <a href="/docs/self-hosting">self-hosted deployment</a>, and use synthetic records, not real ones, while you test.</p></div>
+
+<h2 id="keys">1. Get a developer key</h2>
+<p>Sign in to the console as the owner and open the developer section. Give an organization name, an agent name (this is the name your users see on the consent screen) and, optionally, a webhook URL. You receive, once:</p>
+<ul>
+  <li><code>api_key</code>: starts with <code>aw_dev_</code>. Sent as <code>Authorization: Bearer …</code>.</li>
+  <li><code>signing_secret</code>: starts with <code>awsig_</code>. Never sent; used to sign each request.</li>
+  <li><code>webhook_secret</code>: only if you gave a webhook URL. Used to verify grant events.</li>
+</ul>
+<p>Keep them on your server. The examples below read them from the environment:</p>
+<pre><code>export AW_API=https://api.your-domain.example     # or https://api.askwearables.app
+export AW_DEV_KEY=aw_dev_...
+export AW_DEV_SIGNING_SECRET=awsig_...
+export AW_USER=user-123                           # your own id for the end user</code></pre>
+
+<h2 id="install">2. Install an SDK</h2>
+<p>The SDKs are in the repository under <code>sdks/</code>. The TypeScript one has no dependencies; the Python one uses only the standard library.</p>
+<p class="code-label">TypeScript</p>
+<pre><code>cd sdks/typescript &amp;&amp; npm run build
+cd /path/to/your-app &amp;&amp; npm install /path/to/sdks/typescript</code></pre>
+<pre><code>import { AskWearables } from "@askwearables/sdk";
+
+const aw = new AskWearables({
+  baseUrl: process.env.AW_API,
+  apiKey: process.env.AW_DEV_KEY!,
+  signingSecret: process.env.AW_DEV_SIGNING_SECRET,
+  user: "user-123", // default end user; any call can pass { user } instead
+});</code></pre>
+<p class="code-label">Python</p>
+<pre><code>pip install /path/to/sdks/python</code></pre>
+<pre><code>import os
+from askwearables import AskWearables
+
+aw = AskWearables(
+    api_key=os.environ["AW_DEV_KEY"],
+    signing_secret=os.environ["AW_DEV_SIGNING_SECRET"],
+    base_url=os.environ["AW_API"],
+    user="user-123",
+)</code></pre>
+
+<h2 id="signing">3. How requests are signed</h2>
+<p>A developer key acts for many users, so a leaked bearer key alone must not be enough. Each request also carries an HMAC-SHA256 signature over the request, a timestamp and a single-use nonce. The SDKs do this for you; the rules are here so you can do it by hand.</p>
+<ol>
+  <li><code>timestamp</code>: Unix time in seconds. Requests more than 300 seconds off are refused (<code>signature_expired</code>).</li>
+  <li><code>nonce</code>: 16 to 64 characters from <code>A-Z a-z 0-9 _ -</code>, never reused. A repeat inside the window is refused (<code>nonce_replayed</code>). Make a new one on every retry.</li>
+  <li><code>path</code>: the URL path only, without the query string, for example <code>/v1/ask</code>.</li>
+  <li><code>body</code>: the exact bytes you send. For a GET, the empty string.</li>
+  <li>Sign the string <code>timestamp + "\n" + nonce + "\n" + METHOD + "\n" + path + "\n" + sha256hex(body)</code> with HMAC-SHA256 and your signing secret, and send the lowercase hex digest.</li>
+</ol>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Header</th><th scope="col">Value</th></tr></thead>
+  <tbody>
+    <tr><td><code>Authorization</code></td><td><code>Bearer aw_dev_…</code></td></tr>
+    <tr><td><code>X-AskWearables-User</code></td><td>Your end user's id. Required on every call about a user.</td></tr>
+    <tr><td><code>X-AskWearables-Timestamp</code></td><td>Unix seconds</td></tr>
+    <tr><td><code>X-AskWearables-Nonce</code></td><td>Single-use random string</td></tr>
+    <tr><td><code>X-AskWearables-Signature</code></td><td>Hex HMAC-SHA256 of the string above</td></tr>
+  </tbody>
+</table></div>
+<p>The agent calls (<code>ask</code>, <code>query</code>, <code>capabilities</code>, <code>packets</code>) are refused without a valid signature. The SDKs sign every call, which is also accepted on the others. For curl, this shell function signs one request; it works in bash and zsh and needs only <code>openssl</code>:</p>
+<pre><code># aw METHOD ROUTE [JSON_BODY]: one signed request with a developer key.
+aw() {
+  local method=$1 route=$2 body=${3:-}
+  local ts nonce hash sig
+  ts=$(date +%s)
+  nonce=$(openssl rand -hex 16)
+  hash=$(printf '%s' "$body" | openssl dgst -sha256 -r | cut -d' ' -f1)
+  sig=$(printf '%s\n%s\n%s\n%s\n%s' "$ts" "$nonce" "$method" "${route%%\?*}" "$hash" \
+    | openssl dgst -sha256 -hmac "$AW_DEV_SIGNING_SECRET" -r | cut -d' ' -f1)
+  local args=(-sS -X "$method" "$AW_API$route"
+    -H "Authorization: Bearer $AW_DEV_KEY"
+    -H "X-AskWearables-User: $AW_USER"
+    -H "X-AskWearables-Timestamp: $ts"
+    -H "X-AskWearables-Nonce: $nonce"
+    -H "X-AskWearables-Signature: $sig")
+  if [ -n "$body" ]; then args+=(-H "Content-Type: application/json" --data-binary "$body"); fi
+  curl "${args[@]}"
+}</code></pre>
+<p>Check your setup with a packet id that does not exist. A <code>404</code> with <code>not_found</code> means the signature was accepted; a <code>400</code> names what was wrong.</p>
+<pre><code>aw GET /v1/packets/pk_000000000000000000000000</code></pre>
+
+<h2 id="user">4. Create a user</h2>
+<p>Register the end user by your own id (letters, digits and <code>_ . : -</code>, up to 128 characters) and their time zone. A day is the user's local day, so the time zone matters. Calling it again for the same id is safe and returns <code>created: false</code>.</p>
+<p class="code-label">curl</p>
+<pre><code>aw POST /v1/users '{"external_id":"user-123","tz":"Europe/London"}'
+# {"user":"user-123","created":true}</code></pre>
+<p class="code-label">TypeScript</p>
+<pre><code>await aw.createUser("user-123", { tz: "Europe/London" });</code></pre>
+<p class="code-label">Python</p>
+<pre><code>aw.create_user("user-123", tz="Europe/London")</code></pre>
+
+<h2 id="ingest">5. Push records</h2>
+<p>Send normalized records for one source at a time to <code>POST /v1/ingest</code>, up to 2,000 per call (the SDKs split larger batches). A source is one device stream. Every record keeps its source, so values from different devices are never mixed, and each user is compared only with their own history from the same source.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Source field</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>id</code></td><td>Your stable id for this stream, for example <code>watch:abc</code>. Every record's <code>source_id</code> must equal it.</td></tr>
+    <tr><td><code>provider</code></td><td>Where it came from, for example <code>apple_health</code> or <code>oura</code></td></tr>
+    <tr><td><code>device_class</code></td><td><code>watch</code>, <code>ring</code>, <code>band</code>, <code>phone</code>, <code>scale</code>, <code>cgm</code> or <code>other</code>. When two sources report one metric, watch wins, then ring, then phone.</td></tr>
+    <tr><td><code>device_model</code>, <code>connected_at</code>, <code>earliest_readable</code>, <code>last_sync_at</code></td><td>Optional; the SDKs fill safe defaults. <code>last_sync_at</code> drives the freshness caveat.</td></tr>
+    <tr><td><code>terms_flags</code></td><td><code>{"no_ai": true}</code> if the provider's terms forbid sending its data to a model. The gate then never releases it to a model-facing agent.</td></tr>
+  </tbody>
+</table></div>
+<p>There are three record kinds: <code>sample</code> (a point or interval value), <code>session</code> (sleep or a workout) and <code>vendor_score</code> (a vendor's own score, kept apart and never converted). Times are ISO 8601 in UTC, with <code>tz_offset_min</code> giving the user's clock offset at the time. Units are converted to the catalogue unit on ingest; an unknown unit or an implausible value is rejected with a reason. Records are idempotent on <code>external_id</code>, so re-sending is safe.</p>
+<p class="code-label">curl</p>
+<pre><code>aw POST /v1/ingest '{
+  "source": {"id":"watch:abc","provider":"apple_health","device_class":"watch","device_model":null,
+             "connected_at":"2026-11-01T00:00:00Z","earliest_readable":null,"last_sync_at":null,"terms_flags":{}},
+  "records": [
+    {"kind":"session","session_kind":"sleep","start":"2026-11-23T23:05:00Z","end":"2026-11-24T06:50:00Z",
+     "source_id":"watch:abc","external_id":"sleep-2026-11-24","tz_offset_min":0,"is_main":true,
+     "detail":{"deep_min":80,"rem_min":95,"light_min":245,"awake_min":25,"in_bed_min":465}},
+    {"kind":"sample","metric":"resting_hr","start":"2026-11-24T00:00:00Z","end":"2026-11-24T23:59:59Z",
+     "value":54,"unit":"bpm","source_id":"watch:abc","method":"vendor_daily",
+     "external_id":"rhr-2026-11-24","tz_offset_min":0}
+  ]}'
+# {"written":2,"unchanged":0,"rejected":[],"days_recomputed":1,"data_version":"…"}</code></pre>
+<p class="code-label">TypeScript</p>
+<pre><code>const result = await aw.ingest({
+  source: { id: "watch:abc", provider: "apple_health", device_class: "watch" },
+  records, // CanonicalRecord[]; records without source_id get the source's id
+});
+if (result.rejected.length) console.warn(result.rejected);</code></pre>
+<p class="code-label">Python</p>
+<pre><code>result = aw.ingest({"id": "watch:abc", "provider": "apple_health", "device_class": "watch"}, records)</code></pre>
+<p>Baselines need at least 14 valid days in the trailing 28, so push a few weeks of history before expecting comparisons with "usual". Days under 60% coverage are marked low-coverage and left out of baselines. Gaps are never filled in.</p>
+
+<h2 id="consent">6. Create a consent link</h2>
+<p>Ask for what your feature needs, and no more. <code>POST /v1/grants</code> returns a one-time link to the hosted consent screen, valid for one hour. Nothing is approved until the user approves it there, and the user can narrow your request but never widen it.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Field</th><th scope="col">Allowed</th></tr></thead>
+  <tbody>
+    <tr><td><code>purpose</code></td><td>One of <code>scheduling</code>, <code>training_advice</code>, <code>sleep_coaching</code>, <code>general_wellness</code>, <code>personal_research</code></td></tr>
+    <tr><td><code>metrics</code></td><td>One or more metric ids from the <a href="/docs/packets#catalogue">catalogue</a>. Sensitive categories cannot be requested through a consent link.</td></tr>
+    <tr><td><code>max_level</code></td><td>0 to 3. See <a href="/docs/packets#levels">levels</a>.</td></tr>
+    <tr><td><code>max_window_days</code></td><td>1 to 365: how far back the agent may look</td></tr>
+    <tr><td><code>daily_packet_budget</code></td><td>1 to 1,000 released answers a day. Denials are not counted.</td></tr>
+    <tr><td><code>days</code></td><td>1 to 90: when the grant expires</td></tr>
+    <tr><td><code>return_url</code></td><td>Optional. After the decision the user is sent to <code>return_url?askwearables=approved&amp;grant_id=…</code> or <code>?askwearables=denied</code>.</td></tr>
+  </tbody>
+</table></div>
+<p>The purpose also limits what can be released, whatever the grant says: an agent asking for a metric outside its purpose is denied (<code>purpose_mismatch</code>), and a level above the purpose's ceiling is lowered.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Purpose</th><th scope="col">Metric categories</th><th scope="col">Highest level</th></tr></thead>
+  <tbody>
+    <tr><td><code>scheduling</code></td><td>sleep, heart, activity</td><td>1</td></tr>
+    <tr><td><code>sleep_coaching</code></td><td>sleep, heart, body</td><td>2</td></tr>
+    <tr><td><code>general_wellness</code></td><td>activity, heart, sleep, training, body</td><td>2</td></tr>
+    <tr><td><code>training_advice</code></td><td>activity, heart, sleep, training, body</td><td>3</td></tr>
+    <tr><td><code>personal_research</code></td><td>all, including sensitive categories named one by one</td><td>3</td></tr>
+  </tbody>
+</table></div>
+<p class="code-label">curl</p>
+<pre><code>aw POST /v1/grants '{"purpose":"sleep_coaching","metrics":["sleep_duration","resting_hr"],
+  "max_level":1,"max_window_days":30,"daily_packet_budget":20,"days":30,
+  "return_url":"https://your-app.example/askwearables/done"}'
+# {"url":"https://auth.askwearables.app/consent/cl_…","expires_in":3600}</code></pre>
+<p class="code-label">TypeScript</p>
+<pre><code>const { url } = await aw.createGrantLink({
+  purpose: "sleep_coaching", metrics: ["sleep_duration", "resting_hr"],
+  max_level: 1, max_window_days: 30, daily_packet_budget: 20, days: 30,
+});
+// send the user to url</code></pre>
+<p class="code-label">Python</p>
+<pre><code>link = aw.create_grant_link({"purpose": "sleep_coaching", "metrics": ["sleep_duration", "resting_hr"],
+                             "max_level": 1, "max_window_days": 30, "daily_packet_budget": 20, "days": 30})</code></pre>
+<p>An invalid request returns <code>{"error":"invalid_request","details":[…]}</code>; the SDKs raise it as an error.</p>
+
+<h2 id="approve">7. The user approves</h2>
+<p>The consent screen shows the grant in full before anything is released: which agent, for what purpose, which metrics (none pre-ticked), how much detail with a live example from the user's own recent data, how far back, how often, until when, and what is not approved. <a href="/docs/privacy#consent">Read what the user sees</a>.</p>
+<p>Find out that it was approved in any of three ways:</p>
+<ul>
+  <li><strong>Redirect.</strong> If you set <code>return_url</code>, the user lands there with <code>askwearables=approved</code> and the <code>grant_id</code>.</li>
+  <li><strong>Webhook.</strong> If your organization has a webhook URL, it receives <code>grant.created</code> and <code>grant.revoked</code> events. Verify them: the <code>X-AskWearables-Signature</code> header is <code>sha256=</code> followed by the hex HMAC-SHA256 of <code>timestamp + "." + body</code> with your webhook secret, and <code>X-AskWearables-Timestamp</code> holds the timestamp. Both SDKs include <code>verifyWebhook</code> / <code>verify_webhook</code>.</li>
+  <li><strong>Polling.</strong> <code>GET /v1/capabilities</code> returns <code>"grant": null</code> until there is an active grant, then the grant's purpose, level, window, budget and expiry.</li>
+</ul>
+<pre><code>aw GET /v1/capabilities
+# {"operations":[…],"metrics":[…],"levels":[…],
+#  "grant":{"purpose":"sleep_coaching","max_level":1,"max_window_days":30,"daily_packet_budget":20,"expires_at":"…"},
+#  "examples":[…]}</code></pre>
+<p>A new approval for the same user and agent replaces the previous grant. The user can revoke it at any time in the console; your webhook then receives <code>grant.revoked</code>, and later calls are denied.</p>
+
+<h2 id="ask">8. Ask</h2>
+<p>Send the question as the user would put it. The answer is an envelope whose <code>status</code> is <code>ok</code> with a packet, <code>denied</code> with reasons (HTTP 403), or <code>unsupported</code> with a list of what can be asked. A <code>purpose</code> in the request is recorded but never used: the purpose is fixed in the grant.</p>
+<p class="code-label">curl</p>
+<pre><code>aw POST /v1/ask '{"question":"How did I sleep the last few nights compared to usual?"}'</code></pre>
+<p class="code-label">TypeScript</p>
+<pre><code>const res = await aw.ask("How did I sleep the last few nights compared to usual?");
+if (res.status === "ok") {
+  for (const f of res.packet!.findings) console.log(f.statement);
+} else {
+  console.log(res.status, res.reasons ?? res.supported);
+}</code></pre>
+<p class="code-label">Python</p>
+<pre><code>res = aw.ask("How did I sleep the last few nights compared to usual?")
+if res["status"] == "ok":
+    for f in res["packet"]["findings"]:
+        print(f["statement"])</code></pre>
+<p class="code-label">Response (level 1 grant)</p>
+<pre><code>{
+  "status": "ok",
+  "receipt_id": "rc_…",
+  "packet": {
+    "packet_version": "1",
+    "packet_id": "pk_d5207a727cac491d1c8514d1",
+    "level": 1,
+    "operation": "compare_to_baseline",
+    "metrics": ["sleep_duration"],
+    "window": { "start": "2026-11-22", "end": "2026-11-24" },
+    "findings": [{
+      "metric": "sleep_duration",
+      "direction": "below",
+      "magnitude": "moderate",
+      "statement": "Sleep duration moderately below usual range on 3 of the last 3 nights"
+    }],
+    "data_quality": { "freshness_hours": 4, "coverage": 1, "sources": ["apple_health"], "baseline_days": 28, "caveats": [] },
+    "as_of": "2026-11-24T12:00:00.000Z",
+    "data_version": "sha256:…",
+    "not_medical_advice": true
+  }
+}</code></pre>
+<p>Other calls you will use:</p>
+<ul>
+  <li><code>POST /v1/query</code> with <code>{"spec": QuerySpec}</code> skips the planner and is gated the same way. Use it when your code already knows the metric, operation and window.</li>
+  <li><code>GET /v1/packets/{packet_id}</code> returns a packet this agent received in the last 24 hours.</li>
+  <li><code>GET /v1/usage</code> returns calls, packets and denials per day for your organization.</li>
+</ul>
+<p>Pass the packet's statements and caveats to your model as data, not instructions, and keep the wording relative to the user's own usual range. Do not turn packets into grades or health claims.</p>
+
+<h2 id="script">9. Run it all with one script</h2>
+<p><code>scripts/quickstart.ts</code> in the repository runs every step above against your API with the TypeScript SDK and synthetic records. It prints each step and exits non-zero on the first failure. The only manual step is approving the consent link in a browser; the script prints the link and polls <code>/v1/capabilities</code> until the grant appears.</p>
+<pre><code>AW_API=https://api.your-domain.example \
+AW_DEV_KEY=aw_dev_... \
+AW_DEV_SIGNING_SECRET=awsig_... \
+npx tsx scripts/quickstart.ts</code></pre>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>AW_USER</code></td><td><code>quickstart-&lt;random&gt;</code></td><td>End user id. Reuse one to skip consent on a second run once a grant exists.</td></tr>
+    <tr><td><code>AW_QUICKSTART_TIMEOUT</code></td><td>600</td><td>Seconds to wait for approval</td></tr>
+    <tr><td><code>AW_QUICKSTART_POLL</code></td><td>5</td><td>Seconds between capability checks</td></tr>
+    <tr><td><code>AW_QUICKSTART_SKIP_CONSENT</code></td><td>unset</td><td>Set to <code>1</code> to stop after printing the consent link</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="mcp">10. Connect Claude or another MCP client</h2>
+<p>The MCP server is for a person connecting their own agent to their own data. There is nothing to sign: the agent signs in through OAuth, and the person approves a grant on the consent screen.</p>
+<pre><code>https://mcp.askwearables.app/mcp</code></pre>
+<h3>Claude (web and desktop)</h3>
+<ol>
+  <li>Open Settings, then Connectors, and add a custom connector with the URL above.</li>
+  <li>Claude opens the AskWearables sign-in page. Sign in with your passkey.</li>
+  <li>On the consent screen, choose the purpose, tick the metrics, and pick the level, window, daily budget and expiry. Approve.</li>
+  <li>Ask Claude about your sleep, heart rate, HRV, steps or workouts. Each answer appears as a receipt in the console.</li>
+</ol>
+<h3>Claude Code</h3>
+<pre><code>claude mcp add --transport http askwearables https://mcp.askwearables.app/mcp</code></pre>
+<p>Then run <code>/mcp</code> inside Claude Code and choose AskWearables to sign in and approve.</p>
+<h3>Any other MCP client</h3>
+<p>Any client that supports remote MCP over Streamable HTTP with OAuth authorization can connect.</p>
+<div class="table-wrap"><table>
+  <tbody>
+    <tr><th scope="row">Transport</th><td>Streamable HTTP at <code>https://mcp.askwearables.app/mcp</code></td></tr>
+    <tr><th scope="row">Protected resource metadata</th><td><code>https://mcp.askwearables.app/.well-known/oauth-protected-resource/mcp</code></td></tr>
+    <tr><th scope="row">Authorization server</th><td><code>https://auth.askwearables.app</code> (metadata at <code>/.well-known/oauth-authorization-server</code>)</td></tr>
+    <tr><th scope="row">Client registration</th><td>Dynamic registration at <code>https://auth.askwearables.app/oauth/register</code>, or a client ID metadata document</td></tr>
+    <tr><th scope="row">Flow</th><td>OAuth 2.1 authorization code with PKCE; <code>resource=https://mcp.askwearables.app/mcp</code></td></tr>
+    <tr><th scope="row">Scope</th><td><code>wearables:ask</code> (add <code>offline_access</code> for a refresh token)</td></tr>
+    <tr><th scope="row">Access token lifetime</th><td>One hour</td></tr>
+  </tbody>
+</table></div>
+<p>An unauthenticated request receives <code>401</code> with a <code>WWW-Authenticate</code> header pointing at the resource metadata, which is how compliant clients discover the rest. Tokens are bound to the MCP resource and cannot be used elsewhere.</p>
+<h3>The three tools</h3>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Tool</th><th scope="col">Input</th><th scope="col">Returns</th></tr></thead>
+  <tbody>
+    <tr><td><code>ask</code></td><td><code>question</code> (3 to 500 characters); <code>purpose</code> is accepted but ignored</td><td>The same envelope as <code>POST /v1/ask</code>. A denial is marked as a tool error with its reasons.</td></tr>
+    <tr><td><code>list_capabilities</code></td><td>none</td><td>Metrics, operations, levels, and what this agent's grant allows</td></tr>
+    <tr><td><code>get_packet</code></td><td><code>packet_id</code> (<code>pk_</code> plus 24 hex characters)</td><td>A packet this agent received in the last 24 hours</td></tr>
+  </tbody>
+</table></div>
+<p>All three are read-only. Three tools are deliberate: fewer tools give a client model less to misuse and leave a smaller surface to review.</p>
+
+<div class="pager"><a href="/docs/">← Overview</a><a href="/docs/packets">Next: Packets and levels →</a></div>
+</main>
+</div>
+
+<footer class="site-footer"><div class="inner">
+  <span>AskWearables. Wellness information only; not medical advice.</span>
+  <nav aria-label="Footer">
+    <a href="/docs/">Docs</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API reference</a>
+    <a href="/openapi.json">OpenAPI</a>
+    <a href="/privacy">Privacy policy</a>
+  </nav>
+</div></footer>
+</body>
+</html>

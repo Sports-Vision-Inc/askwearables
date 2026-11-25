@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-hosting · AskWearables</title>
+<meta name="description" content="Run the seven AskWearables Workers on your own Cloudflare account: resources, secrets, bindings, deployment and owner setup.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="inner">
+  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="/docs/">Docs</a>
+    <a href="/docs/quickstart">Quickstart</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API</a>
+    <a href="https://app.askwearables.app/">Console</a>
+  </nav>
+</div></header>
+
+<div class="docs">
+<nav class="docs-nav" aria-label="Documentation">
+  <h2>Docs</h2>
+  <ul>
+    <li><a href="/docs/">Overview</a></li>
+    <li><a href="/docs/quickstart">Quickstart</a></li>
+    <li><a href="/docs/packets">Packets and levels</a></li>
+    <li><a href="/docs/privacy">Privacy model</a></li>
+    <li><a href="/docs/api">API reference</a></li>
+    <li><a href="/docs/self-hosting" aria-current="page">Self-hosting</a></li>
+    <li><a href="/results">Study results</a></li>
+  </ul>
+  <h2>Files</h2>
+  <ul>
+    <li><a href="/openapi.json">openapi.json</a></li>
+    <li><a href="/privacy">Privacy policy (draft)</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+<h1>Self-hosting</h1>
+<p>AskWearables is seven Cloudflare Workers in one repository. Self-hosting means your data stays in your own Cloudflare account, under keys only you hold. This guide assumes you are comfortable with Wrangler and a terminal.</p>
+
+<div class="note"><p class="deploy-row"><!-- deploy-button --><span class="deploy-btn" aria-disabled="true" data-href="https://deploy.workers.cloudflare.com/?url=https://github.com/YOUR-ORG/askwearables"><svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>Deploy to Cloudflare</span><span class="deploy-state">Not available for this project yet. Use the manual steps.</span><!-- /deploy-button --></p>
+<p>Why there is no one-click deploy: Cloudflare's Deploy to Cloudflare button deploys a single Worker from a public GitHub or GitLab repository, and a Worker in a subdirectory must have its code and dependencies isolated there. AskWearables is seven Workers joined by service bindings, sharing a core package and a D1 migrations folder, so one button cannot set it up. Follow the steps below instead.</p></div>
+
+<div class="toc"><ol>
+  <li><a href="#need">What you need</a></li>
+  <li><a href="#layout">The seven Workers</a></li>
+  <li><a href="#resources">Create resources</a></li>
+  <li><a href="#secrets">Set secrets</a></li>
+  <li><a href="#config">Configure hosts</a></li>
+  <li><a href="#deploy">Migrate and deploy</a></li>
+  <li><a href="#owner">Create the owner</a></li>
+  <li><a href="#data">Bring in data</a></li>
+  <li><a href="#local">Run locally</a></li>
+  <li><a href="#ops">Operating it</a></li>
+</ol></div>
+
+<h2 id="need">What you need</h2>
+<ul>
+  <li>A Cloudflare account with a domain added as a zone, and a plan that includes Durable Objects, D1, KV, R2 and Workers AI at the limits you expect. Check current limits and pricing for Durable Object storage and D1 before you rely on them.</li>
+  <li>Node.js 20 or later and a clone of the repository. Run <code>npm install</code> at the root; Wrangler is a pinned dev dependency.</li>
+  <li>A device that supports passkeys, for signing in as the owner.</li>
+</ul>
+
+<h2 id="layout">The seven Workers</h2>
+<p>Each Worker lives in <code>workers/&lt;name&gt;</code> with its own Wrangler config. Bindings follow the trust zones: only <code>gate</code> and <code>vault</code> touch stored data, and nothing public calls them.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Worker</th><th scope="col">Host</th><th scope="col">Bindings</th><th scope="col">Secrets and variables</th></tr></thead>
+  <tbody>
+    <tr><td><code>site</code></td><td><code>example.com</code></td><td class="wrap"><code>ASSETS</code> (static files only)</td><td>none</td></tr>
+    <tr><td><code>console</code></td><td><code>app.example.com</code></td><td class="wrap"><code>ASSETS</code>; service <code>GATE</code></td><td class="wrap"><code>AUTH_URL</code>, <code>CONSOLE_ORIGIN</code></td></tr>
+    <tr><td><code>auth</code></td><td><code>auth.example.com</code></td><td class="wrap">KV <code>OAUTH_KV</code>; D1 <code>DB</code>; service <code>GATE</code></td><td class="wrap"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>RP_ID</code>, <code>COOKIE_DOMAIN</code>, <code>CONSOLE_URL</code>; secret <code>OWNER_SETUP_TOKEN</code></td></tr>
+    <tr><td><code>edge</code></td><td><code>api.example.com</code>, <code>mcp.example.com</code></td><td class="wrap">services <code>AUTH</code>, <code>GATE</code>, <code>PLANNER</code>; optional rate limiter <code>RL</code></td><td class="wrap"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>MCP_HOST</code>, <code>API_HOST</code></td></tr>
+    <tr><td><code>planner</code></td><td>none</td><td class="wrap">Workers AI <code>AI</code></td><td class="wrap"><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code>; optional <code>AI_GATEWAY_ID</code></td></tr>
+    <tr><td><code>gate</code></td><td>none</td><td class="wrap">D1 <code>DB</code>; services <code>VAULT</code>, <code>AUTH</code>; a daily cron</td><td class="wrap">secret <code>GATE_SECRET</code></td></tr>
+    <tr><td><code>vault</code></td><td>none</td><td class="wrap">Durable Object <code>USER_VAULT</code> (SQLite); R2 <code>ANCHORS</code></td><td class="wrap">secret <code>MASTER_KEY</code></td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="resources">Create resources</h2>
+<pre><code>npx wrangler d1 create askwearables-control    # control data: users, agents, grants, keys
+npx wrangler kv namespace create OAUTH_KV      # OAuth state for the auth Worker
+npx wrangler r2 bucket create askwearables-anchors   # daily receipt-chain anchors</code></pre>
+<p>Put the returned D1 id into the configs of <code>auth</code> and <code>gate</code>, and the KV id into <code>auth</code>; the configs in the repository hold the ids of the reference deployment, which will not work in your account. The per-user Durable Objects are created on first use and need no setup beyond the class binding and its SQLite migration in <code>workers/vault</code>.</p>
+<div class="note"><p>Cloudflare documents a jurisdiction option for Durable Objects (for example <code>eu</code>). Decide where user data should live before the first real user, because moving it later is a migration.</p></div>
+
+<h2 id="secrets">Set secrets</h2>
+<p>Generate each secret on your own machine and set it with Wrangler. Never put them in a config file or the repository.</p>
+<pre><code># 32 random bytes, base64. Wraps each user's data key. Losing it makes stored data unreadable.
+openssl rand -base64 32 | npx wrangler secret put MASTER_KEY -c workers/vault/wrangler.jsonc
+
+# 32 random bytes, base64. Encrypts developer signing secrets and webhook secrets.
+openssl rand -base64 32 | npx wrangler secret put GATE_SECRET -c workers/gate/wrangler.jsonc
+
+# A one-time token for creating the owner account.
+openssl rand -hex 24 | tee /dev/tty | npx wrangler secret put OWNER_SETUP_TOKEN -c workers/auth/wrangler.jsonc</code></pre>
+<p>Keep an offline copy of <code>MASTER_KEY</code>. There is no recovery without it, by design.</p>
+
+<h2 id="config">Configure hosts</h2>
+<p>Replace <code>askwearables.app</code> with your domain in each config's variables and routes:</p>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Variable</th><th scope="col">Example</th></tr></thead>
+  <tbody>
+    <tr><td><code>ISSUER</code></td><td><code>https://auth.example.com</code></td></tr>
+    <tr><td><code>MCP_RESOURCE</code></td><td><code>https://mcp.example.com/mcp</code></td></tr>
+    <tr><td><code>API_RESOURCE</code></td><td><code>https://api.example.com/v1</code></td></tr>
+    <tr><td><code>MCP_HOST</code>, <code>API_HOST</code></td><td><code>mcp.example.com</code>, <code>api.example.com</code></td></tr>
+    <tr><td><code>RP_ID</code>, <code>COOKIE_DOMAIN</code></td><td><code>example.com</code></td></tr>
+    <tr><td><code>CONSOLE_URL</code>, <code>CONSOLE_ORIGIN</code></td><td><code>https://app.example.com</code></td></tr>
+    <tr><td><code>AUTH_URL</code></td><td><code>https://auth.example.com</code></td></tr>
+    <tr><td><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code></td><td>Workers AI model ids that support structured output; check the current catalogue</td></tr>
+  </tbody>
+</table></div>
+<p>The planner runs on Workers AI only, so question text stays on Cloudflare. If you route it through AI Gateway, turn prompt logging off.</p>
+
+<h2 id="deploy">Migrate and deploy</h2>
+<pre><code># Control-data schema (the migrations live in /migrations at the repository root)
+npx wrangler d1 migrations apply askwearables-control --remote -c workers/gate/wrangler.jsonc
+
+# Checks first
+npm run check
+
+# Protected zone first, then the request path, identity and public Workers
+for w in vault gate planner auth edge console site; do
+  npx wrangler deploy -c workers/$w/wrangler.jsonc
+done</code></pre>
+<p><code>auth</code> and <code>gate</code> bind each other. If Wrangler reports that a bound service does not exist yet on the very first deploy, deploy the other Worker and run the loop again.</p>
+
+<h2 id="owner">Create the owner</h2>
+<ol>
+  <li>Open <code>https://auth.example.com/setup?token=&lt;OWNER_SETUP_TOKEN&gt;</code> and register a passkey. Setup works only while no owner exists.</li>
+  <li>You land in the console at <code>https://app.example.com</code>. Set your time zone first: a "day" is your local day.</li>
+  <li>Optionally remove the <code>OWNER_SETUP_TOKEN</code> secret afterwards.</li>
+</ol>
+
+<h2 id="data">Bring in data</h2>
+<ul>
+  <li><strong>File import.</strong> In the console, choose an Apple Health <code>export.xml</code>. It is parsed in your browser and uploaded as normalized batches; the raw file never leaves your machine.</li>
+  <li><strong>Owner key.</strong> Create an <code>aw_own_</code> key in the console and push records with <code>POST /v1/ingest</code>, as in the <a href="/docs/quickstart#ingest">quickstart</a>.</li>
+  <li><strong>Sync key.</strong> Create an <code>aw_sync_</code> key bound to one source for a phone sync app; it can only write to that source.</li>
+</ul>
+<p>Then connect Claude or another client to <code>https://mcp.example.com/mcp</code> as described in <a href="/docs/quickstart#mcp">the quickstart</a>, and read the receipts in the console as you ask.</p>
+<p>To serve your own users as a developer, create a developer key in the console and follow the <a href="/docs/quickstart">quickstart</a> against <code>https://api.example.com</code>. Get legal advice about health-data rules where you and your users are before you hold anyone else's data.</p>
+
+<h2 id="local">Run locally</h2>
+<p>Wrangler can run several Workers in one local session, with service bindings, D1, KV, R2 and Durable Objects simulated on your machine:</p>
+<pre><code>npx wrangler d1 migrations apply askwearables-control --local -c workers/gate/wrangler.jsonc
+npx wrangler dev -c workers/edge/wrangler.jsonc -c workers/gate/wrangler.jsonc \
+  -c workers/vault/wrangler.jsonc -c workers/planner/wrangler.jsonc \
+  -c workers/auth/wrangler.jsonc -c workers/console/wrangler.jsonc</code></pre>
+<p>Local secrets go in a <code>.dev.vars</code> file next to each config. It is ignored by git; keep it that way. Use synthetic data locally; <code>scripts/quickstart.ts</code> generates some.</p>
+
+<h2 id="ops">Operating it</h2>
+<ul>
+  <li><strong>Cron.</strong> <code>gate</code> runs daily to copy each user's receipt-chain head to R2 and to clear expired nonces; <code>auth</code> purges expired OAuth data and sessions.</li>
+  <li><strong>Logs.</strong> Health values are never written to logs, traces or error messages. Keep it that way if you add code.</li>
+  <li><strong>Updates.</strong> Pull, run <code>npm run check</code>, apply any new migrations, and deploy in the same order.</li>
+  <li><strong>Deletion.</strong> "Delete everything" in the console removes health data and revokes access. Back up <code>MASTER_KEY</code> separately from any data backup.</li>
+</ul>
+
+<div class="pager"><a href="/docs/api">← API reference</a><span></span></div>
+</main>
+</div>
+
+<footer class="site-footer"><div class="inner">
+  <span>AskWearables. Wellness information only; not medical advice.</span>
+  <nav aria-label="Footer">
+    <a href="/docs/">Docs</a>
+    <a href="/results">Results</a>
+    <a href="/docs/api">API reference</a>
+    <a href="/openapi.json">OpenAPI</a>
+    <a href="/privacy">Privacy policy</a>
+  </nav>
+</div></footer>
+</body>
+</html>

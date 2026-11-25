@@ -1,0 +1,13 @@
+{
+ "bodyComps": [
+  {
+   "userId": "fake-garmin-user-1",
+   "summaryId": "x-fake-body-1",
+   "measurementTimeInSeconds": 1795157100,
+   "measurementTimeOffsetInSeconds": 3600,
+   "weightInGrams": 72350,
+   "bodyFatInPercent": 18.2,
+   "bodyMassIndex": 22.8
+  }
+ ]
+}

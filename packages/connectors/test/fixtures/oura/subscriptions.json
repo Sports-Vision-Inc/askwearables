@@ -1,0 +1,2 @@
+[{"id":"sub-aaaa","callback_url":"https://example.invalid/hooks/oura","event_type":"update","data_type":"sleep","expiration_time":"2026-11-27T00:00:00+00:00"},
+ {"id":"sub-bbbb","callback_url":"https://example.invalid/hooks/oura","event_type":"create","data_type":"daily_activity","expiration_time":"2027-01-20T00:00:00+00:00"}]

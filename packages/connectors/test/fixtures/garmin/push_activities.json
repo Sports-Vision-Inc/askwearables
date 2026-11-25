@@ -1,0 +1,19 @@
+{
+ "activities": [
+  {
+   "userId": "fake-garmin-user-1",
+   "summaryId": "x-fake-activity-1",
+   "activityId": 1234567890,
+   "activityName": "Evening Run",
+   "activityType": "RUNNING",
+   "startTimeInSeconds": 1795192200,
+   "startTimeOffsetInSeconds": 3600,
+   "durationInSeconds": 2700,
+   "averageHeartRateInBeatsPerMinute": 151,
+   "averageSpeedInMetersPerSecond": 2.9,
+   "activeKilocalories": 512,
+   "distanceInMeters": 7830.5,
+   "deviceName": "Example Watch"
+  }
+ ]
+}

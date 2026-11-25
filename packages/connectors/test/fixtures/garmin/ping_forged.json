@@ -1,0 +1,8 @@
+{
+ "sleeps": [
+  {
+   "userId": "fake-garmin-user-1",
+   "callbackURL": "https://attacker.example.invalid/wellness-api/rest/sleeps?uploadStartTimeInSeconds=1&uploadEndTimeInSeconds=2"
+  }
+ ]
+}

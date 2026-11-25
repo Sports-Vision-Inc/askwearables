@@ -1,0 +1,1 @@
+{"dataPoints":[{"dataPointName":"users/123456789012345678/dataTypes/daily-sleep-temperature-derivations/dataPoints/fake-temp-1","dailySleepTemperatureDerivations":{"date":{"year":2026,"month":11,"day":20},"nightlyTemperatureCelsius":34.12,"baselineTemperatureCelsius":34.4,"relativeNightlyStddev30dCelsius":0.2}}],"nextPageToken":""}

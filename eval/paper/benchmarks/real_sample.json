@@ -1,0 +1,468 @@
+{
+ "seed": 20261124,
+ "per_dataset": 8,
+ "min_full_days": 45,
+ "low_wear_hours": 8,
+ "datasets": {
+  "pmdata": {
+   "participants": 16,
+   "eligible": 13,
+   "chosen": [
+    {
+     "id": "p01",
+     "today": "2020-03-31",
+     "full_days": 150,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 151,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 2,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 226,
+       "sleep_logs": 5,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p02",
+     "today": "2020-03-31",
+     "full_days": 87,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 147,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 6,
+       "missing_rhr_days": 59,
+       "low_wear_days": 3,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 2,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 5,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p03",
+     "today": "2020-03-31",
+     "full_days": 73,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 151,
+       "missing_steps_days": 32,
+       "missing_sleep_nights": 74,
+       "missing_rhr_days": 51,
+       "low_wear_days": 29,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 5,
+       "missing_sleep_nights": 19,
+       "missing_rhr_days": 12,
+       "low_wear_days": 12,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 3,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p05",
+     "today": "2020-03-31",
+     "full_days": 69,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 151,
+       "missing_steps_days": 8,
+       "missing_sleep_nights": 34,
+       "missing_rhr_days": 66,
+       "low_wear_days": 4,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 5,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 5,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p09",
+     "today": "2020-03-31",
+     "full_days": 134,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 151,
+       "missing_steps_days": 2,
+       "missing_sleep_nights": 16,
+       "missing_rhr_days": 5,
+       "low_wear_days": 12,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 1,
+       "missing_sleep_nights": 4,
+       "missing_rhr_days": 1,
+       "low_wear_days": 3,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 5,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p14",
+     "today": "2020-04-01",
+     "full_days": 116,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 139,
+       "missing_steps_days": 4,
+       "missing_sleep_nights": 19,
+       "missing_rhr_days": 10,
+       "low_wear_days": 11,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 1,
+       "missing_sleep_nights": 7,
+       "missing_rhr_days": 3,
+       "low_wear_days": 7,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 4,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p15",
+     "today": "2020-04-01",
+     "full_days": 142,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 144,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 2,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 4,
+       "exercise_logs": 0
+      }
+     }
+    },
+    {
+     "id": "p16",
+     "today": "2020-03-31",
+     "full_days": 147,
+     "tasks": 10,
+     "traps": {
+      "record": {
+       "days": 151,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 5,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 3,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": 1
+      },
+      "duplicates_dropped": {
+       "steps_minutes": 0,
+       "sleep_logs": 5,
+       "exercise_logs": 0
+      }
+     }
+    }
+   ]
+  },
+  "lifesnaps": {
+   "participants": 71,
+   "eligible": 44,
+   "chosen": [
+    {
+     "id": "621e2e8e67b776a24055b564",
+     "today": "2021-08-01",
+     "full_days": 63,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 69,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 7,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e2f1b67b776a240b3d87c",
+     "today": "2022-01-21",
+     "full_days": 75,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 76,
+       "missing_steps_days": 1,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 2,
+       "low_wear_days": 1,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 0,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e30f467b776a240f22944",
+     "today": "2022-01-17",
+     "full_days": 62,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 74,
+       "missing_steps_days": 7,
+       "missing_sleep_nights": 13,
+       "missing_rhr_days": 7,
+       "low_wear_days": 2,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 0,
+       "low_wear_days": 1,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e335a67b776a240bb12ff",
+     "today": "2021-07-29",
+     "full_days": 62,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 66,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 4,
+       "missing_rhr_days": 2,
+       "low_wear_days": 1,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 3,
+       "missing_rhr_days": 2,
+       "low_wear_days": 1,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e337667b776a240ce78ab",
+     "today": "2021-08-17",
+     "full_days": 82,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 85,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 4,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 3,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e34ff67b776a240e446d6",
+     "today": "2021-07-25",
+     "full_days": 59,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 62,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 4,
+       "missing_rhr_days": 1,
+       "low_wear_days": 2,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 3,
+       "missing_rhr_days": 1,
+       "low_wear_days": 1,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e351a67b776a240f6204b",
+     "today": "2021-09-14",
+     "full_days": 104,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 113,
+       "missing_steps_days": 2,
+       "missing_sleep_nights": 10,
+       "missing_rhr_days": 7,
+       "low_wear_days": 3,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 1,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    },
+    {
+     "id": "621e356967b776a24027bd9f",
+     "today": "2022-01-21",
+     "full_days": 68,
+     "tasks": 9,
+     "traps": {
+      "record": {
+       "days": 67,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 0,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "question_window": {
+       "days": 31,
+       "missing_steps_days": 0,
+       "missing_sleep_nights": 0,
+       "missing_rhr_days": 0,
+       "low_wear_days": 0,
+       "tz_changes": null
+      },
+      "duplicates_dropped": {
+       "daily_rows": 0
+      }
+     }
+    }
+   ]
+  }
+ }
+}

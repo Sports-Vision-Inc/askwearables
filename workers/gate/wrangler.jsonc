@@ -1,0 +1,39 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "askwearables-gate",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "upload_source_maps": true,
+  "workers_dev": false,
+  "preview_urls": false,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "askwearables-control",
+      "database_id": "9658e119-82e0-4461-81d2-69dde54f148d",
+      "migrations_dir": "../../migrations"
+    }
+  ],
+  "services": [
+    {
+      "binding": "VAULT",
+      "service": "askwearables-vault"
+    },
+    {
+      "binding": "AUTH",
+      "service": "askwearables-auth"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 3 * * *"
+    ]
+  }
+}
