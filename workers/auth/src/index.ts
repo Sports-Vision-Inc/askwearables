@@ -12,6 +12,7 @@ import {
 import { CATALOGUE, type Grant, type Level, type MetricId, type Purpose, PURPOSES, newId, sha256Hex, todayIn, validateGrant } from "@askwearables/core";
 import { TERMS_VERSION, consentPage, loginPage, messagePage, securityHeaders } from "./pages.js";
 import { WEBAUTHN_BROWSER_JS } from "./vendor/webauthn-browser.js";
+import { FAVICON_ICO_B64, FAVICON_SVG } from "./vendor/favicon.js";
 import { type AgentTokenProps, type AuthRpc, SESSION_COOKIE } from "./rpc.js";
 import type { GateRpc } from "../../gate/src/rpc.js";
 
@@ -295,6 +296,8 @@ export default class AuthServer extends WorkerEntrypoint<Env> implements AuthRpc
     const url = new URL(req.url);
     const p = url.pathname;
     try {
+      if (p === "/favicon.svg") return new Response(FAVICON_SVG, { headers: { "content-type": "image/svg+xml", "cache-control": "public, max-age=86400" } });
+      if (p === "/favicon.ico") return new Response(Uint8Array.from(atob(FAVICON_ICO_B64), (c) => c.charCodeAt(0)), { headers: { "content-type": "image/x-icon", "cache-control": "public, max-age=86400" } });
       if (p === "/static/webauthn-browser.js") return new Response(WEBAUTHN_BROWSER_JS, { headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "public, max-age=86400", "x-content-type-options": "nosniff" } });
       if (p === "/authorize") return await authorize(req, this.env);
       if (p === "/login" && req.method === "GET") {

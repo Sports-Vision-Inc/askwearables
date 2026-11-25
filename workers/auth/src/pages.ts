@@ -19,7 +19,7 @@ ul.no li{margin:.2em 0}code{font-size:.9em}`;
 
 export function page(title: string, body: string, opts: { nonce?: string; scripts?: string[] } = {}): string {
   const scripts = (opts.scripts ?? []).map((s) => `<script nonce="${opts.nonce ?? ""}">${s}</script>`).join("");
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>${CSS}</style></head><body><main>${body}</main>${scripts}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><title>${esc(title)}</title><style>${CSS}</style></head><body><main>${body}</main>${scripts}</body></html>`;
 }
 
 export function securityHeaders(nonce: string, extraScriptSrc = ""): Record<string, string> {
@@ -59,7 +59,7 @@ document.getElementById('go').onclick=async()=>{try{
   const v=await (await fetch('/webauthn/auth/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({response:r})})).json();
   if(!v.ok)return msg(v.error||'Sign-in failed');location.href=next;}
 }catch(e){msg(String(e&&e.message||e))}};`;
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign in</title><style>${CSS}</style><script nonce="${nonce}" src="${WEBAUTHN_BROWSER}"></script></head><body><main>${body}</main><script nonce="${nonce}">${script}</script></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><title>Sign in</title><style>${CSS}</style><script nonce="${nonce}" src="${WEBAUTHN_BROWSER}"></script></head><body><main>${body}</main><script nonce="${nonce}">${script}</script></body></html>`;
 }
 
 export interface ConsentView {
