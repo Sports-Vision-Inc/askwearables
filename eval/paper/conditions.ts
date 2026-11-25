@@ -164,6 +164,16 @@ export async function runAgent(cond: Condition, model: ModelSpec, s: Store, user
       const recovered = textToolCalls(r.message.content, tools);
       if (recovered.length) { r.message.tool_calls = recovered; r.message.content = ""; textCalls += recovered.length; }
     }
+    // Provider constraints when the conversation is sent back: arguments must be valid JSON, and some models
+    // (llama-3.3-70b on Workers AI) accept only one tool call per turn. Invalid arguments become {} and the
+    // tool result tells the model so.
+    const badArgs = new Set<string>();
+    if (r.message.tool_calls?.length) {
+      for (const tc of r.message.tool_calls) {
+        try { JSON.parse(tc.function.arguments || "{}"); } catch { badArgs.add(tc.id); tc.function.arguments = "{}"; }
+      }
+      if (/llama-3\.3/.test(model.model) && r.message.tool_calls.length > 1) r.message.tool_calls = r.message.tool_calls.slice(0, 1);
+    }
     messages.push(r.message);
     if (!r.message.tool_calls?.length) {
       return { final: r.message.content, tool_calls: toolCalls, prompt_tokens: prompt, completion_tokens: completion, cost, latency_ms: latency, transcript_tools: transcript, planner, text_tool_calls: textCalls, reasoning: reasoning.join("\n---\n").slice(-1500), ...(packets.length ? { packets } : {}) };
@@ -173,7 +183,8 @@ export async function runAgent(cond: Condition, model: ModelSpec, s: Store, user
       let args: Record<string, string> = {};
       try { const a = JSON.parse(tc.function.arguments || "{}"); args = typeof a === "string" ? JSON.parse(a) : a; } catch { args = {}; }
       let out: unknown;
-      if (tc.function.name === "list_sources" && cond === "B_tools") out = sourcesInfo(s);
+      if (badArgs.has(tc.id)) out = { error: "invalid_arguments: tool arguments were not valid JSON" };
+      else if (tc.function.name === "list_sources" && cond === "B_tools") out = sourcesInfo(s);
       else if (tc.function.name === "get_daily" && cond === "B_tools") out = exportRows(s, args.metric, args.start, args.end).map(({ extra: _e, source: _s, ...r }) => r);
       else if (tc.function.name === "get_workouts" && cond === "B_tools") out = workoutSessions(s, args.start, args.end);
       else if (tc.function.name === "ask_wearables" && cond === "C_broker") {

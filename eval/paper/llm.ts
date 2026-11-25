@@ -120,7 +120,7 @@ export async function chat(m: ModelSpec, messages: Msg[], opts: { tools?: Tool[]
       }
       const j = (await res.json().catch(() => ({}))) as { choices?: { message?: Msg }[]; usage?: { prompt_tokens?: number; completion_tokens?: number; cost?: number }; error?: { message?: string }; errors?: { message?: string }[] };
       if (!res.ok || !j.choices?.[0]?.message) {
-        return { message: { role: "assistant", content: null }, usage: { prompt: 0, completion: 0 }, cost: 0, latency_ms: latency, error: `http_${res.status}:${(j.error?.message ?? j.errors?.[0]?.message ?? "").slice(0, 120)}` };
+        return { message: { role: "assistant", content: null }, usage: { prompt: 0, completion: 0 }, cost: 0, latency_ms: latency, error: `http_${res.status}:${(j.error?.message ?? j.errors?.[0]?.message ?? "").slice(0, 400)}` };
       }
       const usage = { prompt: j.usage?.prompt_tokens ?? 0, completion: j.usage?.completion_tokens ?? 0 };
       let cost = j.usage?.cost ?? 0;
