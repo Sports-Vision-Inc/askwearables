@@ -88,12 +88,26 @@
     tip.style.top = top + "px";
   }
   const hideTip = () => { if (tip) tip.hidden = true; };
+  document.addEventListener("pointerdown", (ev) => { if (touchTip && !(ev.target.closest && ev.target.closest("svg.chart"))) { touchTip = false; hideTip(); } });
+  window.addEventListener("scroll", () => { if (touchTip) { touchTip = false; hideTip(); } }, { passive: true });
+  // Touch: a tap on a mark shows its tooltip and keeps it until the next tap elsewhere or a scroll; a mouse shows it
+  // on hover. pointerleave fires right after every tap, so it hides the tooltip only for a mouse or a pen.
+  let touchTip = false;
   function bindTips(svg) {
     svg.addEventListener("pointermove", (ev) => {
+      if (ev.pointerType === "touch") return;
       const t = ev.target.closest && ev.target.closest("[data-tip]");
       if (t) showTip(t.getAttribute("data-tip").split("\n"), ev.clientX, ev.clientY); else hideTip();
     });
-    svg.addEventListener("pointerleave", hideTip);
+    svg.addEventListener("pointerleave", (ev) => { if (ev.pointerType !== "touch") hideTip(); });
+    svg.addEventListener("pointerup", (ev) => {
+      if (ev.pointerType !== "touch") return;
+      const t = ev.target.closest && ev.target.closest("[data-tip]");
+      if (!t) { hideTip(); return; }
+      const r = t.getBoundingClientRect();
+      touchTip = true;
+      showTip(t.getAttribute("data-tip").split("\n"), Math.min(ev.clientX, r.right), r.top + r.height / 2);
+    });
     svg.addEventListener("focusin", (ev) => {
       const t = ev.target.closest("[data-tip]");
       if (!t) return;
@@ -106,9 +120,11 @@
   // ---------- charts ----------
   // Rows of groups; each group has up to three condition cells drawn as a dot with its 95% interval.
   // cell: { cond, v, lo, hi, tip, text } or null when there are no runs yet.
+  // On a touch screen each row is taller, so a finger can pick one condition's row.
+  const ROW_H = window.matchMedia && window.matchMedia("(pointer: coarse)").matches ? 24 : 17;
   function dotChart(width, groups, opts = {}) {
-    const W = Math.max(280, width), padL = 22, padR = 46, x0 = padL, x1 = W - padR;
-    const headH = opts.groupLabels === false ? 0 : 20, rowH = 17, gap = 12, axisH = 22;
+    const W = Math.max(240, width), padL = 22, padR = 46, x0 = padL, x1 = W - padR;
+    const headH = opts.groupLabels === false ? 0 : 20, rowH = ROW_H, gap = 12, axisH = 22;
     const H = axisH + groups.length * (headH + 3 * rowH + gap) + 4;
     const X = (v) => x0 + v * (x1 - x0);
     const svg = s("svg", { class: "chart", viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: "img", "aria-label": opts.title || "Chart" });
@@ -146,8 +162,8 @@
 
   // Horizontal bars; a cell can have stacked segments [{v, kind:"solid"|"hatch"}].
   function barChart(width, groups, opts) {
-    const W = Math.max(280, width), padL = 22, padR = 64, x0 = padL, x1 = W - padR;
-    const headH = 20, rowH = 17, gap = 12, axisH = 22, barH = 10;
+    const W = Math.max(240, width), padL = 22, padR = 64, x0 = padL, x1 = W - padR;
+    const headH = 20, rowH = ROW_H, gap = 12, axisH = 22, barH = 10;
     const H = axisH + groups.length * (headH + 3 * rowH + gap) + 4;
     let max = 0;
     for (const g of groups) for (const c of g.cells) if (c) max = Math.max(max, c.segs.reduce((a, b) => a + b.v, 0));
@@ -489,8 +505,10 @@
       let chart;
       if (!models.length) chart = h("p", { class: "muted", text: "No models in this group yet." });
       else if (w < 560) {
-        const pw = Math.floor((w - 10) / 2);
-        chart = h("div", { class: "multiples", role: "group", "aria-label": "Accuracy against cost per correct answer, one panel per model" },
+        // Two panels a row, or one on the narrowest phones, so the cost ticks never touch.
+        const cols = w < 280 ? 1 : 2;
+        const pw = Math.floor((w - 10 * (cols - 1)) / cols);
+        chart = h("div", { class: cols === 1 ? "multiples one" : "multiples", role: "group", "aria-label": "Accuracy against cost per correct answer, one panel per model" },
           models.map((mm) => plot(pw, 150, [mm], { mini: true, title: `${mm}: accuracy against cost per correct answer` })));
         chart = h("div", {}, h("p", { class: "better-note", text: "Up and to the left is better. Shared scales; cost on a log scale." }), chart);
       } else {

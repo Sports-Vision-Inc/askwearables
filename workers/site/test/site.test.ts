@@ -388,6 +388,118 @@ describe("site worker", () => {
     expect(readFileSync(join(root, "public/docs/api.html"), "utf8")).toBe(renderApiDocs(spec));
   });
 
+  it("folds the main navigation into an accessible disclosure menu on a phone", () => {
+    const pages = walk(join(root, "public")).filter((f) => f.endsWith(".html"));
+    for (const f of pages) {
+      const s = readFileSync(f, "utf8");
+      if (!s.includes('<header class="site-header">')) continue;
+      const header = s.slice(s.indexOf('<header class="site-header">'), s.indexOf("</header>"));
+      // A real button, collapsed by default, pointing at the nav it controls; hidden until the script enables it.
+      expect(header, f).toMatch(/<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>/);
+      expect(header, f).toContain('<nav class="site-nav" id="site-nav" aria-label="Main">');
+      expect(header.indexOf("nav-toggle"), `${f}: the button comes before the links in focus order`).toBeLessThan(header.indexOf('id="site-nav"'));
+      expect(s, f).toContain('<script src="/js/nav.js" defer></script>');
+    }
+    const js = readFileSync(join(root, "public/js/nav.js"), "utf8");
+    expect(js).toMatch(/setAttribute\("aria-expanded"/);
+    expect(js).toMatch(/ev\.key === "Escape"/);
+    expect(js).toMatch(/btn\.hidden = false/);
+    expect(js).toMatch(/btn\.focus\(\)/); // Escape returns focus to the button
+    // The generators keep the same header, so regenerated pages keep the menu.
+    for (const g of ["../../scripts/render-api-docs.ts", "../../scripts/md2site.py"]) {
+      const t = readFileSync(join(root, g), "utf8");
+      expect(t, g).toContain('aria-controls="site-nav"');
+      expect(t, g).toContain("/js/nav.js");
+    }
+    const css = readFileSync(join(root, "public/style.css"), "utf8");
+    // Without the script, or on a wide screen, the links show; the menu applies only once the script has run.
+    expect(css).toMatch(/\.nav-toggle \{ display: none; \}/);
+    expect(css).toMatch(/@media \(max-width: 720px\) \{[\s\S]*?\.has-menu \.site-nav \{ display: none;[\s\S]*?\.has-menu\.menu-open \.site-nav \{ display: flex; \}/);
+  });
+
+  it("gives every control a touch target of at least 44 x 44 CSS px on a phone", () => {
+    const css = readFileSync(join(root, "public/style.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(css).toMatch(/:root \{ --tap: 44px; \}/);
+    const block = (q: string) => {
+      const i = css.indexOf(q);
+      expect(i, q).toBeGreaterThan(0);
+      let depth = 0, j = css.indexOf("{", i);
+      for (let k = j; k < css.length; k++) { if (css[k] === "{") depth++; else if (css[k] === "}" && --depth === 0) return css.slice(j, k); }
+      return "";
+    };
+    const touch = block("@media (max-width: 720px), (pointer: coarse) {");
+    const hasMin = (sel: string, src: string) => [...src.matchAll(/([^{}]+)\{([^}]*)\}/g)].some((m) => m[1]!.split(",").map((x) => x.trim()).includes(sel) && /min-height: var\(--tap\)|height: var\(--tap\)/.test(m[2]!));
+    for (const sel of [".btn", ".toggle", ".ctl select", ".walk-toggle", ".story-toggle", ".stage-toggle", ".walk-step", ".story-tab", ".walk-tab", ".signal", ".jump a", ".docs-nav a", ".toc a", ".deploy-btn"]) expect(hasMin(sel, touch), sel).toBe(true);
+    // Header, footer and the menu's own links, at every width.
+    for (const sel of [".brand", ".parent", ".site-nav a", ".site-footer nav a", ".foot-legal a"]) expect(hasMin(sel, css), sel).toBe(true);
+    expect(block("@media (max-width: 720px) {")).toMatch(/\.has-menu \.nav-toggle \{[^}]*min-width: var\(--tap\); min-height: var\(--tap\)/);
+    expect(block("@media (max-width: 720px) {")).toMatch(/\.has-menu \.site-nav a \{[^}]*min-height: 48px/);
+    // 8px between neighbouring targets.
+    expect(touch).toMatch(/\.story-tabs, \.walk-tabs, \.actions, \.ex-nav, \.walk-ctrls, \.uc-chips, \.credit-meta \{ gap: 8px; \}/);
+    // Safari ignores the height of a native select, so the selects draw their own chevron.
+    expect(css).toMatch(/\.ctl select \{ -webkit-appearance: none; appearance: none;/);
+    // Chart rows are taller on touch screens; a tap shows the tooltip (pointerleave fires after every tap).
+    const rjs = readFileSync(join(root, "public/js/results.js"), "utf8");
+    expect(rjs).toMatch(/\(pointer: coarse\)"\)\.matches \? 24 : 17/);
+    expect(rjs).toMatch(/addEventListener\("pointerup"/);
+    expect(rjs).toMatch(/pointerType !== "touch"\) hideTip/);
+  });
+
+  it("keeps phone text at readable sizes: 16px running text, nothing under 12px", () => {
+    const css = readFileSync(join(root, "public/style.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    const px = (v: string) => (v.endsWith("rem") ? parseFloat(v) * 16 : v.endsWith("px") ? parseFloat(v) : NaN);
+    // The phone blocks of the mobile pass, where the floors are set.
+    const start = css.indexOf("--tap: 44px");
+    const phone = [...css.slice(start).matchAll(/@media \(max-width: 600px\) \{([\s\S]*?)\n\}/g)].map((m) => m[1]).join("\n");
+    const raised = new Map<string, number>();
+    for (const m of phone.matchAll(/([^{}]+)\{([^}]*font-size:\s*([\d.]+(?:rem|px))[^}]*)\}/g)) for (const sel of m[1]!.split(",")) raised.set(sel.trim(), px(m[3]!));
+    // Every rule elsewhere that sets type under 12px is raised to at least 12px on a phone. The watch face (sized in
+    // container units) and SVG text (drawn at the chart's own scale) are outside this rule.
+    const EXEMPT = /^(\.face|\.fs-|\.fbadge|\.fs-key|svg|\.arch|\.flowsvg|\.legend \.sw)|\.(face|fs)-/;
+    for (const m of css.slice(0, start).matchAll(/([^{}@]+)\{([^}]*)\}/g)) {
+      const decl = m[2]!.match(/font(?:-size)?:\s*(?:\d{3}\s+)?([\d.]+(?:rem|px))/);
+      if (!decl || !(px(decl[1]!) < 12)) continue;
+      for (const sel of m[1]!.split(",").map((x) => x.trim())) {
+        if (EXEMPT.test(sel) || sel.includes("::before") && sel.includes("data-label")) continue;
+        expect(raised.get(sel) ?? 0, `${sel} is ${decl[1]} and needs a phone floor of 12px`).toBeGreaterThanOrEqual(12);
+      }
+    }
+    // Running text in the hero cards and charts reads at 16px on a phone.
+    for (const sel of [".msg", ".uc-safe", ".uc-note", ".sc-why", ".merge-side", ".walk-why", ".chart-sub", ".pk-finding"]) expect(raised.get(sel), sel).toBe(16);
+    // Body copy is 16px everywhere, and form controls never drop under 16px (iOS zoom).
+    expect(css).toMatch(/body \{[^}]*font: 16px\/1\.6/);
+    // Tables never squeeze a column to one letter per line.
+    expect(css).not.toMatch(/\.table-wrap th, \.table-wrap td \{[^}]*overflow-wrap: anywhere/);
+  });
+
+  it("stacks every document table with a header row into labelled cards on a phone", () => {
+    const pages = ["privacy.html", "terms.html", ...readdirSync(join(root, "public/docs")).map((f) => `docs/${f}`)];
+    let n = 0;
+    for (const f of pages) {
+      const s = readFileSync(join(root, "public", f), "utf8");
+      for (const m of s.matchAll(/<table([^>]*)>([\s\S]*?)<\/table>/g)) {
+        if (!m[2]!.includes("<thead>")) continue;
+        n++;
+        expect(m[1], f).toBe(' class="stack doc-table"');
+        for (const row of m[2]!.slice(m[2]!.indexOf("<tbody>")).matchAll(/<tr>([\s\S]*?)<\/tr>/g)) {
+          expect(row[1], `${f}: the first cell heads the row`).toMatch(/^\s*<th scope="row">/);
+          for (const td of row[1]!.matchAll(/<td([^>]*)>/g)) expect(td[1], `${f}: every other cell names its column`).toMatch(/data-label="[^"]+"/);
+        }
+      }
+    }
+    expect(n).toBeGreaterThan(30);
+  });
+
+  it("loads the heavy results file only when the page gets near the charts", () => {
+    const js = readFileSync(join(root, "public/js/data.js"), "utf8");
+    expect(js).toMatch(/IntersectionObserver/);
+    expect(js).toMatch(/requestIdleCallback/);
+    expect(js).toMatch(/fetch\("\/data\/results\.json"/); // still the one file every figure comes from
+    const page = readFileSync(join(root, "public/index.html"), "utf8");
+    expect(page.match(/data-needs-results/g)?.length).toBeGreaterThanOrEqual(2);
+    expect(page.slice(page.indexOf('id="story"') - 40, page.indexOf('id="story"') + 80)).toContain("data-needs-results");
+  });
+
   it("internal links point at pages that exist", () => {
     const pages = walk(join(root, "public")).filter((f) => f.endsWith(".html"));
     for (const f of pages) {

@@ -67,14 +67,15 @@ def parse(md, demote=0, skip_banner=False, h1_id=None, prefix=""):
                 rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
                 i += 1
             head, body = rows[0], rows[2:]
-            t = ['<div class="table-wrap"><table>']
+            # Tables with a header row stack into labelled cards on a phone (table.stack in style.css): the first
+            # cell of each row becomes its heading and every other cell carries its column name in data-label.
+            t = ['<div class="table-wrap"><table class="stack doc-table">' if any(head) else '<div class="table-wrap"><table>']
             if any(head):
                 t.append("  <thead><tr>" + "".join(f'<th scope="col">{inline(c)}</th>' for c in head) + "</tr></thead>")
-            else:
-                pass
+            label = lambda j: html.escape(re.sub(r"<[^>]+>", "", inline(head[j])) if j < len(head) else "", quote=True)
             t.append("  <tbody>")
             for r in body:
-                cells = "".join((f'<th scope="row">{inline(c)}</th>' if (j == 0 and not any(head)) else f"<td>{inline(c)}</td>") for j, c in enumerate(r))
+                cells = "".join((f'<th scope="row">{inline(c)}</th>' if j == 0 else (f'<td data-label="{label(j)}">{inline(c)}</td>' if any(head) else f"<td>{inline(c)}</td>")) for j, c in enumerate(r))
                 t.append(f"    <tr>{cells}</tr>")
             t.append("  </tbody>\n</table></div>")
             out.append("\n".join(t))
@@ -115,12 +116,14 @@ HEADER = """<!doctype html>
 <meta name="description" content="{desc}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="inner">
   <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>

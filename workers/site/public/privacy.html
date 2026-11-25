@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>
@@ -122,18 +124,18 @@
 
 <h2 id="data-we-collect">4. Data we collect</h2>
 
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Category</th><th scope="col">What it includes</th><th scope="col">Where it comes from</th></tr></thead>
   <tbody>
-    <tr><td>Health Data</td><td>Steps, active energy, heart rate, resting heart rate, heart-rate variability, sleep duration, sleep stages and efficiency, blood oxygen, respiratory rate, skin temperature deviation, VO2 max estimates, weight, workouts, and vendors' own scores (such as readiness or recovery). Free text attached to workouts, such as titles and notes</td><td>The Sources you connect, the files you import, or a Developer's app acting for you</td></tr>
-    <tr><td>Sensitive Categories</td><td>Blood glucose, cycle tracking, ECG and rhythm notifications, sleep apnea events</td><td><strong>Not imported by default.</strong> Our file importers do not bring them in. They are stored only if a sync app or a Developer's app sends them, and released only when you name each one in a Grant</td></tr>
-    <tr><td>Source details</td><td>Which provider and device, when it was connected and last synced. For cloud Sources, the access tokens the provider gives us</td><td>You, when you connect a Source</td></tr>
-    <tr><td>Account data</td><td>An internal user ID, your time zone, your declaration that you are 18 or older, and the public key of your passkey (never the passkey itself). For a Developer's users, the ID the Developer assigned</td><td>You or the Developer</td></tr>
-    <tr><td>Grants and Agents</td><td>Which Agents you connected, and the eight limits of each Grant</td><td>You, on the consent screen</td></tr>
-    <tr><td>Receipts</td><td>For each release or denial: the time, the Agent, the purpose, the query, the level of detail, the metrics, the date window, a fingerprint (hash) of the Packet, and the reasons for the decision</td><td>Created by the Service</td></tr>
-    <tr><td>Questions</td><td>The text of the questions Agents send</td><td>The Agent</td></tr>
-    <tr><td>Developer data</td><td>Organisation name, Agent name, webhook address, hashed API keys, encrypted signing and webhook secrets, and daily usage counts</td><td>The Developer</td></tr>
-    <tr><td>Technical data</td><td>Request metadata needed to run and secure the Service, such as time, path, response code and the IP address seen by our hosting provider. Never Health Data values</td><td>Created automatically</td></tr>
+    <tr><th scope="row">Health Data</th><td data-label="What it includes">Steps, active energy, heart rate, resting heart rate, heart-rate variability, sleep duration, sleep stages and efficiency, blood oxygen, respiratory rate, skin temperature deviation, VO2 max estimates, weight, workouts, and vendors' own scores (such as readiness or recovery). Free text attached to workouts, such as titles and notes</td><td data-label="Where it comes from">The Sources you connect, the files you import, or a Developer's app acting for you</td></tr>
+    <tr><th scope="row">Sensitive Categories</th><td data-label="What it includes">Blood glucose, cycle tracking, ECG and rhythm notifications, sleep apnea events</td><td data-label="Where it comes from"><strong>Not imported by default.</strong> Our file importers do not bring them in. They are stored only if a sync app or a Developer's app sends them, and released only when you name each one in a Grant</td></tr>
+    <tr><th scope="row">Source details</th><td data-label="What it includes">Which provider and device, when it was connected and last synced. For cloud Sources, the access tokens the provider gives us</td><td data-label="Where it comes from">You, when you connect a Source</td></tr>
+    <tr><th scope="row">Account data</th><td data-label="What it includes">An internal user ID, your time zone, your declaration that you are 18 or older, and the public key of your passkey (never the passkey itself). For a Developer's users, the ID the Developer assigned</td><td data-label="Where it comes from">You or the Developer</td></tr>
+    <tr><th scope="row">Grants and Agents</th><td data-label="What it includes">Which Agents you connected, and the eight limits of each Grant</td><td data-label="Where it comes from">You, on the consent screen</td></tr>
+    <tr><th scope="row">Receipts</th><td data-label="What it includes">For each release or denial: the time, the Agent, the purpose, the query, the level of detail, the metrics, the date window, a fingerprint (hash) of the Packet, and the reasons for the decision</td><td data-label="Where it comes from">Created by the Service</td></tr>
+    <tr><th scope="row">Questions</th><td data-label="What it includes">The text of the questions Agents send</td><td data-label="Where it comes from">The Agent</td></tr>
+    <tr><th scope="row">Developer data</th><td data-label="What it includes">Organisation name, Agent name, webhook address, hashed API keys, encrypted signing and webhook secrets, and daily usage counts</td><td data-label="Where it comes from">The Developer</td></tr>
+    <tr><th scope="row">Technical data</th><td data-label="What it includes">Request metadata needed to run and secure the Service, such as time, path, response code and the IP address seen by our hosting provider. Never Health Data values</td><td data-label="Where it comes from">Created automatically</td></tr>
   </tbody>
 </table></div>
 
@@ -227,15 +229,15 @@
 
 <h2 id="who-receives-your-data">8. Who receives your data</h2>
 
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Recipient</th><th scope="col">What they receive</th><th scope="col">Why</th></tr></thead>
   <tbody>
-    <tr><td>Agents you approve</td><td>Packets within your Grant</td><td>To answer your questions</td></tr>
-    <tr><td>The Developer of an app you use</td><td>Packets within that app's Grant, and usage counts with no Health Data</td><td>To run the app you chose</td></tr>
-    <tr><td>Sub-processors (section 9)</td><td>What each needs to provide its service to us</td><td>To host and run the Service</td></tr>
-    <tr><td>The Sources you connect</td><td>Your sign-in with them, and our requests for your data</td><td>To fetch your data</td></tr>
-    <tr><td>Authorities</td><td>Only what the law requires</td><td>Legal duty. We will tell you about a request unless the law forbids it</td></tr>
-    <tr><td>A buyer of the business</td><td>Your data, under this policy</td><td>If Sports Vision or AskWearables is sold or merged. The buyer must keep this policy's promises or ask for your consent</td></tr>
+    <tr><th scope="row">Agents you approve</th><td data-label="What they receive">Packets within your Grant</td><td data-label="Why">To answer your questions</td></tr>
+    <tr><th scope="row">The Developer of an app you use</th><td data-label="What they receive">Packets within that app's Grant, and usage counts with no Health Data</td><td data-label="Why">To run the app you chose</td></tr>
+    <tr><th scope="row">Sub-processors (section 9)</th><td data-label="What they receive">What each needs to provide its service to us</td><td data-label="Why">To host and run the Service</td></tr>
+    <tr><th scope="row">The Sources you connect</th><td data-label="What they receive">Your sign-in with them, and our requests for your data</td><td data-label="Why">To fetch your data</td></tr>
+    <tr><th scope="row">Authorities</th><td data-label="What they receive">Only what the law requires</td><td data-label="Why">Legal duty. We will tell you about a request unless the law forbids it</td></tr>
+    <tr><th scope="row">A buyer of the business</th><td data-label="What they receive">Your data, under this policy</td><td data-label="Why">If Sports Vision or AskWearables is sold or merged. The buyer must keep this policy's promises or ask for your consent</td></tr>
   </tbody>
 </table></div>
 
@@ -243,10 +245,10 @@
 
 <h2 id="sub-processors">9. Sub-processors</h2>
 
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Sub-processor</th><th scope="col">What it does for us</th><th scope="col">Data it handles</th></tr></thead>
   <tbody>
-    <tr><td>Cloudflare, Inc. (United States)</td><td>Hosting, storage (Durable Objects, D1, KV, R2), Workers AI for the Planner, logs and rate limiting</td><td>All data we hold, encrypted at rest. Question text, for the Planner</td></tr>
+    <tr><th scope="row">Cloudflare, Inc. (United States)</th><td data-label="What it does for us">Hosting, storage (Durable Objects, D1, KV, R2), Workers AI for the Planner, logs and rate limiting</td><td data-label="Data it handles">All data we hold, encrypted at rest. Question text, for the Planner</td></tr>
   </tbody>
 </table></div>
 
@@ -258,19 +260,19 @@
 
 <h2 id="how-long-we-keep-data">11. How long we keep data</h2>
 
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Data</th><th scope="col">How long</th></tr></thead>
   <tbody>
-    <tr><td>Health Data and Source tokens</td><td>Until you disconnect the Source, delete the data, or delete everything</td></tr>
-    <tr><td>Inactive accounts</td><td>Deleted after 24 months without a sign-in, sync or Agent request. We tell you in the console (and by email if you have given us one) 30 days before</td></tr>
-    <tr><td>Packets</td><td>An encrypted copy is kept for about 24 hours so the Agent can fetch it again. Then it is deleted</td></tr>
-    <tr><td>Grants</td><td>Until they expire (90 days at most) or you revoke them. A revoked Grant's metadata is then kept for 90 days, then deleted</td></tr>
-    <tr><td>Receipts</td><td>Kept while your account exists. After "delete everything", the Receipt chain keeps only hashes, times, sequence numbers, Agent IDs, Grant IDs, release levels and decisions (no Health Data). Everything else in each Receipt is made unreadable (section 12)</td></tr>
-    <tr><td>Daily integrity anchors</td><td>A copy of your Receipt chain's latest hash, stored once a day so tampering can be detected. Your user ID in each anchor is stored only as a hash</td></tr>
-    <tr><td>Operational logs</td><td>No longer than 30 days. They never contain Health Data values</td></tr>
-    <tr><td>Agent access tokens</td><td>One hour</td></tr>
-    <tr><td>Consent links</td><td>One hour</td></tr>
-    <tr><td>Replay-protection records</td><td>Five minutes</td></tr>
+    <tr><th scope="row">Health Data and Source tokens</th><td data-label="How long">Until you disconnect the Source, delete the data, or delete everything</td></tr>
+    <tr><th scope="row">Inactive accounts</th><td data-label="How long">Deleted after 24 months without a sign-in, sync or Agent request. We tell you in the console (and by email if you have given us one) 30 days before</td></tr>
+    <tr><th scope="row">Packets</th><td data-label="How long">An encrypted copy is kept for about 24 hours so the Agent can fetch it again. Then it is deleted</td></tr>
+    <tr><th scope="row">Grants</th><td data-label="How long">Until they expire (90 days at most) or you revoke them. A revoked Grant's metadata is then kept for 90 days, then deleted</td></tr>
+    <tr><th scope="row">Receipts</th><td data-label="How long">Kept while your account exists. After "delete everything", the Receipt chain keeps only hashes, times, sequence numbers, Agent IDs, Grant IDs, release levels and decisions (no Health Data). Everything else in each Receipt is made unreadable (section 12)</td></tr>
+    <tr><th scope="row">Daily integrity anchors</th><td data-label="How long">A copy of your Receipt chain's latest hash, stored once a day so tampering can be detected. Your user ID in each anchor is stored only as a hash</td></tr>
+    <tr><th scope="row">Operational logs</th><td data-label="How long">No longer than 30 days. They never contain Health Data values</td></tr>
+    <tr><th scope="row">Agent access tokens</th><td data-label="How long">One hour</td></tr>
+    <tr><th scope="row">Consent links</th><td data-label="How long">One hour</td></tr>
+    <tr><th scope="row">Replay-protection records</th><td data-label="How long">Five minutes</td></tr>
   </tbody>
 </table></div>
 
@@ -353,15 +355,15 @@
 
 <p>This section explains how we approach the other main US laws for consumer health-adjacent apps. It is not a claim of compliance.</p>
 
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Law</th><th scope="col">How AskWearables approaches it</th></tr></thead>
   <tbody>
-    <tr><td><strong>California CCPA/CPRA and other state privacy laws</strong> (including Minnesota's Consumer Data Privacy Act)</td><td>Health Data is sensitive data. We collect it only with your consent, and use it only to provide the Service you asked for. We do not sell or share it for advertising. The rights in section 13 apply to everyone</td></tr>
-    <tr><td><strong>FTC Act Section 5</strong></td><td>We aim to describe our practices accurately and to keep every promise in this policy</td></tr>
-    <tr><td><strong>FTC Health Breach Notification Rule</strong></td><td>Treated as applying. See section 14</td></tr>
-    <tr><td><strong>COPPA</strong></td><td>AskWearables is not for children. You must be 18 or older (section 18)</td></tr>
-    <tr><td><strong>HIPAA</strong></td><td>AskWearables is not a HIPAA covered entity or business associate, and it does not sign business associate agreements. Your data in AskWearables is not "protected health information" under HIPAA</td></tr>
-    <tr><td><strong>EU and UK data protection law</strong></td><td>AskWearables is not offered in the EU or UK yet</td></tr>
+    <tr><th scope="row"><strong>California CCPA/CPRA and other state privacy laws</strong> (including Minnesota's Consumer Data Privacy Act)</th><td data-label="How AskWearables approaches it">Health Data is sensitive data. We collect it only with your consent, and use it only to provide the Service you asked for. We do not sell or share it for advertising. The rights in section 13 apply to everyone</td></tr>
+    <tr><th scope="row"><strong>FTC Act Section 5</strong></th><td data-label="How AskWearables approaches it">We aim to describe our practices accurately and to keep every promise in this policy</td></tr>
+    <tr><th scope="row"><strong>FTC Health Breach Notification Rule</strong></th><td data-label="How AskWearables approaches it">Treated as applying. See section 14</td></tr>
+    <tr><th scope="row"><strong>COPPA</strong></th><td data-label="How AskWearables approaches it">AskWearables is not for children. You must be 18 or older (section 18)</td></tr>
+    <tr><th scope="row"><strong>HIPAA</strong></th><td data-label="How AskWearables approaches it">AskWearables is not a HIPAA covered entity or business associate, and it does not sign business associate agreements. Your data in AskWearables is not "protected health information" under HIPAA</td></tr>
+    <tr><th scope="row"><strong>EU and UK data protection law</strong></th><td data-label="How AskWearables approaches it">AskWearables is not offered in the EU or UK yet</td></tr>
   </tbody>
 </table></div>
 

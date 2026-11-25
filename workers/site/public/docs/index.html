@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/" aria-current="page">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>
@@ -44,8 +46,8 @@
   <h2>Files</h2>
   <ul>
     <li><a href="/openapi.json">openapi.json</a></li>
-    <li><a href="/privacy">Privacy policy (draft)</a></li>
-    <li><a href="/terms">Terms of service (draft)</a></li>
+    <li><a href="/privacy">Privacy policy</a></li>
+    <li><a href="/terms">Terms of service</a></li>
   </ul>
 </nav>
 
@@ -67,27 +69,27 @@
 </div>
 
 <h2 id="surfaces">Hosts and surfaces</h2>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Host</th><th scope="col">What it serves</th></tr></thead>
   <tbody>
-    <tr><td><code>https://api.askwearables.app/v1</code></td><td>REST API. Its OpenAPI 3.1 document is at <code>/v1/openapi.json</code> and <a href="/openapi.json">on this site</a>.</td></tr>
-    <tr><td><code>https://mcp.askwearables.app/mcp</code></td><td>Remote MCP server over Streamable HTTP, with three tools: <code>ask</code>, <code>list_capabilities</code>, <code>get_packet</code>.</td></tr>
-    <tr><td><code>https://auth.askwearables.app</code></td><td>OAuth 2.1 authorization server (PKCE, dynamic client registration), owner sign-in with passkeys, and the consent screen.</td></tr>
-    <tr><td><code>https://app.askwearables.app</code></td><td>Console: connect sources, manage grants, read receipts, create keys, pause, export, delete.</td></tr>
-    <tr><td><code>https://askwearables.app</code></td><td>This site.</td></tr>
+    <tr><th scope="row"><code>https://api.askwearables.app/v1</code></th><td data-label="What it serves">REST API. Its OpenAPI 3.1 document is at <code>/v1/openapi.json</code> and <a href="/openapi.json">on this site</a>.</td></tr>
+    <tr><th scope="row"><code>https://mcp.askwearables.app/mcp</code></th><td data-label="What it serves">Remote MCP server over Streamable HTTP, with three tools: <code>ask</code>, <code>list_capabilities</code>, <code>get_packet</code>.</td></tr>
+    <tr><th scope="row"><code>https://auth.askwearables.app</code></th><td data-label="What it serves">OAuth 2.1 authorization server (PKCE, dynamic client registration), owner sign-in with passkeys, and the consent screen.</td></tr>
+    <tr><th scope="row"><code>https://app.askwearables.app</code></th><td data-label="What it serves">Console: connect sources, manage grants, read receipts, create keys, pause, export, delete.</td></tr>
+    <tr><th scope="row"><code>https://askwearables.app</code></th><td data-label="What it serves">This site.</td></tr>
   </tbody>
 </table></div>
 <p>MCP and REST are thin adapters over the same core, so a question asked either way is planned, gated, computed and receipted the same way.</p>
 
 <h2 id="credentials">Credentials</h2>
 <p>The REST API reads the bearer token's prefix to decide who is calling. Each kind reaches a fixed set of routes and nothing else.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Credential</th><th scope="col">Who holds it</th><th scope="col">Routes</th></tr></thead>
   <tbody>
-    <tr><td>OAuth access token</td><td>An agent the user connected, such as Claude. Issued by <code>auth</code>, bound to one agent, one grant and one resource (the MCP server or the REST API).</td><td class="wrap">MCP tools; <code>POST /v1/ask</code>, <code>POST /v1/query</code>, <code>GET /v1/capabilities</code>, <code>GET /v1/packets/{id}</code></td></tr>
-    <tr><td><code>aw_dev_…</code> plus a signing secret</td><td>A developer's server, acting for its own end users. Every agent call is signed; see <a href="/docs/quickstart#signing">signing</a>.</td><td class="wrap"><code>POST /v1/users</code>, <code>POST /v1/grants</code>, <code>POST /v1/ingest</code>, <code>GET /v1/usage</code>, and the four agent routes above</td></tr>
-    <tr><td><code>aw_own_…</code></td><td>The owner's own scripts.</td><td class="wrap"><code>POST /v1/query</code> (level 3, still receipted), <code>GET /v1/receipts</code>, <code>GET /v1/status</code>, <code>GET /v1/export</code>, <code>POST /v1/ingest</code>, <code>DELETE /v1/grants/{id}</code></td></tr>
-    <tr><td><code>aw_sync_…</code></td><td>A device sync app. Bound to one source.</td><td class="wrap"><code>POST /v1/ingest</code> only, and only into its own source</td></tr>
+    <tr><th scope="row">OAuth access token</th><td data-label="Who holds it">An agent the user connected, such as Claude. Issued by <code>auth</code>, bound to one agent, one grant and one resource (the MCP server or the REST API).</td><td class="wrap" data-label="Routes">MCP tools; <code>POST /v1/ask</code>, <code>POST /v1/query</code>, <code>GET /v1/capabilities</code>, <code>GET /v1/packets/{id}</code></td></tr>
+    <tr><th scope="row"><code>aw_dev_…</code> plus a signing secret</th><td data-label="Who holds it">A developer's server, acting for its own end users. Every agent call is signed; see <a href="/docs/quickstart#signing">signing</a>.</td><td class="wrap" data-label="Routes"><code>POST /v1/users</code>, <code>POST /v1/grants</code>, <code>POST /v1/ingest</code>, <code>GET /v1/usage</code>, and the four agent routes above</td></tr>
+    <tr><th scope="row"><code>aw_own_…</code></th><td data-label="Who holds it">The owner's own scripts.</td><td class="wrap" data-label="Routes"><code>POST /v1/query</code> (level 3, still receipted), <code>GET /v1/receipts</code>, <code>GET /v1/status</code>, <code>GET /v1/export</code>, <code>POST /v1/ingest</code>, <code>DELETE /v1/grants/{id}</code></td></tr>
+    <tr><th scope="row"><code>aw_sync_…</code></th><td data-label="Who holds it">A device sync app. Bound to one source.</td><td class="wrap" data-label="Routes"><code>POST /v1/ingest</code> only, and only into its own source</td></tr>
   </tbody>
 </table></div>
 <p>Owner, sync and developer keys are created in the console and shown once; only a hash is stored. An agent token never unlocks the console, a console session never reaches a provider, and provider tokens never leave the <code>vault</code> Worker.</p>
@@ -112,25 +114,25 @@
 
 <h2 id="errors">Errors and limits</h2>
 <p>Errors are JSON with a short machine-readable code: <code>{"error": "unknown_user"}</code>. A decision by the gate is not an error: <code>ask</code> and <code>query</code> return an envelope with <code>status</code> set to <code>ok</code>, <code>denied</code> or <code>unsupported</code>, and a denial comes back as HTTP 403 with its reasons.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Status</th><th scope="col">Meaning</th><th scope="col">Examples</th></tr></thead>
   <tbody>
-    <tr><td>400</td><td>The request could not be processed</td><td class="wrap"><code>unknown_user</code>, <code>bad_external_id</code>, <code>batch_too_large</code>, <code>source_mismatch</code>, <code>question must be 3-500 characters</code></td></tr>
-    <tr><td>401</td><td>Credential missing or invalid</td><td class="wrap"><code>token_invalid</code>, <code>unauthenticated</code>, or an OAuth challenge with <code>WWW-Authenticate</code></td></tr>
-    <tr><td>403</td><td>The gate denied the request</td><td class="wrap"><code>{"status":"denied","reasons":["metric_not_in_grant:hrv_rmssd"]}</code>; on <code>ask</code> and <code>query</code>, signature failures such as <code>signature_required</code>, <code>signature_expired</code>, <code>bad_signature</code> and <code>nonce_replayed</code> also arrive here as reasons (other routes return them as 400 errors)</td></tr>
-    <tr><td>404</td><td>No such route, or no such packet for this agent</td><td><code>not_found</code></td></tr>
-    <tr><td>429</td><td>Rate limited</td><td class="wrap"><code>rate_limited</code> with <code>Retry-After</code> in seconds. The SDKs wait and retry.</td></tr>
+    <tr><th scope="row">400</th><td data-label="Meaning">The request could not be processed</td><td class="wrap" data-label="Examples"><code>unknown_user</code>, <code>bad_external_id</code>, <code>batch_too_large</code>, <code>source_mismatch</code>, <code>question must be 3-500 characters</code></td></tr>
+    <tr><th scope="row">401</th><td data-label="Meaning">Credential missing or invalid</td><td class="wrap" data-label="Examples"><code>token_invalid</code>, <code>unauthenticated</code>, or an OAuth challenge with <code>WWW-Authenticate</code></td></tr>
+    <tr><th scope="row">403</th><td data-label="Meaning">The gate denied the request</td><td class="wrap" data-label="Examples"><code>{"status":"denied","reasons":["metric_not_in_grant:hrv_rmssd"]}</code>; on <code>ask</code> and <code>query</code>, signature failures such as <code>signature_required</code>, <code>signature_expired</code>, <code>bad_signature</code> and <code>nonce_replayed</code> also arrive here as reasons (other routes return them as 400 errors)</td></tr>
+    <tr><th scope="row">404</th><td data-label="Meaning">No such route, or no such packet for this agent</td><td data-label="Examples"><code>not_found</code></td></tr>
+    <tr><th scope="row">429</th><td data-label="Meaning">Rate limited</td><td class="wrap" data-label="Examples"><code>rate_limited</code> with <code>Retry-After</code> in seconds. The SDKs wait and retry.</td></tr>
   </tbody>
 </table></div>
 <p>Other limits: questions are 3 to 500 characters; an ingest call carries at most 2,000 records; a QuerySpec spans at most two years before the gate clamps it to the grant's window; a signed request must arrive within 300 seconds of its timestamp, and each nonce works once. Denied calls do not count against the daily packet budget.</p>
 
 <h2 id="sdks">SDKs</h2>
 <p>Both SDKs are generated from the same <a href="/openapi.json">OpenAPI document</a>, sign developer requests, and retry on HTTP 429 after the time in <code>Retry-After</code>.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Language</th><th scope="col">Package</th><th scope="col">Needs</th><th scope="col">Source</th></tr></thead>
   <tbody>
-    <tr><td>TypeScript</td><td><code>@askwearables/sdk</code></td><td>No dependencies; any runtime with <code>fetch</code> and WebCrypto (Node 20+, Deno, Bun, Workers, browsers)</td><td><code>sdks/typescript</code></td></tr>
-    <tr><td>Python</td><td><code>askwearables</code></td><td>Python 3.10+, standard library only</td><td><code>sdks/python</code></td></tr>
+    <tr><th scope="row">TypeScript</th><td data-label="Package"><code>@askwearables/sdk</code></td><td data-label="Needs">No dependencies; any runtime with <code>fetch</code> and WebCrypto (Node 20+, Deno, Bun, Workers, browsers)</td><td data-label="Source"><code>sdks/typescript</code></td></tr>
+    <tr><th scope="row">Python</th><td data-label="Package"><code>askwearables</code></td><td data-label="Needs">Python 3.10+, standard library only</td><td data-label="Source"><code>sdks/python</code></td></tr>
   </tbody>
 </table></div>
 <p>Both expose the same calls: <code>ask</code>, <code>query</code>, <code>capabilities</code>, <code>getPacket</code> / <code>get_packet</code>, <code>createUser</code> / <code>create_user</code>, <code>createGrantLink</code> / <code>create_grant_link</code>, <code>ingest</code> and <code>usage</code>, plus a helper to verify grant webhooks. Install from a clone of the repository:</p>

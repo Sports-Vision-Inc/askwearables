@@ -27,24 +27,24 @@ async function render() {
   $("#app").innerHTML = `
 <section id="sources"><h2>Sources</h2>
  <p class="muted">Data version <code>${esc(String(s.vault.data_version).slice(0, 19))}</code>. Freshness and coverage per source.</p>
- <div class="scroll"><table><thead><tr><th>Source</th><th>Device</th><th>Last sync</th><th>Days</th><th>Coverage</th><th>Metrics</th></tr></thead><tbody>
- ${s.vault.sources.map((x: any) => `<tr><td>${esc(x.provider)}${x.terms_flags?.no_ai ? ' <span class="pill bad">no AI</span>' : ""}</td><td>${esc(x.device_model ?? x.device_class)}</td><td>${esc(hoursAgo(x.last_sync_at))}</td><td>${x.days} ${x.first_day ? `<span class="muted">${esc(x.first_day)} to ${esc(x.last_day)}</span>` : ""}</td><td>${x.mean_coverage === null ? "–" : Math.round(x.mean_coverage * 100) + "%"}</td><td>${esc(x.metrics.join(", "))}</td></tr>`).join("") || `<tr><td colspan="6" class="muted">No sources yet. Import a file below.</td></tr>`}
+ <div class="scroll"><table class="stack"><thead><tr><th>Source</th><th>Device</th><th>Last sync</th><th>Days</th><th>Coverage</th><th>Metrics</th></tr></thead><tbody>
+ ${s.vault.sources.map((x: any) => `<tr><td class="lead">${esc(x.provider)}${x.terms_flags?.no_ai ? ' <span class="pill bad">no AI</span>' : ""}</td><td data-label="Device">${esc(x.device_model ?? x.device_class)}</td><td data-label="Last sync">${esc(hoursAgo(x.last_sync_at))}</td><td data-label="Days">${x.days} ${x.first_day ? `<span class="muted">${esc(x.first_day)} to ${esc(x.last_day)}</span>` : ""}</td><td data-label="Coverage">${x.mean_coverage === null ? "–" : Math.round(x.mean_coverage * 100) + "%"}</td><td data-label="Metrics">${esc(x.metrics.join(", "))}</td></tr>`).join("") || `<tr><td colspan="6" class="muted">No sources yet. Import a file below.</td></tr>`}
  </tbody></table></div>
  <h3>Import Apple Health</h3>
  <p class="muted">Health app → profile → Export All Health Data. Unzip it and choose <code>export.xml</code>. It is read on this device; only computed records are uploaded.</p>
  <div class="row"><input type="file" id="file" accept=".xml"><button class="primary" id="import">Import</button></div><p id="importmsg" class="muted"></p>
- <div class="row">Time zone <input id="tz" value="${esc(tz)}" size="24"><button id="savetz">Save</button></div>
+ <div class="row">Time zone <input id="tz" value="${esc(tz)}" size="24" autocomplete="off"><button id="savetz">Save</button></div>
 </section>
 
 <section id="grants"><h2>Agents with access</h2>
- <div class="scroll"><table><thead><tr><th>Agent</th><th>Purpose</th><th>Metrics</th><th>Level</th><th>Window</th><th>Per day</th><th>Expires</th><th></th></tr></thead><tbody>
- ${s.grants.map((g: any) => `<tr><td>${esc(g.agent_name)}${g.verified_domain ? `<br><span class="muted">${esc(g.verified_domain)}</span>` : ""}</td><td>${esc(g.purpose)}</td><td>${esc(g.metrics.join(", "))}</td><td>${g.max_level}</td><td>${g.max_window_days} d</td><td>${g.daily_packet_budget}</td><td>${esc(g.expires_at.slice(0, 10))}</td>
-   <td>${g.revoked_at ? '<span class="muted">revoked</span>' : `<button class="danger" data-revoke="${esc(g.grant_id)}">Revoke</button>`}</td></tr>`).join("") || `<tr><td colspan="8" class="muted">No agents yet. Connect one with the MCP URL <code>https://mcp.askwearables.app/mcp</code>.</td></tr>`}
+ <div class="scroll"><table class="stack"><thead><tr><th>Agent</th><th>Purpose</th><th>Metrics</th><th>Level</th><th>Window</th><th>Per day</th><th>Expires</th><th></th></tr></thead><tbody>
+ ${s.grants.map((g: any) => `<tr><td class="lead">${esc(g.agent_name)}${g.verified_domain ? `<br><span class="muted">${esc(g.verified_domain)}</span>` : ""}</td><td data-label="Purpose">${esc(g.purpose)}</td><td data-label="Metrics">${esc(g.metrics.join(", "))}</td><td data-label="Level">${g.max_level}</td><td data-label="Window">${g.max_window_days} d</td><td data-label="Per day">${g.daily_packet_budget}</td><td data-label="Expires">${esc(g.expires_at.slice(0, 10))}</td>
+   <td class="act">${g.revoked_at ? '<span class="muted">revoked</span>' : `<button class="danger" data-revoke="${esc(g.grant_id)}">Revoke</button>`}</td></tr>`).join("") || `<tr><td colspan="8" class="muted">No agents yet. Connect one with the MCP URL <code>https://mcp.askwearables.app/mcp</code>.</td></tr>`}
  </tbody></table></div>
 </section>
 
 <section id="receipts"><h2>Receipts</h2><p id="chain" class="muted"></p>
- <div class="scroll"><table><thead><tr><th>Time</th><th>Agent</th><th>Decision</th><th>Level</th><th>Metrics</th><th>Window</th><th>Reasons</th></tr></thead><tbody id="rtbody"></tbody></table></div>
+ <div class="scroll"><table class="stack"><thead><tr><th>Time</th><th>Agent</th><th>Decision</th><th>Level</th><th>Metrics</th><th>Window</th><th>Reasons</th></tr></thead><tbody id="rtbody"></tbody></table></div>
  <div class="row"><button id="more">Older</button><a href="/api/export" download>Export everything</a></div>
 </section>
 
@@ -69,7 +69,7 @@ async function render() {
   const loadReceipts = async () => {
     const r = await call(`receipts?limit=50${before ? `&before=${before}` : ""}`);
     $("#chain").textContent = r.chain.ok ? `Hash chain intact: ${r.chain.count} receipts.` : `Hash chain broken at receipt ${r.chain.broken_at}.`;
-    $("#rtbody").insertAdjacentHTML("beforeend", r.receipts.map((x: any) => `<tr><td>${esc(x.time.replace("T", " ").slice(0, 19))}</td><td>${esc(x.agent_id)}</td><td class="${x.decision === "released" ? "ok" : "bad"}">${esc(x.decision)}</td><td>${x.level ?? "–"}</td><td>${esc(x.metrics.join(", "))}</td><td>${x.window ? esc(`${x.window.start} to ${x.window.end}`) : ""}</td><td class="muted">${esc(x.reasons.join(", "))}</td></tr>`).join(""));
+    $("#rtbody").insertAdjacentHTML("beforeend", r.receipts.map((x: any) => `<tr><td class="lead">${esc(x.time.replace("T", " ").slice(0, 19))}</td><td data-label="Agent" class="id">${esc(x.agent_id)}</td><td data-label="Decision" class="${x.decision === "released" ? "ok" : "bad"}">${esc(x.decision)}</td><td data-label="Level">${x.level ?? "–"}</td><td data-label="Metrics">${esc(x.metrics.join(", "))}</td><td data-label="Window">${x.window ? esc(`${x.window.start} to ${x.window.end}`) : ""}</td><td data-label="Reasons" class="muted">${esc(x.reasons.join(", "))}</td></tr>`).join(""));
     before = r.receipts.at(-1)?.seq;
     ($("#more") as HTMLButtonElement).disabled = !before || before <= 1;
   };
@@ -132,5 +132,26 @@ async function render() {
     }
   };
 }
+
+// The section menu on a phone: a disclosure button in the sticky header. Without it (or on a wide screen) the links show.
+function setupMenu() {
+  const header = document.querySelector("header");
+  const btn = document.querySelector<HTMLButtonElement>("#menu");
+  const nav = document.querySelector("#nav");
+  if (!header || !btn || !nav) return;
+  const set = (open: boolean, focus = false) => {
+    btn.setAttribute("aria-expanded", String(open));
+    header.classList.toggle("open", open);
+    btn.textContent = open ? "Close" : "Menu";
+    if (!open && focus) btn.focus();
+  };
+  header.classList.add("has-menu");
+  btn.hidden = false;
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-expanded") !== "true"));
+  nav.addEventListener("click", (ev) => { if ((ev.target as Element).closest("a")) set(false); });
+  document.addEventListener("keydown", (ev) => { if (ev.key === "Escape" && btn.getAttribute("aria-expanded") === "true") set(false, true); });
+  document.addEventListener("pointerdown", (ev) => { if (!header.contains(ev.target as Node)) set(false); });
+}
+setupMenu();
 
 render().catch((e) => { $("#app").innerHTML = `<section><p class="bad">${esc(e.message)}</p></section>`; });

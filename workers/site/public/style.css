@@ -275,7 +275,7 @@ figure.diagram figcaption { font-size: 0.9rem; color: var(--fg-muted); margin-to
   table.stack tr:last-child { border-bottom: 0; }
   table.stack th[scope="row"], table.stack td { display: block; border: 0; padding: 4px 14px; white-space: normal; }
   table.stack th[scope="row"] { background: none; font-size: 1rem; padding-top: 8px; }
-  table.stack td[data-label]::before { content: attr(data-label); display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-muted); }
+  table.stack td[data-label]::before { content: attr(data-label); display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fg-muted); }
 }
 
 /* ---------- landing, v2 ---------- */
@@ -1034,7 +1034,8 @@ html, body { overflow-x: clip; }
 .block .walk { margin-top: 12px; }
 .face-value.long { font-size: 18px; font-size: 12cqi; }
 @media (max-width: 600px) { .stage-devices { width: min(100%, 280px); } .stage-cap { min-height: 0; font-size: 0.8rem; } .story-tab { font-size: 0.8rem; padding: 6px 10px 6px 8px; } .story { padding: 14px 14px 16px; } .bubble { font-size: 1rem; } }
-@media (max-width: 600px) { .table-wrap table { font-size: 0.86rem; } .table-wrap th, .table-wrap td { padding: 7px 8px; overflow-wrap: anywhere; } }
+/* break-word, not anywhere: anywhere lets the table squeeze a column to one letter per line. */
+@media (max-width: 600px) { .table-wrap table { font-size: 0.9375rem; } .table-wrap th, .table-wrap td { padding: 8px 10px; overflow-wrap: break-word; } }
 .credit-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
 .credit h3 { margin: 0 0 6px; }
 .credit-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
@@ -1054,3 +1055,176 @@ html, body { overflow-x: clip; }
 .uc-grid > .uc { break-inside: avoid; margin: 0 0 18px; display: flex; width: 100%; box-sizing: border-box; }
 .uc-safe, .uc-note { padding-top: 10px; border-top: 1px solid var(--line); }
 .uc-safe + .uc-note, .uc-note + .uc-safe { border-top: 0; padding-top: 0; }
+
+/* ---------- v5: mobile pass ----------
+   Tap targets at least 44 x 44 CSS px with 8px between them on touch screens and narrow windows; type floors on a
+   phone of 16px for running text, 13px for secondary lines and 12px for small uppercase labels and chips; a compact
+   disclosure menu for the main navigation. */
+
+:root { --tap: 44px; }
+
+/* Header: the brand and the parent brand get full-height hit areas without changing how the lockup looks. */
+.site-header .inner { padding-top: 6px; padding-bottom: 6px; }
+.brand { min-height: var(--tap); }
+.parent { position: relative; min-height: var(--tap); padding-top: 0; padding-bottom: 0; border-left: 0; }
+.parent::before { content: ""; position: absolute; left: 0; top: 50%; height: 24px; margin-top: -12px; border-left: 1px solid var(--line); }
+.site-nav a { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 2px; }
+.skip:focus { display: inline-flex; align-items: center; min-height: var(--tap); }
+
+/* The menu button exists in the markup but is shown only once nav.js has set the header up, and only on narrow
+   screens; without the script the links stay visible. */
+.nav-toggle { display: none; }
+.nav-toggle[hidden] { display: none !important; }
+.nav-bars { position: relative; display: inline-block; width: 18px; height: 2px; border-radius: 1px; background-color: currentColor; transition: background-color 0.15s ease; }
+.nav-bars::before, .nav-bars::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; border-radius: 1px; background-color: currentColor; transition: transform 0.2s ease; }
+.nav-bars::before { top: -6px; }
+.nav-bars::after { top: 6px; }
+.menu-open .nav-bars { background-color: transparent; }
+.menu-open .nav-bars::before { transform: translateY(6px) rotate(45deg); }
+.menu-open .nav-bars::after { transform: translateY(-6px) rotate(-45deg); }
+@media (max-width: 720px) {
+  .site-header.has-menu .inner { flex-wrap: wrap; gap: 0 8px; }
+  .has-menu .lockup { flex: 1 1 auto; }
+  .has-menu .nav-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: none; min-width: var(--tap); min-height: var(--tap); padding: 0 12px; font: 600 0.95rem/1 var(--font); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+  .has-menu .nav-toggle:hover { border-color: var(--fg-muted); }
+  .has-menu .site-nav { display: none; flex: 1 1 100%; flex-direction: column; flex-wrap: nowrap; gap: 0; margin: 6px 0 4px; padding: 4px 0; border-top: 1px solid var(--line); font-size: 1.05rem; }
+  .has-menu.menu-open .site-nav { display: flex; }
+  .has-menu .site-nav a { display: flex; min-height: 48px; padding: 0 8px; color: var(--fg); border-bottom: 1px solid var(--line); text-decoration: none; }
+  .has-menu .site-nav a:last-child { border-bottom: 0; }
+  .has-menu .site-nav a[aria-current="page"] { color: var(--accent); font-weight: 600; box-shadow: inset 3px 0 0 var(--accent); padding-left: 12px; }
+}
+/* On the narrowest phones the lockup and the button share one row: the button shows only its icon (the word stays
+   as its accessible name) and the lockup tightens. */
+@media (max-width: 400px) {
+  .has-menu .nav-toggle { padding: 0; width: var(--tap); }
+  .has-menu .nav-toggle-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .lockup { gap: 0 10px; }
+  .parent { padding-left: 10px; gap: 5px; }
+}
+@media (max-width: 350px) {
+  .site-header .inner { padding-left: 12px; padding-right: 12px; }
+  .lockup { gap: 0 8px; }
+  .parent { padding-left: 8px; }
+  .brand { gap: 6px; font-size: 1rem; }
+  .brand-mark { width: 24px; height: 24px; }
+  .sv-logo img { height: 13px; }
+}
+
+/* Footer links: full-height hit areas, 8px apart at least. */
+.site-footer nav, .foot-legal { gap: 0 16px; }
+.site-footer nav a, .foot-legal a, .foot-parent { display: inline-flex; align-items: center; min-height: var(--tap); }
+
+/* Visible focus on chart marks (the hit area also gets a ring, not only a fill). */
+svg.chart .mark:focus-visible .hit { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; }
+
+/* Stacked document tables: the first cell is the row heading. On a wide screen it looks like an ordinary cell. */
+.doc-table tbody th[scope="row"] { background: none; font-weight: inherit; white-space: normal; }
+@media (max-width: 600px) {
+  table.stack td:empty { display: none; }
+  .doc-table tbody th[scope="row"] { font-weight: 600; }
+  .doc-table tr { padding: 8px 0; }
+  .doc-table td[data-label] { padding-top: 6px; }
+}
+
+/* The SVG charts draw at their real width on a phone, so their labels stay legible. */
+@media (max-width: 600px) {
+  svg.chart .tick, svg.chart .vlabel, svg.chart .running, svg.chart .axis-title, svg.chart .clabel { font-size: 12px; }
+  svg.chart .rowkey { font-size: 12px; }
+  svg.chart .glabel { font-size: 13px; }
+  svg.chart.mini .tick { font-size: 11px; }
+}
+
+/* Touch and narrow windows: every control at least 44 x 44, 8px apart. */
+@media (max-width: 720px), (pointer: coarse) {
+  .btn, .toggle, .ctl select, .walk-toggle, .story-toggle, .stage-toggle, .walk-step, .deploy-btn { min-height: var(--tap); display: inline-flex; align-items: center; justify-content: center; }
+  .toggle { min-width: var(--tap); padding: 0 14px; }
+  .ctl select { padding: 0 10px; }
+  .story-tab, .walk-tab { min-height: var(--tap); }
+  .story-tabs, .walk-tabs, .actions, .ex-nav, .walk-ctrls, .uc-chips, .credit-meta { gap: 8px; }
+  .signals { gap: 8px; }
+  .signal { min-height: var(--tap); padding: 0 14px; }
+  .jump { gap: 8px; }
+  .jump a { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 14px; font-size: 0.9375rem; }
+  .docs-nav ul { gap: 8px; }
+  .docs-nav a { display: flex; align-items: center; min-height: var(--tap); }
+  .toc li { margin: 0; }
+  .toc a { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .arch-details summary, .cmp-more summary, .sc-got summary { display: flex; align-items: center; gap: 8px; min-height: var(--tap); }
+  .arch-details summary::before, .cmp-more summary::before, .sc-got summary::before { content: "▸"; }
+  .arch-details[open] summary::before, .cmp-more[open] summary::before, .sc-got[open] summary::before { content: "▾"; }
+  .arch-details summary::-webkit-details-marker, .cmp-more summary::-webkit-details-marker, .sc-got summary::-webkit-details-marker { display: none; }
+  .arch-details summary, .cmp-more summary, .sc-got summary { list-style: none; }
+  .link-card { min-height: var(--tap); }
+  .pager a { display: inline-flex; align-items: center; min-height: var(--tap); }
+}
+
+/* Phones: type floors and roomier spacing. */
+@media (max-width: 600px) {
+  /* Running text: 16px. */
+  .msg, .uc-safe, .uc-note, .sc-why, .merge-side, .walk-why, .cmp-desc, .chart-sub, .notes, .ex-final, .pk-finding, .ws-bubble, .cmp-cell, .leak-head, .size-head, .toc, .docs-nav, .link-card span { font-size: 1rem; }
+  .uc-safe, .uc-note, .sc-why, .merge-side, .msg { line-height: 1.55; }
+  /* Secondary lines: 13px or more. */
+  .stage-cap, .uc-grant, .wc-route, .ws-sub, .pk-foot, .pk-op, .story-meta, .story-truth-note, .sc-final, .cmp-sub, .cmp-note, .cmp-quote, .tile-sub, .ex-meta, .size-sub, .wear, .signals-missing, .week-legend, .strip-axis, .badge, .verdict, .wc-mark, .rail-node, .site-footer .attrib, .req, .tag { font-size: 0.8125rem; }
+  .signal { font-size: 0.875rem; }
+  .msg-tool { font-size: 0.875rem; line-height: 1.5; }
+  .uc-agent { font-size: 0.875rem; }
+  .site-footer .inner { font-size: 0.9375rem; }
+  /* Small uppercase labels and chips: 12px or more. */
+  .chip, .pk-level, .pk-id, .msg-tag, .merge-label, .vault-meta dt, .story-truth-label, .wc-truth-label, .week-grid, .wall-cols, .wall-roll { font-size: 0.75rem; }
+  .ws-spec { font-size: 0.8125rem; }
+  .chip { padding: 5px 9px; }
+  .walk-step { font-size: 1rem; }
+
+  /* Hero: a full-width primary action, then the two others side by side. */
+  .hero-copy .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-copy .btn { padding: 8px 12px; font-size: 0.9375rem; text-align: center; line-height: 1.25; }
+  .hero-copy .btn.primary { grid-column: 1 / -1; }
+  /* Use-case tiles: the device sits beside the agent's name, at the top, not floating beside the whole header. */
+  .uc { padding: 14px 14px 16px; }
+  .uc-head { grid-template-columns: 40px minmax(0, 1fr); align-items: start; gap: 10px; }
+  .uc-dev { width: 40px; height: 40px; }
+  .uc-q { font-size: 1.1rem; }
+  .msg { max-width: 100%; }
+  /* The week grid: no word split in the day names; the row labels may wrap instead. */
+  .week-grid { gap: 3px; }
+  .wk-day { overflow-wrap: normal; word-break: keep-all; }
+  .wk-label { white-space: normal; line-height: 1.2; padding-right: 4px; }
+  /* Story and walkthrough cards use the full width of the phone. */
+  .story, .walk { border-radius: 14px; }
+  .walk { padding: 14px 14px 16px; }
+  .sc-val { font-size: 1.45rem; }
+  /* Headings: no single-word last lines where the browser can balance them. */
+  h1, h2, .uc-q, .chart-title, .cmp-takeaway { text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+}
+@media (max-width: 380px) {
+  .hero-copy .actions { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Chat tag: dark text on the C green reads at AA on both themes (white on it did not). */
+.msg-tag { color: #0c1514; }
+
+/* Reduced motion: the menu icon changes without moving. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-bars, .nav-bars::before, .nav-bars::after { transition: none !important; }
+}
+.multiples.one { grid-template-columns: minmax(0, 1fr); }
+
+/* Selects draw their own chevron so they can be 44px tall in Safari, which ignores the height of a native menu list. */
+.ctl { position: relative; }
+.ctl select { -webkit-appearance: none; appearance: none; padding-right: 32px; }
+.ctl::after { content: ""; position: absolute; right: 10px; top: 50%; width: 16px; height: 16px; margin-top: -8px; background-color: var(--fg-muted); -webkit-mask: url("/assets/icons/lucide/chevron-down.svg") center / contain no-repeat; mask: url("/assets/icons/lucide/chevron-down.svg") center / contain no-repeat; pointer-events: none; }
+@media (max-width: 720px), (pointer: coarse) {
+  .ctl select { height: var(--tap); }
+  .site-footer nav a, .foot-legal a { min-width: var(--tap); justify-content: center; }
+  .chart-link a, .more-link a { display: inline-flex; align-items: center; min-height: var(--tap); }
+  .doc-table td > a:only-child { display: inline-flex; align-items: center; min-height: var(--tap); }
+}
+@media (max-width: 600px) { code { font-size: max(12px, 0.88em); } }
+/* A status line with a pulse dot: the dot sits beside the first line, not halfway down a wrapped sentence. */
+.cmp-na, .running-state { align-items: flex-start; }
+.cmp-na .pulse, .running-state .pulse { flex: none; margin-top: 0.55em; }
+/* Footer: the copyright line sits on the same centre line as the links beside it; the nav links read left-aligned. */
+.foot-legal { align-items: center; }
+.foot-legal > span { display: inline-flex; align-items: center; min-height: var(--tap); }
+.site-footer nav a { justify-content: flex-start; }

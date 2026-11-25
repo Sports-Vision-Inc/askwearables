@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 <script src="/js/data.js" defer></script>
 <script src="/js/compare.js" defer></script>
 <script src="/js/results.js" defer></script>
@@ -25,7 +26,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>
@@ -171,7 +173,7 @@
   <section class="block story-sec" aria-labelledby="story-h">
     <p class="eyebrow">One question, three ways</p>
     <h2 id="story-h">Ask an everyday question. See who gets it right.</h2>
-    <figure class="story" id="story" aria-labelledby="story-title">
+    <figure class="story" id="story" aria-labelledby="story-title" data-needs-results>
         <div class="story-top">
           <figcaption class="story-title" id="story-title">Real runs from the study: one everyday question, three ways to answer it</figcaption>
           <button class="story-toggle" id="story-toggle" type="button" aria-pressed="false" hidden><span class="ico ico-pause" aria-hidden="true"></span><span>Pause</span></button>
@@ -191,7 +193,7 @@
       </figure>
   </section>
 
-  <section class="block compare" id="compare" aria-labelledby="compare-title">
+  <section class="block compare" id="compare" aria-labelledby="compare-title" data-needs-results>
     <p class="eyebrow">The comparison</p>
     <h2 id="compare-title">Three ways to give an agent your wearable data</h2>
     <p>The same agent models answered the same questions about synthetic people with known answers, each way. Every figure below is read from the study's results file.</p>
@@ -436,7 +438,7 @@
     }
   }
 }</code></pre>
-        <p><a href="/docs/quickstart#mcp">MCP connection details</a></p>
+        <p class="more-link"><a href="/docs/quickstart#mcp">MCP connection details</a></p>
       </div>
       <div class="card">
         <h3>Ask from your server</h3>
@@ -483,7 +485,7 @@ const res = await aw.ask("How did I sleep this week?");</code></pre>
           <li>Replace the host names with your domain, apply the D1 migrations, and deploy vault, gate, planner, auth, edge, console and site in that order.</li>
           <li>Open the setup link once to register the owner's passkey.</li>
         </ol>
-        <p><a href="/docs/self-hosting">Self-hosting guide</a></p>
+        <p class="more-link"><a href="/docs/self-hosting">Self-hosting guide</a></p>
       </div>
     </div>
     <details class="arch-details">

@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>
@@ -44,8 +46,8 @@
   <h2>Files</h2>
   <ul>
     <li><a href="/openapi.json">openapi.json</a></li>
-    <li><a href="/privacy">Privacy policy (draft)</a></li>
-    <li><a href="/terms">Terms of service (draft)</a></li>
+    <li><a href="/privacy">Privacy policy</a></li>
+    <li><a href="/terms">Terms of service</a></li>
   </ul>
 </nav>
 
@@ -65,31 +67,31 @@
 
 <h2 id="contract">The contract</h2>
 <p>Packet version <code>"1"</code>. Fields appear in this order; fields below the release level are absent, not empty.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Meaning</th></tr></thead>
   <tbody>
-    <tr><td><code>packet_version</code></td><td><code>"1"</code></td><td>Contract version</td></tr>
-    <tr><td><code>packet_id</code></td><td>string</td><td><code>pk_</code> plus 24 hex characters, derived from the spec, level, data version and time. Fetch it again with <code>get_packet</code> within 24 hours.</td></tr>
-    <tr><td><code>level</code></td><td>0 to 3</td><td>The level actually released</td></tr>
-    <tr><td><code>operation</code></td><td>string</td><td>Which of the eight operations answered</td></tr>
-    <tr><td><code>metrics</code></td><td>string[]</td><td>The metrics used, so a wrong plan is visible</td></tr>
-    <tr><td><code>window</code></td><td><code>{start, end}</code></td><td>Local dates, inclusive, after the gate clamped them to the grant</td></tr>
-    <tr><td><code>findings</code></td><td>Finding[]</td><td>One per metric: a plain <code>statement</code> plus the fields its level allows (below)</td></tr>
-    <tr><td><code>data_quality</code></td><td>object</td><td><code>freshness_hours</code> since the last sync, <code>coverage</code> (0 to 1), <code>sources</code>, <code>baseline_days</code>, and <code>caveats</code></td></tr>
-    <tr><td><code>as_of</code></td><td>ISO time</td><td>When it was computed (to the hour)</td></tr>
-    <tr><td><code>data_version</code></td><td>string</td><td>A hash of the user's stored data; changes whenever data changes</td></tr>
-    <tr><td><code>not_medical_advice</code></td><td><code>true</code></td><td>Always present</td></tr>
+    <tr><th scope="row"><code>packet_version</code></th><td data-label="Type"><code>"1"</code></td><td data-label="Meaning">Contract version</td></tr>
+    <tr><th scope="row"><code>packet_id</code></th><td data-label="Type">string</td><td data-label="Meaning"><code>pk_</code> plus 24 hex characters, derived from the spec, level, data version and time. Fetch it again with <code>get_packet</code> within 24 hours.</td></tr>
+    <tr><th scope="row"><code>level</code></th><td data-label="Type">0 to 3</td><td data-label="Meaning">The level actually released</td></tr>
+    <tr><th scope="row"><code>operation</code></th><td data-label="Type">string</td><td data-label="Meaning">Which of the eight operations answered</td></tr>
+    <tr><th scope="row"><code>metrics</code></th><td data-label="Type">string[]</td><td data-label="Meaning">The metrics used, so a wrong plan is visible</td></tr>
+    <tr><th scope="row"><code>window</code></th><td data-label="Type"><code>{start, end}</code></td><td data-label="Meaning">Local dates, inclusive, after the gate clamped them to the grant</td></tr>
+    <tr><th scope="row"><code>findings</code></th><td data-label="Type">Finding[]</td><td data-label="Meaning">One per metric: a plain <code>statement</code> plus the fields its level allows (below)</td></tr>
+    <tr><th scope="row"><code>data_quality</code></th><td data-label="Type">object</td><td data-label="Meaning"><code>freshness_hours</code> since the last sync, <code>coverage</code> (0 to 1), <code>sources</code>, <code>baseline_days</code>, and <code>caveats</code></td></tr>
+    <tr><th scope="row"><code>as_of</code></th><td data-label="Type">ISO time</td><td data-label="Meaning">When it was computed (to the hour)</td></tr>
+    <tr><th scope="row"><code>data_version</code></th><td data-label="Type">string</td><td data-label="Meaning">A hash of the user's stored data; changes whenever data changes</td></tr>
+    <tr><th scope="row"><code>not_medical_advice</code></th><td data-label="Type"><code>true</code></td><td data-label="Meaning">Always present</td></tr>
   </tbody>
 </table></div>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Finding field</th><th scope="col">From level</th><th scope="col">Meaning</th></tr></thead>
   <tbody>
-    <tr><td><code>metric</code>, <code>statement</code></td><td>0</td><td>The metric and one plain sentence at this level</td></tr>
-    <tr><td><code>flag</code></td><td>0 only</td><td><code>yes</code>, <code>no</code> or <code>unknown</code></td></tr>
-    <tr><td><code>direction</code>, <code>magnitude</code></td><td>1</td><td><code>above</code> / <code>below</code> / <code>within</code> / <code>up</code> / <code>down</code> / <code>flat</code> / <code>unknown</code>, and <code>none</code> / <code>slight</code> / <code>moderate</code> / <code>large</code> / <code>unknown</code></td></tr>
-    <tr><td><code>value</code>, <code>unit</code>, <code>values</code></td><td>2</td><td>A number with its catalogue unit, and daily values</td></tr>
-    <tr><td><code>raw</code></td><td>3</td><td>Samples and session detail, including provider free text</td></tr>
-    <tr><td><code>unknown_reason</code></td><td>any</td><td>Why the answer is unknown, when it is</td></tr>
+    <tr><th scope="row"><code>metric</code>, <code>statement</code></th><td data-label="From level">0</td><td data-label="Meaning">The metric and one plain sentence at this level</td></tr>
+    <tr><th scope="row"><code>flag</code></th><td data-label="From level">0 only</td><td data-label="Meaning"><code>yes</code>, <code>no</code> or <code>unknown</code></td></tr>
+    <tr><th scope="row"><code>direction</code>, <code>magnitude</code></th><td data-label="From level">1</td><td data-label="Meaning"><code>above</code> / <code>below</code> / <code>within</code> / <code>up</code> / <code>down</code> / <code>flat</code> / <code>unknown</code>, and <code>none</code> / <code>slight</code> / <code>moderate</code> / <code>large</code> / <code>unknown</code></td></tr>
+    <tr><th scope="row"><code>value</code>, <code>unit</code>, <code>values</code></th><td data-label="From level">2</td><td data-label="Meaning">A number with its catalogue unit, and daily values</td></tr>
+    <tr><th scope="row"><code>raw</code></th><td data-label="From level">3</td><td data-label="Meaning">Samples and session detail, including provider free text</td></tr>
+    <tr><th scope="row"><code>unknown_reason</code></th><td data-label="From level">any</td><td data-label="Meaning">Why the answer is unknown, when it is</td></tr>
   </tbody>
 </table></div>
 
@@ -192,44 +194,44 @@
 
 <h2 id="envelope">The response envelope</h2>
 <p><code>ask</code> and <code>query</code> wrap the packet in an envelope. The packet is repeatable; the envelope is not.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col"><code>status</code></th><th scope="col">HTTP</th><th scope="col">Carries</th></tr></thead>
   <tbody>
-    <tr><td><code>ok</code></td><td>200</td><td><code>packet</code>, <code>receipt_id</code>, and the gate's <code>reasons</code> (for example <code>window_clamped</code>, <code>level:1</code>)</td></tr>
-    <tr><td><code>denied</code></td><td>403</td><td><code>reasons</code>, and a <code>receipt_id</code> once the user is identified. Denials are receipted too.</td></tr>
-    <tr><td><code>unsupported</code></td><td>200</td><td><code>supported</code>: a short list of what can be asked. The planner never guesses at a question outside the catalogue.</td></tr>
+    <tr><th scope="row"><code>ok</code></th><td data-label="HTTP">200</td><td data-label="Carries"><code>packet</code>, <code>receipt_id</code>, and the gate's <code>reasons</code> (for example <code>window_clamped</code>, <code>level:1</code>)</td></tr>
+    <tr><th scope="row"><code>denied</code></th><td data-label="HTTP">403</td><td data-label="Carries"><code>reasons</code>, and a <code>receipt_id</code> once the user is identified. Denials are receipted too.</td></tr>
+    <tr><th scope="row"><code>unsupported</code></th><td data-label="HTTP">200</td><td data-label="Carries"><code>supported</code>: a short list of what can be asked. The planner never guesses at a question outside the catalogue.</td></tr>
   </tbody>
 </table></div>
 <p>Reasons are structured strings. The ones you will meet most:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Reason</th><th scope="col">Meaning</th></tr></thead>
   <tbody>
-    <tr><td><code>metric_not_in_grant:&lt;metric&gt;</code></td><td>The user did not grant this metric to this agent</td></tr>
-    <tr><td><code>sensitive_not_named:&lt;metric&gt;</code></td><td>A sensitive category the grant did not name one by one</td></tr>
-    <tr><td><code>terms_no_ai:&lt;provider&gt;</code></td><td>Data from that source is never sent to a model-facing agent; it was left out</td></tr>
-    <tr><td><code>window_clamped</code>, <code>window_outside_grant</code></td><td>The window was cut to the grant's limit, or fell wholly outside it</td></tr>
-    <tr><td><code>level_lowered_by_grant</code>, <code>level_lowered_by_purpose</code></td><td>The release was coarser than the operation would normally give</td></tr>
-    <tr><td><code>budget_exhausted</code></td><td>The agent used its daily packet budget</td></tr>
-    <tr><td><code>purpose_mismatch:&lt;metric&gt;</code></td><td>The metric is outside what the grant's purpose plausibly needs</td></tr>
-    <tr><td><code>purpose_claim_ignored</code></td><td>The request stated a different purpose; the grant's purpose was used</td></tr>
-    <tr><td><code>grant_expired</code>, <code>grant_revoked</code>, <code>paused</code>, <code>token_invalid</code></td><td>No valid grant, or the user paused all releases</td></tr>
-    <tr><td><code>invalid_spec</code>, <code>unsupported:&lt;why&gt;</code></td><td>The spec did not validate, or the question could not be planned</td></tr>
+    <tr><th scope="row"><code>metric_not_in_grant:&lt;metric&gt;</code></th><td data-label="Meaning">The user did not grant this metric to this agent</td></tr>
+    <tr><th scope="row"><code>sensitive_not_named:&lt;metric&gt;</code></th><td data-label="Meaning">A sensitive category the grant did not name one by one</td></tr>
+    <tr><th scope="row"><code>terms_no_ai:&lt;provider&gt;</code></th><td data-label="Meaning">Data from that source is never sent to a model-facing agent; it was left out</td></tr>
+    <tr><th scope="row"><code>window_clamped</code>, <code>window_outside_grant</code></th><td data-label="Meaning">The window was cut to the grant's limit, or fell wholly outside it</td></tr>
+    <tr><th scope="row"><code>level_lowered_by_grant</code>, <code>level_lowered_by_purpose</code></th><td data-label="Meaning">The release was coarser than the operation would normally give</td></tr>
+    <tr><th scope="row"><code>budget_exhausted</code></th><td data-label="Meaning">The agent used its daily packet budget</td></tr>
+    <tr><th scope="row"><code>purpose_mismatch:&lt;metric&gt;</code></th><td data-label="Meaning">The metric is outside what the grant's purpose plausibly needs</td></tr>
+    <tr><th scope="row"><code>purpose_claim_ignored</code></th><td data-label="Meaning">The request stated a different purpose; the grant's purpose was used</td></tr>
+    <tr><th scope="row"><code>grant_expired</code>, <code>grant_revoked</code>, <code>paused</code>, <code>token_invalid</code></th><td data-label="Meaning">No valid grant, or the user paused all releases</td></tr>
+    <tr><th scope="row"><code>invalid_spec</code>, <code>unsupported:&lt;why&gt;</code></th><td data-label="Meaning">The spec did not validate, or the question could not be planned</td></tr>
   </tbody>
 </table></div>
 
 <h2 id="operations">Operations</h2>
 <p>A question is answered by exactly one of eight operations over one metric (two for <code>correlate</code>). Retrieval is computation over the store, not text search.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Operation</th><th scope="col">Answers</th><th scope="col">Lowest level</th><th scope="col">Parameters</th></tr></thead>
   <tbody>
-    <tr><td><code>latest</code></td><td>"What was my resting heart rate today?"</td><td>2</td><td></td></tr>
-    <tr><td><code>aggregate</code></td><td>"How much did I sleep this week?"</td><td>2</td><td class="wrap"><code>statistic</code>: total, mean, min, max</td></tr>
-    <tr><td><code>trend</code></td><td>"Is my HRV going up?"</td><td>1</td><td></td></tr>
-    <tr><td><code>compare_to_baseline</code></td><td>"Am I rested?"</td><td>1</td><td></td></tr>
-    <tr><td><code>compare_periods</code></td><td>"Steps this month against last month"</td><td>1</td><td class="wrap"><code>compare_window</code></td></tr>
-    <tr><td><code>threshold_check</code></td><td>"Did I sleep under 6 hours this week?"</td><td>0</td><td class="wrap"><code>comparator</code>, <code>threshold</code>, <code>threshold_unit</code>, <code>mode</code>: any, all, count</td></tr>
-    <tr><td><code>correlate</code></td><td>"Do I sleep better after exercise?"</td><td>1</td><td class="wrap"><code>lag_days</code>: 0 or 1. Needs at least 20 paired days.</td></tr>
-    <tr><td><code>list_sessions</code></td><td>"What workouts did I do?"</td><td>2</td><td class="wrap"><code>session_kind</code>: workout or sleep</td></tr>
+    <tr><th scope="row"><code>latest</code></th><td data-label="Answers">"What was my resting heart rate today?"</td><td data-label="Lowest level">2</td><td data-label="Parameters"></td></tr>
+    <tr><th scope="row"><code>aggregate</code></th><td data-label="Answers">"How much did I sleep this week?"</td><td data-label="Lowest level">2</td><td class="wrap" data-label="Parameters"><code>statistic</code>: total, mean, min, max</td></tr>
+    <tr><th scope="row"><code>trend</code></th><td data-label="Answers">"Is my HRV going up?"</td><td data-label="Lowest level">1</td><td data-label="Parameters"></td></tr>
+    <tr><th scope="row"><code>compare_to_baseline</code></th><td data-label="Answers">"Am I rested?"</td><td data-label="Lowest level">1</td><td data-label="Parameters"></td></tr>
+    <tr><th scope="row"><code>compare_periods</code></th><td data-label="Answers">"Steps this month against last month"</td><td data-label="Lowest level">1</td><td class="wrap" data-label="Parameters"><code>compare_window</code></td></tr>
+    <tr><th scope="row"><code>threshold_check</code></th><td data-label="Answers">"Did I sleep under 6 hours this week?"</td><td data-label="Lowest level">0</td><td class="wrap" data-label="Parameters"><code>comparator</code>, <code>threshold</code>, <code>threshold_unit</code>, <code>mode</code>: any, all, count</td></tr>
+    <tr><th scope="row"><code>correlate</code></th><td data-label="Answers">"Do I sleep better after exercise?"</td><td data-label="Lowest level">1</td><td class="wrap" data-label="Parameters"><code>lag_days</code>: 0 or 1. Needs at least 20 paired days.</td></tr>
+    <tr><th scope="row"><code>list_sessions</code></th><td data-label="Answers">"What workouts did I do?"</td><td data-label="Lowest level">2</td><td class="wrap" data-label="Parameters"><code>session_kind</code>: workout or sleep</td></tr>
   </tbody>
 </table></div>
 <p>A QuerySpec, as sent to <code>POST /v1/query</code>:</p>
@@ -245,24 +247,24 @@
 
 <h2 id="catalogue">Metric catalogue</h2>
 <p>Version 1. The catalogue is the single place a unit is defined; values are converted on ingest.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Metric id</th><th scope="col">Label</th><th scope="col">Unit</th><th scope="col">Daily value</th><th scope="col">Note</th></tr></thead>
   <tbody>
-    <tr><td><code>steps</code></td><td>Steps</td><td>count</td><td>Sum from one chosen source</td><td>Never summed across sources</td></tr>
-    <tr><td><code>active_energy</code></td><td>Active energy</td><td>kcal</td><td>Sum</td><td>Estimates differ by vendor</td></tr>
-    <tr><td><code>resting_hr</code></td><td>Resting heart rate</td><td>bpm</td><td>Vendor daily value, else lowest 30-minute mean</td><td></td></tr>
-    <tr><td><code>heart_rate</code></td><td>Heart rate</td><td>bpm</td><td>Mean</td><td>Series only at level 3</td></tr>
-    <tr><td><code>hrv_rmssd</code></td><td>HRV (RMSSD)</td><td>ms</td><td>Night mean</td><td>Kept separate from SDNN</td></tr>
-    <tr><td><code>hrv_sdnn</code></td><td>HRV (SDNN)</td><td>ms</td><td>Night mean</td><td>Providers differ in which one they report</td></tr>
-    <tr><td><code>sleep_duration</code></td><td>Sleep duration</td><td>minutes</td><td>Main sleep session</td><td>Attributed to the wake date</td></tr>
-    <tr><td><code>sleep_efficiency</code></td><td>Sleep efficiency</td><td>percent</td><td>Asleep over time in bed</td><td></td></tr>
-    <tr><td><code>sleep_stages</code></td><td>Sleep stages</td><td>minutes</td><td>Per session</td><td>Consumer staging is an estimate</td></tr>
-    <tr><td><code>spo2</code></td><td>Blood oxygen</td><td>percent</td><td>Night mean</td><td></td></tr>
-    <tr><td><code>respiratory_rate</code></td><td>Respiratory rate</td><td>breaths/min</td><td>Night mean</td><td></td></tr>
-    <tr><td><code>skin_temp_deviation</code></td><td>Skin temperature deviation</td><td>degC</td><td>Night value</td><td>Deviation from the vendor's own baseline</td></tr>
-    <tr><td><code>vo2max</code></td><td>VO2 max</td><td>ml/kg/min</td><td>Latest</td><td>Estimated</td></tr>
-    <tr><td><code>weight</code></td><td>Weight</td><td>kg</td><td>Latest</td><td></td></tr>
-    <tr><td><code>workout</code></td><td>Workouts</td><td>minutes</td><td>Count, total minutes, load</td><td>Type mapped to a shared list</td></tr>
+    <tr><th scope="row"><code>steps</code></th><td data-label="Label">Steps</td><td data-label="Unit">count</td><td data-label="Daily value">Sum from one chosen source</td><td data-label="Note">Never summed across sources</td></tr>
+    <tr><th scope="row"><code>active_energy</code></th><td data-label="Label">Active energy</td><td data-label="Unit">kcal</td><td data-label="Daily value">Sum</td><td data-label="Note">Estimates differ by vendor</td></tr>
+    <tr><th scope="row"><code>resting_hr</code></th><td data-label="Label">Resting heart rate</td><td data-label="Unit">bpm</td><td data-label="Daily value">Vendor daily value, else lowest 30-minute mean</td><td data-label="Note"></td></tr>
+    <tr><th scope="row"><code>heart_rate</code></th><td data-label="Label">Heart rate</td><td data-label="Unit">bpm</td><td data-label="Daily value">Mean</td><td data-label="Note">Series only at level 3</td></tr>
+    <tr><th scope="row"><code>hrv_rmssd</code></th><td data-label="Label">HRV (RMSSD)</td><td data-label="Unit">ms</td><td data-label="Daily value">Night mean</td><td data-label="Note">Kept separate from SDNN</td></tr>
+    <tr><th scope="row"><code>hrv_sdnn</code></th><td data-label="Label">HRV (SDNN)</td><td data-label="Unit">ms</td><td data-label="Daily value">Night mean</td><td data-label="Note">Providers differ in which one they report</td></tr>
+    <tr><th scope="row"><code>sleep_duration</code></th><td data-label="Label">Sleep duration</td><td data-label="Unit">minutes</td><td data-label="Daily value">Main sleep session</td><td data-label="Note">Attributed to the wake date</td></tr>
+    <tr><th scope="row"><code>sleep_efficiency</code></th><td data-label="Label">Sleep efficiency</td><td data-label="Unit">percent</td><td data-label="Daily value">Asleep over time in bed</td><td data-label="Note"></td></tr>
+    <tr><th scope="row"><code>sleep_stages</code></th><td data-label="Label">Sleep stages</td><td data-label="Unit">minutes</td><td data-label="Daily value">Per session</td><td data-label="Note">Consumer staging is an estimate</td></tr>
+    <tr><th scope="row"><code>spo2</code></th><td data-label="Label">Blood oxygen</td><td data-label="Unit">percent</td><td data-label="Daily value">Night mean</td><td data-label="Note"></td></tr>
+    <tr><th scope="row"><code>respiratory_rate</code></th><td data-label="Label">Respiratory rate</td><td data-label="Unit">breaths/min</td><td data-label="Daily value">Night mean</td><td data-label="Note"></td></tr>
+    <tr><th scope="row"><code>skin_temp_deviation</code></th><td data-label="Label">Skin temperature deviation</td><td data-label="Unit">degC</td><td data-label="Daily value">Night value</td><td data-label="Note">Deviation from the vendor's own baseline</td></tr>
+    <tr><th scope="row"><code>vo2max</code></th><td data-label="Label">VO2 max</td><td data-label="Unit">ml/kg/min</td><td data-label="Daily value">Latest</td><td data-label="Note">Estimated</td></tr>
+    <tr><th scope="row"><code>weight</code></th><td data-label="Label">Weight</td><td data-label="Unit">kg</td><td data-label="Daily value">Latest</td><td data-label="Note"></td></tr>
+    <tr><th scope="row"><code>workout</code></th><td data-label="Label">Workouts</td><td data-label="Unit">minutes</td><td data-label="Daily value">Count, total minutes, load</td><td data-label="Note">Type mapped to a shared list</td></tr>
   </tbody>
 </table></div>
 <p><strong>Sensitive categories</strong> are listed so the gate can refuse them by name: <code>blood_glucose</code>, <code>menstrual_cycle</code>, <code>ecg_classification</code> and <code>breathing_disturbances</code>. They are never released unless a grant names each one individually, and they cannot be requested through a developer consent link.</p>

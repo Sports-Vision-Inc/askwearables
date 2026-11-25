@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
     <a href="/results">Results</a>
@@ -44,8 +46,8 @@
   <h2>Files</h2>
   <ul>
     <li><a href="/openapi.json">openapi.json</a></li>
-    <li><a href="/privacy">Privacy policy (draft)</a></li>
-    <li><a href="/terms">Terms of service (draft)</a></li>
+    <li><a href="/privacy">Privacy policy</a></li>
+    <li><a href="/terms">Terms of service</a></li>
   </ul>
 </nav>
 
@@ -78,16 +80,16 @@
 
 <h2 id="layout">The seven Workers</h2>
 <p>Each Worker lives in <code>workers/&lt;name&gt;</code> with its own Wrangler config. Bindings follow the trust zones: only <code>gate</code> and <code>vault</code> touch stored data, and nothing public calls them.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Worker</th><th scope="col">Host</th><th scope="col">Bindings</th><th scope="col">Secrets and variables</th></tr></thead>
   <tbody>
-    <tr><td><code>site</code></td><td><code>example.com</code></td><td class="wrap"><code>ASSETS</code> (static files only)</td><td>none</td></tr>
-    <tr><td><code>console</code></td><td><code>app.example.com</code></td><td class="wrap"><code>ASSETS</code>; service <code>GATE</code></td><td class="wrap"><code>AUTH_URL</code>, <code>CONSOLE_ORIGIN</code></td></tr>
-    <tr><td><code>auth</code></td><td><code>auth.example.com</code></td><td class="wrap">KV <code>OAUTH_KV</code>; D1 <code>DB</code>; service <code>GATE</code></td><td class="wrap"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>RP_ID</code>, <code>COOKIE_DOMAIN</code>, <code>CONSOLE_URL</code>; secret <code>OWNER_SETUP_TOKEN</code></td></tr>
-    <tr><td><code>edge</code></td><td><code>api.example.com</code>, <code>mcp.example.com</code></td><td class="wrap">services <code>AUTH</code>, <code>GATE</code>, <code>PLANNER</code>; optional rate limiter <code>RL</code></td><td class="wrap"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>MCP_HOST</code>, <code>API_HOST</code></td></tr>
-    <tr><td><code>planner</code></td><td>none</td><td class="wrap">Workers AI <code>AI</code></td><td class="wrap"><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code>; optional <code>AI_GATEWAY_ID</code></td></tr>
-    <tr><td><code>gate</code></td><td>none</td><td class="wrap">D1 <code>DB</code>; services <code>VAULT</code>, <code>AUTH</code>; a daily cron</td><td class="wrap">secret <code>GATE_SECRET</code></td></tr>
-    <tr><td><code>vault</code></td><td>none</td><td class="wrap">Durable Object <code>USER_VAULT</code> (SQLite); R2 <code>ANCHORS</code></td><td class="wrap">secret <code>MASTER_KEY</code></td></tr>
+    <tr><th scope="row"><code>site</code></th><td data-label="Host"><code>example.com</code></td><td class="wrap" data-label="Bindings"><code>ASSETS</code> (static files only)</td><td data-label="Secrets and variables">none</td></tr>
+    <tr><th scope="row"><code>console</code></th><td data-label="Host"><code>app.example.com</code></td><td class="wrap" data-label="Bindings"><code>ASSETS</code>; service <code>GATE</code></td><td class="wrap" data-label="Secrets and variables"><code>AUTH_URL</code>, <code>CONSOLE_ORIGIN</code></td></tr>
+    <tr><th scope="row"><code>auth</code></th><td data-label="Host"><code>auth.example.com</code></td><td class="wrap" data-label="Bindings">KV <code>OAUTH_KV</code>; D1 <code>DB</code>; service <code>GATE</code></td><td class="wrap" data-label="Secrets and variables"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>RP_ID</code>, <code>COOKIE_DOMAIN</code>, <code>CONSOLE_URL</code>; secret <code>OWNER_SETUP_TOKEN</code></td></tr>
+    <tr><th scope="row"><code>edge</code></th><td data-label="Host"><code>api.example.com</code>, <code>mcp.example.com</code></td><td class="wrap" data-label="Bindings">services <code>AUTH</code>, <code>GATE</code>, <code>PLANNER</code>; optional rate limiter <code>RL</code></td><td class="wrap" data-label="Secrets and variables"><code>ISSUER</code>, <code>MCP_RESOURCE</code>, <code>API_RESOURCE</code>, <code>MCP_HOST</code>, <code>API_HOST</code></td></tr>
+    <tr><th scope="row"><code>planner</code></th><td data-label="Host">none</td><td class="wrap" data-label="Bindings">Workers AI <code>AI</code></td><td class="wrap" data-label="Secrets and variables"><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code>; optional <code>AI_GATEWAY_ID</code></td></tr>
+    <tr><th scope="row"><code>gate</code></th><td data-label="Host">none</td><td class="wrap" data-label="Bindings">D1 <code>DB</code>; services <code>VAULT</code>, <code>AUTH</code>; a daily cron</td><td class="wrap" data-label="Secrets and variables">secret <code>GATE_SECRET</code></td></tr>
+    <tr><th scope="row"><code>vault</code></th><td data-label="Host">none</td><td class="wrap" data-label="Bindings">Durable Object <code>USER_VAULT</code> (SQLite); R2 <code>ANCHORS</code></td><td class="wrap" data-label="Secrets and variables">secret <code>MASTER_KEY</code></td></tr>
   </tbody>
 </table></div>
 
@@ -112,17 +114,17 @@ openssl rand -hex 24 | tee /dev/tty | npx wrangler secret put OWNER_SETUP_TOKEN 
 
 <h2 id="config">Configure hosts</h2>
 <p>Replace <code>askwearables.app</code> with your domain in each config's variables and routes:</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Variable</th><th scope="col">Example</th></tr></thead>
   <tbody>
-    <tr><td><code>ISSUER</code></td><td><code>https://auth.example.com</code></td></tr>
-    <tr><td><code>MCP_RESOURCE</code></td><td><code>https://mcp.example.com/mcp</code></td></tr>
-    <tr><td><code>API_RESOURCE</code></td><td><code>https://api.example.com/v1</code></td></tr>
-    <tr><td><code>MCP_HOST</code>, <code>API_HOST</code></td><td><code>mcp.example.com</code>, <code>api.example.com</code></td></tr>
-    <tr><td><code>RP_ID</code>, <code>COOKIE_DOMAIN</code></td><td><code>example.com</code></td></tr>
-    <tr><td><code>CONSOLE_URL</code>, <code>CONSOLE_ORIGIN</code></td><td><code>https://app.example.com</code></td></tr>
-    <tr><td><code>AUTH_URL</code></td><td><code>https://auth.example.com</code></td></tr>
-    <tr><td><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code></td><td>Workers AI model ids that support structured output; check the current catalogue</td></tr>
+    <tr><th scope="row"><code>ISSUER</code></th><td data-label="Example"><code>https://auth.example.com</code></td></tr>
+    <tr><th scope="row"><code>MCP_RESOURCE</code></th><td data-label="Example"><code>https://mcp.example.com/mcp</code></td></tr>
+    <tr><th scope="row"><code>API_RESOURCE</code></th><td data-label="Example"><code>https://api.example.com/v1</code></td></tr>
+    <tr><th scope="row"><code>MCP_HOST</code>, <code>API_HOST</code></th><td data-label="Example"><code>mcp.example.com</code>, <code>api.example.com</code></td></tr>
+    <tr><th scope="row"><code>RP_ID</code>, <code>COOKIE_DOMAIN</code></th><td data-label="Example"><code>example.com</code></td></tr>
+    <tr><th scope="row"><code>CONSOLE_URL</code>, <code>CONSOLE_ORIGIN</code></th><td data-label="Example"><code>https://app.example.com</code></td></tr>
+    <tr><th scope="row"><code>AUTH_URL</code></th><td data-label="Example"><code>https://auth.example.com</code></td></tr>
+    <tr><th scope="row"><code>PLANNER_MODEL</code>, <code>PLANNER_FALLBACK_MODEL</code></th><td data-label="Example">Workers AI model ids that support structured output; check the current catalogue</td></tr>
   </tbody>
 </table></div>
 <p>The planner runs on Workers AI only, so question text stays on Cloudflare. If you route it through AI Gateway, turn prompt logging off.</p>

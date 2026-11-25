@@ -12,6 +12,7 @@
 <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
+<script src="/js/nav.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -20,7 +21,8 @@
     <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
     <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
   </div>
-  <nav class="site-nav" aria-label="Main">
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden><span class="nav-bars" aria-hidden="true"></span><span class="nav-toggle-label">Menu</span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart" aria-current="page">Quickstart</a>
     <a href="/results">Results</a>
@@ -44,8 +46,8 @@
   <h2>Files</h2>
   <ul>
     <li><a href="/openapi.json">openapi.json</a></li>
-    <li><a href="/privacy">Privacy policy (draft)</a></li>
-    <li><a href="/terms">Terms of service (draft)</a></li>
+    <li><a href="/privacy">Privacy policy</a></li>
+    <li><a href="/terms">Terms of service</a></li>
   </ul>
 </nav>
 
@@ -115,14 +117,14 @@ aw = AskWearables(
   <li><code>body</code>: the exact bytes you send. For a GET, the empty string.</li>
   <li>Sign the string <code>timestamp + "\n" + nonce + "\n" + METHOD + "\n" + path + "\n" + sha256hex(body)</code> with HMAC-SHA256 and your signing secret, and send the lowercase hex digest.</li>
 </ol>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Header</th><th scope="col">Value</th></tr></thead>
   <tbody>
-    <tr><td><code>Authorization</code></td><td><code>Bearer aw_dev_…</code></td></tr>
-    <tr><td><code>X-AskWearables-User</code></td><td>Your end user's id. Required on every call about a user.</td></tr>
-    <tr><td><code>X-AskWearables-Timestamp</code></td><td>Unix seconds</td></tr>
-    <tr><td><code>X-AskWearables-Nonce</code></td><td>Single-use random string</td></tr>
-    <tr><td><code>X-AskWearables-Signature</code></td><td>Hex HMAC-SHA256 of the string above</td></tr>
+    <tr><th scope="row"><code>Authorization</code></th><td data-label="Value"><code>Bearer aw_dev_…</code></td></tr>
+    <tr><th scope="row"><code>X-AskWearables-User</code></th><td data-label="Value">Your end user's id. Required on every call about a user.</td></tr>
+    <tr><th scope="row"><code>X-AskWearables-Timestamp</code></th><td data-label="Value">Unix seconds</td></tr>
+    <tr><th scope="row"><code>X-AskWearables-Nonce</code></th><td data-label="Value">Single-use random string</td></tr>
+    <tr><th scope="row"><code>X-AskWearables-Signature</code></th><td data-label="Value">Hex HMAC-SHA256 of the string above</td></tr>
   </tbody>
 </table></div>
 <p>The agent calls (<code>ask</code>, <code>query</code>, <code>capabilities</code>, <code>packets</code>) are refused without a valid signature. The SDKs sign every call, which is also accepted on the others. For curl, this shell function signs one request; it works in bash and zsh and needs only <code>openssl</code>:</p>
@@ -159,14 +161,14 @@ aw() {
 
 <h2 id="ingest">5. Push records</h2>
 <p>Send normalized records for one source at a time to <code>POST /v1/ingest</code>, up to 2,000 per call (the SDKs split larger batches). A source is one device stream. Every record keeps its source, so values from different devices are never mixed, and each user is compared only with their own history from the same source.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Source field</th><th scope="col">Meaning</th></tr></thead>
   <tbody>
-    <tr><td><code>id</code></td><td>Your stable id for this stream, for example <code>watch:abc</code>. Every record's <code>source_id</code> must equal it.</td></tr>
-    <tr><td><code>provider</code></td><td>Where it came from, for example <code>apple_health</code> or <code>oura</code></td></tr>
-    <tr><td><code>device_class</code></td><td><code>watch</code>, <code>ring</code>, <code>band</code>, <code>phone</code>, <code>scale</code>, <code>cgm</code> or <code>other</code>. When two sources report one metric, watch wins, then ring, then phone.</td></tr>
-    <tr><td><code>device_model</code>, <code>connected_at</code>, <code>earliest_readable</code>, <code>last_sync_at</code></td><td>Optional; the SDKs fill safe defaults. <code>last_sync_at</code> drives the freshness caveat.</td></tr>
-    <tr><td><code>terms_flags</code></td><td><code>{"no_ai": true}</code> if the provider's terms forbid sending its data to a model. The gate then never releases it to a model-facing agent.</td></tr>
+    <tr><th scope="row"><code>id</code></th><td data-label="Meaning">Your stable id for this stream, for example <code>watch:abc</code>. Every record's <code>source_id</code> must equal it.</td></tr>
+    <tr><th scope="row"><code>provider</code></th><td data-label="Meaning">Where it came from, for example <code>apple_health</code> or <code>oura</code></td></tr>
+    <tr><th scope="row"><code>device_class</code></th><td data-label="Meaning"><code>watch</code>, <code>ring</code>, <code>band</code>, <code>phone</code>, <code>scale</code>, <code>cgm</code> or <code>other</code>. When two sources report one metric, watch wins, then ring, then phone.</td></tr>
+    <tr><th scope="row"><code>device_model</code>, <code>connected_at</code>, <code>earliest_readable</code>, <code>last_sync_at</code></th><td data-label="Meaning">Optional; the SDKs fill safe defaults. <code>last_sync_at</code> drives the freshness caveat.</td></tr>
+    <tr><th scope="row"><code>terms_flags</code></th><td data-label="Meaning"><code>{"no_ai": true}</code> if the provider's terms forbid sending its data to a model. The gate then never releases it to a model-facing agent.</td></tr>
   </tbody>
 </table></div>
 <p>There are three record kinds: <code>sample</code> (a point or interval value), <code>session</code> (sleep or a workout) and <code>vendor_score</code> (a vendor's own score, kept apart and never converted). Times are ISO 8601 in UTC, with <code>tz_offset_min</code> giving the user's clock offset at the time. Units are converted to the catalogue unit on ingest; an unknown unit or an implausible value is rejected with a reason. Records are idempotent on <code>external_id</code>, so re-sending is safe.</p>
@@ -195,27 +197,27 @@ if (result.rejected.length) console.warn(result.rejected);</code></pre>
 
 <h2 id="consent">6. Create a consent link</h2>
 <p>Ask for what your feature needs, and no more. <code>POST /v1/grants</code> returns a one-time link to the hosted consent screen, valid for one hour. Nothing is approved until the user approves it there, and the user can narrow your request but never widen it.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Field</th><th scope="col">Allowed</th></tr></thead>
   <tbody>
-    <tr><td><code>purpose</code></td><td>One of <code>scheduling</code>, <code>training_advice</code>, <code>sleep_coaching</code>, <code>general_wellness</code>, <code>personal_research</code></td></tr>
-    <tr><td><code>metrics</code></td><td>One or more metric ids from the <a href="/docs/packets#catalogue">catalogue</a>. Sensitive categories cannot be requested through a consent link.</td></tr>
-    <tr><td><code>max_level</code></td><td>0 to 3. See <a href="/docs/packets#levels">levels</a>.</td></tr>
-    <tr><td><code>max_window_days</code></td><td>1 to 365: how far back the agent may look</td></tr>
-    <tr><td><code>daily_packet_budget</code></td><td>1 to 1,000 released answers a day. Denials are not counted.</td></tr>
-    <tr><td><code>days</code></td><td>1 to 90: when the grant expires</td></tr>
-    <tr><td><code>return_url</code></td><td>Optional. After the decision the user is sent to <code>return_url?askwearables=approved&amp;grant_id=…</code> or <code>?askwearables=denied</code>.</td></tr>
+    <tr><th scope="row"><code>purpose</code></th><td data-label="Allowed">One of <code>scheduling</code>, <code>training_advice</code>, <code>sleep_coaching</code>, <code>general_wellness</code>, <code>personal_research</code></td></tr>
+    <tr><th scope="row"><code>metrics</code></th><td data-label="Allowed">One or more metric ids from the <a href="/docs/packets#catalogue">catalogue</a>. Sensitive categories cannot be requested through a consent link.</td></tr>
+    <tr><th scope="row"><code>max_level</code></th><td data-label="Allowed">0 to 3. See <a href="/docs/packets#levels">levels</a>.</td></tr>
+    <tr><th scope="row"><code>max_window_days</code></th><td data-label="Allowed">1 to 365: how far back the agent may look</td></tr>
+    <tr><th scope="row"><code>daily_packet_budget</code></th><td data-label="Allowed">1 to 1,000 released answers a day. Denials are not counted.</td></tr>
+    <tr><th scope="row"><code>days</code></th><td data-label="Allowed">1 to 90: when the grant expires</td></tr>
+    <tr><th scope="row"><code>return_url</code></th><td data-label="Allowed">Optional. After the decision the user is sent to <code>return_url?askwearables=approved&amp;grant_id=…</code> or <code>?askwearables=denied</code>.</td></tr>
   </tbody>
 </table></div>
 <p>The purpose also limits what can be released, whatever the grant says: an agent asking for a metric outside its purpose is denied (<code>purpose_mismatch</code>), and a level above the purpose's ceiling is lowered.</p>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Purpose</th><th scope="col">Metric categories</th><th scope="col">Highest level</th></tr></thead>
   <tbody>
-    <tr><td><code>scheduling</code></td><td>sleep, heart, activity</td><td>1</td></tr>
-    <tr><td><code>sleep_coaching</code></td><td>sleep, heart, body</td><td>2</td></tr>
-    <tr><td><code>general_wellness</code></td><td>activity, heart, sleep, training, body</td><td>2</td></tr>
-    <tr><td><code>training_advice</code></td><td>activity, heart, sleep, training, body</td><td>3</td></tr>
-    <tr><td><code>personal_research</code></td><td>all, including sensitive categories named one by one</td><td>3</td></tr>
+    <tr><th scope="row"><code>scheduling</code></th><td data-label="Metric categories">sleep, heart, activity</td><td data-label="Highest level">1</td></tr>
+    <tr><th scope="row"><code>sleep_coaching</code></th><td data-label="Metric categories">sleep, heart, body</td><td data-label="Highest level">2</td></tr>
+    <tr><th scope="row"><code>general_wellness</code></th><td data-label="Metric categories">activity, heart, sleep, training, body</td><td data-label="Highest level">2</td></tr>
+    <tr><th scope="row"><code>training_advice</code></th><td data-label="Metric categories">activity, heart, sleep, training, body</td><td data-label="Highest level">3</td></tr>
+    <tr><th scope="row"><code>personal_research</code></th><td data-label="Metric categories">all, including sensitive categories named one by one</td><td data-label="Highest level">3</td></tr>
   </tbody>
 </table></div>
 <p class="code-label">curl</p>
@@ -301,13 +303,13 @@ if res["status"] == "ok":
 AW_DEV_KEY=aw_dev_... \
 AW_DEV_SIGNING_SECRET=awsig_... \
 npx tsx scripts/quickstart.ts</code></pre>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Variable</th><th scope="col">Default</th><th scope="col">Meaning</th></tr></thead>
   <tbody>
-    <tr><td><code>AW_USER</code></td><td><code>quickstart-&lt;random&gt;</code></td><td>End user id. Reuse one to skip consent on a second run once a grant exists.</td></tr>
-    <tr><td><code>AW_QUICKSTART_TIMEOUT</code></td><td>600</td><td>Seconds to wait for approval</td></tr>
-    <tr><td><code>AW_QUICKSTART_POLL</code></td><td>5</td><td>Seconds between capability checks</td></tr>
-    <tr><td><code>AW_QUICKSTART_SKIP_CONSENT</code></td><td>unset</td><td>Set to <code>1</code> to stop after printing the consent link</td></tr>
+    <tr><th scope="row"><code>AW_USER</code></th><td data-label="Default"><code>quickstart-&lt;random&gt;</code></td><td data-label="Meaning">End user id. Reuse one to skip consent on a second run once a grant exists.</td></tr>
+    <tr><th scope="row"><code>AW_QUICKSTART_TIMEOUT</code></th><td data-label="Default">600</td><td data-label="Meaning">Seconds to wait for approval</td></tr>
+    <tr><th scope="row"><code>AW_QUICKSTART_POLL</code></th><td data-label="Default">5</td><td data-label="Meaning">Seconds between capability checks</td></tr>
+    <tr><th scope="row"><code>AW_QUICKSTART_SKIP_CONSENT</code></th><td data-label="Default">unset</td><td data-label="Meaning">Set to <code>1</code> to stop after printing the consent link</td></tr>
   </tbody>
 </table></div>
 
@@ -339,12 +341,12 @@ npx tsx scripts/quickstart.ts</code></pre>
 </table></div>
 <p>An unauthenticated request receives <code>401</code> with a <code>WWW-Authenticate</code> header pointing at the resource metadata, which is how compliant clients discover the rest. Tokens are bound to the MCP resource and cannot be used elsewhere.</p>
 <h3>The three tools</h3>
-<div class="table-wrap"><table>
+<div class="table-wrap"><table class="stack doc-table">
   <thead><tr><th scope="col">Tool</th><th scope="col">Input</th><th scope="col">Returns</th></tr></thead>
   <tbody>
-    <tr><td><code>ask</code></td><td><code>question</code> (3 to 500 characters); <code>purpose</code> is accepted but ignored</td><td>The same envelope as <code>POST /v1/ask</code>. A denial is marked as a tool error with its reasons.</td></tr>
-    <tr><td><code>list_capabilities</code></td><td>none</td><td>Metrics, operations, levels, and what this agent's grant allows</td></tr>
-    <tr><td><code>get_packet</code></td><td><code>packet_id</code> (<code>pk_</code> plus 24 hex characters)</td><td>A packet this agent received in the last 24 hours</td></tr>
+    <tr><th scope="row"><code>ask</code></th><td data-label="Input"><code>question</code> (3 to 500 characters); <code>purpose</code> is accepted but ignored</td><td data-label="Returns">The same envelope as <code>POST /v1/ask</code>. A denial is marked as a tool error with its reasons.</td></tr>
+    <tr><th scope="row"><code>list_capabilities</code></th><td data-label="Input">none</td><td data-label="Returns">Metrics, operations, levels, and what this agent's grant allows</td></tr>
+    <tr><th scope="row"><code>get_packet</code></th><td data-label="Input"><code>packet_id</code> (<code>pk_</code> plus 24 hex characters)</td><td data-label="Returns">A packet this agent received in the last 24 hours</td></tr>
   </tbody>
 </table></div>
 <p>All three are read-only. Three tools are deliberate: fewer tools give a client model less to misuse and leave a smaller surface to review.</p>

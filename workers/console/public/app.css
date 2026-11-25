@@ -1,13 +1,51 @@
-:root{--bg:#f7f7f5;--fg:#1b1d1f;--muted:#5d6168;--card:#fff;--line:#dfe1e4;--accent:#2457d6;--bad:#b42318;--ok:#1f7a3a}
-@media (prefers-color-scheme:dark){:root{--bg:#121315;--fg:#ececec;--muted:#a3a7ad;--card:#1b1d20;--line:#2d3035;--accent:#7aa2ff;--bad:#ff8a7a;--ok:#7ad29a}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-header{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0}
-nav{display:flex;gap:12px;flex-wrap:wrap}nav a{color:var(--accent);text-decoration:none}
+:root{--bg:#f7f7f5;--fg:#1b1d1f;--muted:#5d6168;--card:#fff;--line:#dfe1e4;--accent:#2457d6;--on-accent:#fff;--bad:#b42318;--ok:#1f7a3a;--tap:44px;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#121315;--fg:#ececec;--muted:#a3a7ad;--card:#1b1d20;--line:#2d3035;--accent:#7aa2ff;--on-accent:#0b1430;--bad:#ff8a7a;--ok:#7ad29a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;overflow-wrap:break-word}
+a{color:var(--accent);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{display:flex;gap:4px 16px;align-items:center;flex-wrap:wrap;padding:6px 16px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5}
+header strong{margin-right:auto}
+nav{display:flex;gap:0 16px;flex-wrap:wrap}nav a{display:inline-flex;align-items:center;min-height:var(--tap);text-decoration:none}
+#menu{display:none}#menu[hidden]{display:none!important}
+/* In-page jumps land below the sticky header. */
+section{scroll-margin-top:72px}
 main{max-width:980px;margin:0 auto;padding:16px}section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
-h2{margin:.1em 0 .5em;font-size:1.1rem}.muted{color:var(--muted)}.bad{color:var(--bad)}.ok{color:var(--ok)}
-table{width:100%;border-collapse:collapse;font-size:.92em}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
-.scroll{overflow-x:auto}button{font:inherit;padding:7px 14px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
-button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button.danger{border-color:var(--bad);color:var(--bad)}
-input,select,textarea{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);max-width:100%}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0}pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border-radius:8px;font-size:.88em}
-.pill{display:inline-block;padding:1px 8px;border-radius:99px;border:1px solid var(--line);font-size:.85em}
+h2{margin:.1em 0 .5em;font-size:1.15rem}h3{font-size:1.05rem}.muted{color:var(--muted)}.bad{color:var(--bad)}.ok{color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:.94em}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.scroll{overflow-x:auto}
+button{font:inherit;min-height:var(--tap);padding:8px 16px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}button.danger{border-color:var(--bad);color:var(--bad)}
+button:disabled{opacity:.55;cursor:default}
+/* 16px or more: iOS Safari zooms the page when a smaller field takes focus. */
+input,select,textarea{font:inherit;font-size:max(16px,1em);min-height:var(--tap);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);max-width:100%}
+input[type=file]{padding:8px 6px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0}.row > a{display:inline-flex;align-items:center;min-height:var(--tap)}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:10px;border-radius:8px;font-size:.88em}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;border:1px solid var(--line);font-size:.8em}
+@media (max-width:640px){
+  /* The section links fold into a menu, so the sticky header stays one row tall. */
+  header.has-menu{padding:6px 12px}
+  header.has-menu #menu{display:inline-flex;align-items:center;justify-content:center;min-width:var(--tap);padding:0 14px;font-weight:600}
+  header.has-menu nav{display:none;flex:1 1 100%;flex-direction:column;border-top:1px solid var(--line);margin-top:4px}
+  header.has-menu.open nav{display:flex}
+  header.has-menu nav a{min-height:48px;border-bottom:1px solid var(--line);color:var(--fg);padding:0 4px}
+  header.has-menu nav a:last-child{border-bottom:0}
+  main{padding:12px}section{padding:12px 14px}
+  /* Fields take the full width; the buttons beside them wrap under. */
+  .row input:not([type=checkbox]):not([type=radio]),.row select{flex:1 1 100%;width:100%}
+  /* Tables become labelled cards: the first cell is the heading, every other cell names its column. */
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{padding:10px 0;border-bottom:1px solid var(--line)}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack td{border:0;padding:4px 0;overflow-wrap:anywhere}
+  table.stack td.lead{display:block;font-weight:600;padding-bottom:6px}
+  /* Label and value side by side; a long value wraps in its own column. */
+  table.stack td[data-label]{display:flex;gap:0 12px;align-items:baseline}
+  table.stack td[data-label]::before{content:attr(data-label);flex:0 0 6.5rem;color:var(--muted);font-size:.875rem}
+  table.stack td.act{display:block;padding-top:8px}
+  table.stack td:empty{display:none}
+  table.stack td.id{overflow-wrap:anywhere}
+  .scroll{overflow-x:visible}
+}
