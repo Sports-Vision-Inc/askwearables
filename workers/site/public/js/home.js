@@ -156,12 +156,12 @@
     });
   }
 
-  // ---------- the walkthrough ----------
+  // ---------- the walkthrough (How it works) ----------
   function mountWalk(D, F) {
     const root = document.getElementById("walk");
     if (!root) return;
     const byId = new Map((D.examples || []).map((x) => [x.id, x]));
-    const items = (F.examples || []).map((f) => ({ f, x: byId.get(f.id) })).filter((it) => it.x && it.x.runs && it.x.runs.C_broker);
+    const items = (F.pipeline || F.examples || []).map((f) => ({ f, x: byId.get(f.id) })).filter((it) => it.x && it.x.runs && it.x.runs.C_broker);
     const loading = document.getElementById("walk-loading");
     if (!items.length) { if (loading) loading.textContent = "The featured examples are not in this results file yet."; return; }
     if (loading) loading.hidden = true;
@@ -209,8 +209,8 @@
       field("checks").replaceChildren(...checks(p, p ? p.level : level));
       field("vault").replaceChildren(...vault(p, level));
       field("packet").replaceChildren(...packetCard(p, level, c));
-      field("truth").textContent = fmtAccept(x.accept);
-      field("cards").replaceChildren(...compareCards(x));
+      if (field("truth")) field("truth").textContent = fmtAccept(x.accept);
+      if (field("cards")) field("cards").replaceChildren(...compareCards(x));
       tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
       panel.setAttribute("aria-labelledby", "walk-tab-" + i);
     }
@@ -218,6 +218,7 @@
       // n stages are visible; the last visible one is current.
       STAGES.forEach(([name], k) => {
         const el = name === "compare" ? compare : steps[name];
+        if (!el) return;
         el.classList.toggle("on", k < n);
         el.classList.toggle("cur", k === n - 1 && name !== "compare");
       });
@@ -294,6 +295,136 @@
     applyMotion();
   }
 
+  // ---------- the hero story card: one everyday question, the true answer, and what each route answered ----------
+  const TRAP_PLAIN = { two_step_sources: "phone and watch both count steps", missing_days: "some days have no data", short_sleep: "a run of short nights", stale_sync: "the watch has not synced lately", device_switch: "a new watch", travel: "a time-zone change", dst: "a clock change", clean: "clean data" };
+  const RIGHT = { true: ["check", "Right"], false: ["x", "Wrong"] };
+  function storyCards(x, f) {
+    return CONDS.map((c) => {
+      const r = x.runs[c];
+      const ok = !!(r && r.correct);
+      const kids = [h("header", { class: "sc-head" }, h("span", { class: "wc-ico" }, icon(COND_ICON[c])), h("span", {}, h("strong", { text: cname(c) }), h("span", { class: "wc-route", text: ROUTE[c] })))];
+      if (!r) kids.push(h("p", { class: "muted", text: "No run recorded." }));
+      else {
+        kids.push(h("p", { class: "sc-ans" }, h("span", { class: "sc-val", text: fmtAnswer(r.answer) }),
+          h("span", { class: "sc-mark " + (ok ? "ok" : "no") }, icon(RIGHT[ok][0]), h("span", { text: RIGHT[ok][1] }))));
+        if (f.why && f.why[c]) kids.push(h("p", { class: "sc-why", text: f.why[c] }));
+        if (c === "C_broker") {
+          const p = (r.packets || [])[0];
+          const body = p
+            ? [...(p.findings || []).map((fd) => h("p", { class: "pk-finding", text: fd.statement })),
+               ((p.data_quality && p.data_quality.caveats) || []).length ? h("ul", { class: "pk-caveats" }, p.data_quality.caveats.map((cv) => h("li", { text: cv }))) : null,
+               h("p", { class: "pk-foot" }, icon("receipt"), `Level ${p.level} (${LEVEL[p.level] || "?"}), with a receipt`)]
+            : [r.asked && r.asked[0] ? h("p", { class: "sc-asked" }, "It asked: ", h("q", { text: r.asked[0] })) : null,
+               h("p", { class: "fine", text: "This run's packet body was not stored. The agent's reply from it:" }),
+               excerpt(r.final, 220) ? h("p", { class: "sc-final", text: excerpt(r.final, 220) }) : null];
+          kids.push(h("details", { class: "sc-got" }, h("summary", { text: "What the agent received" }), h("div", { class: "pk" }, body)));
+        }
+      }
+      return h("article", { class: `sc sc-${CLS[c]} ` + (ok ? "ok" : "no") }, kids);
+    });
+  }
+  // How long one example stays up.
+  const STORY_CYCLE = 9000;
+  function mountStory(D, F) {
+    const root = document.getElementById("story");
+    if (!root) return;
+    const byId = new Map((D.examples || []).map((x) => [x.id, x]));
+    const items = (F.examples || []).map((f) => ({ f, x: byId.get(f.id) })).filter((it) => it.x && it.x.runs && it.x.runs.C_broker);
+    const loading = document.getElementById("story-loading");
+    if (!items.length) { if (loading) loading.textContent = "The featured examples are not in this results file yet."; return; }
+    if (loading) loading.hidden = true;
+    root.classList.add("ready");
+    const panel = document.getElementById("story-panel"), tabsEl = document.getElementById("story-tabs"), toggle = document.getElementById("story-toggle"), progress = document.getElementById("story-progress");
+    const field = (n) => panel.querySelector(`[data-f="${n}"]`);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const tabs = items.map((it, i) => {
+      const b = h("button", { type: "button", role: "tab", id: "story-tab-" + i, "aria-controls": "story-panel", "aria-selected": "false", tabindex: "-1", class: "story-tab" }, emoji(it.f.emoji), h("span", { text: it.f.title || label(QUESTIONS, it.x.question) }));
+      b.addEventListener("click", () => select(i));
+      return b;
+    });
+    tabsEl.replaceChildren(...tabs);
+    tabsEl.addEventListener("keydown", (ev) => {
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      const n = tabs.length;
+      const j = ev.key === "ArrowRight" ? (i + 1) % n : ev.key === "ArrowLeft" ? (i - 1 + n) % n : ev.key === "Home" ? 0 : ev.key === "End" ? n - 1 : -1;
+      if (j < 0) return;
+      ev.preventDefault();
+      tabs[j].focus();
+      select(j);
+    });
+
+    let cur = -1, elapsed = 0, playing = true, onScreen = true, held = false, raf = 0, last = 0, swapTimer = 0;
+    function fill(i) {
+      const { f, x } = items[i];
+      field("q").textContent = f.title || label(QUESTIONS, x.question);
+      field("meta").replaceChildren(h("span", { text: TRAP_PLAIN[x.trap] || String(x.trap).replace(/_/g, " ") }), " · ", h("span", { text: x.model }));
+      field("truth").textContent = fmtAccept(x.accept);
+      field("cards").replaceChildren(...storyCards(x, f));
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panel.setAttribute("aria-labelledby", "story-tab-" + i);
+    }
+    function select(i) {
+      clearTimeout(swapTimer);
+      const go = () => {
+        cur = i; fill(i); elapsed = 0;
+        panel.classList.remove("swap");
+        if (reduce.matches) { progress.style.transform = "scaleX(1)"; return; }
+        tick(); kick();
+      };
+      if (cur < 0 || reduce.matches) { go(); return; }
+      panel.classList.add("swap");
+      swapTimer = setTimeout(go, 320);
+    }
+    const running = () => playing && onScreen && !held && !document.hidden && !reduce.matches;
+    function tick() {
+      progress.style.transform = `scaleX(${Math.min(1, elapsed / STORY_CYCLE)})`;
+    }
+    function frame(now) {
+      raf = 0;
+      if (!running()) return;
+      elapsed += Math.min(100, now - last);
+      last = now;
+      tick();
+      if (elapsed >= STORY_CYCLE) { select((cur + 1) % items.length); return; }
+      raf = requestAnimationFrame(frame);
+    }
+    function kick() {
+      if (raf || !running()) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+    function setPlaying(v) {
+      playing = v;
+      toggle.replaceChildren(icon(v ? "pause" : "play"), h("span", { text: v ? "Pause" : "Play" }));
+      toggle.setAttribute("aria-label", v ? "Pause the examples" : "Play the examples");
+      toggle.setAttribute("aria-pressed", String(!v));
+      root.classList.toggle("paused", !v);
+      kick();
+    }
+    toggle.addEventListener("click", () => setPlaying(!playing));
+    // Hold while someone reads or uses the card; stop when it is off screen or the tab is hidden.
+    panel.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") held = true; });
+    panel.addEventListener("pointerleave", () => { held = false; kick(); });
+    panel.addEventListener("focusin", () => { held = true; });
+    panel.addEventListener("focusout", () => { held = false; kick(); });
+    panel.addEventListener("toggle", () => { held = true; }, true);
+    document.addEventListener("visibilitychange", kick);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((es) => { onScreen = es[es.length - 1].isIntersecting; kick(); }, { threshold: 0.1 }).observe(root);
+    }
+    function applyMotion() {
+      toggle.hidden = reduce.matches;
+      root.classList.toggle("static", reduce.matches);
+      if (reduce.matches) progress.style.transform = "scaleX(1)"; else { elapsed = 0; kick(); }
+    }
+    if (reduce.addEventListener) reduce.addEventListener("change", applyMotion);
+    setPlaying(true);
+    select(0);
+    applyMotion();
+  }
+
   // ---------- what the agent sees ----------
   function mountSees(D) {
     const box = document.getElementById("sees-box"), sizes = document.getElementById("sizes"), roll = document.getElementById("wall-roll");
@@ -346,13 +477,12 @@
   }
 
   async function boot() {
-    if (!document.getElementById("walk") && !document.getElementById("sees-box")) return;
+    if (!document.getElementById("walk") && !document.getElementById("story") && !document.getElementById("sees-box")) return;
     let D, F;
     try {
       D = await (window.awResults || fetch("/data/results.json").then((r) => r.json()));
     } catch {
-      const l = document.getElementById("walk-loading");
-      if (l) l.textContent = "The study results could not be loaded. Try again later, or open /data/results.json directly.";
+      for (const id of ["walk-loading", "story-loading"]) { const l = document.getElementById(id); if (l) l.textContent = "The study results could not be loaded. Try again later, or open /data/results.json directly."; }
       const s = document.getElementById("sizes");
       if (s) s.replaceChildren(h("p", { class: "muted", text: "Results unavailable." }));
       return;
@@ -364,6 +494,7 @@
     } catch {
       F = { examples: [] };
     }
+    mountStory(D, F);
     mountWalk(D, F);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();

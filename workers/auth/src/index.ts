@@ -10,7 +10,8 @@ import {
   verifyRegistrationResponse,
 } from "@simplewebauthn/server";
 import { CATALOGUE, type Grant, type Level, type MetricId, type Purpose, PURPOSES, newId, sha256Hex, todayIn, validateGrant } from "@askwearables/core";
-import { consentPage, loginPage, messagePage, securityHeaders } from "./pages.js";
+import { TERMS_VERSION, consentPage, loginPage, messagePage, securityHeaders } from "./pages.js";
+import { WEBAUTHN_BROWSER_JS } from "./vendor/webauthn-browser.js";
 import { type AgentTokenProps, type AuthRpc, SESSION_COOKIE } from "./rpc.js";
 import type { GateRpc } from "../../gate/src/rpc.js";
 
@@ -128,7 +129,7 @@ async function registerOptions(req: Request, env: Env): Promise<Response> {
 }
 
 async function registerVerify(req: Request, env: Env): Promise<Response> {
-  const body = (await req.json().catch(() => ({}))) as { setup?: string; response?: unknown };
+  const body = (await req.json().catch(() => ({}))) as { setup?: string; response?: unknown; accepted?: boolean };
   const ch = await takeChallenge(env, cookie(req, "__Host-aw_ch"));
   if (!ch?.user_id) return json({ ok: false, error: "Challenge expired" }, 400);
   const session = await sessionFor(env, cookie(req, SESSION_COOKIE));
@@ -139,7 +140,9 @@ async function registerVerify(req: Request, env: Env): Promise<Response> {
   if (!v.verified || !v.registrationInfo) return json({ ok: false, error: "Not verified" }, 400);
   const c = v.registrationInfo.credential;
   const now = new Date().toISOString();
-  if (isSetup) await env.DB.prepare(`INSERT INTO users (id, tz, role, created_at) VALUES (?, 'UTC', 'owner', ?)`).bind(ch.user_id, now).run();
+  if (isSetup && body.accepted !== true) return json({ ok: false, error: "Accept the Terms and Privacy Policy to continue" }, 400);
+  // Clickwrap record: the accepted Terms/Privacy version, the time, and the 18+ confirmation.
+  if (isSetup) await env.DB.prepare(`INSERT INTO users (id, tz, role, created_at, terms_version, terms_accepted_at, age_confirmed) VALUES (?, 'UTC', 'owner', ?, ?, ?, 1)`).bind(ch.user_id, now, TERMS_VERSION, now).run();
   await env.DB.prepare(`INSERT INTO passkeys (id, user_id, public_key, counter, transports, created_at) VALUES (?, ?, ?, ?, ?, ?)`)
     .bind(c.id, ch.user_id, b64url(c.publicKey), c.counter, JSON.stringify(c.transports ?? []), now).run();
   const headers = new Headers({ "content-type": "application/json" });
@@ -292,18 +295,19 @@ export default class AuthServer extends WorkerEntrypoint<Env> implements AuthRpc
     const url = new URL(req.url);
     const p = url.pathname;
     try {
+      if (p === "/static/webauthn-browser.js") return new Response(WEBAUTHN_BROWSER_JS, { headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "public, max-age=86400", "x-content-type-options": "nosniff" } });
       if (p === "/authorize") return await authorize(req, this.env);
       if (p === "/login" && req.method === "GET") {
         const n = nonce();
         const next = url.searchParams.get("next") ?? "/";
         const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/";
-        return new Response(loginPage(safeNext === "/" ? this.env.CONSOLE_URL : safeNext, n), { headers: securityHeaders(n, "https://unpkg.com") });
+        return new Response(loginPage(safeNext === "/" ? this.env.CONSOLE_URL : safeNext, n), { headers: securityHeaders(n, "'self'") });
       }
       if (p === "/setup" && req.method === "GET") {
         const token = url.searchParams.get("token") ?? "";
         if (!(await setupAllowed(this.env, token))) return new Response(messagePage("Setup closed", "The owner account already exists, or the link is wrong."), { status: 403, headers: { "content-type": "text/html; charset=utf-8" } });
         const n = nonce();
-        return new Response(loginPage(this.env.CONSOLE_URL, n, token), { headers: securityHeaders(n, "https://unpkg.com") });
+        return new Response(loginPage(this.env.CONSOLE_URL, n, token), { headers: securityHeaders(n, "'self'") });
       }
       if (req.method === "POST" && p.startsWith("/webauthn/")) {
         if (!sameOrigin(req, this.env)) return json({ error: "bad origin" }, 403);

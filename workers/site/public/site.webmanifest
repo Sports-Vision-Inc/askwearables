@@ -1,0 +1,16 @@
+{
+  "name": "AskWearables",
+  "short_name": "AskWearables",
+  "description": "A broker between wearable data and AI agents: each question gets a small computed packet at the level the user approved, with a receipt.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#f7f6f2",
+  "theme_color": "#0f6e63",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}

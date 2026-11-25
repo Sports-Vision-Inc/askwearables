@@ -16,14 +16,17 @@
     "dev": "npm run build:console && wrangler dev -c workers/edge/wrangler.jsonc -c workers/auth/wrangler.jsonc -c workers/gate/wrangler.jsonc -c workers/vault/wrangler.jsonc -c workers/planner/wrangler.jsonc -c workers/console/wrangler.jsonc -c workers/site/wrangler.jsonc --persist-to .wrangler/state",
     "db:migrate:local": "wrangler d1 migrations apply askwearables-control --local -c workers/gate/wrangler.jsonc --persist-to .wrangler/state",
     "db:migrate": "wrangler d1 migrations apply askwearables-control --remote -c workers/gate/wrangler.jsonc",
-    "deploy": "npm run build:console && node scripts/deploy.mjs"
+    "deploy": "npm run build:console && node scripts/deploy.mjs",
+    "check:viewport": "node scripts/check-viewport.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "build:usecases": "tsx scripts/build-usecases.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261123.1",
     "@types/node": "^24.0.0",
     "esbuild": "^0.28.2",
     "eslint": "^9.39.0",
-    "playwright-core": "^1.65.1",
+    "playwright-core": "1.65.1",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.47.0",

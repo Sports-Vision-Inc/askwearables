@@ -10,12 +10,14 @@
 //   node scripts/check-viewport.mjs                     # starts `wrangler dev` for workers/site on a spare port
 //   node scripts/check-viewport.mjs --url http://localhost:8787
 //   node scripts/check-viewport.mjs --json out.json      # also writes every measurement
-// Needs the dev dependency playwright-core and its browser: `npx playwright-core install chromium-headless-shell`.
+//   node scripts/check-viewport.mjs --browser webkit     # one engine only (default: chromium and webkit)
+// Needs the dev dependency playwright-core and its browsers: `npx playwright-core install chromium-headless-shell webkit`.
+// WebKit matters: Safari on iPhone is where the sideways scroll was reported, and it sizes some boxes differently.
 import { spawn } from "node:child_process";
 import { readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { chromium } from "playwright-core";
+import { chromium, webkit } from "playwright-core";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLIC = join(ROOT, "workers/site/public");
@@ -104,46 +106,63 @@ async function settle(page) {
 
 async function main() {
   const server = opt("--url") ? { url: opt("--url").replace(/\/$/, ""), stop: () => {} } : await startServer();
-  const browser = await chromium.launch();
+  const engines = opt("--browser") ? [opt("--browser")] : ["chromium", "webkit"];
   const results = [];
   let failures = 0;
+  for (const engine of engines) {
+  const browser = await (engine === "webkit" ? webkit : chromium).launch();
   try {
     const vps = viewports();
+    // One page load per page and device class; each viewport is then a resize of that page. Pages run in parallel.
+    const jobs = [];
     for (const mobile of [true, false]) {
       const set = vps.filter((v) => v.mobile === mobile);
-      if (!set.length) continue;
+      if (set.length) for (const path of pages()) jobs.push({ mobile, set, path });
+    }
+    const one = async ({ mobile, set, path }) => {
       const ctx = await browser.newContext({ viewport: { width: set[0].width, height: set[0].height }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: mobile ? 2 : 1 });
-      for (const path of pages()) {
-        const page = await ctx.newPage();
-        await page.goto(server.url + path, { waitUntil: "networkidle" });
-        for (const scheme of ["light", "dark"]) {
-          await page.emulateMedia({ colorScheme: scheme });
-          for (const v of set) {
-            await page.setViewportSize({ width: v.width, height: v.height });
-            await page.waitForTimeout(120);
-            await settle(page);
-            // Measure twice, a second apart, so a looping animation is caught at more than one frame.
-            const a = await page.evaluate(measure, v.width);
-            await page.waitForTimeout(900);
-            const b = await page.evaluate(measure, v.width);
-            const m = b.offenders.length > a.offenders.length || b.scrollWidth > a.scrollWidth ? b : a;
-            const overflow = m.scrollWidth > v.width || m.offenders.length > 0;
-            results.push({ page: path, viewport: v.name, width: v.width, height: v.height, scheme, ...m, overflow });
-            if (overflow) {
-              failures++;
-              console.log(`OVERFLOW ${path} @ ${v.name} (${v.width}x${v.height}, ${scheme}): scrollWidth ${m.scrollWidth} > ${v.width}`);
-              for (const o of m.offenders) console.log(`    ${o.el}  right=${o.right} width=${o.width}`);
-            }
+      const page = await ctx.newPage();
+      // Over plain-http localhost, WebKit applies the CSP's upgrade-insecure-requests and asks for https://localhost,
+      // so the stylesheet never loads. Drop only that directive locally; the rest of the policy stays in force.
+      if (server.url.startsWith("http:")) {
+        await page.route("**/*", async (route) => {
+          const res = await route.fetch();
+          const headers = { ...res.headers() };
+          if (headers["content-security-policy"]) headers["content-security-policy"] = headers["content-security-policy"].replace(/;\s*upgrade-insecure-requests/, "");
+          await route.fulfill({ response: res, headers });
+        });
+      }
+      await page.goto(server.url + path, { waitUntil: "networkidle" });
+      if (!(await page.evaluate(() => [...document.styleSheets].some((s) => { try { return s.cssRules.length > 0; } catch { return false; } })))) throw new Error(`${engine}: style.css did not load on ${path}`);
+      await settle(page);
+      for (const scheme of ["light", "dark"]) {
+        await page.emulateMedia({ colorScheme: scheme });
+        for (const v of set) {
+          await page.setViewportSize({ width: v.width, height: v.height });
+          await page.waitForTimeout(150);
+          // Measure twice, half a second apart, so a looping animation is caught at more than one frame.
+          const a = await page.evaluate(measure, v.width);
+          await page.waitForTimeout(500);
+          const b = await page.evaluate(measure, v.width);
+          const m = b.offenders.length > a.offenders.length || b.scrollWidth > a.scrollWidth ? b : a;
+          const overflow = m.scrollWidth > v.width || m.offenders.length > 0;
+          results.push({ engine, page: path, viewport: v.name, width: v.width, height: v.height, scheme, ...m, overflow });
+          if (overflow) {
+            failures++;
+            console.log(`OVERFLOW [${engine}] ${path} @ ${v.name} (${v.width}x${v.height}, ${scheme}): scrollWidth ${m.scrollWidth} > ${v.width}`);
+            for (const o of m.offenders) console.log(`    ${o.el}  right=${o.right} width=${o.width}`);
           }
         }
-        await page.close();
       }
       await ctx.close();
-    }
+    };
+    const queue = [...jobs];
+    await Promise.all(Array.from({ length: 6 }, async () => { while (queue.length) await one(queue.shift()); }));
   } finally {
     await browser.close();
-    server.stop();
   }
+  }
+  server.stop();
   if (opt("--json")) writeFileSync(opt("--json"), JSON.stringify(results, null, 1));
   const n = results.length;
   console.log(`${n - failures} of ${n} page × viewport × scheme checks fit the viewport; ${failures} overflow.`);

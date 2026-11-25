@@ -32,12 +32,17 @@ export function securityHeaders(nonce: string, extraScriptSrc = ""): Record<stri
   };
 }
 
-export const WEBAUTHN_BROWSER = "https://unpkg.com/@simplewebauthn/browser@13.2.2/dist/bundle/index.umd.min.js";
+/** Served by this Worker (vendored), so no third-party CDN sees sign-in traffic. */
+export const WEBAUTHN_BROWSER = "/static/webauthn-browser.js";
+
+/** The version of the Terms and Privacy Policy shown at sign-up. Bump when either changes materially. */
+export const TERMS_VERSION = "2026-11-25";
 
 export function loginPage(next: string, nonce: string, setupToken?: string): string {
   const setup = !!setupToken;
   const body = `<h1>${setup ? "Set up AskWearables" : "Sign in to AskWearables"}</h1>
 <div class="card"><p>${setup ? "Create the owner account with a passkey on this device." : "Use your passkey."}</p>
+${setup ? `<label class="row"><input type="checkbox" id="accept"> <span>I am 18 or older, and I accept the <a href="https://askwearables.app/terms" target="_blank" rel="noopener">Terms of Service</a> and the <a href="https://askwearables.app/privacy" target="_blank" rel="noopener">Privacy Policy</a> (version ${TERMS_VERSION}).</span></label>` : ""}
 <p class="row"><button class="primary" id="go">${setup ? "Create passkey" : "Sign in with a passkey"}</button></p>
 <p id="msg" class="muted"></p></div>`;
   const script = `
@@ -45,9 +50,10 @@ const next=${JSON.stringify(next)};const setup=${JSON.stringify(setupToken ?? nu
 const msg=t=>document.getElementById('msg').textContent=t;
 document.getElementById('go').onclick=async()=>{try{
  const W=window.SimpleWebAuthnBrowser;
+ if(setup&&!document.getElementById('accept').checked)return msg('Please confirm you are 18 or older and accept the Terms and Privacy Policy.');
  if(setup){const o=await (await fetch('/webauthn/register/options',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({setup})})).json();
   if(o.error)return msg(o.error);const r=await W.startRegistration({optionsJSON:o});
-  const v=await (await fetch('/webauthn/register/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({setup,response:r})})).json();
+  const v=await (await fetch('/webauthn/register/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({setup,response:r,accepted:true})})).json();
   if(!v.ok)return msg(v.error||'Registration failed');location.href=next;}
  else{const o=await (await fetch('/webauthn/auth/options',{method:'POST'})).json();const r=await W.startAuthentication({optionsJSON:o});
   const v=await (await fetch('/webauthn/auth/verify',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({response:r})})).json();
@@ -126,6 +132,7 @@ ${r ? "" : `<details><summary>Sensitive categories</summary><p class="muted">Exc
 <p class="muted">You approve the boundary, not each question. Every answer released is recorded in your receipt log, where you can revoke this agent at any time.
 Once an answer is released, what ${esc(v.agentName)}'s provider stores is outside AskWearables.</p></div>
 
+<p class="muted">By allowing, you agree that AskWearables shares data with this agent as described above, under the <a href="https://askwearables.app/terms" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://askwearables.app/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
 <p class="row"><button class="primary" name="decision" value="approve">Allow</button><button name="decision" value="deny">Deny</button></p>
 </form>`;
   const script = `

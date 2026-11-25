@@ -85,35 +85,64 @@ describe("site worker", () => {
   it("plays curated real examples on the landing page, with nothing hard-coded", () => {
     const d = JSON.parse(readFileSync(join(root, "public/data/results.json"), "utf8"));
     const f = JSON.parse(readFileSync(join(root, "public/data/featured.json"), "utf8"));
+    type Run = { correct: boolean; asked?: string[]; packets?: unknown[] };
     const byId = new Map(d.examples.map((x: { id: string }) => [x.id, x]));
     expect(byId.size).toBe(d.examples.length); // ids are unique
-    expect(f.examples.length).toBeGreaterThanOrEqual(4);
+    // The hero story: everyday questions, each with AskWearables right and another route plainly wrong.
+    expect(f.examples.length).toBeGreaterThanOrEqual(3);
     expect(f.examples.length).toBeLessThanOrEqual(6);
-    const traps = new Set<string>(), questions = new Set<string>();
+    const traps = new Set<string>();
     for (const it of f.examples) {
-      const x = byId.get(it.id) as { trap: string; question: string; runs: Record<string, { correct: boolean; asked?: string[] }> } | undefined;
+      const x = byId.get(it.id) as { trap: string; question: string; runs: Record<string, Run> } | undefined;
       expect(x, it.id).toBeDefined();
-      // Each pick shows AskWearables right where another route was wrong, and the question the agent sent.
       expect(x!.runs.C_broker!.correct, it.id).toBe(true);
       expect(!x!.runs.A_raw!.correct || !x!.runs.B_tools!.correct, it.id).toBe(true);
       expect(x!.runs.C_broker!.asked?.length, it.id).toBeGreaterThan(0);
       expect(statSync(join(root, "public/assets/emoji/twemoji", `${it.emoji}.svg`)).isFile(), it.emoji).toBe(true);
-      // The framing copy carries no numbers, so it cannot drift from the data.
-      expect(`${it.title} ${it.why}`, it.id).not.toMatch(/\d/);
+      // Tabs are labelled by the question a person would ask, not by trap names.
+      expect(it.title, it.id).toMatch(/\?$/);
+      expect(it.title, it.id).not.toMatch(/_/);
+      // One plain sentence per route; the framing carries no numbers, so it cannot drift from the data.
+      for (const c of ["A_raw", "B_tools", "C_broker"]) expect(typeof it.why[c], `${it.id} ${c}`).toBe("string");
+      expect(`${it.title} ${Object.values(it.why).join(" ")} ${it.face_note ?? ""}`, it.id).not.toMatch(/\d/);
       traps.add(x!.trap);
-      questions.add(x!.question);
     }
-    for (const t of ["two_step_sources", "missing_days", "stale_sync", "device_switch"]) expect(traps.has(t), t).toBe(true);
-    expect(questions.has("hrv_trend_28d")).toBe(true);
-    // The hero and the context-size section are filled from JSON: their markup holds no digits.
+    expect(f.examples[0].id).toMatch(/steps_yesterday$/); // the lead: phone + watch double counting
+    for (const t of ["two_step_sources", "missing_days", "stale_sync"]) expect(traps.has(t), t).toBe(true);
+    // The pipeline walkthrough in How it works plays runs whose packet was stored.
+    for (const it of f.pipeline) {
+      const x = byId.get(it.id) as { runs: Record<string, Run> } | undefined;
+      expect(x, it.id).toBeDefined();
+      expect(x!.runs.C_broker!.correct, it.id).toBe(true);
+      expect(`${it.title} ${it.why}`, it.id).not.toMatch(/\d/);
+    }
+    expect(f.pipeline.some((it: { id: string }) => ((byId.get(it.id) as { runs: Record<string, Run> }).runs.C_broker!.packets ?? []).length > 0)).toBe(true);
+    // The hero, the comparison and the context-size section are filled from JSON: their markup holds no digits.
     const page = readFileSync(join(root, "public/index.html"), "utf8");
-    for (const [a, b] of [['id="walk"', "</figure>"], ['id="sees-box"', "</section>"]] as const) {
+    for (const [a, b] of [['id="story"', "</figure>"], ['id="walk"', "</figure>"], ['id="stage"', 'id="usecases"'], ['id="cmp"', 'id="cmp-takeaway"'], ['id="leak-chart"', "</section>"], ['id="sees-box"', "</section>"]] as const) {
       const i = page.indexOf(a);
       expect(i, a).toBeGreaterThan(0);
-      expect(page.slice(i, page.indexOf(b, i)).replace(/<[^>]+>/g, " "), a).not.toMatch(/\d/);
+      expect(page.slice(i, page.indexOf(b, i)).replace(/<[^>]+>/g, " ").replace(/95% intervals?/g, ""), a).not.toMatch(/\d/);
     }
-    expect(page).toContain('data-chart="accuracy-cost"');
+    // The hero holds the device and the four real requests; then the story card, the comparison and the charts.
+    const order = ['id="stage"', 'id="usecases"', 'class="fine hero-fine"', 'id="story"', 'id="compare"', 'data-chart="accuracy-cost"', 'id="leak-chart"', 'id="walk"'].map((k) => page.indexOf(k));
+    expect(order).toEqual([...order].sort((x, y) => x - y));
+    expect(page.indexOf('id="walk"')).toBeGreaterThan(page.indexOf('aria-labelledby="how"'));
+    expect(page).toContain('href="/results">See per-model results</a>');
     expect(readFileSync(join(root, "public/results.html"), "utf8")).toContain('data-chart="accuracy-cost"');
+  });
+
+  it("compares A, B and C from results.json only, and waits for the corrected leak detector", () => {
+    const js = readFileSync(join(root, "public/js/compare.js"), "utf8");
+    // Pooled figures and intervals are computed from the results file; the privacy rate needs the corrected detector.
+    expect(js).toMatch(/window\.awResults/);
+    expect(js).toMatch(/privacy_detector === "corrected"/);
+    expect(js).toMatch(/measuring/);
+    // No figure is typed into the script: the only numbers are scale constants and formatting.
+    const numbers = [...js.replace(/\/\/.*$/gm, "").replace(/"[^"\n]*"/g, '""').matchAll(/(?<![\w.$#-])\d+(\.\d+)?(?![\w%])/g)].map((m) => Number(m[0]));
+    for (const n of numbers) expect([0, 1, 2, 4, 6, 10, 20, 100, 130, 0.1, 0.9, 0.95, 0.995, 0.15, 1.959964].includes(n), `literal ${n} in compare.js`).toBe(true);
+    const page = readFileSync(join(root, "public/index.html"), "utf8");
+    for (const name of ["Paste the whole export", "Give it open data tools", "AskWearables"]) expect(page).toContain(`<p class="cmp-name">${name}</p>`);
   });
 
   it("ships the exposure, export sample, model groups and costs the landing charts read", () => {
@@ -146,7 +175,8 @@ describe("site worker", () => {
     }
     const page = readFileSync(join(root, "public/index.html"), "utf8");
     for (const m of page.matchAll(/src="(\/assets\/[^"]+)"/g)) expect(statSync(join(root, "public", m[1]!)).isFile(), m[1]).toBe(true);
-    expect(page).toMatch(/Lucide[\s\S]*ISC[\s\S]*Twemoji[\s\S]*CC-BY 4\.0/);
+    const credits = readFileSync(join(root, "public/credits.html"), "utf8");
+    expect(credits).toMatch(/Lucide[\s\S]*ISC[\s\S]*Twemoji[\s\S]*CC-BY 4\.0/);
   });
 
   it("gives every animation a reduced-motion fallback", () => {
@@ -155,10 +185,15 @@ describe("site worker", () => {
     // Each keyframes animation is used only by elements a reduced-motion rule switches off.
     const users = [...css.matchAll(/([^{}]+)\{[^}]*\banimation:\s*([a-z-]+)/g)].map((m) => ({ sel: m[1]!.trim(), name: m[2]! })).filter((u) => u.name !== "none");
     expect(users.length).toBeGreaterThan(0);
-    // The landing animations live inside .walk and .sees, which one reduced-motion rule stills; anything else is named.
+    // The landing animations live inside .walk, .sees, .stage and .story, which reduced-motion rules still; anything else is named.
     const blanket = /\.walk \*[\s\S]*\.sees \*[\s\S]*animation: none !important/.test(reduced);
+    const stageBlanket = /\.stage \*[\s\S]*animation: none !important/.test(reduced) && /\.story \*[\s\S]*animation: none !important/.test(reduced);
     const LANDING = /^\.(ws|walk|wall|sees|size|strip|meter|pk|wc)/;
-    for (const u of users) expect((blanket && LANDING.test(u.sel)) || reduced.includes(u.sel), `${u.sel} (${u.name})`).toBe(true);
+    const STAGE = /^\.(dev|face|rail|stage)/;
+    for (const u of users) expect((blanket && LANDING.test(u.sel)) || (stageBlanket && STAGE.test(u.sel)) || reduced.includes(u.sel), `${u.sel} (${u.name})`).toBe(true);
+    // Every autoplaying piece has a pause control.
+    const page = readFileSync(join(root, "public/index.html"), "utf8");
+    for (const id of ["story-toggle", "walk-toggle"]) expect(page).toContain(`id="${id}"`);
     // Animations and transitions move only transform and opacity (plus colour fades), never layout.
     for (const m of css.matchAll(/transition:\s*([^;}]+)/g)) {
       for (const part of m[1]!.replace(/\([^)]*\)/g, "()").split(",")) expect(part.trim().split(/\s+/)[0], m[0]).toMatch(/^(opacity|transform|background-color|border-color|color|none)$/);
@@ -168,13 +203,183 @@ describe("site worker", () => {
     expect(js).toMatch(/prefers-reduced-motion: reduce/);
   });
 
+  it("cannot scroll sideways: no 100vw, no wide fixed containers, no zoom-on-focus controls, and a clip guard", () => {
+    const css = readFileSync(join(root, "public/style.css"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(css).not.toMatch(/100vw/);
+    // A fixed width or min-width over 360px on any box would overflow a phone. The architecture SVG sits inside its own
+    // labelled scroll box (.diagram-scroll) and is the one exception.
+    for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
+      const sel = m[1]!.trim();
+      for (const d of m[2]!.matchAll(/(?:^|;)\s*((?:min-)?width)\s*:\s*(\d+(?:\.\d+)?)px/g)) {
+        if (Number(d[2]) > 360) expect(sel, `${sel} { ${d[1]}: ${d[2]}px }`).toBe(".diagram svg");
+      }
+      // Grid tracks must be able to shrink below their minimum on a narrow screen.
+      for (const g of m[2]!.matchAll(/minmax\((\d+)px/g)) expect(Number(g[1]), `${sel}: minmax(${g[1]}px, ...) needs min(100%, ...)`).toBeLessThanOrEqual(140);
+    }
+    // iOS Safari zooms the page when a form control under 16px takes focus; a zoomed page scrolls sideways.
+    expect(css).toMatch(/\.ctl select \{[^}]*font-size: max\(16px, 1rem\)/);
+    // The defensive guard, after the real causes were fixed.
+    expect(css).toMatch(/html, body \{ overflow-x: clip; \}/);
+    // The check script exists and covers every width the owner tests.
+    const script = readFileSync(join(root, "../../scripts/check-viewport.mjs"), "utf8");
+    expect(script).toMatch(/320, 360, 375, 390, 414, 430, 768, 820, 1024, 1280, 1440/);
+  });
+
+  it("uses the AW monogram, the SportsVision parent brand, and ships every icon size", () => {
+    const pub = join(root, "public");
+    const png = (f: string) => { const b = readFileSync(join(pub, f)); expect(b.subarray(1, 4).toString(), f).toBe("PNG"); return [b.readUInt32BE(16), b.readUInt32BE(20)]; };
+    expect(png("favicon-32.png")).toEqual([32, 32]);
+    expect(png("apple-touch-icon.png")).toEqual([180, 180]);
+    expect(png("icon-192.png")).toEqual([192, 192]);
+    expect(png("icon-512.png")).toEqual([512, 512]);
+    expect(png("icon-maskable-512.png")).toEqual([512, 512]);
+    const fav = readFileSync(join(pub, "favicon.svg"), "utf8");
+    expect(fav).toMatch(/prefers-color-scheme:dark/);
+    expect(fav).not.toMatch(/<script|href=/);
+    for (const f of ["aw-mark-light.svg", "aw-mark-dark.svg", "aw-icon-square.svg"]) expect(statSync(join(pub, "assets/logo", f)).isFile(), f).toBe(true);
+    const manifest = JSON.parse(readFileSync(join(pub, "site.webmanifest"), "utf8"));
+    expect(manifest.name).toBe("AskWearables");
+    for (const i of manifest.icons) expect(statSync(join(pub, i.src)).isFile(), i.src).toBe(true);
+    expect(manifest.icons.some((i: { purpose?: string }) => i.purpose === "maskable")).toBe(true);
+    // The SportsVision artwork is used as supplied: 1600 x 343, shown at that aspect ratio.
+    for (const f of ["sportsvision-logo-black.png", "sportsvision-logo-white.png"]) expect(png(`assets/brand/${f}`)).toEqual([1600, 343]);
+    for (const f of walk(pub).filter((x) => x.endsWith(".html"))) {
+      const s = readFileSync(f, "utf8");
+      if (!s.includes('<header class="site-header">')) continue;
+      for (const k of ['rel="manifest" href="/site.webmanifest"', 'rel="apple-touch-icon" href="/apple-touch-icon.png"', 'class="brand-mark" viewBox="0 0 32 32"']) expect(s, `${f}: ${k}`).toContain(k);
+      const header = s.slice(s.indexOf('<header class="site-header">'), s.indexOf("</header>"));
+      expect(header, f).toMatch(/<span class="parent-by">by<\/span><picture class="sv-logo"><source srcset="\/assets\/brand\/sportsvision-logo-white\.png" media="\(prefers-color-scheme: dark\)"><img src="\/assets\/brand\/sportsvision-logo-black\.png" alt="SportsVision"/);
+      const footer = s.includes('<footer class="site-footer">') ? s.slice(s.indexOf('<footer class="site-footer">')) : null;
+      if (footer) for (const k of ["AskWearables is a SportsVision product.", "© 2026 Sports Vision, Inc.", 'href="https://www.sportsvision.ai"', 'alt="SportsVision"']) expect(footer, `${f}: ${k}`).toContain(k);
+      for (const m of s.matchAll(/<img src="\/assets\/brand\/sportsvision-logo-[a-z]+\.png" alt="SportsVision" width="(\d+)" height="(\d+)">/g)) {
+        expect(Math.abs(Number(m[1]) / Number(m[2]) - 1600 / 343), `${f}: logo aspect`).toBeLessThan(0.02);
+      }
+    }
+    // The wearable illustrations are original, generic and unbranded, with their provenance stored beside them.
+    const lic = readFileSync(join(pub, "assets/wearables/LICENSE.txt"), "utf8");
+    expect(lic).toMatch(/Original artwork/);
+    for (const f of ["watch-square.svg", "watch-round.svg", "band.svg", "ring.svg"]) {
+      const svg = readFileSync(join(pub, "assets/wearables", f), "utf8");
+      expect(svg, f).not.toMatch(/apple|samsung|garmin|oura|whoop|fitbit|polar|<text/i);
+    }
+  });
+
+  it("builds the use-case packets with the real engine, and the cards add no figures of their own", async () => {
+    const { buildUsecases, USECASE_TODAY } = await import("../../../scripts/build-usecases.js");
+    const fresh = await buildUsecases(USECASE_TODAY);
+    const stored = JSON.parse(readFileSync(join(root, "public/data/usecases.json"), "utf8"));
+    // Receipt ids are random per release; everything else must match a fresh run of the engine exactly.
+    const strip = (o: unknown) => JSON.parse(JSON.stringify(o, (k, v) => (k === "receipt_id" ? "rc" : v)));
+    expect(strip(stored)).toEqual(strip(fresh));
+    type Ask = { spec: { operation: string; metrics: string[] }; response: { status: string; reasons?: string[]; packet?: { level: number; findings: { statement: string; value?: number; values?: unknown[] }[] } } };
+    const cases = stored.cases as Record<string, { grant: { purpose: string; max_level: number; metrics: string[] }; asks: Ask[] }>;
+    const m = cases.meeting!;
+    expect(m.grant).toMatchObject({ purpose: "scheduling", max_level: 1, metrics: ["sleep_duration"] });
+    expect(m.asks[0]!.response.packet!.level).toBe(1);
+    expect(m.asks[0]!.response.packet!.findings[0]!.statement).toMatch(/below usual range on 3 of the last 3 nights/);
+    const v = cases.video!;
+    expect(v.asks.map((a) => a.spec.operation)).toEqual(["trend", "compare_to_baseline", "compare_periods"]);
+    expect(v.asks.map((a) => a.spec.metrics[0])).toEqual(["hrv_rmssd", "resting_hr", "workout"]);
+    const st = cases.stress!;
+    expect(st.asks.every((a) => a.spec.operation === "compare_to_baseline" && ["resting_hr", "hrv_rmssd"].includes(a.spec.metrics[0]!))).toBe(true);
+    // No released packet below the level that answers: no values reach the calendar, coach or journal agents.
+    for (const c of [m, v, st]) for (const a of c.asks) {
+      expect(a.response.status).toBe("ok");
+      expect(a.response.packet!.level).toBeLessThanOrEqual(1);
+      for (const f of a.response.packet!.findings) { expect(f.value).toBeUndefined(); expect(f.values).toBeUndefined(); }
+    }
+    const ins = cases.insurer!;
+    expect(ins.asks[0]!.response.status).toBe("denied");
+    expect(ins.asks[0]!.response.reasons).toContain("metric_not_in_grant:weight");
+    expect(ins.asks[0]!.response.packet).toBeUndefined();
+    // Stress is never claimed: the catalogue has no such metric, and the page says so.
+    const page = readFileSync(join(root, "public/index.html"), "utf8");
+    const sec = page.slice(page.indexOf('id="usecases"'), page.indexOf("</section>", page.indexOf('id="usecases"')));
+    expect(sec).toMatch(/no stress metric in the catalogue/);
+    expect(sec.replace(/<[^>]+>/g, " ").replace(/6 am/g, "")).not.toMatch(/\d/);
+    expect(readFileSync(join(root, "public/js/usecases.js"), "utf8")).toMatch(/\/data\/usecases\.json/);
+  });
+
+  it("drives the hero device from one well-synced person, with every signal present and no empty dashes", () => {
+    const d = JSON.parse(readFileSync(join(root, "public/data/usecases.json"), "utf8"));
+    const dev = d.device;
+    // Never the stale-sync or missing-days people: "unknown" belongs in the story cards, not on the watch.
+    expect(dev.trap).toBe("clean");
+    for (const m of ["steps", "sleep_duration", "resting_hr", "hrv_rmssd", "workout"]) {
+      const sig = dev.signals[m];
+      expect(sig, m).toBeDefined();
+      expect(typeof sig.value, m).toBe("number");
+      expect(sig.week.length, m).toBe(7);
+      for (const w of sig.week) expect(typeof w.value, `${m} ${w.day}`).toBe("number");
+      if (m !== "workout") expect(["within", "above", "below"], m).toContain(sig.usual.direction);
+    }
+    const st = dev.signals.sleep_duration.stages;
+    for (const k of ["deep_min", "rem_min", "light_min", "awake_min"]) expect(st[k], k).toBeGreaterThan(0);
+    // Signals the cohort lacks are named as absent, never shown as a value.
+    for (const m of dev.not_in_cohort) expect(["spo2", "respiratory_rate", "skin_temp_deviation"]).toContain(m);
+    for (const m of dev.not_in_cohort) expect(dev.signals[m], m).toBeUndefined();
+    // Empty states use a neutral "no data" badge, never a dash placeholder.
+    for (const f of ["usecases.js", "home.js", "compare.js"]) expect(readFileSync(join(root, "public/js", f), "utf8"), f).not.toMatch(/– –|"--"/);
+    expect(readFileSync(join(root, "public/js/usecases.js"), "utf8")).toMatch(/no data/);
+    // Each request card names the signals it touched and the release level.
+    const page = readFileSync(join(root, "public/index.html"), "utf8");
+    expect(page.match(/data-f="chips"/g)?.length).toBe(4);
+    expect(page).toContain('id="stage-toggle"');
+  });
+
+  it("credits third-party work on /credits, linked from every footer, not in the footer text", () => {
+    const credits = readFileSync(join(root, "public/credits.html"), "utf8");
+    for (const k of ["Lucide", "ISC License", "/assets/icons/lucide/LICENSE.txt", "Twemoji by Twitter, Inc and other contributors", "CC-BY 4.0", "/assets/emoji/twemoji/LICENSE.txt", "unmodified",
+      "© 2026 Sports Vision, Inc.", "Trademark of Sports Vision, Inc.", "@simplewebauthn/browser", "MIT License", "/assets/wearables/LICENSE.txt"]) expect(credits, k).toContain(k);
+    for (const f of walk(join(root, "public")).filter((x) => x.endsWith(".html"))) {
+      const s = readFileSync(f, "utf8");
+      if (!s.includes('<footer class="site-footer">')) continue;
+      const footer = s.slice(s.indexOf('<footer class="site-footer">'));
+      expect(footer, f).toContain('<a href="/credits">Open-source credits</a>');
+      expect(footer.replace(/<[^>]+>/g, " "), f).not.toMatch(/Lucide|Twemoji|CC-BY/);
+    }
+  });
+
   it("uses wellness wording and claims no certification", () => {
     for (const f of walk(join(root, "public")).filter((x) => x.endsWith(".html"))) {
       const s = readFileSync(f, "utf8").replace(/<[^>]+>/g, " ").toLowerCase();
       expect(s, f).not.toMatch(/\b(hipaa[- ]compliant|soc ?2 (certified|compliant|type)|gdpr[- ]compliant|iso ?27001|fda[- ](approved|cleared)|medical device|clinically (proven|validated)|medical[- ]grade)\b/);
     }
-    const policy = readFileSync(join(root, "public/privacy.html"), "utf8");
-    expect(policy).toMatch(/DRAFT/);
+  });
+
+  it("publishes the privacy policy and terms, linked from every footer", () => {
+    for (const [page, heading] of [["privacy", "Privacy Policy"], ["terms", "Terms of Service"]] as const) {
+      const s = readFileSync(join(root, `public/${page}.html`), "utf8");
+      expect(s, page).toContain(`<h1>AskWearables ${heading}</h1>`);
+      // Published: no draft banner, no "(draft)" title, indexable, and dated.
+      expect(s, page).not.toMatch(/DRAFT|\(draft\)/);
+      expect(s, page).not.toMatch(/<meta name="robots"[^>]*noindex/i);
+      expect(s, page).toContain('<p class="muted">Effective date: 25 November 2026. Last updated: 25 November 2026.</p>');
+      // The company named, and the promises that must not drift.
+      expect(s, page).toContain("Sports Vision, Inc.");
+      expect(s, page).toContain("contact@sportsvision.ai");
+      expect(s, page).toMatch(/not medical advice/i);
+    }
+    const privacy = readFileSync(join(root, "public/privacy.html"), "utf8");
+    expect(privacy).toMatch(/do not use your Health Data[^.]*to train/i);
+    expect(privacy).toContain('<h2 id="consumer-health-data">');
+    expect(privacy).toContain("AskWearables is not offered in the EU or UK yet.");
+    expect(readFileSync(join(root, "public/terms.html"), "utf8")).toContain('id="developer-terms"');
+    expect(privacy).toMatch(/We do <strong>not<\/strong> use your Health Data to train AI models/);
+    // No bracketed placeholders reach the published pages.
+    for (const page of ["privacy", "terms"]) {
+      const text = readFileSync(join(root, `public/${page}.html`), "utf8").replace(/<[^>]+>/g, " ");
+      expect(text, page).not.toMatch(/\[[^\]]+\]/);
+    }
+    // Every page with a footer links to both documents, and to the consumer health data section, from it.
+    for (const f of walk(join(root, "public")).filter((x) => x.endsWith(".html"))) {
+      const s = readFileSync(f, "utf8");
+      const footer = s.slice(s.indexOf('<footer class="site-footer">'));
+      if (!s.includes('<footer class="site-footer">')) continue;
+      expect(footer, f).toContain('<a href="/privacy">Privacy policy</a>');
+      expect(footer, f).toContain('<a href="/terms">Terms of service</a>');
+      expect(footer, f).toContain('<a href="/privacy#consumer-health-data">Consumer health data</a>');
+    }
   });
 
   it("openapi.json and the API reference are generated from the edge Worker's OpenAPI (run npx tsx scripts/gen-openapi.ts)", () => {

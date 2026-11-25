@@ -3,16 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy policy (draft) · AskWearables</title>
-<meta name="description" content="Draft privacy policy for AskWearables, pending legal review. Not yet in effect.">
-<meta name="robots" content="noindex">
+<title>Privacy Policy · AskWearables</title>
+<meta name="description" content="Privacy policy for AskWearables, a product of Sports Vision, Inc.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="inner">
-  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <div class="lockup">
+    <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
+    <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
+  </div>
   <nav class="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
@@ -23,103 +30,377 @@
 </div></header>
 
 <main id="main" class="wrap">
-<div class="banner" role="note">
-  <p><strong>DRAFT, pending legal review.</strong> This policy is a working draft. It has not been reviewed by a lawyer, it is not in effect, and it may change substantially. Text in [square brackets] is a placeholder to be completed. Until review is complete, the hosted service holds the operator's own data only.</p>
+<h1>AskWearables Privacy Policy</h1>
+
+<p class="muted">Effective date: 25 November 2026. Last updated: 25 November 2026.</p>
+
+<div class="note" role="note">
+<p><strong>Summary</strong></p>
+
+<ul>
+  <li>AskWearables lets AI agents ask questions about your wearable data. It answers with small computed summaries, only within limits you approve.</li>
+  <li>We use your Health Data only to answer questions your Grants allow, and to run and secure the service.</li>
+  <li>We do <strong>not</strong> sell your data. We do <strong>not</strong> use it for advertising. We do <strong>not</strong> use your Health Data to train AI models, ours or anyone else's.</li>
+  <li>The AI model that reads a question (the Planner) sees the question text. It never sees your Health Data.</li>
+  <li>Agents get only what your Grant allows. Every answer released, and every request denied, is recorded in your Receipts.</li>
+  <li>You can pause all sharing, revoke any Agent, export or correct your data, or delete everything at any time.</li>
+  <li>Once an answer reaches an Agent, what that Agent's company keeps is governed by that company's policy, not ours.</li>
+  <li>AskWearables is for general wellness. It is not medical advice. Do not use it in an emergency.</li>
+  <li>You must be 18 or older. AskWearables is offered in the United States only.</li>
+</ul>
 </div>
 
-<h1>Privacy policy</h1>
-<p class="muted">Draft of 24 November 2026. Effective date: [to be set after legal review].</p>
-
-<h2>Who we are</h2>
-<p>AskWearables ("we") is operated by [legal name, address, company number]. For questions about this policy or your data, contact [privacy contact email]. [Name and contact of a data protection officer or representative, if one is required.]</p>
-
-<h2>What AskWearables does</h2>
-<p>AskWearables is a broker between data from wearable devices and AI agents. It stores data you, or an app you use, send to it, and answers an agent's questions with small computed summaries, only within limits you approve. It is for general wellness and personal insight. It does not give medical advice and is not intended to detect, diagnose or treat any condition.</p>
-
-<h2>Whose data this covers</h2>
+<nav class="toc" aria-label="Contents">
 <ul>
-  <li><strong>Owners and direct users</strong> who sign in to the console and connect their own agents.</li>
-  <li><strong>End users of developers' apps.</strong> When an app built on AskWearables sends us your data, that developer decides why your data is processed, and its own privacy policy also applies to you. [Counsel to confirm the controller and processor roles for this case and the terms developers must accept.]</li>
-  <li><strong>Developers</strong> who hold an organization and API keys.</li>
+  <li><a href="#who-we-are">1. Who we are</a></li>
+  <li><a href="#words-we-use">2. Words we use</a></li>
+  <li><a href="#what-askwearables-does">3. What AskWearables does</a></li>
+  <li><a href="#data-we-collect">4. Data we collect</a></li>
+  <li><a href="#how-we-use-your-data">5. How we use your data</a></li>
+  <li><a href="#agents-and-your-grants">6. Agents and your Grants</a></li>
+  <li><a href="#wearable-sources-and-their-terms">7. Wearable Sources and their terms</a></li>
+  <li><a href="#who-receives-your-data">8. Who receives your data</a></li>
+  <li><a href="#sub-processors">9. Sub-processors</a></li>
+  <li><a href="#where-your-data-is-stored">10. Where your data is stored</a></li>
+  <li><a href="#how-long-we-keep-data">11. How long we keep data</a></li>
+  <li><a href="#your-controls">12. Your controls</a></li>
+  <li><a href="#your-rights">13. Your rights</a></li>
+  <li><a href="#security">14. Security</a></li>
+  <li><a href="#consumer-health-data">15. Consumer health data</a></li>
+  <li><a href="#other-laws">16. Other laws</a></li>
+  <li><a href="#not-medical-advice">17. Not medical advice</a></li>
+  <li><a href="#children">18. Children</a></li>
+  <li><a href="#changes-to-this-policy">19. Changes to this policy</a></li>
+  <li><a href="#contact">20. Contact</a></li>
 </ul>
+</nav>
 
-<h2>Data we hold</h2>
+<h2 id="who-we-are">1. Who we are</h2>
+
+<p>AskWearables is a product of <strong>Sports Vision, Inc.</strong> ("Sports Vision", "we", "us", "our").</p>
+
 <div class="table-wrap"><table>
-  <thead><tr><th scope="col">Category</th><th scope="col">Examples</th><th scope="col">Source</th></tr></thead>
   <tbody>
-    <tr><td>Wearable and health-related data</td><td>Steps, sleep sessions and stages, heart rate, resting heart rate, heart-rate variability, blood oxygen, respiratory rate, skin temperature deviation, VO2 max estimates, weight, workouts, and vendor scores. Sensitive categories (such as cycle tracking or glucose) only if sent and only released when you name them in a grant.</td><td>You (file import or sync app), or a developer's app on your behalf</td></tr>
-    <tr><td>Source details</td><td>Provider, device type and model, when it was connected and last synced</td><td>As above</td></tr>
-    <tr><td>Account data</td><td>An internal user id, your time zone, your passkey's public key (never the passkey itself); for developers' users, the id the developer assigned</td><td>You, or the developer</td></tr>
-    <tr><td>Access records</td><td>Agents you connected, the grants you approved, and receipts recording each answer released or denied: time, agent, purpose, query, level, metrics, date window, a hash of the answer, and the reasons for the decision</td><td>Created by the service</td></tr>
-    <tr><td>Questions</td><td>The text of questions agents ask</td><td>The agent</td></tr>
-    <tr><td>Developer data</td><td>Organization name, agent name, webhook URL, hashed API keys, encrypted signing and webhook secrets, usage counts</td><td>The developer</td></tr>
-    <tr><td>Technical data</td><td>Request metadata needed to run and secure the service, such as timestamps and error codes. Health values are never written to logs.</td><td>Created by the service</td></tr>
+    <tr><th scope="row">Company</th><td>Sports Vision, Inc.</td></tr>
+    <tr><th scope="row">Address</th><td>Minnetonka, Minnesota, USA</td></tr>
+    <tr><th scope="row">Contact for everything, including privacy and security</th><td>contact@sportsvision.ai</td></tr>
   </tbody>
 </table></div>
 
-<h2>How we use it</h2>
-<ul>
-  <li>To answer questions from agents you approved, within the grant you approved: the purpose, the metrics, the level of detail, the date window, the daily limit and the expiry.</li>
-  <li>To compute your personal baselines and data-quality notes, which are compared only with your own history.</li>
-  <li>To keep a tamper-evident record of every release and denial, so you can see what was shared.</li>
-  <li>To secure the service, prevent abuse and enforce rate limits.</li>
-</ul>
-<p>We do not sell your data, use it for advertising, or use it to train AI models. [Legal bases for each use, including the basis for processing health data, to be set out by counsel.]</p>
+<p>This policy covers the AskWearables website (askwearables.app), the console (app.askwearables.app), the API and MCP server, the sign-in and consent screens, and the AskWearables phone sync apps (together, the "Service").</p>
 
-<h2>Who receives your data</h2>
-<ul>
-  <li><strong>Agents you approve.</strong> They receive only computed summaries within your grant. What an agent, or the company behind it, does with an answer after it is released is governed by that company's terms and policy, not by AskWearables.</li>
-  <li><strong>The developer of an app you use,</strong> for data relating to you within that app's grant, plus usage counts that contain no health data.</li>
-  <li><strong>Our infrastructure provider,</strong> Cloudflare, which hosts the service, including storage and the AI model that turns a question into a query. Question text is processed on Cloudflare's platform; health data is never sent to the model. [List of subprocessors and locations to be completed.]</li>
-  <li><strong>Authorities,</strong> where the law requires it. [Policy on government requests to be added.]</li>
-</ul>
+<p><strong>Where we offer the Service.</strong> AskWearables is offered in the United States only. AskWearables is not offered in the EU or UK yet.</p>
 
-<h2>Where it is stored and how it is protected</h2>
-<ul>
-  <li>Each user's health data is kept in a separate store, encrypted at rest with a key specific to that user, which is itself encrypted with a master key held as a platform secret.</li>
-  <li>All connections use HTTPS.</li>
-  <li>Access is split across separate services, so the parts reachable from the internet hold no stored health data and no long-lived secrets.</li>
-  <li>[Storage region and international transfer safeguards to be confirmed.]</li>
-</ul>
-<p>No system is perfectly secure. We will notify you and the relevant authorities of a breach affecting your data as the law requires. [Notification commitments to be confirmed.]</p>
+<p>This policy does not cover other Sports Vision products, which have their own policies. <strong>Nothing in those policies that permits AI training on user content applies to AskWearables.</strong></p>
 
-<h2>How long we keep it</h2>
+<h2 id="words-we-use">2. Words we use</h2>
+
 <ul>
-  <li>Health data and account data: until you delete it, or until the developer of the app you use deletes it. [Retention after account inactivity to be decided.]</li>
-  <li>Answers already given to an agent: an encrypted copy is kept for about 24 hours so the agent can fetch it again, then removed.</li>
-  <li>Receipts: kept as a permanent record. When you delete your data, the details in each receipt become unreadable and only hashes remain, so the record that a release happened survives but not what it contained.</li>
-  <li>Short-lived items: agent access tokens expire after one hour, consent links after one hour, and replay-protection records after five minutes.</li>
+  <li><strong>Health Data</strong>: data about your body or activity that comes from a wearable device, a phone health app or a file you import. Examples are steps, sleep, heart rate and workouts. We treat all Health Data as sensitive. All Health Data is also "consumer health data" under the laws described in section 15.</li>
+  <li><strong>Sensitive Categories</strong>: four kinds of Health Data that get extra protection. They are blood glucose, cycle tracking, ECG and rhythm notifications, and sleep apnea events.</li>
+  <li><strong>Source</strong>: where Health Data comes from. A Source may be a wearable provider's cloud service (such as Oura or WHOOP), a phone sync app (Apple Health or Health Connect), or a file you import.</li>
+  <li><strong>Agent</strong>: an AI assistant or app that asks questions about your data through AskWearables.</li>
+  <li><strong>Grant</strong>: the permission you give one Agent on the consent screen. It sets eight limits, listed in section 6.</li>
+  <li><strong>Packet</strong>: one computed answer released to an Agent.</li>
+  <li><strong>Receipt</strong>: our record of one release or denial.</li>
+  <li><strong>Planner</strong>: the AI model we use to turn a question into a structured query.</li>
+  <li><strong>Developer</strong>: a company or person who builds an app on AskWearables and holds a Developer account.</li>
 </ul>
 
-<h2>Your choices and rights</h2>
+<h2 id="what-askwearables-does">3. What AskWearables does</h2>
+
+<p>AskWearables sits between your Health Data and AI Agents. It works like this:</p>
+
+<ol>
+  <li>An Agent asks a question in plain words, such as "How did I sleep this week?"</li>
+  <li>The Planner turns the question into a structured query. The Planner sees only the question, the date, your time zone and our list of metrics. It does not see your Health Data.</li>
+  <li>A policy gate, written in ordinary code, checks the query against your Grant. It removes anything the Grant does not allow.</li>
+  <li>Our tested code computes the answer from your Health Data.</li>
+  <li>The Agent receives a small Packet at the lowest level of detail that answers the question.</li>
+  <li>We write a Receipt.</li>
+</ol>
+
+<h2 id="data-we-collect">4. Data we collect</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Category</th><th scope="col">What it includes</th><th scope="col">Where it comes from</th></tr></thead>
+  <tbody>
+    <tr><td>Health Data</td><td>Steps, active energy, heart rate, resting heart rate, heart-rate variability, sleep duration, sleep stages and efficiency, blood oxygen, respiratory rate, skin temperature deviation, VO2 max estimates, weight, workouts, and vendors' own scores (such as readiness or recovery). Free text attached to workouts, such as titles and notes</td><td>The Sources you connect, the files you import, or a Developer's app acting for you</td></tr>
+    <tr><td>Sensitive Categories</td><td>Blood glucose, cycle tracking, ECG and rhythm notifications, sleep apnea events</td><td><strong>Not imported by default.</strong> Our file importers do not bring them in. They are stored only if a sync app or a Developer's app sends them, and released only when you name each one in a Grant</td></tr>
+    <tr><td>Source details</td><td>Which provider and device, when it was connected and last synced. For cloud Sources, the access tokens the provider gives us</td><td>You, when you connect a Source</td></tr>
+    <tr><td>Account data</td><td>An internal user ID, your time zone, your declaration that you are 18 or older, and the public key of your passkey (never the passkey itself). For a Developer's users, the ID the Developer assigned</td><td>You or the Developer</td></tr>
+    <tr><td>Grants and Agents</td><td>Which Agents you connected, and the eight limits of each Grant</td><td>You, on the consent screen</td></tr>
+    <tr><td>Receipts</td><td>For each release or denial: the time, the Agent, the purpose, the query, the level of detail, the metrics, the date window, a fingerprint (hash) of the Packet, and the reasons for the decision</td><td>Created by the Service</td></tr>
+    <tr><td>Questions</td><td>The text of the questions Agents send</td><td>The Agent</td></tr>
+    <tr><td>Developer data</td><td>Organisation name, Agent name, webhook address, hashed API keys, encrypted signing and webhook secrets, and daily usage counts</td><td>The Developer</td></tr>
+    <tr><td>Technical data</td><td>Request metadata needed to run and secure the Service, such as time, path, response code and the IP address seen by our hosting provider. Never Health Data values</td><td>Created automatically</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>Cookies.</strong> The console uses one sign-in cookie, which is strictly necessary. The public website sets no cookies and loads no analytics or advertising scripts.</p>
+
+<p><strong>What we do not collect.</strong> We do not collect precise location, contacts, photos or advertising identifiers. We do not buy data about you from anyone.</p>
+
+<h2 id="how-we-use-your-data">5. How we use your data</h2>
+
+<p>We use Health Data <strong>only</strong> for these purposes:</p>
+
+<ol>
+  <li>To answer questions from Agents you approved, within the Grant you approved.</li>
+  <li>To show you your own data, baselines and Receipts in the console.</li>
+  <li>To compute your personal baselines (your usual range) and data-quality notes. These compare you only with your own history.</li>
+  <li>To keep a tamper-evident record of every release and denial.</li>
+</ol>
+
+<p>We use other data (account, technical and Developer data) to run the Service, to keep it secure, to prevent abuse, to enforce rate limits, and to meet legal duties.</p>
+
+<h3 id="what-we-never-do-with-your-health-data">What we never do with your Health Data</h3>
+
 <ul>
-  <li><strong>See</strong> every release and denial in the console's receipt log.</li>
-  <li><strong>Pause</strong> all releases at once, or <strong>revoke</strong> any one agent.</li>
-  <li><strong>Export</strong> all your data as a file.</li>
-  <li><strong>Delete</strong> everything, which also revokes all grants and keys.</li>
+  <li><strong>No AI training.</strong> We do not use your Health Data, your questions or your Receipts to train, fine-tune or evaluate any AI model, whether ours or a third party's. This applies to the Planner too. Our research and testing use synthetic data and public research datasets only.</li>
+  <li><strong>No sale.</strong> We do not sell or rent your data, and we do not exchange it for anything of value.</li>
+  <li><strong>No advertising.</strong> We do not use your data for advertising or marketing. We do not share it for cross-context behavioural advertising.</li>
+  <li><strong>No decisions about you.</strong> We do not use your data to make decisions about your insurance, employment, credit, housing or similar.</li>
+  <li><strong>No other purposes.</strong> We do not use your Health Data for any purpose your Grants do not cover, except to show it to you, to keep the Service secure, or where the law requires.</li>
 </ul>
-<p>If you use AskWearables through a developer's app, ask that developer first; we will help them meet your request. You may also have rights under the law where you live, such as rights of access, correction, deletion, restriction, objection and portability, and the right to complain to a data protection authority. [Jurisdiction-specific rights and how to exercise them to be completed by counsel.]</p>
 
-<h2>Children</h2>
-<p>AskWearables is not intended for children under [age to be confirmed], and we do not knowingly hold their data. [Process for removing such data to be added.]</p>
+<p>If we ever want to use Health Data in a new way, we will ask for your consent first. We will not rely on a policy update alone.</p>
 
-<h2>Changes to this policy</h2>
-<p>We will post changes here with a new date, and tell users in the console before a material change takes effect. [Notice period to be confirmed.]</p>
+<h2 id="agents-and-your-grants">6. Agents and your Grants</h2>
 
-<h2>Contact</h2>
-<p>[Privacy contact email and postal address.]</p>
+<h3 id="what-you-approve">What you approve</h3>
 
-<p class="muted"><small>See also the <a href="/docs/privacy">privacy model</a>, which explains in technical detail how the gate decides what is released.</small></p>
+<p>When an Agent asks to connect, you see our consent screen. Nothing is ticked for you. You approve one Grant with eight parts:</p>
+
+<ol>
+  <li><strong>Which Agent.</strong> Its name, whether its domain is verified, and who registered it.</li>
+  <li><strong>For what purpose.</strong> Chosen from a fixed list. The Agent cannot change the purpose later.</li>
+  <li><strong>Which metrics.</strong> Only those you tick. Sensitive Categories stay excluded unless you name each one.</li>
+  <li><strong>How much detail.</strong> One of four levels: a flag (yes, no or unknown), a trend against your usual range, daily values, or raw samples.</li>
+  <li><strong>How far back.</strong> A date window, in days.</li>
+  <li><strong>How often.</strong> A maximum number of answers per day.</li>
+  <li><strong>Until when.</strong> An end date, 90 days at most.</li>
+  <li><strong>What is not approved.</strong> Raw data (unless you chose it), metrics you did not tick, Sensitive Categories you did not name, any change to your data, passing your data to another agent, and anything older than your window.</li>
+</ol>
+
+<p>You approve the boundary, not each question. Our gate enforces the boundary in code before any data is read. The gate may also lower the level of detail if a request does not fit the purpose you chose. It never raises it.</p>
+
+<h3 id="what-an-agent-receives">What an Agent receives</h3>
+
+<p>An Agent receives only Packets within your Grant. A Packet is a computed summary: for example, "resting heart rate is within your usual range this week". It is not a copy of your records. Free text such as workout titles is released only at the raw level.</p>
+
+<h3 id="receipts">Receipts</h3>
+
+<p>Every release and every denial gets a Receipt. Receipts are chained together by fingerprints (hashes), so a change to an earlier Receipt can be detected. You can read all your Receipts in the console.</p>
+
+<h3 id="revoking-and-pausing">Revoking and pausing</h3>
+
+<p>You can revoke any one Agent at any time. Its Grant ends, its access tokens are cancelled, and later requests are denied. You can also pause all releases at once.</p>
+
+<p>If you use AskWearables through a Developer's app, that app must let you revoke its access (our Developer Terms require it). You can also revoke it by emailing contact@sportsvision.ai. We act on revocation requests within 2 business days.</p>
+
+<h3 id="after-release">After release</h3>
+
+<p><strong>Once a Packet reaches an Agent, AskWearables cannot control it.</strong> What the Agent, or the company that runs its AI model, stores or does with a Packet is governed by that company's terms and privacy policy. Before you approve an Agent, read its policy. Choose the lowest level of detail that meets your needs.</p>
+
+<h3 id="the-planner">The Planner</h3>
+
+<p>The Planner is an AI model that runs on <strong>Cloudflare Workers AI</strong>. Today it is Meta's Llama 3.3 70B, with OpenAI's gpt-oss-120b as a fallback. Both are open-weight models that Cloudflare hosts on its own infrastructure, so the question does not go to Meta or OpenAI. The Planner receives the question text, the date, your time zone and our metric list. <strong>It never receives your Health Data.</strong> Cloudflare states that it does not use Workers AI inputs to train models.</p>
+
+<p>Questions may contain personal information if an Agent includes it. Our Developer Terms forbid Developers to put Health Data or names in questions.</p>
+
+<h2 id="wearable-sources-and-their-terms">7. Wearable Sources and their terms</h2>
+
+<p>When you connect a cloud Source, you sign in with that provider and approve the access it shows you. We store the provider's access tokens, encrypted. We use them only to fetch your data into your own store.</p>
+
+<p>Each provider has its own terms. Some of them limit how their data may be used with AI:</p>
+
+<ul>
+  <li><strong>Some providers forbid giving their data to AI models</strong>, or forbid services that act as intermediaries. AskWearables records these rules as flags on each Source. <strong>Our gate will not release data from a flagged Source to an Agent.</strong> We treat every Agent as one that may pass data to an AI model.</li>
+  <li>Because of these rules, we may be unable to connect some Sources, or able to connect them only for your own viewing. Strava's API policy, for example, bans AI use and aggregators, so a Strava connection is not offered. Oura's API agreement restricts giving Oura data to AI models, so Oura is not offered while that restriction stands.</li>
+  <li>Some providers require us to show their name next to their data, or to describe our use of AI before you connect. We do so where required.</li>
+</ul>
+
+<p>The console shows which Sources are available. At the date of this policy, no cloud Source is switched on. Data arrives only from file imports and the operator's own phone sync apps.</p>
+
+<p>The provider's own privacy policy also applies to the data while the provider holds it. Disconnecting a Source in AskWearables does not delete data held by the provider.</p>
+
+<h2 id="who-receives-your-data">8. Who receives your data</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Recipient</th><th scope="col">What they receive</th><th scope="col">Why</th></tr></thead>
+  <tbody>
+    <tr><td>Agents you approve</td><td>Packets within your Grant</td><td>To answer your questions</td></tr>
+    <tr><td>The Developer of an app you use</td><td>Packets within that app's Grant, and usage counts with no Health Data</td><td>To run the app you chose</td></tr>
+    <tr><td>Sub-processors (section 9)</td><td>What each needs to provide its service to us</td><td>To host and run the Service</td></tr>
+    <tr><td>The Sources you connect</td><td>Your sign-in with them, and our requests for your data</td><td>To fetch your data</td></tr>
+    <tr><td>Authorities</td><td>Only what the law requires</td><td>Legal duty. We will tell you about a request unless the law forbids it</td></tr>
+    <tr><td>A buyer of the business</td><td>Your data, under this policy</td><td>If Sports Vision or AskWearables is sold or merged. The buyer must keep this policy's promises or ask for your consent</td></tr>
+  </tbody>
+</table></div>
+
+<p>The sign-in page loads its passkey library from our own domain. No third-party script or CDN is involved in sign-in.</p>
+
+<h2 id="sub-processors">9. Sub-processors</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Sub-processor</th><th scope="col">What it does for us</th><th scope="col">Data it handles</th></tr></thead>
+  <tbody>
+    <tr><td>Cloudflare, Inc. (United States)</td><td>Hosting, storage (Durable Objects, D1, KV, R2), Workers AI for the Planner, logs and rate limiting</td><td>All data we hold, encrypted at rest. Question text, for the Planner</td></tr>
+  </tbody>
+</table></div>
+
+<p>We will list any other sub-processor in this section. We will give you 30 days' notice, in the console (and by email if you have given us one), before a new sub-processor starts handling your data.</p>
+
+<h2 id="where-your-data-is-stored">10. Where your data is stored</h2>
+
+<p>Your data is stored on Cloudflare's network. Each user's Health Data lives in its own storage unit (a Durable Object).</p>
+
+<h2 id="how-long-we-keep-data">11. How long we keep data</h2>
+
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Data</th><th scope="col">How long</th></tr></thead>
+  <tbody>
+    <tr><td>Health Data and Source tokens</td><td>Until you disconnect the Source, delete the data, or delete everything</td></tr>
+    <tr><td>Inactive accounts</td><td>Deleted after 24 months without a sign-in, sync or Agent request. We tell you in the console (and by email if you have given us one) 30 days before</td></tr>
+    <tr><td>Packets</td><td>An encrypted copy is kept for about 24 hours so the Agent can fetch it again. Then it is deleted</td></tr>
+    <tr><td>Grants</td><td>Until they expire (90 days at most) or you revoke them. A revoked Grant's metadata is then kept for 90 days, then deleted</td></tr>
+    <tr><td>Receipts</td><td>Kept while your account exists. After "delete everything", the Receipt chain keeps only hashes, times, sequence numbers, Agent IDs, Grant IDs, release levels and decisions (no Health Data). Everything else in each Receipt is made unreadable (section 12)</td></tr>
+    <tr><td>Daily integrity anchors</td><td>A copy of your Receipt chain's latest hash, stored once a day so tampering can be detected. Your user ID in each anchor is stored only as a hash</td></tr>
+    <tr><td>Operational logs</td><td>No longer than 30 days. They never contain Health Data values</td></tr>
+    <tr><td>Agent access tokens</td><td>One hour</td></tr>
+    <tr><td>Consent links</td><td>One hour</td></tr>
+    <tr><td>Replay-protection records</td><td>Five minutes</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="your-controls">12. Your controls</h2>
+
+<p>In the console you can:</p>
+
+<ul>
+  <li><strong>See</strong> every release and denial in your Receipts.</li>
+  <li><strong>Pause</strong> all releases at once, and resume them later.</li>
+  <li><strong>Revoke</strong> any Agent. Its Grant ends and its tokens are cancelled.</li>
+  <li><strong>Export</strong> all your data as a file: Sources, samples, sessions, daily totals, baselines, vendor scores and Receipts.</li>
+  <li><strong>Delete everything.</strong> This deletes your Health Data and your Source tokens. It revokes every Grant and key. It also destroys your personal encryption key. Without that key, the stored details of every Receipt can never be read again by anyone, including us. This is called crypto-erasure. The Receipt chain itself stays, with only hashes, times, sequence numbers, Agent IDs, Grant IDs, release levels and decisions (no Health Data), so the record that releases happened can still be checked, but not what they contained.</li>
+</ul>
+
+<p>Deletion cannot be undone. Data already released to an Agent is not recalled; ask that Agent's company to delete it.</p>
+
+<p><strong>Account recovery.</strong> Your passkey is how you prove who you are. If you lose every device that holds your passkey, email contact@sportsvision.ai. We will verify the email address you write from and check your identity before we restore access to your account. We cannot restore access to your Health Data without a passkey or an active console session. If we cannot verify you, you can still ask us to delete your account.</p>
+
+<p><strong>If you use AskWearables through a Developer's app</strong>, use that app's controls, or email contact@sportsvision.ai. We act on revocation requests within 2 business days.</p>
+
+<h2 id="your-rights">13. Your rights</h2>
+
+<p>Everyone who uses AskWearables has these rights, wherever they live in the United States:</p>
+
+<ul>
+  <li><strong>Access</strong>: know what data we hold, and see it.</li>
+  <li><strong>Export</strong>: get a copy in a file you can take elsewhere.</li>
+  <li><strong>Correct</strong>: fix your account details in the console or by writing to contact@sportsvision.ai. Health Data comes from your Sources, so correct it at the Source and sync again, or delete it and import it again.</li>
+  <li><strong>Delete</strong>: delete any Source's data, or everything.</li>
+  <li><strong>Withdraw consent</strong>: revoke any Agent, or disconnect any Source, at any time.</li>
+</ul>
+
+<p>Most of these you can do yourself in the console. For anything else, email contact@sportsvision.ai. We will answer within 30 days, or sooner if your state's law requires. We may need to verify your identity first. If we refuse a request, you can appeal by replying to our answer, and we will tell you the result of the appeal and how to contact your state attorney general. We will not treat you differently for using your rights. You may use an authorised agent where your state's law allows.</p>
+
+<h2 id="security">14. Security</h2>
+
+<p>Here is what we have built. We describe it plainly; we do not claim any certification.</p>
+
+<ul>
+  <li><strong>Separate storage for each user.</strong> Each user's Health Data is held in its own isolated store. Only one internal service can read it, and that service has no public address.</li>
+  <li><strong>Per-user encryption keys.</strong> Each user has their own AES-256 data key. It encrypts their Source tokens, Receipt details and stored Packets. That key is itself encrypted by a master key held as a platform secret. Numeric Health Data is protected by Cloudflare's storage encryption and per-user isolation, because our code must be able to add it up.</li>
+  <li><strong>Separated services.</strong> The Service is split into separate parts with four trust levels. The parts reachable from the internet hold no Health Data and no long-lived secrets. A test checks these boundaries.</li>
+  <li><strong>Hash-chained Receipts.</strong> Each Receipt includes a fingerprint of the one before it. Once a day, the latest fingerprint is copied to separate storage, so tampering can be detected.</li>
+  <li><strong>No Health Data in logs.</strong> Our code does not write Health Data values to logs.</li>
+  <li><strong>Short-lived, revocable access.</strong> Agent tokens last one hour, apply to one resource, and are checked again by the gate on every request. Developer requests are signed and cannot be replayed.</li>
+  <li><strong>Passkeys.</strong> The console uses passkeys, not passwords.</li>
+  <li><strong>HTTPS everywhere.</strong></li>
+</ul>
+
+<p>No system is perfectly secure. To report a security problem, email contact@sportsvision.ai.</p>
+
+<h3 id="if-there-is-a-breach">If there is a breach</h3>
+
+<p>We treat the FTC Health Breach Notification Rule as applying to AskWearables. Under that rule, a breach includes any acquisition of Health Data that you did not authorise, not only a hack. If there is a breach of your Health Data:</p>
+
+<ul>
+  <li>we will notify you as the rule requires, without unreasonable delay and no later than 60 calendar days after we discover it;</li>
+  <li>we will notify the FTC as the rule requires;</li>
+  <li>where the rule requires it, we will also notify the media;</li>
+  <li>we will also give any notice that state breach laws require.</li>
+</ul>
+
+<h2 id="consumer-health-data">15. Consumer health data</h2>
+
+<p>This section is our consumer health data privacy policy under the Washington My Health My Data Act and similar state laws, such as those of Nevada and Connecticut. It applies to all Health Data, which these laws call "consumer health data".</p>
+
+<ul>
+  <li><strong>What we collect, and from where.</strong> The Health Data and Sensitive Categories listed in section 4, from the Sources you connect, the files you import, or a Developer's app acting for you.</li>
+  <li><strong>Why we collect and use it.</strong> Only for the purposes in section 5: to answer questions within your Grants, to show you your own data, to compute your baselines, and to keep Receipts.</li>
+  <li><strong>Your consent to collect.</strong> We collect Health Data only after you agree: when you connect a Source or import a file. Sensitive Categories are not imported by default.</li>
+  <li><strong>Your separate consent to share.</strong> We share Health Data with an Agent only after you approve a Grant for that Agent on the consent screen. Each Grant is a separate consent, for one Agent.</li>
+  <li><strong>Who receives it.</strong> The Agents you approve, the Developer of an app you use, and our sub-processors (sections 8 and 9).</li>
+  <li><strong>No sale.</strong> We never sell consumer health data.</li>
+  <li><strong>No geofencing.</strong> We do not set up virtual boundaries around health care facilities to track people or send them messages.</li>
+  <li><strong>Your rights.</strong> You can see which Agents received your Health Data in your Receipts. You can withdraw consent, delete your data and get a copy, as sections 12 and 13 describe. Email contact@sportsvision.ai, and we will answer within the time the law sets. You can appeal a refusal as section 13 describes.</li>
+</ul>
+
+<h2 id="other-laws">16. Other laws</h2>
+
+<p>This section explains how we approach the other main US laws for consumer health-adjacent apps. It is not a claim of compliance.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Law</th><th scope="col">How AskWearables approaches it</th></tr></thead>
+  <tbody>
+    <tr><td><strong>California CCPA/CPRA and other state privacy laws</strong> (including Minnesota's Consumer Data Privacy Act)</td><td>Health Data is sensitive data. We collect it only with your consent, and use it only to provide the Service you asked for. We do not sell or share it for advertising. The rights in section 13 apply to everyone</td></tr>
+    <tr><td><strong>FTC Act Section 5</strong></td><td>We aim to describe our practices accurately and to keep every promise in this policy</td></tr>
+    <tr><td><strong>FTC Health Breach Notification Rule</strong></td><td>Treated as applying. See section 14</td></tr>
+    <tr><td><strong>COPPA</strong></td><td>AskWearables is not for children. You must be 18 or older (section 18)</td></tr>
+    <tr><td><strong>HIPAA</strong></td><td>AskWearables is not a HIPAA covered entity or business associate, and it does not sign business associate agreements. Your data in AskWearables is not "protected health information" under HIPAA</td></tr>
+    <tr><td><strong>EU and UK data protection law</strong></td><td>AskWearables is not offered in the EU or UK yet</td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="not-medical-advice">17. Not medical advice</h2>
+
+<p>AskWearables gives general wellness information. It does not diagnose, treat or prevent any disease. It does not give medical advice. Wearable readings are estimates and can be wrong. Do not use AskWearables in an emergency. If you think you have a medical problem, contact a healthcare professional. In an emergency, call 911 or your local emergency number.</p>
+
+<h2 id="children">18. Children</h2>
+
+<p>AskWearables is only for people aged 18 or older. You confirm your age when you sign up. We do not knowingly collect data from anyone under 18. If we learn that we have, we will delete it. If you believe a child has given us data, email contact@sportsvision.ai.</p>
+
+<h2 id="changes-to-this-policy">19. Changes to this policy</h2>
+
+<p>We will post changes here with a new date. For a material change, we will tell you in the console (and by email if you have given us one) at least 30 days before it takes effect. If a change would use your Health Data in a new way, we will ask for your consent first.</p>
+
+<h2 id="contact">20. Contact</h2>
+
+<p>Sports Vision, Inc.<br>
+Minnetonka, Minnesota, USA<br>
+Email (including privacy and security): contact@sportsvision.ai</p>
+
+<p>See also our <a href="/terms">Terms of Service</a> and <a href="/terms#developer-terms">Developer Terms</a>.</p>
+
+<p class="muted"><small>Source: <code>docs/legal/askwearables-privacy.md</code>. See also the <a href="/docs/privacy">privacy model</a>, which explains in technical detail how the gate decides what is released.</small></p>
+
 </main>
 
 <footer class="site-footer"><div class="inner">
+  <div class="foot-brand">
+    <a class="foot-parent" href="https://www.sportsvision.ai"><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="112" height="24"></picture></a>
+    <p class="foot-line">AskWearables is a SportsVision product.</p>
+    <p class="foot-legal"><span>© 2026 Sports Vision, Inc.</span> <a href="/terms">Terms of service</a> <a href="/privacy">Privacy policy</a> <a href="/privacy#consumer-health-data">Consumer health data</a> <a href="/credits">Open-source credits</a> <a href="https://www.sportsvision.ai">sportsvision.ai</a></p>
+  </div>
   <span>AskWearables. Wellness information only; not medical advice.</span>
   <nav aria-label="Footer">
     <a href="/docs/">Docs</a>
     <a href="/results">Results</a>
     <a href="/docs/api">API reference</a>
     <a href="/openapi.json">OpenAPI</a>
-    <a href="/privacy">Privacy policy</a>
   </nav>
 </div></footer>
 </body>

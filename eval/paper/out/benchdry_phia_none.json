@@ -114,7 +114,7 @@
  "causes": {
   "phia_window_convention (correct as worded)": 20,
   "sleep_minutes_is_time_in_bed": 15,
-  "value_differs": 1
+  "two_significant_digit_rounding_boundary (within 2%)": 1
  },
  "packet_status": {
   "ok": 120,

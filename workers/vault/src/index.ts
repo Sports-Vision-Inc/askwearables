@@ -30,6 +30,7 @@ import {
   recordDenial,
   release,
   setMeta,
+  sha256Hex,
   upsertSource,
   verifyChain,
 } from "@askwearables/core";
@@ -179,7 +180,9 @@ export class UserVault extends DurableObject<Env> {
   /** Write today's receipt chain head to R2 so tampering with the chain is detectable from outside. */
   async anchor(day: string): Promise<{ seq: number; hash: string }> {
     const head = chainHead(this.sql);
-    await this.env.ANCHORS.put(`anchors/${day}/${this.userId()}.json`, JSON.stringify({ user_id: this.userId(), day, ...head, written_at: new Date().toISOString() }));
+    // The anchor names the user only by a hash, so the integrity store holds no user id.
+    const userHash = (await sha256Hex(`anchor:${this.userId()}`)).slice(0, 32);
+    await this.env.ANCHORS.put(`anchors/${day}/${userHash}.json`, JSON.stringify({ user: userHash, day, ...head, written_at: new Date().toISOString() }));
     return head;
   }
 }

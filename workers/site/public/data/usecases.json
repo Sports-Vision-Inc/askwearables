@@ -1,0 +1,1327 @@
+{
+ "generated_by": "scripts/build-usecases.ts (packages/core answerSpec over eval/paper/synth.ts people)",
+ "today": "2026-11-24",
+ "device": {
+  "person": "p1",
+  "trap": "clean",
+  "signals": {
+   "steps": {
+    "value": 11539,
+    "unit": "count",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "above",
+     "magnitude": "slight"
+    },
+    "statement": "Steps on 2026-11-23: 11,539, slightly above usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 9541
+     },
+     {
+      "day": "2026-11-18",
+      "value": 11896
+     },
+     {
+      "day": "2026-11-19",
+      "value": 9209
+     },
+     {
+      "day": "2026-11-20",
+      "value": 7627
+     },
+     {
+      "day": "2026-11-21",
+      "value": 8268
+     },
+     {
+      "day": "2026-11-22",
+      "value": 7833
+     },
+     {
+      "day": "2026-11-23",
+      "value": 11539
+     }
+    ],
+    "week_value": 65913
+   },
+   "sleep_duration": {
+    "value": 445,
+    "unit": "minutes",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "within",
+     "magnitude": "none"
+    },
+    "statement": "Sleep duration on 2026-11-23: 7 h 25 min, within usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 430
+     },
+     {
+      "day": "2026-11-18",
+      "value": 458
+     },
+     {
+      "day": "2026-11-19",
+      "value": 454
+     },
+     {
+      "day": "2026-11-20",
+      "value": 443
+     },
+     {
+      "day": "2026-11-21",
+      "value": 432
+     },
+     {
+      "day": "2026-11-22",
+      "value": 429
+     },
+     {
+      "day": "2026-11-23",
+      "value": 445
+     }
+    ],
+    "week_value": 442,
+    "stages": {
+     "awake_min": 25,
+     "deep_min": 80,
+     "light_min": 267,
+     "rem_min": 98
+    }
+   },
+   "resting_hr": {
+    "value": 58,
+    "unit": "bpm",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "within",
+     "magnitude": "none"
+    },
+    "statement": "Resting heart rate on 2026-11-23: 58 bpm, within usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 58
+     },
+     {
+      "day": "2026-11-18",
+      "value": 60
+     },
+     {
+      "day": "2026-11-19",
+      "value": 60
+     },
+     {
+      "day": "2026-11-20",
+      "value": 58
+     },
+     {
+      "day": "2026-11-21",
+      "value": 60
+     },
+     {
+      "day": "2026-11-22",
+      "value": 58
+     },
+     {
+      "day": "2026-11-23",
+      "value": 58
+     }
+    ],
+    "week_value": 59
+   },
+   "hrv_rmssd": {
+    "value": 63.7,
+    "unit": "ms",
+    "day": "2026-11-23",
+    "usual": {
+     "direction": "below",
+     "magnitude": "slight"
+    },
+    "statement": "HRV (RMSSD) on 2026-11-23: 63.7 ms, slightly below usual range",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 64.3
+     },
+     {
+      "day": "2026-11-18",
+      "value": 68.4
+     },
+     {
+      "day": "2026-11-19",
+      "value": 64.7
+     },
+     {
+      "day": "2026-11-20",
+      "value": 63.5
+     },
+     {
+      "day": "2026-11-21",
+      "value": 66.5
+     },
+     {
+      "day": "2026-11-22",
+      "value": 66
+     },
+     {
+      "day": "2026-11-23",
+      "value": 63.7
+     }
+    ],
+    "week_value": 65.3
+   },
+   "workout": {
+    "value": 131,
+    "unit": "minutes",
+    "day": null,
+    "usual": null,
+    "statement": "Total workouts 2026-11-17 to 2026-11-23: 2 h 11 min (average 19 min per day), 2 sessions",
+    "week": [
+     {
+      "day": "2026-11-17",
+      "value": 0
+     },
+     {
+      "day": "2026-11-18",
+      "value": 62
+     },
+     {
+      "day": "2026-11-19",
+      "value": 0
+     },
+     {
+      "day": "2026-11-20",
+      "value": 0
+     },
+     {
+      "day": "2026-11-21",
+      "value": 69
+     },
+     {
+      "day": "2026-11-22",
+      "value": 0
+     },
+     {
+      "day": "2026-11-23",
+      "value": 0
+     }
+    ],
+    "week_value": 131
+   }
+  },
+  "not_in_cohort": [
+   "spo2",
+   "respiratory_rate",
+   "skin_temp_deviation"
+  ]
+ },
+ "cases": {
+  "meeting": {
+   "person": "p7",
+   "trap": "short_sleep",
+   "grant": {
+    "purpose": "scheduling",
+    "metrics": [
+     "sleep_duration"
+    ],
+    "max_level": 1,
+    "max_window_days": 60
+   },
+   "asks": [
+    {
+     "spec": {
+      "metrics": [
+       "sleep_duration"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-21",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "sleep_duration"
+       ],
+       "window": {
+        "start": "2026-11-21",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "sleep_duration",
+         "direction": "below",
+         "magnitude": "large",
+         "statement": "Sleep duration far below usual range on 3 of the last 3 nights"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_8db00724abb03ea4ee4429ef"
+      },
+      "receipt_id": "rc_0mwvmdpwwqui8e7b888",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    }
+   ],
+   "session_day": null
+  },
+  "video": {
+   "person": "p9",
+   "trap": "hrv_falling",
+   "grant": {
+    "purpose": "training_advice",
+    "metrics": [
+     "hrv_rmssd",
+     "resting_hr",
+     "workout"
+    ],
+    "max_level": 2,
+    "max_window_days": 60
+   },
+   "asks": [
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "trend",
+      "window": {
+       "start": "2026-10-27",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "trend",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-10-27",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "down",
+         "magnitude": "large",
+         "statement": "HRV (RMSSD) falling far over 28 nights"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": null,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:bd265ca9515f754964d004394df455fbf955be31bc4f75a568943c7393960d32",
+       "not_medical_advice": true,
+       "packet_id": "pk_b43bfda86352a727c87bf26b"
+      },
+      "receipt_id": "rc_0mwvmdpyzkuymavazfu",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-21",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-21",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "Resting heart rate within usual range on 2 of the last 3 days"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:bd265ca9515f754964d004394df455fbf955be31bc4f75a568943c7393960d32",
+       "not_medical_advice": true,
+       "packet_id": "pk_549f38f9ff06aef885d938c8"
+      },
+      "receipt_id": "rc_0mwvmdpz0qp7zoth530",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "workout"
+      ],
+      "operation": "compare_periods",
+      "window": {
+       "start": "2026-11-17",
+       "end": "2026-11-23"
+      },
+      "params": {
+       "compare_window": {
+        "start": "2026-11-10",
+        "end": "2026-11-16"
+       }
+      }
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_periods",
+       "metrics": [
+        "workout"
+       ],
+       "window": {
+        "start": "2026-11-17",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "workout",
+         "direction": "flat",
+         "magnitude": "none",
+         "statement": "Workouts 2026-11-17 to 2026-11-23 about the same as 2026-11-10 to 2026-11-16"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": null,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:bd265ca9515f754964d004394df455fbf955be31bc4f75a568943c7393960d32",
+       "not_medical_advice": true,
+       "packet_id": "pk_a8477b0f1eeb4035290fa340"
+      },
+      "receipt_id": "rc_0mwvmdpz123hzoywibd",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    }
+   ],
+   "session_day": "2026-11-22"
+  },
+  "stress": {
+   "person": "p7",
+   "trap": "short_sleep",
+   "grant": {
+    "purpose": "general_wellness",
+    "metrics": [
+     "resting_hr",
+     "hrv_rmssd"
+    ],
+    "max_level": 2,
+    "max_window_days": 60
+   },
+   "asks": [
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-17",
+       "end": "2026-11-17"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-17",
+        "end": "2026-11-17"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "Resting heart rate within usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_9d21aada7f01f808a69c37f9"
+      },
+      "receipt_id": "rc_0mwvmdq17ptwbfgewca",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-18",
+       "end": "2026-11-18"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-18",
+        "end": "2026-11-18"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "Resting heart rate within usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_f68f54d4393ef41a3a082574"
+      },
+      "receipt_id": "rc_0mwvmdq17bcqwnvoite",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-19",
+       "end": "2026-11-19"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-19",
+        "end": "2026-11-19"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "above",
+         "magnitude": "moderate",
+         "statement": "Resting heart rate moderately above usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_80f8a7662f526832d4400db5"
+      },
+      "receipt_id": "rc_0mwvmdq187rati4lqm4",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-20",
+       "end": "2026-11-20"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-20",
+        "end": "2026-11-20"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "below",
+         "magnitude": "slight",
+         "statement": "Resting heart rate slightly below usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_575240045d59fcaab8269dfc"
+      },
+      "receipt_id": "rc_0mwvmdq19r937jodetp",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-21",
+       "end": "2026-11-21"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-21",
+        "end": "2026-11-21"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "above",
+         "magnitude": "slight",
+         "statement": "Resting heart rate slightly above usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_c5b3c07eb3404c935ed6a486"
+      },
+      "receipt_id": "rc_0mwvmdq19jflzjme5f4",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-22",
+       "end": "2026-11-22"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-22",
+        "end": "2026-11-22"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "above",
+         "magnitude": "slight",
+         "statement": "Resting heart rate slightly above usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_9bbf4c774cdfd3d9d61cc0f5"
+      },
+      "receipt_id": "rc_0mwvmdq1aayw49sn5r5",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "resting_hr"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-23",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "resting_hr"
+       ],
+       "window": {
+        "start": "2026-11-23",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "resting_hr",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "Resting heart rate within usual range on 1 of the last 1 day"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_7653ad0a0d510a934f6e345d"
+      },
+      "receipt_id": "rc_0mwvmdq1b89svnkpic6",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-17",
+       "end": "2026-11-17"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-17",
+        "end": "2026-11-17"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "HRV (RMSSD) within usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_cb1803496f139bdc7e5126eb"
+      },
+      "receipt_id": "rc_0mwvmdq1bq2ur3dvb11",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-18",
+       "end": "2026-11-18"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-18",
+        "end": "2026-11-18"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "HRV (RMSSD) within usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_23b76782247aefe004bc6e7b"
+      },
+      "receipt_id": "rc_0mwvmdq1cldo5sprnjo",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-19",
+       "end": "2026-11-19"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-19",
+        "end": "2026-11-19"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "below",
+         "magnitude": "slight",
+         "statement": "HRV (RMSSD) slightly below usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_5f861e1b63a48bbe4b0141ae"
+      },
+      "receipt_id": "rc_0mwvmdq1cqsopnhh0qk",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-20",
+       "end": "2026-11-20"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-20",
+        "end": "2026-11-20"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "above",
+         "magnitude": "moderate",
+         "statement": "HRV (RMSSD) moderately above usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_13714febc3f3e30d5aaa72ec"
+      },
+      "receipt_id": "rc_0mwvmdq1dx6halb2xhq",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-21",
+       "end": "2026-11-21"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-21",
+        "end": "2026-11-21"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "below",
+         "magnitude": "slight",
+         "statement": "HRV (RMSSD) slightly below usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_da8f8a7d1f01f09e52797306"
+      },
+      "receipt_id": "rc_0mwvmdq1e4d5egjmdbq",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-22",
+       "end": "2026-11-22"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-22",
+        "end": "2026-11-22"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "HRV (RMSSD) within usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_0ca381440963c4955706341f"
+      },
+      "receipt_id": "rc_0mwvmdq1ez6d7e72214",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "hrv_rmssd"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-23",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "hrv_rmssd"
+       ],
+       "window": {
+        "start": "2026-11-23",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "hrv_rmssd",
+         "direction": "below",
+         "magnitude": "slight",
+         "statement": "HRV (RMSSD) slightly below usual range on 1 of the last 1 night"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:3c3721f92006efcd753450e10c05df387d751484192414fc660d6d33e7e7796e",
+       "not_medical_advice": true,
+       "packet_id": "pk_3e5360cf8b64c774b665f96c"
+      },
+      "receipt_id": "rc_0mwvmdq1f666toznoo8",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    }
+   ],
+   "days": [
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-21",
+    "2026-11-22",
+    "2026-11-23"
+   ]
+  },
+  "insurer": {
+   "person": "p1",
+   "trap": "clean",
+   "grant": {
+    "purpose": "general_wellness",
+    "metrics": [
+     "steps"
+    ],
+    "max_level": 1,
+    "max_window_days": 60
+   },
+   "asks": [
+    {
+     "spec": {
+      "metrics": [
+       "weight"
+      ],
+      "operation": "latest",
+      "window": {
+       "start": "2026-11-17",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "denied",
+      "receipt_id": "rc_0mwvmdq3krix9gbsbbr",
+      "reasons": [
+       "metric_not_in_grant:weight"
+      ]
+     }
+    },
+    {
+     "spec": {
+      "metrics": [
+       "steps"
+      ],
+      "operation": "compare_to_baseline",
+      "window": {
+       "start": "2026-11-17",
+       "end": "2026-11-23"
+      },
+      "params": {}
+     },
+     "response": {
+      "status": "ok",
+      "packet": {
+       "packet_version": "1",
+       "level": 1,
+       "operation": "compare_to_baseline",
+       "metrics": [
+        "steps"
+       ],
+       "window": {
+        "start": "2026-11-17",
+        "end": "2026-11-23"
+       },
+       "findings": [
+        {
+         "metric": "steps",
+         "direction": "within",
+         "magnitude": "none",
+         "statement": "Steps within usual range on 4 of the last 7 days"
+        }
+       ],
+       "data_quality": {
+        "freshness_hours": 7,
+        "coverage": 1,
+        "sources": [
+         "apple_health"
+        ],
+        "baseline_days": 28,
+        "caveats": []
+       },
+       "as_of": "2026-11-24T15:00:00.000Z",
+       "data_version": "sha256:431da7421712f5d4df785968302912de3b9d78dcb1eb6920c59268cf3729a0eb",
+       "not_medical_advice": true,
+       "packet_id": "pk_4051a829de33727a29356e4c"
+      },
+      "receipt_id": "rc_0mwvmdq4aqa0yybyzqm",
+      "reasons": [
+       "level:1"
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

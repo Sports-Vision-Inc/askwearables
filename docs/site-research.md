@@ -170,3 +170,51 @@ Source: https://developers.cloudflare.com/workers/platform/deploy-buttons/ (date
 3. **Use proof we can verify, not vanity stats.** Show trust badges (read-only, grant-scoped, revocable, receipts) that each link to the threat model, a "computed in tested code" claim with the test count, and a provider grid naming today's real sources. Open Wearables' repo and license line beside the CTA is the model.
 4. **Make benchmark results reproducible.** Stamp each table with version, date, and commit (as BFCL does), define each metric with its direction (as Artificial Analysis does), plot accuracy vs latency or cost with a Pareto tag (as Arena does), link the raw outputs, and state caveats and non-comparability (as SWE-bench does).
 5. **Be honest about self-hosting.** Cloudflare's button deploys one isolated Worker from a public GitHub or GitLab repo, and it does not document service bindings, routes, crons, or rate limits. Do not promise "one-click deploy" for the 7-Worker broker. Offer a documented `npm run deploy` quickstart, which needs MASTER_KEY, GATE_SECRET, and OWNER_SETUP_TOKEN. Consider a button only for the static site or a future single-Worker template.
+
+---
+
+## v3: Motion and storytelling (fetched 2026-11-24)
+
+Method: I fetched each page's text with WebFetch, then used curl on the raw HTML to check redirects and look for motion markers (`<video>`, `loop`, `Pause`, `prefers-reduced-motion`). Text extraction does not show visuals, so anything visual I could not confirm is marked **[unverified]**. Only patterns are borrowed. No logos, product images or other assets are used. https://www.whoop.com returned 403. https://www.garmin.com/en-US/ returned only navigation text, so neither is included.
+
+### Linear: https://linear.app (200, no redirect)
+- The hero shows real product UI, not an illustration: an issue with an activity feed, a properties panel, an agent note and a draft PR.
+- Motion: inline CSS runs dot-grid "agent working" loops with `steps(1,end)` on 1.6–3.2 s cycles. The loops are stepped rather than eased. Whether they are scroll-triggered is **[unverified]**.
+- Story: numbered figures (Fig 0.1–0.3) follow the workflow in order (Intake, Plan, AI, Build/Review/Ship), and each step has its own mockup.
+
+### Vercel: https://vercel.com (200)
+- The first CTA leads to a terminal code block. "How it works" is three numbered steps. The HTML has no `<video>`.
+- Customer proof is one line with one metric each. The page ends with an FAQ, "Questions teams ask before they start".
+
+### Stripe: https://stripe.com (200)
+- A bento grid of small, live-looking product UI panels (a usage meter, risk scores, card issuing). The logo row is duplicated in the markup, which suggests a marquee **[unverified]**.
+- Customer cards lead with a metric and link to the full story. Mobile uses separate `-mobile` image assets.
+
+### Raycast: https://www.raycast.com (200)
+- Auto-advance timing is driven by CSS variables (`--animation-duration:5s; --animation-play-state:paused`) and starts paused.
+- The AI demo shows its steps in order ("Fetching assigned tasks", "Fetching issue details", "Create Things task") and ends with a result.
+- Testimonials have structured fields (Favorite Feature, Top Extension), plus tabs by role.
+
+### Oura: https://ouraring.com (200)
+- Use cases are a six-slide slider by situation (Sleep, Heart Health, Stress, and so on), each with a one-line outcome. Metrics appear on app screens, not on the device.
+- Oura's own accessibility statement, embedded in the page JSON, admits a mobile motion section "does not have a mechanism to pause, stop, or hide the motion (2.2.2)". That is a pattern to avoid.
+
+### Apple Watch: https://www.apple.com/apple-watch-series-11/ redirects to https://www.apple.com/watch/. Also fetched https://www.apple.com/apple-watch-series-12/ (200).
+- The hero video is `<video muted playsinline loop>` with a play/pause button. Each video has start, end and static fallback frames, and starts when scrolled into view.
+- Metrics are shown as close-ups of the watch face (a heart-rate complication, a sleep ring), with a big stat beside each one. Scenarios are one or two sentences about a moment. Privacy gets its own section.
+
+### Takeaways, and where each one is applied
+1. **Show the data on the device first** (Apple). Applied: the hero stage is an original, generic watch whose face shows the current example's metric, counting up to the study's ground-truth value.
+2. **Run a short stepped sequence, not one long tween** (Raycast, Vercel). Applied: a four-dot rail (Device, Planner, Gate, Packet) under the watch, with one caption per step in an `aria-live` region. The full five-stage pipeline moved to How it works, where technical readers look.
+3. **Lead with outcomes a non-expert gets in one glance** (Stripe, Vercel). Applied: the hero story card shows the question as a chat bubble, then the true answer, then A, B and C side by side, each with a big answer, a ✓ or ✗ and one plain sentence on why.
+4. **Give every looping element a visible pause, and pause it off-screen** (Apple has this, Oura admits it lacks it). Applied: one Pause button controls the story, the rail and the floating devices. Motion also stops when the hero is off-screen or the tab is hidden, and holds while the pointer or focus is inside.
+5. **Make reduced motion a static final frame** (Apple's fallback frames). Applied: no autoplay, the rail shows its end state, the numbers appear without counting up, and the cards appear without rising.
+6. **Lead scenarios with the moment, not the sensor** (Oura, Apple), **in a fixed field order** (Raycast). Applied: "What people ask" cards each show the person's question, the agent and its grant, the conversation, the released packet (operation, level, finding, receipt) and "why it is safe".
+7. **Don't use carousels on mobile** (Stripe and Oura hide content in them). Applied: the scenario cards and the A/B/C comparison stack. On phones each comparison row lists A, B and C under its heading, so the comparison still reads in one place.
+8. **Give privacy its own beat** (Apple). Applied: a dedicated privacy-leak chart. It shows "measuring" until results.json carries `privacy_detector: "corrected"`.
+
+### v4 changes (owner feedback after the first deploy)
+- The four "What people ask" requests are now the hero, directly under a short headline. Each card shows chips for the signals it touched and its release level.
+- The device view always shows real data from one well-synced synthetic person (p1, clean). It shows steps, sleep with stages, resting HR, HRV and workouts, each with a 7-day series and the engine's "vs your usual" bucket. The stale and missing-data people stay in the story cards, where "unknown" is the point. Signals the cohort does not record (SpO2, respiratory rate, temperature deviation) get a neutral "no data" chip. No dash placeholders.
+- The face cycles through screens (activity arcs, sleep stages, resting-HR and HRV sparklines, workout bars), with a pause button and a static face under reduced motion. Each screen lights the request cards that used its signals.
+- The A/B/C story card and the three-ways comparison move below the hero. Third-party credits move from the footer to /credits.

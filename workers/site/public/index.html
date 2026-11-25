@@ -6,15 +6,25 @@
 <title>AskWearables</title>
 <meta name="description" content="A broker between wearable data and AI agents. Each question gets a small computed packet at the level the user approved, with a receipt for every release.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="/style.css">
 <script src="/js/data.js" defer></script>
+<script src="/js/compare.js" defer></script>
 <script src="/js/results.js" defer></script>
 <script src="/js/home.js" defer></script>
+<script src="/js/usecases.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="inner">
-  <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle class="ring" cx="12" cy="12" r="9"/><circle class="dot" cx="12" cy="12" r="3.5"/></svg>AskWearables</a>
+  <div class="lockup">
+    <a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect class="bm-tile" width="32" height="32" rx="8"/><path class="bm-glyph" d="M5.9 23.5 10.5 8.5l4.6 15 3.2-10.5 3.2 10.5 4.6-15" stroke-width="2.8" stroke-linejoin="bevel"/><path class="bm-glyph" d="M7.4 18.6h6.3" stroke-width="2.4"/></svg><span class="brand-name">AskWearables</span></a>
+    <a class="parent" href="https://www.sportsvision.ai"><span class="parent-by">by</span><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="70" height="15"></picture></a>
+  </div>
   <nav class="site-nav" aria-label="Main">
     <a href="/docs/">Docs</a>
     <a href="/docs/quickstart">Quickstart</a>
@@ -27,78 +37,210 @@
 <main id="main">
   <section class="hero-band">
     <div class="wrap">
+      <div class="hero-top">
       <div class="hero-copy">
-        <p class="eyebrow"><img class="emoji" src="/assets/emoji/twemoji/231a.svg" alt="" width="18" height="18"> Wearable data for AI agents</p>
+        <p class="eyebrow"><span class="ico ico-watch" aria-hidden="true"></span> Wearable data for AI agents</p>
         <h1>Agents get the answer, not your whole health record.</h1>
-        <p class="lede">AskWearables sits between wearable data and any AI agent. A planner turns each question into a typed query, a gate checks it against the grant you approved, tested code computes the answer, and the agent gets a small packet with a receipt.</p>
+        <p class="lede">AskWearables sits between wearable data and any AI agent. Each request gets a small computed answer within the grant you approved, with a receipt. Below: four real requests and what each agent got back.</p>
         <div class="actions">
           <a class="btn primary" href="/docs/quickstart">Developer quickstart</a>
-          <a class="btn" href="#connect">Connect over MCP</a>
+          <a class="btn" href="#story-h">One question, three ways</a>
           <a class="btn" href="/results">Study results</a>
         </div>
       </div>
 
-      <figure class="walk" id="walk" aria-labelledby="walk-title">
-        <div class="walk-top">
-          <figcaption class="walk-title" id="walk-title">Real runs from the study: one question, three routes</figcaption>
-          <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
-        </div>
-        <div class="walk-tabs" id="walk-tabs" role="tablist" aria-label="Examples"></div>
-        <div class="walk-progress" aria-hidden="true"><span id="walk-progress"></span></div>
-        <div class="walk-panel" id="walk-panel" role="tabpanel" tabindex="0">
-          <p class="walk-why" id="walk-why"></p>
-          <div class="walk-body">
-            <ol class="walk-steps" aria-label="Through AskWearables">
-              <li class="ws" data-step="ask">
-                <span class="ws-dot" aria-hidden="true"><span class="ico ico-bot"></span></span>
-                <div class="ws-main">
-                  <p class="ws-label">The agent asks <span class="ws-sub" data-f="model"></span></p>
-                  <p class="ws-bubble" data-f="ask"></p>
-                </div>
-              </li>
-              <li class="ws" data-step="plan">
-                <span class="ws-dot" aria-hidden="true"><span class="ico ico-brain"></span></span>
-                <div class="ws-main">
-                  <p class="ws-label">The LLM planner writes a typed QuerySpec <span class="ws-sub">sees the question, never data</span></p>
-                  <pre class="ws-spec" data-f="spec"></pre>
-                </div>
-              </li>
-              <li class="ws" data-step="gate">
-                <span class="ws-dot" aria-hidden="true"><span class="ico ico-shield-check"></span></span>
-                <div class="ws-main">
-                  <p class="ws-label">The policy gate checks the grant <span class="ws-sub">plain code, deny by default</span></p>
-                  <ul class="ws-checks" data-f="checks"></ul>
-                </div>
-              </li>
-              <li class="ws" data-step="vault">
-                <span class="ws-dot" aria-hidden="true"><span class="ico ico-cpu"></span></span>
-                <div class="ws-main">
-                  <p class="ws-label">The vault computes <span class="ws-sub">fixed operations, the user's local days</span></p>
-                  <div class="ws-vault" data-f="vault"></div>
-                </div>
-              </li>
-              <li class="ws" data-step="packet">
-                <span class="ws-dot" aria-hidden="true"><span class="ico ico-receipt"></span></span>
-                <div class="ws-main">
-                  <p class="ws-label">The agent receives a packet</p>
-                  <div class="ws-packet" data-f="packet"></div>
-                </div>
-              </li>
-            </ol>
-            <aside class="walk-compare" aria-label="The same question in all three conditions">
-              <p class="wc-truth"><span class="wc-truth-label">True answer</span> <strong data-f="truth"></strong></p>
-              <div class="wc-cards" data-f="cards"></div>
-            </aside>
+      <div class="stage" id="stage" aria-labelledby="stage-cap">
+        <div class="stage-devices" aria-hidden="true">
+          <img class="dev dev-ring" src="/assets/wearables/ring.svg" alt="" width="220" height="200">
+          <img class="dev dev-band" src="/assets/wearables/band.svg" alt="" width="300" height="140">
+          <div class="dev dev-watch">
+            <img src="/assets/wearables/watch-square.svg" alt="" width="200" height="300">
+            <div class="face" id="face"></div>
           </div>
         </div>
-        <p class="walk-loading" id="walk-loading">Loading examples from the study…</p>
-        <noscript><p class="walk-loading">The walkthrough needs JavaScript. <a href="/results#examples">Browse the examples</a> on the results page.</p></noscript>
-      </figure>
+        <div class="signals" id="signals" role="tablist" aria-label="Signals on the device"></div>
+        <p class="wears" data-f="legend"></p>
+        <div class="rail">
+          <ol class="rail-nodes" aria-label="Where the data goes">
+            <li class="rail-node" data-node="ask"><span class="rail-dot"></span><span class="rail-name">Device</span></li>
+            <li class="rail-node" data-node="plan"><span class="rail-dot"></span><span class="rail-name">Planner</span></li>
+            <li class="rail-node" data-node="gate"><span class="rail-dot"></span><span class="rail-name">Gate</span></li>
+            <li class="rail-node" data-node="packet"><span class="rail-dot"></span><span class="rail-name">Packet</span></li>
+          </ol>
+          <div class="rail-track" aria-hidden="true"><span class="rail-line"></span><span class="rail-fill"></span><span class="rail-run"><span class="rail-token"></span></span></div>
+        </div>
+        <p class="stage-cap" id="stage-cap" aria-live="polite" data-f="cap">The device records. The agent only ever sees the packet.</p>
+        <button class="stage-toggle" id="stage-toggle" type="button" aria-pressed="false" hidden><span class="ico ico-pause" aria-hidden="true"></span><span>Pause</span></button>
+      </div>
+      </div>
+
+      <section class="usecases hero-uc" id="usecases" aria-labelledby="ask-title">
+        <div class="uc-intro">
+          <h2 id="ask-title">What people ask, and exactly what each agent got back</h2>
+          <p>Four real requests. Every packet was computed by the AskWearables engine for a synthetic person in the study cohort, under the grant shown.</p>
+        </div>
+    <div class="uc-grid" id="uc-grid">
+
+      <article class="uc" data-uc="meeting" aria-labelledby="uc-meeting-q">
+        <header class="uc-head">
+          <img class="uc-dev" src="/assets/wearables/ring.svg" alt="" width="220" height="200">
+          <div>
+            <p class="uc-agent">Calendar assistant <span class="uc-grant" data-f="grant"></span></p>
+            <p class="uc-chips" data-f="chips"></p>
+            <h3 class="uc-q" id="uc-meeting-q">“Is a 6 am meeting tomorrow a good idea?”</h3>
+          </div>
+        </header>
+        <div class="uc-chat">
+          <p class="msg msg-user">Someone wants a 6 am call tomorrow. Is that a good idea?</p>
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> How has my sleep compared with my usual over the last few nights?</p>
+          <div class="uc-packets" data-f="packets"></div>
+          <p class="msg msg-agent">Your sleep has run well below your usual range lately. I would offer a later slot instead and keep the early one free.</p>
+        </div>
+        <p class="uc-safe"><span class="ico ico-shield-check" aria-hidden="true"></span><span><strong>Why it is safe.</strong> A scheduling grant tops out at level one, so the calendar app learns a direction and a size against the person's own range. No minutes, no bedtimes and no other metric reach it.</span></p>
+      </article>
+
+      <article class="uc" data-uc="video" aria-labelledby="uc-video-q">
+        <header class="uc-head">
+          <img class="uc-dev" src="/assets/wearables/watch-round.svg" alt="" width="200" height="300">
+          <div>
+            <p class="uc-agent">Sports video coaching agent <span class="uc-grant" data-f="grant"></span></p>
+            <p class="uc-chips" data-f="chips"></p>
+            <h3 class="uc-q" id="uc-video-q">“How did my training video session compare with my recovery trend?”</h3>
+          </div>
+        </header>
+        <div class="uc-chat">
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> What is my HRV trend over the last four weeks?</p>
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> Was my resting heart rate in my usual range around the session?</p>
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> Has my training volume changed from the week before?</p>
+          <div class="uc-packets" data-f="packets"></div>
+          <div class="uc-merge">
+            <p class="merge-side"><span class="merge-label">From its own video analysis</span>Form held through the early sets and drifted late in the session. The coaching agent already has this; it never asks the broker for it.</p>
+            <p class="merge-side merge-aw"><span class="merge-label">From AskWearables</span><span data-f="merge"></span></p>
+          </div>
+          <p class="msg msg-agent">Your form slipped late in the session while your recovery trend has been falling. Keep the next session lighter and we will compare the footage again.</p>
+        </div>
+        <p class="uc-safe"><span class="ico ico-shield-check" aria-hidden="true"></span><span><strong>Why it is safe.</strong> The broker supplies only the wearable side, at the lowest level that answers. The video stays with the coaching app, and the grant names HRV, resting heart rate and workouts, nothing else.</span></p>
+      </article>
+
+      <article class="uc" data-uc="stress" aria-labelledby="uc-stress-q">
+        <header class="uc-head">
+          <img class="uc-dev" src="/assets/wearables/band.svg" alt="" width="300" height="140">
+          <div>
+            <p class="uc-agent">Wellness journal agent <span class="uc-grant" data-f="grant"></span></p>
+            <p class="uc-chips" data-f="chips"></p>
+            <h3 class="uc-q" id="uc-stress-q">“Where are my stress points this week?”</h3>
+          </div>
+        </header>
+        <div class="uc-chat">
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> For each day this week, was my resting heart rate, and my HRV, inside my usual range?</p>
+          <div class="week" data-f="week" role="img" aria-label="Each day of the week against the person's usual range"></div>
+          <p class="week-legend"><span class="wk-key wk-above"></span>above usual <span class="wk-key wk-below"></span>below usual <span class="wk-key wk-within"></span>within <span class="wk-key wk-unknown"></span>no baseline</p>
+          <p class="msg msg-agent" data-f="summary"></p>
+        </div>
+        <p class="uc-note"><span class="ico ico-file-text" aria-hidden="true"></span><span><strong>Honest about the gap.</strong> There is no stress metric in the catalogue yet. These are wellness signals against the person's own baseline, worded as such, not a measure of stress.</span></p>
+        <p class="uc-safe"><span class="ico ico-shield-check" aria-hidden="true"></span><span><strong>Why it is safe.</strong> Every day is its own level-one packet: above, below or within, never a heart rate value. Each one is metered and on the receipt log.</span></p>
+      </article>
+
+      <article class="uc uc-deny" data-uc="insurer" aria-labelledby="uc-insurer-q">
+        <header class="uc-head">
+          <img class="uc-dev" src="/assets/wearables/watch-square.svg" alt="" width="200" height="300">
+          <div>
+            <p class="uc-agent">Insurance rewards app <span class="uc-grant" data-f="grant"></span></p>
+            <p class="uc-chips" data-f="chips"></p>
+            <h3 class="uc-q" id="uc-insurer-q">“What does this person weigh?”</h3>
+          </div>
+        </header>
+        <div class="uc-chat">
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> What is the user's latest weight?</p>
+          <p class="msg msg-tool"><span class="msg-tag">ask</span> Has the user been as active as usual this week?</p>
+          <div class="uc-packets" data-f="packets"></div>
+          <p class="msg msg-agent">The person shared their activity with us, not their weight, so we can only reward steps.</p>
+        </div>
+        <p class="uc-safe"><span class="ico ico-shield-check" aria-hidden="true"></span><span><strong>Why it is safe.</strong> Weight is in the person's store, but not in this grant, so the gate refused before any data was read. The refusal is written to the receipt log like a release.</span></p>
+      </article>
+
+    </div>
+    <noscript><p class="note">The scenario packets need JavaScript. They are at <a href="/data/usecases.json">/data/usecases.json</a>.</p></noscript>
+        <p class="fine">Built by <code>scripts/build-usecases.ts</code> from the study's synthetic people. Wellness information only; not medical advice.</p>
+  </section>
       <p class="fine hero-fine">Synthetic people, real model runs. For general wellness and personal insight only; not medical advice.</p>
     </div>
   </section>
 
   <div class="wrap">
+  <section class="block story-sec" aria-labelledby="story-h">
+    <p class="eyebrow">One question, three ways</p>
+    <h2 id="story-h">Ask an everyday question. See who gets it right.</h2>
+    <figure class="story" id="story" aria-labelledby="story-title">
+        <div class="story-top">
+          <figcaption class="story-title" id="story-title">Real runs from the study: one everyday question, three ways to answer it</figcaption>
+          <button class="story-toggle" id="story-toggle" type="button" aria-pressed="false" hidden><span class="ico ico-pause" aria-hidden="true"></span><span>Pause</span></button>
+        </div>
+        <div class="story-tabs" id="story-tabs" role="tablist" aria-label="Questions"></div>
+        <div class="story-progress" aria-hidden="true"><span id="story-progress"></span></div>
+        <div class="story-panel" id="story-panel" role="tabpanel" tabindex="0">
+          <div class="story-ask">
+            <p class="bubble" data-f="q"></p>
+            <p class="story-meta" data-f="meta"></p>
+          </div>
+          <p class="story-truth"><span class="story-truth-label">True answer</span> <strong data-f="truth"></strong> <span class="story-truth-note">known by construction</span></p>
+          <div class="story-cards" data-f="cards"></div>
+        </div>
+        <p class="story-loading" id="story-loading">Loading examples from the study…</p>
+        <noscript><p class="story-loading">The examples need JavaScript. <a href="/results#examples">Browse them</a> on the results page.</p></noscript>
+      </figure>
+  </section>
+
+  <section class="block compare" id="compare" aria-labelledby="compare-title">
+    <p class="eyebrow">The comparison</p>
+    <h2 id="compare-title">Three ways to give an agent your wearable data</h2>
+    <p>The same agent models answered the same questions about synthetic people with known answers, each way. Every figure below is read from the study's results file.</p>
+    <div class="cmp-bar"><button class="toggle" id="cmp-toggle" type="button" aria-pressed="false" hidden>Table</button></div>
+    <div class="cmp" id="cmp" role="table" aria-label="Three ways compared">
+      <div class="cmp-corner" role="columnheader"><span class="sr">Measure</span></div>
+      <div class="cmp-col cmp-a" role="columnheader">
+        <p class="cmp-key"><span class="cmp-ico"><span class="ico ico-file-text" aria-hidden="true"></span></span><span class="cmp-letter">A</span></p>
+        <p class="cmp-name">Paste the whole export</p>
+        <p class="cmp-desc">The agent reads every row from every device.</p>
+      </div>
+      <div class="cmp-col cmp-b" role="columnheader">
+        <p class="cmp-key"><span class="cmp-ico"><span class="ico ico-database" aria-hidden="true"></span></span><span class="cmp-letter">B</span></p>
+        <p class="cmp-name">Give it open data tools</p>
+        <p class="cmp-desc">The agent can fetch any metric, any date range, titles and notes.</p>
+      </div>
+      <div class="cmp-col cmp-c" role="columnheader">
+        <p class="cmp-key"><span class="cmp-ico"><span class="ico ico-shield-check" aria-hidden="true"></span></span><span class="cmp-letter">C</span></p>
+        <p class="cmp-name">AskWearables</p>
+        <p class="cmp-desc">The agent asks a question and gets a small computed answer within your grant.</p>
+      </div>
+      <p class="loading">Loading results…</p>
+    </div>
+    <div class="cmp-table" id="cmp-table" hidden></div>
+    <noscript><p class="note">The comparison needs JavaScript. The underlying data is at <a href="/data/results.json">/data/results.json</a>.</p></noscript>
+    <p class="cmp-takeaway" id="cmp-takeaway" aria-live="polite"></p>
+    <div class="actions"><a class="btn primary" href="/results">See per-model results</a><a class="btn" href="/results#methodology">How we measured</a></div>
+    <div class="chart-card" data-chart="accuracy-cost" id="cost-chart">
+      <h3 class="chart-title" id="cost-title">Accuracy against what one correct answer cost</h3>
+      <div class="chart-head">
+        <label class="ctl">Models <select data-ctl="group">
+          <option value="all">All models</option>
+          <option value="open">Open models</option>
+          <option value="frontier">Frontier models</option>
+        </select></label>
+        <button class="toggle" type="button" aria-pressed="false" hidden>Table</button>
+      </div>
+      <p class="chart-sub">Each model in each condition: accuracy against what one correct answer cost. A thin line joins a model's A point to its C point.</p>
+      <div class="chart-body"><p class="loading">Loading results…</p></div>
+      <p class="chart-link"><a href="/results#accuracy-cost">Every model, with intervals and the table</a></p>
+    </div>
+    <div class="chart-card" id="leak-chart">
+      <h3 class="chart-title" id="leak-title">How often each route leaked what it was not allowed to share</h3>
+      <div class="chart-head"><span class="chart-sub">Privacy suite, pooled over models and scenarios, with 95% intervals. Lower is better.</span><button class="toggle" id="leak-toggle" type="button" aria-pressed="false" hidden>Table</button></div>
+      <div class="chart-body" id="leak-body"><p class="loading">Loading results…</p></div>
+      <p class="chart-link"><a href="/results#privacy">Full privacy results</a></p>
+    </div>
+  </section>
+
   <section class="block" aria-labelledby="problem">
     <p class="eyebrow">The problem</p>
     <h2 id="problem">Today an agent either reads the raw export or calls a tool that can fetch anything.</h2>
@@ -199,33 +341,61 @@
         <li><span class="who"><span class="ico ico-receipt" aria-hidden="true"></span>The agent receives a packet</span> at the coarsest level that answers the question: findings against the user's own baseline, caveats, freshness and sources, plus a receipt.</li>
       </ol>
     </div>
+    <p>Watch one request go through, from a real run in the study:</p>
+    <figure class="walk" id="walk" aria-labelledby="walk-title">
+        <div class="walk-top">
+          <figcaption class="walk-title" id="walk-title">Inside one request: what each stage did, from runs in the study</figcaption>
+          <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
+        </div>
+        <div class="walk-tabs" id="walk-tabs" role="tablist" aria-label="Examples"></div>
+        <div class="walk-progress" aria-hidden="true"><span id="walk-progress"></span></div>
+        <div class="walk-panel" id="walk-panel" role="tabpanel" tabindex="0">
+          <p class="walk-why" id="walk-why"></p>
+          <div class="walk-body">
+            <ol class="walk-steps" aria-label="Through AskWearables">
+              <li class="ws" data-step="ask">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-bot"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The agent asks <span class="ws-sub" data-f="model"></span></p>
+                  <p class="ws-bubble" data-f="ask"></p>
+                </div>
+              </li>
+              <li class="ws" data-step="plan">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-brain"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The LLM planner writes a typed QuerySpec <span class="ws-sub">sees the question, never data</span></p>
+                  <pre class="ws-spec" data-f="spec"></pre>
+                </div>
+              </li>
+              <li class="ws" data-step="gate">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-shield-check"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The policy gate checks the grant <span class="ws-sub">plain code, deny by default</span></p>
+                  <ul class="ws-checks" data-f="checks"></ul>
+                </div>
+              </li>
+              <li class="ws" data-step="vault">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-cpu"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The vault computes <span class="ws-sub">fixed operations, the user's local days</span></p>
+                  <div class="ws-vault" data-f="vault"></div>
+                </div>
+              </li>
+              <li class="ws" data-step="packet">
+                <span class="ws-dot" aria-hidden="true"><span class="ico ico-receipt"></span></span>
+                <div class="ws-main">
+                  <p class="ws-label">The agent receives a packet</p>
+                  <div class="ws-packet" data-f="packet"></div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <p class="walk-loading" id="walk-loading">Loading examples from the study…</p>
+        <noscript><p class="walk-loading">The walkthrough needs JavaScript. <a href="/results#examples">Browse the examples</a> on the results page.</p></noscript>
+      </figure>
   </section>
 
-  <section class="block" aria-labelledby="proof">
-    <p class="eyebrow">Proof</p>
-    <h2 id="proof">Same models, same questions, three ways to reach the data</h2>
-    <p>We gave each agent model the same synthetic people, with ground truth recorded by construction and real-world data traps, in three conditions: <span class="key"><span class="sw sw-a"></span>A: raw data in the model's context</span>, <span class="key"><span class="sw sw-b"></span>B: open data tools</span> and <span class="key"><span class="sw sw-c"></span>C: AskWearables</span>. Every model we ran is shown, including the ones where AskWearables made no difference.</p>
-    <div class="tiles" id="proof-tiles" aria-live="polite"></div>
-<div class="chart-card" data-chart="accuracy-cost" id="cost-chart">
-      <div class="chart-head">
-        <label class="ctl">Models <select data-ctl="group">
-          <option value="all">All models</option>
-          <option value="open">Open models</option>
-          <option value="frontier">Frontier models</option>
-        </select></label>
-        <button class="toggle" type="button" aria-pressed="false" hidden>Table</button>
-      </div>
-      <p class="chart-sub">Each model in each condition: accuracy against what one correct answer cost. A thin line joins a model's A point to its C point.</p>
-      <div class="chart-body"><p class="loading">Loading results…</p></div>
-    </div>
-    <div class="chart-card" id="proof-chart" data-chart="accuracy-compact">
-      <div class="chart-head"><h3>Accuracy by model</h3><button class="toggle" type="button" aria-pressed="false" hidden>Table</button></div>
-      <p class="chart-sub">Share of questions answered correctly, with 95% intervals.</p>
-      <div class="chart-body"><p class="loading">Loading results…</p></div>
-    </div>
-    <noscript><p class="note">The charts need JavaScript. The underlying data is at <a href="/data/results.json">/data/results.json</a>.</p></noscript>
-    <div class="actions"><a class="btn primary" href="/results">Open the results explorer</a><a class="btn" href="/results#methodology">How we measured</a></div>
-  </section>
 
   <section class="block" aria-labelledby="levels">
     <p class="eyebrow">Minimum necessary</p>
@@ -393,16 +563,19 @@ const res = await aw.ask("How did I sleep this week?");</code></pre>
 </main>
 
 <footer class="site-footer"><div class="inner">
+  <div class="foot-brand">
+    <a class="foot-parent" href="https://www.sportsvision.ai"><picture class="sv-logo"><source srcset="/assets/brand/sportsvision-logo-white.png" media="(prefers-color-scheme: dark)"><img src="/assets/brand/sportsvision-logo-black.png" alt="SportsVision" width="112" height="24"></picture></a>
+    <p class="foot-line">AskWearables is a SportsVision product.</p>
+    <p class="foot-legal"><span>© 2026 Sports Vision, Inc.</span> <a href="/terms">Terms of service</a> <a href="/privacy">Privacy policy</a> <a href="/privacy#consumer-health-data">Consumer health data</a> <a href="/credits">Open-source credits</a> <a href="https://www.sportsvision.ai">sportsvision.ai</a></p>
+  </div>
   <div class="foot-text">
     <span>AskWearables. Wellness information only; not medical advice.</span>
-    <span class="attrib">Icons: <a href="https://lucide.dev/">Lucide</a> (<a href="/assets/icons/lucide/LICENSE.txt">ISC</a>). Emoji: <a href="https://github.com/jdecked/twemoji">Twemoji</a> by Twitter, Inc and contributors (<a href="/assets/emoji/twemoji/LICENSE.txt">CC-BY 4.0</a>). Both self-hosted.</span>
   </div>
   <nav aria-label="Footer">
     <a href="/docs/">Docs</a>
     <a href="/results">Results</a>
     <a href="/docs/api">API reference</a>
     <a href="/openapi.json">OpenAPI</a>
-    <a href="/privacy">Privacy policy</a>
   </nav>
 </div></footer>
 </body>
