@@ -21,7 +21,14 @@ def load(paths):
         if 'accept' in r and 'ANSWER' not in (r.get('final') or '').upper():
             r['answer']=None; r['correct']=r['correct_phia']=r['correct_as_worded']=False; r['noanswerline']=True
     return ok
-full=load([R+'eval/data/results/phia-frontier.full.jsonl',R+'eval/data/results/phia-open.full.jsonl'])
+V2=os.environ.get('EVAL_PHIA_V2')=='1'
+if V2:
+    # Second iteration: rows of the fresh sample, from the shared file (first pass) and the v2 directory.
+    v2ids={'phia'+i['id'].replace(':','_') for i in json.load(open(R+'eval/paper/benchmarks/phia_sample_v2.json'))['items']}
+    full=[r for r in load([R+'eval/data/results/phia-open.full.jsonl']+sorted(glob.glob(R+'eval/data/results/v2/phia-*.full.jsonl'))) if r['task'] in v2ids]
+else:
+    full=load([R+'eval/data/results/phia-frontier.full.jsonl',R+'eval/data/results/phia-open.full.jsonl'])
+    full=[r for r in full if r['task'] in {'phia'+i['id'].replace(':','_') for i in json.load(open(R+'eval/paper/benchmarks/phia_sample.json'))['items']}]
 com=load(sorted(glob.glob(R+'eval/paper/results/final/phia-*.jsonl')))
 mapping={e['id']:e for e in json.load(open(R+'eval/phia/mapping.json'))['entries']}
 import csv
@@ -34,7 +41,7 @@ MODELS=["llama-3.3-70b","llama-4-scout","mistral-small-3.1","gemma-4-26b","gpt-o
 full=[r for r in full if r['model'] in MODELS]
 tid=lambda t: t[4:].replace('_',':')
 sample={i['id']:i for i in json.load(open(R+'eval/paper/benchmarks/phia_sample.json'))['items']}
-dry={json.loads(l)['id']:json.loads(l) for l in open(R+'eval/data/benchmarks/benchdry_phia_llm.jsonl')}
+dry={json.loads(l)['id']:json.loads(l) for l in open(R+('eval/data/benchmarks/phia_labels_v2.jsonl' if V2 else 'eval/data/benchmarks/benchdry_phia_llm.jsonl'))}
 drynone={json.loads(l)['id']:json.loads(l) for l in open(R+'eval/data/benchmarks/benchdry_phia_none.jsonl')}
 import math
 def sig2(x):
@@ -70,7 +77,12 @@ def classify(r):
     return 'numeric_packet_wrong_value'
 DATEQ=re.compile(r"\b(on (what|which) (day|date)|what date|which date|when (was|did)|all (available|my)|history|ever|recorded in my data|across all|over all)\b",re.I)
 def mainvals(p):
-    return [f['value'] for f in p['findings'] if 'value' in f]
+    # A level-1 threshold count carries its count in the statement ("... on 3 of 7 nights").
+    out=[f['value'] for f in p['findings'] if 'value' in f]
+    for f in p['findings']:
+        m=re.search(r' on (\d+) of \d+ ', f.get('statement',''))
+        if 'value' not in f and m: out.append(int(m.group(1)))
+    return out
 def classify2(r):
     d=dry[r['task']]; lab=d['phia']['label']; aw=d['phia']['as_worded']
     if r['correct_phia']: return 'correct'
