@@ -48,8 +48,8 @@ describe("wrangler.jsonc", () => {
 });
 
 describe("package.json and .dev.vars.example", () => {
-  it("applies D1 migrations by binding name, then deploys", () => {
-    expect(pkg.scripts.deploy).toBe("wrangler d1 migrations apply DB --remote && wrangler deploy");
+  it("deploys (which provisions D1), then applies D1 migrations by binding name", () => {
+    expect(pkg.scripts.deploy).toBe("wrangler deploy && wrangler d1 migrations apply DB --remote");
     // No "build" script: the button would pre-fill it, and public/app.js is committed already built.
     expect(pkg.scripts.build).toBeUndefined();
   });

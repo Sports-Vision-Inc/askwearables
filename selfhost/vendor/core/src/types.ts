@@ -266,6 +266,8 @@ export interface AskResponse {
   receipt_id?: string;
   reasons?: string[];
   supported?: string[];
+  /** On a denial: a related metric the grant does allow, in words. */
+  hint?: string;
 }
 
 export interface Receipt {

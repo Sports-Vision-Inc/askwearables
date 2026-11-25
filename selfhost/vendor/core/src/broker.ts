@@ -1,5 +1,6 @@
 // The release path inside the user's Durable Object: re-check the budget atomically, compute, build the
 // packet at the decided level, count it, and write the receipt. Also a local composition for tests.
+import { CATALOGUE } from "./catalogue.js";
 import { compute } from "./compute.js";
 import { decide, type GateInput } from "./gate.js";
 import { canonicalJson } from "./hash.js";
@@ -38,7 +39,12 @@ async function recordDenialUnlocked(sql: Sql, cipher: Cipher, input: ReleaseInpu
     time: input.now.toISOString(), agent_id: input.agent_id, grant_id: input.grant?.grant_id ?? null, purpose: input.grant?.purpose ?? null,
     decision, level: null, metrics: d.spec?.metrics ?? [], window: d.spec?.window ?? null, spec: d.spec ?? null, packet_hash: null, reasons: d.reasons,
   }, cipher);
-  return { status: decision === "unsupported" ? "unsupported" : "denied", receipt_id: r.receipt_id, reasons: d.reasons };
+  // A denied metric with a related metric inside the grant: say which one the agent can ask about instead.
+  const alts = d.reasons.filter((x) => x.startsWith("granted_alternative:")).map((x) => x.split(":"));
+  const hint = alts.length
+    ? alts.map(([, m, alt]) => `${CATALOGUE[m as MetricId]?.label ?? m} is not in this grant; ${(CATALOGUE[alt as MetricId]?.label ?? alt).toLowerCase()} is. Ask about ${(CATALOGUE[alt as MetricId]?.label ?? alt).toLowerCase()} instead.`).join(" ")
+    : undefined;
+  return { status: decision === "unsupported" ? "unsupported" : "denied", receipt_id: r.receipt_id, reasons: d.reasons, ...(hint ? { hint } : {}) };
 }
 
 // One release at a time per store. Inside a Durable Object, awaiting WebCrypto is not storage I/O, so another
