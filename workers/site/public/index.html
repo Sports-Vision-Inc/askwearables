@@ -345,7 +345,12 @@
     <figure class="walk" id="walk" aria-labelledby="walk-title">
         <div class="walk-top">
           <figcaption class="walk-title" id="walk-title">Inside one request: what each stage did, from runs in the study</figcaption>
-          <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
+          <div class="walk-ctrls">
+            <button class="walk-step" id="walk-prev" type="button" aria-controls="walk-panel">◀ Prev step</button>
+            <span class="walk-count" id="walk-count" aria-live="polite"></span>
+            <button class="walk-step" id="walk-next" type="button" aria-controls="walk-panel">Next step ▶</button>
+            <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
+          </div>
         </div>
         <div class="walk-tabs" id="walk-tabs" role="tablist" aria-label="Examples"></div>
         <div class="walk-progress" aria-hidden="true"><span id="walk-progress"></span></div>

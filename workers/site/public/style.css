@@ -1039,3 +1039,18 @@ html, body { overflow-x: clip; }
 .credit h3 { margin: 0 0 6px; }
 .credit-meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
 @media (max-width: 600px) { .hero-copy .actions { gap: 8px; margin-top: 16px; } .hero-copy .btn { padding: 8px 12px; font-size: 0.88rem; } .hero-copy .lede { font-size: 1.02rem; } .hero-uc { margin-top: 24px; } }
+
+/* Walkthrough step controls */
+.walk-ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:flex-end}
+.walk-step{font:inherit;font-size:max(16px,1rem);padding:6px 12px;border-radius:999px;border:1px solid var(--line,#dfe1e4);background:transparent;color:inherit;cursor:pointer;min-height:36px}
+.walk-step:hover{border-color:currentColor}
+.walk-step:focus-visible{outline:2px solid #1baf7a;outline-offset:2px}
+.walk-count{font-size:.9rem;opacity:.8;min-width:0;overflow-wrap:anywhere}
+@media (max-width:600px){.walk-ctrls{justify-content:flex-start;width:100%}.walk-count{flex-basis:100%;order:-1}}
+
+/* Use-case tiles: masonry columns. Tiles keep their natural height, flow into as many ~360px columns as fit,
+   with even gaps and no dead space. */
+.uc-grid { display: block; columns: 2 360px; column-gap: 18px; }
+.uc-grid > .uc { break-inside: avoid; margin: 0 0 18px; display: flex; width: 100%; box-sizing: border-box; }
+.uc-safe, .uc-note { padding-top: 10px; border-top: 1px solid var(--line); }
+.uc-safe + .uc-note, .uc-note + .uc-safe { border-top: 0; padding-top: 0; }

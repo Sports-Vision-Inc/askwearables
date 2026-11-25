@@ -17,8 +17,10 @@
     steps_total_7d: "Total steps, last 7 days", steps_week_vs_prev: "Steps this week vs last week", steps_yesterday: "Steps yesterday", workouts_14d: "Workouts in the last 14 days",
   };
   // Milliseconds into each example when each stage appears, and the length of one example.
-  const STAGES = [["ask", 0], ["plan", 900], ["gate", 2100], ["vault", 4000], ["packet", 5200], ["compare", 6400]];
-  const CYCLE = 14000;
+  // Each stage stays up long enough to read; the whole request takes about 21 s.
+  const STAGES = [["ask", 0], ["plan", 2600], ["gate", 5600], ["vault", 9000], ["packet", 12000], ["compare", 15000]];
+  const CYCLE = 21000;
+  const STAGE_LABEL = { ask: "The agent asks", plan: "The planner writes a typed query", gate: "The gate checks the grant", vault: "The vault computes", packet: "The agent receives a packet", compare: "Compare with raw export and open tools" };
 
   let NAMES = FALLBACK_NAMES;
   const cname = (c) => NAMES[c] || c;
@@ -258,6 +260,8 @@
       let n = fired;
       while (n < STAGES.length && elapsed >= STAGES[n][1]) n++;
       if (n !== fired || n === 0) { fired = n; setStage(n); }
+      const cEl = document.getElementById("walk-count");
+      if (cEl) cEl.textContent = `Step ${Math.max(1, fired)} of ${STAGES.length}: ${STAGE_LABEL[STAGES[Math.max(0, fired - 1)][0]]}`;
       progress.style.transform = `scaleX(${Math.min(1, elapsed / CYCLE)})`;
     }
     function kick() {
@@ -274,13 +278,18 @@
     }
     toggle.addEventListener("click", () => setPlaying(!playing));
 
-    // Hold while someone is reading or using the panel; stop drawing when it is off screen or the tab is hidden.
-    const body = panel.querySelector(".walk-body");
-    body.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") { held = true; } });
-    body.addEventListener("pointerleave", () => { held = false; kick(); });
-    panel.addEventListener("focusin", () => { held = true; });
-    panel.addEventListener("focusout", () => { held = false; kick(); });
+    // It never pauses on hover (that looked stuck). It pauses only with the Pause button or the step buttons,
+    // and stops drawing when it is off screen or the tab is hidden.
     document.addEventListener("visibilitychange", kick);
+    const prevB = document.getElementById("walk-prev"), nextB = document.getElementById("walk-next"), countEl = document.getElementById("walk-count");
+    function stepTo(n) {
+      n = Math.max(1, Math.min(STAGES.length, n));
+      setPlaying(false);
+      elapsed = STAGES[n - 1][1] + 1; fired = 0;
+      tick();
+    }
+    if (prevB) prevB.addEventListener("click", () => { if (fired <= 1) { select((cur - 1 + items.length) % items.length, true); setPlaying(false); stepTo(STAGES.length); } else stepTo(fired - 1); });
+    if (nextB) nextB.addEventListener("click", () => { if (fired >= STAGES.length) { select((cur + 1) % items.length, true); setPlaying(false); stepTo(1); } else stepTo(fired + 1); });
     if ("IntersectionObserver" in window) {
       new IntersectionObserver((es) => { onScreen = es[es.length - 1].isIntersecting; kick(); }, { threshold: 0.15 }).observe(root);
     }
@@ -405,11 +414,8 @@
     }
     toggle.addEventListener("click", () => setPlaying(!playing));
     // Hold while someone reads or uses the card; stop when it is off screen or the tab is hidden.
-    panel.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") held = true; });
-    panel.addEventListener("pointerleave", () => { held = false; kick(); });
-    panel.addEventListener("focusin", () => { held = true; });
-    panel.addEventListener("focusout", () => { held = false; kick(); });
-    panel.addEventListener("toggle", () => { held = true; }, true);
+    // No pause on hover. It holds only while "What the agent received" is open, and resumes when it closes.
+    panel.addEventListener("toggle", () => { held = !!panel.querySelector("details[open]"); kick(); }, true);
     document.addEventListener("visibilitychange", kick);
     if ("IntersectionObserver" in window) {
       new IntersectionObserver((es) => { onScreen = es[es.length - 1].isIntersecting; kick(); }, { threshold: 0.1 }).observe(root);
