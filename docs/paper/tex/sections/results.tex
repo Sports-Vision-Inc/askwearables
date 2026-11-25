@@ -440,7 +440,7 @@ Planner & prompt & sample & $n$ & refused & guessed & refused & op.+metric & +wi
 selection sample and \plHeldLlamaThreeRefUnsup{} of the \plHeldLlamaThreeNUnsup{} in the held-out sample
 (\cref{tab:planner}). The prompt's refusal list was written from PHIA's unsupported categories, so these figures are
 in-distribution: they show that the planner follows the list, not that it generalizes to other kinds of question.
-For comparison, the keyword-rule planner, which now runs only when both planner models are unreachable, refused none
+For comparison, the keyword-rule planner, the study's last fallback when both planner models were unreachable and now only a test baseline, refused none
 of PHIA's \phiaUnsupported{} unsupported questions and returned a spec for \rulesGuessed{} of them.
 
 \paragraph{Agreement on answerable questions, and what the planner refused.} In development, with the first prompt,
@@ -572,3 +572,4 @@ against 12 in \CA{}, and on the LifeSnaps participants without missing days \CC{
 The real-data suite covers the six open-weight models.
 
 \input{sections/v2}
+\input{sections/v3}

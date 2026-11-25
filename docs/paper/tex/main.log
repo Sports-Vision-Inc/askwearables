@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 11:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 12:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -887,9 +887,9 @@ Package cleveref Info: no abbreviation of names on input line 7852.
 )
 (./macros.tex
 \c@definition=\count338
-) (./results-macros.tex) (./v2-macros.tex)
-Package hyperref Info: Option `colorlinks' set `true' on input line 40.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 65
+) (./results-macros.tex) (./v2-macros.tex) (./v3-macros.tex)
+Package hyperref Info: Option `colorlinks' set `true' on input line 41.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 66
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/t1ptm.fd
@@ -903,24 +903,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -956,20 +956,20 @@ LaTeX Font Info:    ... okay on input line 65.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 65.
-Package microtype Info: Applying patch `item' on input line 65.
-Package microtype Info: Applying patch `toc' on input line 65.
-Package microtype Info: Applying patch `eqnum' on input line 65.
-Package microtype Info: Applying patch `footnote' on input line 65.
-Package microtype Info: Applying patch `verbatim' on input line 65.
-LaTeX Info: Redefining \microtypesetup on input line 65.
+LaTeX Info: Redefining \microtypecontext on input line 66.
+Package microtype Info: Applying patch `item' on input line 66.
+Package microtype Info: Applying patch `toc' on input line 66.
+Package microtype Info: Applying patch `eqnum' on input line 66.
+Package microtype Info: Applying patch `footnote' on input line 66.
+Package microtype Info: Applying patch `verbatim' on input line 66.
+LaTeX Info: Redefining \microtypesetup on input line 66.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 65.
+LaTeX Info: Redefining \showhyphens on input line 66.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1009,14 +1009,14 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 65.
+Package hyperref Info: Link coloring ON on input line 66.
 
 (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 67.
+ 68.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1026,35 +1026,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 67.
+ 68.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 67.
+ 68.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 67.
+ 68.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 6
-7.
+8.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 67.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 68.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
@@ -1080,9 +1080,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 33.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
 )
 (./sections/introduction.tex
 
@@ -1115,7 +1115,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 [3]
 
 [4]) (./sections/design.tex
-<figures/fig_architecture.pdf, id=465, 722.7pt x 354.36388pt>
+<figures/fig_architecture.pdf, id=469, 722.7pt x 354.36388pt>
 File: figures/fig_architecture.pdf Graphic file (type pdf)
 <use figures/fig_architecture.pdf>
 Package pdftex.def Info: figures/fig_architecture.pdf  used on input line 5.
@@ -1136,6 +1136,8 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 
 
 [9]
+
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 141--141
 []|\T1/ptm/m/n/9 (+20) Scheduling as-sis-tant;
  []
@@ -1167,14 +1169,12 @@ Underfull \hbox (badness 8132) in paragraph at lines 141--141
 
 
 
-[10]
-
 [11]
 
 [12]
 
 [13]) (./sections/results.tex
-<figures/fig_accuracy_cost.pdf, id=626, 621.52202pt x 332.44202pt>
+<figures/fig_accuracy_cost.pdf, id=630, 621.52202pt x 332.44202pt>
 File: figures/fig_accuracy_cost.pdf Graphic file (type pdf)
 <use figures/fig_accuracy_cost.pdf>
 Package pdftex.def Info: figures/fig_accuracy_cost.pdf  used on input line 12.
@@ -1188,20 +1188,20 @@ Underfull \hbox (badness 2478) in paragraph at lines 59--69
 d
  []
 
+(./tables/tab_bootstrap.tex) (./tables/tab_traps.tex)
+(./tables/tab_questions.tex)
 
-
-[15 <./figures/fig_accuracy_cost.pdf>] (./tables/tab_bootstrap.tex)
-(./tables/tab_traps.tex) (./tables/tab_questions.tex)
+[15 <./figures/fig_accuracy_cost.pdf>]
 
 [16] (./tables/tab_refusal.tex)
-<figures/fig_c_outcomes.pdf, id=712, 448.07399pt x 148.8762pt>
+
+[17]
+<figures/fig_c_outcomes.pdf, id=723, 448.07399pt x 148.8762pt>
 File: figures/fig_c_outcomes.pdf Graphic file (type pdf)
 <use figures/fig_c_outcomes.pdf>
 Package pdftex.def Info: figures/fig_c_outcomes.pdf  used on input line 172.
 (pdftex.def)             Requested size: 352.31625pt x 117.06116pt.
-
-
-[17] (./tables/tab_examples.tex) (./tables/tab_examples.tex)
+ (./tables/tab_examples.tex) (./tables/tab_examples.tex)
 (./tables/tab_examples.tex
 Underfull \hbox (badness 10000) in paragraph at lines 2--2
 []|\T1/ptm/m/n/9 (+20) Two step
@@ -1245,29 +1245,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--8
 )
 
 [18 <./figures/fig_c_outcomes.pdf>]
-<figures/fig_exposure.pdf, id=773, 375.804pt x 173.448pt>
+<figures/fig_exposure.pdf, id=777, 375.804pt x 173.448pt>
 File: figures/fig_exposure.pdf Graphic file (type pdf)
 <use figures/fig_exposure.pdf>
 Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 232.
 (pdftex.def)             Requested size: 328.82707pt x 151.77455pt.
  (./tables/tab_exposure.tex)
 
-[19 <./figures/fig_exposure.pdf>] (./tables/tab_leak_audit.tex)
-(./tables/tab_privacy.tex)
+[19] (./tables/tab_leak_audit.tex)
 
-[20] (./tables/tab_privacy_models.tex)
-<figures/fig_repeat.pdf, id=848, 469.755pt x 216.81pt>
+[20 <./figures/fig_exposure.pdf>] (./tables/tab_privacy.tex)
+(./tables/tab_privacy_models.tex)
+
+[21]
+<figures/fig_repeat.pdf, id=861, 469.755pt x 216.81pt>
 File: figures/fig_repeat.pdf Graphic file (type pdf)
 <use figures/fig_repeat.pdf>
 Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 384.
 (pdftex.def)             Requested size: 469.75502pt x 216.80946pt.
- (./tables/tab_repeat.tex)
+ (./tables/tab_repeat.tex) (./tables/tab_planner_all.tex)
 
-[21] (./tables/tab_planner_all.tex)
+[22 <./figures/fig_repeat.pdf>]
 
-[22 <./figures/fig_repeat.pdf>] (./tables/tab_phia.tex)
-
-[23] (./tables/tab_bench_phia_split.tex) (./tables/tab_bench_real.tex)
+[23] (./tables/tab_phia.tex) (./tables/tab_bench_phia_split.tex)
+(./tables/tab_bench_real.tex)
 
 [24]
 
@@ -1276,13 +1277,17 @@ Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 384.
 
 [26]
 
-[27])) (./sections/discussion.tex
+[27]) (./sections/v3.tex (./tables/tab_v3.tex)
 
-[28]) (./sections/scope.tex
+[28])) (./sections/discussion.tex
 
 [29]
 
-[30]) (./sections/conclusion.tex) (./sections/ethics.tex
+[30]) (./sections/scope.tex
+
+[31]) (./sections/conclusion.tex) (./sections/ethics.tex
+
+[32]
 Underfull \hbox (badness 1910) in paragraph at lines 12--22
 []\T1/ptm/m/n/10.95 (+20) The bro-ker, the syn-thetic gen-er-a-tor, the ques-ti
 on set and scor-ing rules, the pri-vacy sce-nar-ios,
@@ -1347,11 +1352,9 @@ aper/run-v2.sh \T1/ptm/m/n/10.95 (+20) and \T1/lmtt/m/n/10.95 eval/paper/v2_rep
 ort.py \T1/ptm/m/n/10.95 (+20) (the sec-ond
  []
 
+) (./main.bbl
 
-
-[31]) (./main.bbl
-
-[32]
+[33]
 Underfull \hbox (badness 5316) in paragraph at lines 105--110
 []\T1/ptm/m/n/10.95 (+20) OWASP Foun-da-tion.  API3:2019 Ex-ces-sive Data Ex-po
 -sure.  OWASP API Se-cu-rity Top
@@ -1365,18 +1368,18 @@ https : / / owasp . org / API-[]Security / editions / 2019 / en /
 
 
 
-[33]
-
 [34]
 
 [35]
 
 [36]
 
-[37])
+[37]
 
-[38] (./sections/appendix.tex (./tables/tab_usage.tex)
-<figures/fig_accuracy.pdf, id=1163, 693.792pt x 245.718pt>
+[38])
+
+[39] (./sections/appendix.tex (./tables/tab_usage.tex)
+<figures/fig_accuracy.pdf, id=1181, 693.792pt x 245.718pt>
 File: figures/fig_accuracy.pdf Graphic file (type pdf)
 <use figures/fig_accuracy.pdf>
 Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
@@ -1385,7 +1388,7 @@ Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_traps.pdf, id=1166, 375.804pt x 303.534pt>
+<figures/fig_traps.pdf, id=1184, 375.804pt x 303.534pt>
 File: figures/fig_traps.pdf Graphic file (type pdf)
 <use figures/fig_traps.pdf>
 Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
@@ -1393,7 +1396,7 @@ Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_privacy.pdf, id=1169, 469.755pt x 216.81pt>
+<figures/fig_privacy.pdf, id=1187, 469.755pt x 216.81pt>
 File: figures/fig_privacy.pdf Graphic file (type pdf)
 <use figures/fig_privacy.pdf>
 Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
@@ -1401,7 +1404,7 @@ Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_planner_phia.pdf, id=1172, 462.52798pt x 151.767pt>
+<figures/fig_planner_phia.pdf, id=1190, 462.52798pt x 151.767pt>
 File: figures/fig_planner_phia.pdf Graphic file (type pdf)
 <use figures/fig_planner_phia.pdf>
 Package pdftex.def Info: figures/fig_planner_phia.pdf  used on input line 49.
@@ -1411,26 +1414,26 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 )
 
-[39
+[40
 
 ]
 
-[40 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
+[41 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
 
-[41 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>] (./main.aux)
+[42 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6F3CC9BD257BA75C8B99355F04D6B390;6856.
+(rerunfilecheck)             Checksum: 272254516EA89A4EB81A6264202CAD74;7097.
  ) 
 Here is how much of TeX's memory you used:
- 32200 strings out of 473190
- 597869 string characters out of 5715801
+ 32313 strings out of 473190
+ 599784 string characters out of 5715801
  1009478 words of memory out of 5000000
- 53774 multiletter control sequences out of 15000+600000
- 694090 words of font info for 668 fonts, out of 8000000 for 9000
+ 53863 multiletter control sequences out of 15000+600000
+ 694311 words of font info for 672 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1001b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1444,10 +1447,10 @@ onts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/
 utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pf
 b></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (41 pages, 474433 bytes).
+Output written on main.pdf (42 pages, 482105 bytes).
 PDF statistics:
- 1492 PDF objects out of 1728 (max. 8388607)
- 1064 compressed objects within 11 object streams
- 273 named destinations out of 1000 (max. 500000)
- 129426 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 1511 PDF objects out of 1728 (max. 8388607)
+ 1082 compressed objects within 11 object streams
+ 282 named destinations out of 1000 (max. 500000)
+ 129434 words of extra memory for PDF output out of 154059 (max. 10000000)
 

@@ -64,6 +64,22 @@ for suite, models, label in (("accuracy", OPEN + FRONTIER, "Synthetic questions"
             if pm < 0.05:
                 sig.append(f"\\code{{{m}}} ({'up' if o3m > o1m else 'down'}, {fp(pm)})")
         mac("vthreeAccSig", ", ".join(sig) or "none")
+    else:
+        # Real data: C3 against the study's raw context (A is unaffected by the broker), and against the study's C, per model.
+        rA, _ = load(v2.FINAL, suite)
+        A = {(r["model"], r["task"], r["run"]): r for r in rA if r["condition"] == "A_raw" and r["model"] in models}
+        up, worse = [], []
+        for m in models:
+            mk = [k for k in ks if k[0] == m and k in A]
+            _, x, y = paired({k: c3[k] for k in mk}, {k: A[k] for k in mk}, corr)
+            o3m, oam, pm = mcnemar(x, y)
+            mac(f"vthreeReal{KEY[m]}", pct(sum(x) / len(mk))); mac(f"vthreeReal{KEY[m]}A", pct(sum(y) / len(mk)))
+            mac(f"vthreeRealMcnA{KEY[m]}", f"{fp(pm)} ({o3m}/{oam})")
+            _, x, y = paired({k: c3[k] for k in mk}, {k: c1[k] for k in mk}, corr)
+            o3m, o1m, pm = mcnemar(x, y)
+            if pm < 0.05:
+                up.append(f"\\code{{{m}}}" if o3m > o1m else f"\\code{{{m}}} (down)")
+        mac("vthreeRealSig", ", ".join(up) or "none")
 
 # Privacy: leaks by the detector, C (study), C2, C3 on the same runs.
 lk = lambda r: bool(r.get("leaked"))
@@ -99,8 +115,8 @@ mac("vthreePhiaUnsupTwo", pct(sum(rf(C2[k]) for k in uns) / len(uns)) if uns els
 mac("vthreePhiaUnsupThree", pct(sum(rf(C3[k]) for k in uns) / len(uns)) if uns else "--")
 mac("vthreePhiaUnsupA", pct(sum(rf(A[k]) for k in uns) / len(uns)) if uns else "--")
 mac("vthreePhiaN", str(len(ans) + len(uns)))
-lines.append(f"Fresh PHIA, answerable, as worded & {len(ans)} & -- & {M['vthreePhiaWordedTwo'].replace(chr(92), '')} & {M['vthreePhiaWordedThree'].replace(chr(92), '')} & \\\\")
-lines.append(f"Fresh PHIA, unsupported refused & {len(uns)} & -- & {M['vthreePhiaUnsupTwo'].replace(chr(92), '')} & {M['vthreePhiaUnsupThree'].replace(chr(92), '')} & \\\\")
+lines.append(f"Fresh PHIA, answerable, as worded & {len(ans)} & -- & {M['vthreePhiaWordedTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaWordedThree'].replace(chr(92) + '%', '')} & \\\\")
+lines.append(f"Fresh PHIA, unsupported refused & {len(uns)} & -- & {M['vthreePhiaUnsupTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaUnsupThree'].replace(chr(92) + '%', '')} & \\\\")
 per = []
 for m in OPEN:
     mk = [k for k in ans if k[0] == m]

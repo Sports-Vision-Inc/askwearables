@@ -1,0 +1,55 @@
+(node:61790) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 600 runs to do (6 models × 1 conditions × 100 tasks × 1)
+  50/600  openrouter spend $0.00 (cap $45)
+  100/600  openrouter spend $0.00 (cap $45)
+  150/600  openrouter spend $0.00 (cap $45)
+  200/600  openrouter spend $0.00 (cap $45)
+  250/600  openrouter spend $0.00 (cap $45)
+  300/600  openrouter spend $0.00 (cap $45)
+  350/600  openrouter spend $0.00 (cap $45)
+  400/600  openrouter spend $0.00 (cap $45)
+  450/600  openrouter spend $0.00 (cap $45)
+  500/600  openrouter spend $0.00 (cap $45)
+  550/600  openrouter spend $0.00 (cap $45)
+  600/600  openrouter spend $0.00 (cap $45)
+done. openrouter spend this process: $0.00; workers-ai calls: 1818
+(node:64374) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 240 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 1400
+(node:66497) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+real: 912 runs to do (6 models × 1 conditions × 152 tasks); ingest rejected {"621e2e8e67b776a24055b564":0,"621e2f1b67b776a240b3d87c":0,"621e30f467b776a240f22944":0,"621e335a67b776a240bb12ff":0,"621e337667b776a240ce78ab":0,"621e34ff67b776a240e446d6":0,"621e351a67b776a240f6204b":0,"621e356967b776a24027bd9f":0,"p01":0,"p02":0,"p03":0,"p05":0,"p09":0,"p14":0,"p15":0,"p16":0}
+  50/912  openrouter spend $0.00 (cap $45)
+  100/912  openrouter spend $0.00 (cap $45)
+  150/912  openrouter spend $0.00 (cap $45)
+  200/912  openrouter spend $0.00 (cap $45)
+  250/912  openrouter spend $0.00 (cap $45)
+  300/912  openrouter spend $0.00 (cap $45)
+  350/912  openrouter spend $0.00 (cap $45)
+  400/912  openrouter spend $0.00 (cap $45)
+  450/912  openrouter spend $0.00 (cap $45)
+  500/912  openrouter spend $0.00 (cap $45)
+  550/912  openrouter spend $0.00 (cap $45)
+  600/912  openrouter spend $0.00 (cap $45)
+  650/912  openrouter spend $0.00 (cap $45)
+  700/912  openrouter spend $0.00 (cap $45)
+  750/912  openrouter spend $0.00 (cap $45)
+  800/912  openrouter spend $0.00 (cap $45)
+  850/912  openrouter spend $0.00 (cap $45)
+  900/912  openrouter spend $0.00 (cap $45)
+done. openrouter spend this process: $0.00; workers-ai calls: 2768
+(node:69688) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+accuracy: 0 runs to do (6 models × 1 conditions × 100 tasks × 1)
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:69710) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+privacy: 0 runs to do
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+(node:69725) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+real: 0 runs to do (6 models × 1 conditions × 152 tasks); ingest rejected {"621e2e8e67b776a24055b564":0,"621e2f1b67b776a240b3d87c":0,"621e30f467b776a240f22944":0,"621e335a67b776a240bb12ff":0,"621e337667b776a240ce78ab":0,"621e34ff67b776a240e446d6":0,"621e351a67b776a240f6204b":0,"621e356967b776a24027bd9f":0,"p01":0,"p02":0,"p03":0,"p05":0,"p09":0,"p14":0,"p15":0,"p16":0}
+done. openrouter spend this process: $0.00; workers-ai calls: 0
+REG DONE

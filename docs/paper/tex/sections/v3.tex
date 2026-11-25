@@ -1,0 +1,76 @@
+\subsection{Third revision: the planner prompt}\label{sec:res:v3}
+
+\begin{table}[t]
+\centering\small
+\caption{Third revision (planner prompt only), condition \CC{} on the same tasks in each iteration: the study's
+\CC{}, the second iteration's \CC{}$_2$ and the third revision's \CC{}$_3$. Accuracy in \%, privacy in leaks counted
+by the detector. $p$: exact McNemar, \CC{}$_3$ against the study's \CC{} (\CC{}$_3$-only / \CC{}-only). Fresh PHIA:
+the second iteration's sample, reused.}
+\label{tab:v3}
+\setlength{\tabcolsep}{4pt}\footnotesize
+\begin{tabular}{@{}l r c c c l@{}}
+\toprule
+Suite & runs & \CC{} & \CC{}$_2$ & \CC{}$_3$ & $p$\\
+\midrule
+\inputtab{tables/tab_v3.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+The second iteration's prompt cost accuracy on the week-over-week question, because the planner more often compared
+the two weeks before last. The third revision changes only the planner prompt: for comparisons with the period
+before, it lists both windows for 3, 7, 14, 28 and 30 days and for this week against last week, computed from the
+date as the prompt already did for single windows; it adds one comparison example; and it says that a compound
+question with an unsupported part is planned for its supported part. The hypotheses were added to the
+pre-registration before the end-to-end runs (commit \code{06e670a}). The planner-alone check below was run
+earlier, on two drafts of the prompt, and its in-distribution requests come from the synthetic week-over-week task,
+so that task's recovery is partly in-sample.
+
+\paragraph{The planner alone.} On a held-out set of 16 window questions with expected windows, written before the
+change, the planner resolved the window correctly for 14 with the study's prompt, 12 with the second iteration's
+and 15 with the third revision's (both drafts). On the 167 requests that agent models had sent for the
+week-over-week task, comparison plans shifted by a week numbered 2, 25 and 0 (13, 38 and 13 counting every
+operation), and refusals 56, 32 and 28 (44 with the first draft; the deployed prompt is the second).
+
+\paragraph{Synthetic questions: met.} \CC{}$_3$ was \vthreeAccThree{} accurate on the same \vthreeAccN{} runs, against
+\vthreeAccOne{} for the study's \CC{} and \vthreeAccTwo{} for \CC{}$_2$ ($p=$ \vthreeAccP{} against \CC{};
+\cref{tab:v3}); no model differed significantly from the study. On the week-over-week question it was right in
+\vthreeWeekThree{} of \vthreeWeekN{} runs, against \vthreeWeekOne{} for \CC{} and \vthreeWeekTwo{} for \CC{}$_2$.
+
+\paragraph{Fresh PHIA: refusal met; accuracy as worded not met.} On the answerable
+questions, as worded, \CC{}$_3$ answered \vthreePhiaWordedThree{} against \vthreePhiaWordedTwo{} for \CC{}$_2$
+($p=$ \vthreePhiaWordedPvsTwo{}) and \vthreePhiaWordedA{} for raw context ($p=$ \vthreePhiaWordedP{},
+\vthreePhiaWordedPairs{} discordant). The pre-registered criterion, not lower than \CC{}$_2$, was not met: \CC{}$_3$
+was one point lower (396 against 402 of 720), a difference that is not significant. On PHIA's labels it scored
+\vthreePhiaLabelThree{} against \vthreePhiaLabelTwo{} for \CC{}$_2$ and \vthreePhiaLabelA{} for raw context, so the
+gap on labels is unchanged. The per-model split also stayed: both \code{llama} models were well above raw context
+(\code{llama-3.3-70b} \vthreePhiaWordedLlamaThree{} against \vthreePhiaWordedLlamaThreeA{}), both \code{gpt-oss}
+models well below (\code{gpt-oss-120b} \vthreePhiaWordedOssLarge{} against \vthreePhiaWordedOssLargeA{}). On
+unsupported questions \CC{}$_3$ answered \code{unknown} in \vthreePhiaUnsupThree{} of runs, against
+\vthreePhiaUnsupTwo{} for \CC{}$_2$ and \vthreePhiaUnsupA{} for raw context.
+
+\paragraph{Privacy: met against \CC{}$_2$, above the study.} On the \vthreePrivN{} runs shared with the study, the detector counted \vthreePrivThree{} leaks,
+against \vthreePrivTwo{} for \CC{}$_2$ and \vthreePrivOne{} for the study's \CC{}. Reading them (not
+pre-registered): one is a fill-in message template with an example figure (``only getting about 4 hours''), one
+names a readiness score, a metric outside the grant, without a value and with none released, and one states a resting heart
+rate after the broker denied the whole request, so the number was invented, as in the second iteration. None
+follows a release outside the grant.
+
+\paragraph{Real data (not pre-registered).} On the open-weight models' real-data tasks \CC{}$_3$ was
+\vthreeRealThree{} accurate, against \vthreeRealOne{} for the study's \CC{} ($p$ \vthreeRealP{},
+\vthreeRealPairs{} discordant) and \vthreeRealTwo{} for \CC{}$_2$, significantly higher than the study for
+\vthreeRealSig{} (uncorrected; all but \code{gpt-oss-20b} after Holm correction over the six models). All 60
+gains were on multi-day windows, mostly the 14-day resting heart rate (16 gained, none lost) and the 7-day step
+total (12 and none); none was on a single-day question. Against the study's raw context on the same tasks, \CC{}$_3$ was significantly more accurate for
+the four weaker models (\code{llama-3.3-70b} \vthreeRealLlamaThree{} against \vthreeRealLlamaThreeA{}, $p$
+\vthreeRealMcnALlamaThree{}, discordant in brackets) and no longer significantly less accurate for either
+\code{gpt-oss} model (\code{gpt-oss-120b} \vthreeRealOssLarge{} against \vthreeRealOssLargeA{}, $p=$
+\vthreeRealMcnAOssLarge{}; \code{gpt-oss-20b} \vthreeRealOssSmall{} against \vthreeRealOssSmallA{}, $p=$
+\vthreeRealMcnAOssSmall{}, still five points lower). Raw context
+was run once, in the study; it does not depend on the broker.
+
+\paragraph{Reading the third revision.} After the planner was given the comparison windows rather than left to work
+them out, the second iteration's regression was gone and accuracy on real data rose (a finding we did not
+pre-register), consistent with relative windows being common there. It did not move PHIA: accuracy as worded stayed level with raw context, the gap on labels stayed, and the
+strongest open models still did better with raw context there. The fresh PHIA sample had been used once before, in
+the second iteration, though not to write this prompt. These results come from one revision measured once.

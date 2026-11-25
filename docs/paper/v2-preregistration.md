@@ -64,3 +64,8 @@ fresh PHIA sample (six open-weight models). The fresh PHIA sample is reused, not
 Hypotheses: on the synthetic suite, C3 is not less accurate than the study's C (H3 again, pooled and on the
 week-over-week question); on fresh PHIA, C3's accuracy on answerable questions as worded is not lower than C2's and
 its refusal of unsupported questions not lower than C2's; privacy leaks no more than C2's.
+
+Note added after the third revision's runs: the planner-alone check described above was run before this addendum
+was committed, on two drafts of the prompt (`planner-windows-v3.json`, `planner-windows-v3b.json`, committed in
+4cf73f1); the second draft was deployed and measured. Its in-distribution requests come from the synthetic
+week-over-week task. The paper reports this.
