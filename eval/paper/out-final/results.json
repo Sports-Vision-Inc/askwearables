@@ -1,5 +1,5 @@
 {
- "generated_note": "from eval/paper/results/*.jsonl by eval/paper/report.py; partial until runs finish",
+ "generated_note": "from eval/paper/results/final/*.jsonl by eval/paper/report.py",
  "conditions": {
   "A_raw": "A: raw data in context",
   "B_tools": "B: open data tools",

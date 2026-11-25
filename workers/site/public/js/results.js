@@ -339,6 +339,33 @@
     };
   }
 
+  // Public benchmarks: PHIA end to end split by stratum, and real Fitbit data (PMData, LifeSnaps).
+  const BENCH = {
+    worded: { score: "Worded", title: "PHIA, answerable questions (scored as worded)", verb: "correct" },
+    label: { score: "Label", title: "PHIA, answerable questions (scored against PHIA's labels)", verb: "correct" },
+    unsup: { score: "Unsup", title: "PHIA, unsupported questions: answered unknown", verb: "refused" },
+    real: { title: "Real Fitbit data (PMData and LifeSnaps)", verb: "correct" },
+  };
+  function renderBench(D) {
+    return (w, st) => {
+      const b = D.benchmarks || {};
+      const k = BENCH[st.bench] ? st.bench : "worded";
+      const src = k === "real" ? b.real || [] : (b.phia_split || []).filter((x) => x.score === BENCH[k].score);
+      if (!src.length) {
+        const msg = h("p", { class: "muted" }, "Benchmark results are not in this results file.");
+        return { chart: msg, table: msg.cloneNode(true) };
+      }
+      const m = byKey(src, "model");
+      const models = [...m.keys()];
+      const groups = models.map((mm) => ({ label: mm, cells: CONDS.map((c) => countCell(mm, c, m.get(mm)[c], "correct", BENCH[k].verb)) }));
+      const rows = models.map((mm) => [mm, ...CONDS.map((c) => {
+        const r = m.get(mm)[c];
+        return r && r.n ? `${pct(r.correct / r.n)} (${r.correct}/${r.n})` : { v: "--", muted: true };
+      })]);
+      return { legend: legendRow(), chart: dotChart(w, groups, { title: BENCH[k].title }), table: table(["Model", ...CONDS.map(condHead)], rows, BENCH[k].title) };
+    };
+  }
+
   function renderUsage(D) {
     const m = byKey(D.efficiency || [], "model");
     const models = [...m.keys()];
@@ -654,6 +681,7 @@
         : kind === "traps" ? renderPooled(D, "by_trap", TRAPS)
         : kind === "questions" ? renderPooled(D, "by_question", QUESTIONS)
         : kind === "privacy" ? renderPrivacy(D)
+        : kind === "bench" ? renderBench(D)
         : kind === "usage" ? renderUsage(D)
         : kind === "accuracy-cost" ? renderAccCost(D) : null;
       if (r) mountCard(card, r);

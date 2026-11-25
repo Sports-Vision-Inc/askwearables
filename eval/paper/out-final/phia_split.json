@@ -1,0 +1,586 @@
+{
+ "note": "PHIA end to end, one run per question/model/condition; strict ANSWER rule",
+ "scores": {
+  "Worded": {
+   "stratum": "answerable",
+   "field": "correct_as_worded"
+  },
+  "Label": {
+   "stratum": "answerable",
+   "field": "correct_phia"
+  },
+  "Unsup": {
+   "stratum": "unsupported",
+   "field": "correct"
+  }
+ },
+ "cells": [
+  {
+   "model": "llama-3.3-70b",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 66,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 45,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 66,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 62,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 49,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 59,
+   "n": 120
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 26,
+   "n": 60
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 30,
+   "n": 60
+  },
+  {
+   "model": "llama-3.3-70b",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 60,
+   "n": 60
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 67,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 61,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 65,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 62,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 65,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 57,
+   "n": 120
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 26,
+   "n": 60
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 26,
+   "n": 60
+  },
+  {
+   "model": "llama-4-scout",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 56,
+   "n": 60
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 48,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 57,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 54,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 46,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 60,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 52,
+   "n": 120
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 25,
+   "n": 60
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 10,
+   "n": 60
+  },
+  {
+   "model": "mistral-small-3.1",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 35,
+   "n": 60
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 61,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 73,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 60,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 54,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 64,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 54,
+   "n": 120
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 21,
+   "n": 60
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 20,
+   "n": 60
+  },
+  {
+   "model": "gemma-4-26b",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 50,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 75,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 71,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 59,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 71,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 60,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 56,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 31,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 43,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-20b",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 59,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 78,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 77,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 55,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 68,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 65,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 52,
+   "n": 120
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 31,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 34,
+   "n": 60
+  },
+  {
+   "model": "gpt-oss-120b",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 60,
+   "n": 60
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 52,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 60,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 60,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 50,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 54,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 56,
+   "n": 120
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 32,
+   "n": 60
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 32,
+   "n": 60
+  },
+  {
+   "model": "gemini-4-neon",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 39,
+   "n": 60
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 78,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 79,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 54,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 65,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 66,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 48,
+   "n": 120
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 33,
+   "n": 60
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 34,
+   "n": 60
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 50,
+   "n": 60
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Worded",
+   "condition": "A_raw",
+   "correct": 80,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Worded",
+   "condition": "B_tools",
+   "correct": 71,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Worded",
+   "condition": "C_broker",
+   "correct": 63,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Label",
+   "condition": "A_raw",
+   "correct": 68,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Label",
+   "condition": "B_tools",
+   "correct": 63,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Label",
+   "condition": "C_broker",
+   "correct": 53,
+   "n": 120
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Unsup",
+   "condition": "A_raw",
+   "correct": 35,
+   "n": 60
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Unsup",
+   "condition": "B_tools",
+   "correct": 29,
+   "n": 60
+  },
+  {
+   "model": "claude-fable-5.2",
+   "score": "Unsup",
+   "condition": "C_broker",
+   "correct": 45,
+   "n": 60
+  }
+ ]
+}

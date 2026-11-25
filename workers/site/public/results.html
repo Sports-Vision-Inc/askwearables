@@ -44,7 +44,7 @@
     </div>
     <p class="status" id="status" aria-live="polite">Loading results…</p>
     <nav class="jump" aria-label="On this page">
-      <a href="#accuracy-cost">Accuracy and cost</a><a href="#accuracy">Accuracy</a><a href="#usage">Context and cost</a><a href="#traps">By data trap</a><a href="#questions">By question</a><a href="#privacy">Privacy</a><a href="#examples">Examples</a><a href="#methodology">Methodology</a><a href="/data/results.json">Raw data</a>
+      <a href="#accuracy-cost">Accuracy and cost</a><a href="#accuracy">Accuracy</a><a href="#usage">Context and cost</a><a href="#traps">By data trap</a><a href="#bench">Benchmarks</a><a href="#questions">By question</a><a href="#privacy">Privacy</a><a href="#examples">Examples</a><a href="#methodology">Methodology</a><a href="/data/results.json">Raw data</a>
     </nav>
     <noscript><p class="note">This explorer needs JavaScript to draw its charts. The data is at <a href="/data/results.json">/data/results.json</a> and the method is described <a href="#methodology">below</a>.</p></noscript>
   </section>
@@ -103,7 +103,6 @@
     <ul class="notes">
       <li>Bold marks the highest accuracy for each model. Where the 95% intervals overlap, the difference is not significant.</li>
       <li>Costs are as reported by OpenRouter for the frontier models, and computed from <a href="https://developers.cloudflare.com/workers-ai/platform/pricing/">Workers AI list prices</a> for the open models. In C the broker's planner is included.</li>
-      <li>nemotron-3-ultra-550b ran on a free tier, so it has no cost.</li>
       <li id="usage-planner-note">Planner usage marked "est." is estimated from measured per-call usage, for runs recorded before planner usage was logged separately.</li>
       <li>Higher is better for accuracy; lower is better for tokens and cost.</li>
     </ul>
@@ -125,6 +124,27 @@
       <div class="chart-head"><span></span><button class="toggle" type="button" aria-pressed="false">Table</button></div>
       <div class="chart-body"><p class="loading">Loading…</p></div>
     </div>
+  </section>
+
+  <section class="block" aria-labelledby="bench">
+    <h2 id="bench">Public benchmarks: PHIA and real Fitbit data</h2>
+    <p>The same three conditions on questions we did not write. On PHIA's objective questions, AskWearables refused what it cannot compute far more often than the other two, but answered fewer of the answerable questions: it released threshold counts as yes or no, and the study's grant did not include heart rate. On real Fitbit data it helped the models that struggled with raw context and cost accuracy for the two strongest open models.</p>
+    <div class="chart-card" data-chart="bench">
+      <div class="chart-head">
+        <label class="ctl">Show <select data-ctl="bench">
+          <option value="worded">PHIA answerable, as worded</option>
+          <option value="label">PHIA answerable, PHIA's labels</option>
+          <option value="unsup">PHIA unsupported, refused</option>
+          <option value="real">Real Fitbit data</option>
+        </select></label>
+        <button class="toggle" type="button" aria-pressed="false">Table</button>
+      </div>
+      <div class="chart-body"><p class="loading">Loading…</p></div>
+    </div>
+    <ul class="notes">
+      <li>PHIA: 120 answerable and 60 unsupported objective questions over its four users. "As worded" reads "last N days" as N days; PHIA's own labels use N + 1. An unsupported question counts as correct only when the answer is unknown.</li>
+      <li>Real data: 152 questions over 16 participants of the public PMData and LifeSnaps datasets, with answers computed from the raw files independently of AskWearables.</li>
+    </ul>
   </section>
 
   <section class="block" aria-labelledby="privacy">

@@ -572,7 +572,7 @@ def cells(rows, key):
         out[k][0] += int(bool(r.get("correct", r.get("leaked"))))
     return out
 
-export = {"generated_note": "from eval/paper/results/*.jsonl by eval/paper/report.py; partial until runs finish", "conditions": COND_LABEL, "accuracy": [], "by_trap": [], "by_question": [], "privacy": [], "efficiency": [], "examples": []}
+export = {"generated_note": f"from eval/paper/{os.path.relpath(RES, HERE)}/*.jsonl by eval/paper/report.py" + ("" if os.path.basename(RES) == "final" else "; partial until runs finish"), "conditions": COND_LABEL, "accuracy": [], "by_trap": [], "by_question": [], "privacy": [], "efficiency": [], "examples": []}
 if acc:
     for (m, c), (k, n) in cells(acc, lambda r: (r["model"], r["condition"])).items():
         p, lo, hi = wilson(k, n)

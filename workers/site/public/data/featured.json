@@ -1,85 +1,85 @@
 {
-  "note": "Hand-picked example ids from results.json (examples[].id = model/task). 'examples' play in the hero story card, in this order; 'pipeline' plays in the How it works walkthrough (runs whose C packet was stored). Only the curation and the plain-language framing live here, with no figures; every answer, verdict, truth and packet is read from results.json at runtime. Each 'why' line describes what that run actually did, checked against its stored final answer.",
-  "examples": [
-    {
-      "id": "gpt-oss-120b/p2-steps_yesterday",
-      "emoji": "1f45f",
-      "title": "How many steps did I take yesterday?",
-      "face": "steps",
-      "face_note": "steps on the watch",
-      "why": {
-        "A_raw": "Added the phone and the watch together, so every step was counted twice.",
-        "B_tools": "Fetched both devices and reported the combined count from all of them.",
-        "C_broker": "Counted one device per day, so a walk is counted once."
-      }
-    },
-    {
-      "id": "mistral-small-3.1/p4-steps_total_7d",
-      "emoji": "1f4c5",
-      "title": "How many steps did I take this week?",
-      "face": "steps",
-      "face_note": "days missing",
-      "why": {
-        "A_raw": "Added up the days it had and gave a confident total, though some days had no data.",
-        "B_tools": "Gave a total too, without saying that part of the week was missing.",
-        "C_broker": "Said the total cannot be known, because some days have no data."
-      }
-    },
-    {
-      "id": "llama-3.3-70b/p7-sleep_vs_usual_3d",
-      "emoji": "231a",
-      "title": "Did I sleep less than usual the last few nights?",
-      "face": "sleep",
-      "face_note": "below your usual",
-      "why": {
-        "A_raw": "Got this one right by working through the rows.",
-        "B_tools": "Said no, and missed that the last few nights were much shorter.",
-        "C_broker": "Compared the recent nights with the person's own usual range."
-      }
-    },
-    {
-      "id": "mistral-small-3.1/p5-rhr_yesterday",
-      "emoji": "23f3",
-      "title": "What was my resting heart rate yesterday?",
-      "face": "resting_hr",
-      "face_note": "not synced lately",
-      "why": {
-        "A_raw": "Gave a number, but the watch had no reading for yesterday.",
-        "B_tools": "Also gave a number for a day with no reading.",
-        "C_broker": "Saw the watch had not synced lately and said the answer is unknown."
-      }
-    }
-  ],
-  "pipeline": [
-    {
-      "id": "nemotron-3-ultra-550b/p4-steps_total_7d",
-      "emoji": "1f4c5",
-      "title": "Missing days",
-      "why": "Some days have no data. Adding up the days that are there gives a confident total that is wrong."
-    },
-    {
-      "id": "nemotron-3-ultra-550b/p6-hrv_trend_28d",
-      "emoji": "231a",
-      "title": "New watch",
-      "why": "A new device starts a new baseline. Reading the two series as one invents a trend."
-    },
-    {
-      "id": "nemotron-3-ultra-550b/p5-sleep_vs_usual_3d",
-      "emoji": "23f3",
-      "title": "Stale sync",
-      "why": "The watch has not synced lately. No recent nights means the answer is unknown, not no."
-    },
-    {
-      "id": "nemotron-3-ultra-550b/p10-hrv_trend_28d",
-      "emoji": "1f4c8",
-      "title": "HRV trend",
-      "why": "Night-to-night wobble reads as a slide. A fixed trend test over local days, across a clock change, says steady."
-    },
-    {
-      "id": "gpt-oss-120b/p2-steps_total_7d",
-      "emoji": "1f45f",
-      "title": "Steps counted twice",
-      "why": "The phone and the watch both count the same walk. Adding the two sources double-counts."
-    }
-  ]
+ "note": "Hand-picked example ids from results.json (examples[].id = model/task). 'examples' play in the hero story card, in this order; 'pipeline' plays in the How it works walkthrough (runs whose C packet was stored). Only the curation and the plain-language framing live here, with no figures; every answer, verdict, truth and packet is read from results.json at runtime. Each 'why' line describes what that run actually did, checked against its stored final answer.",
+ "examples": [
+  {
+   "id": "gpt-oss-120b/p2-steps_yesterday",
+   "emoji": "1f45f",
+   "title": "How many steps did I take yesterday?",
+   "face": "steps",
+   "face_note": "steps on the watch",
+   "why": {
+    "A_raw": "Added the phone and the watch together, so every step was counted twice.",
+    "B_tools": "Fetched both devices and reported the combined count from all of them.",
+    "C_broker": "Counted one device per day, so a walk is counted once."
+   }
+  },
+  {
+   "id": "mistral-small-3.1/p4-steps_total_7d",
+   "emoji": "1f4c5",
+   "title": "How many steps did I take this week?",
+   "face": "steps",
+   "face_note": "days missing",
+   "why": {
+    "A_raw": "Added up the days it had and gave a confident total, though some days had no data.",
+    "B_tools": "Fetched the week, noticed the missing days and answered unknown.",
+    "C_broker": "Said the total cannot be known, because some days have no data."
+   }
+  },
+  {
+   "id": "llama-3.3-70b/p7-sleep_vs_usual_3d",
+   "emoji": "231a",
+   "title": "Did I sleep less than usual the last few nights?",
+   "face": "sleep",
+   "face_note": "below your usual",
+   "why": {
+    "A_raw": "Got this one right by working through the rows.",
+    "B_tools": "Said no, and missed that the last few nights were much shorter.",
+    "C_broker": "Compared the recent nights with the person's own usual range."
+   }
+  },
+  {
+   "id": "mistral-small-3.1/p5-rhr_yesterday",
+   "emoji": "23f3",
+   "title": "What was my resting heart rate yesterday?",
+   "face": "resting_hr",
+   "face_note": "not synced lately",
+   "why": {
+    "A_raw": "Gave a number, but the watch had no reading for yesterday.",
+    "B_tools": "Also gave a number for a day with no reading.",
+    "C_broker": "Saw the watch had not synced lately and said the answer is unknown."
+   }
+  }
+ ],
+ "pipeline": [
+  {
+   "id": "gemma-4-26b/p4-steps_total_7d",
+   "emoji": "1f4c5",
+   "title": "Missing days",
+   "why": "Some days have no data. Adding up the days that are there gives a confident total that is wrong."
+  },
+  {
+   "id": "gpt-6.2-astra/p6-hrv_trend_28d",
+   "emoji": "231a",
+   "title": "New watch",
+   "why": "A new device starts a new baseline. Reading the two series as one invents a trend."
+  },
+  {
+   "id": "llama-3.3-70b/p5-sleep_vs_usual_3d",
+   "emoji": "23f3",
+   "title": "Stale sync",
+   "why": "The watch has not synced lately. No recent nights means the answer is unknown, not no."
+  },
+  {
+   "id": "llama-4-scout/p10-hrv_trend_28d",
+   "emoji": "1f4c8",
+   "title": "HRV trend",
+   "why": "Night-to-night wobble reads as a slide. A fixed trend test over local days, across a clock change, says steady."
+  },
+  {
+   "id": "gpt-oss-120b/p2-steps_total_7d",
+   "emoji": "1f45f",
+   "title": "Steps counted twice",
+   "why": "The phone and the watch both count the same walk. Adding the two sources double-counts."
+  }
+ ]
 }

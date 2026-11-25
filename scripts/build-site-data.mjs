@@ -15,13 +15,13 @@ export const DEPLOY_BUTTON_ENABLED = true;
 const CLOUD = `<svg viewBox="0 0 24 16" aria-hidden="true"><path d="M19.4 6.6A7 7 0 0 0 6 5.1 5.4 5.4 0 0 0 5.6 16h13.2a4.7 4.7 0 0 0 .6-9.4z"/></svg>`;
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const src = resolve(root, "eval/paper/out/results.json");
+const src = resolve(root, "eval/paper", process.env.EVAL_OUT_DIR ?? "out", "results.json");
 const out = resolve(root, "workers/site/public/data/results.json");
 const MAX_FINAL = 1200; // characters of each model's final answer kept for the examples viewer
 
 const r = JSON.parse(readFileSync(src, "utf8"));
 const outDir = dirname(src);
-const resDir = resolve(root, "eval/paper/results");
+const resDir = resolve(root, "eval/paper", process.env.EVAL_RESULTS_DIR ?? "results");
 
 // The examples in results.json keep only each condition's final text. The landing page walks one C run through the
 // broker, so join each example's C run back to its row in eval/paper/results/accuracy-*.jsonl (the same "last row
@@ -90,11 +90,19 @@ const data = {
   generated_note: r.generated_note ?? "",
   source_modified: statSync(src).mtime.toISOString(),
   conditions: r.conditions,
-  models: modelGroups(),
+  // Only models in the study's results (models run and excluded before analysis are not listed).
+  models: Object.fromEntries(Object.entries(modelGroups()).filter(([id]) => (r.accuracy ?? []).some((a) => a.model === id))),
   accuracy: (r.accuracy ?? []).map((a) => ({ model: a.model, condition: a.condition, correct: a.correct, n: a.n, rate: num(a.rate), ci: (a.ci ?? []).map((v) => num(v)) })),
   by_trap: (r.by_trap ?? []).map((a) => pick(a, ["trap", "condition", "correct", "n"])),
   by_question: (r.by_question ?? []).map((a) => pick(a, ["question", "condition", "correct", "n"])),
   privacy: (r.privacy ?? []).map((a) => pick(a, ["scenario", "condition", "leaked", "n"])),
+  // The frozen study scores leaks with the corrected detector (eval/paper/privacy.ts); the page shows privacy only then.
+  privacy_detector: process.env.EVAL_OUT_DIR === "out-final" ? "corrected" : undefined,
+  // Public benchmarks: PHIA split by stratum (eval/paper/make_macros.py) and real-data accuracy (report.py).
+  benchmarks: {
+    phia_split: existsSync(resolve(outDir, "phia_split.json")) ? JSON.parse(readFileSync(resolve(outDir, "phia_split.json"), "utf8")).cells : null,
+    real: (r.benchmarks?.real?.accuracy ?? []).filter((a) => !a.test).map((a) => pick(a, ["model", "condition", "correct", "n"])),
+  },
   efficiency: (r.efficiency ?? []).map((e) => ({
     model: e.model,
     condition: e.condition,
