@@ -91,6 +91,22 @@ export const MIN_LEVEL: Record<Operation, Level> = {
   list_sessions: 2,
 };
 
+/** The lowest level that answers this spec. A threshold check that asks how many days met the condition
+ *  (params.mode "count") needs the count, which a level-0 flag does not carry; the count is level 1. */
+export function requiredLevel(spec: { operation: Operation; params?: { mode?: string } }): Level {
+  if (spec.operation === "threshold_check" && spec.params?.mode === "count") return 1;
+  return MIN_LEVEL[spec.operation];
+}
+
+/** Metrics that answer closely related questions. When a requested metric is outside a grant and a related one is
+ *  inside it, a denial names the granted one, so the agent can ask again within the grant. */
+export const RELATED_METRICS: Partial<Record<MetricId, MetricId[]>> = {
+  heart_rate: ["resting_hr"],
+  resting_hr: ["heart_rate"],
+  sleep_efficiency: ["sleep_duration"],
+  sleep_duration: ["sleep_efficiency"],
+};
+
 /** Default source priority when two sources report one metric: watch, then ring, then phone. */
 export const DEVICE_PRIORITY: DeviceClass[] = ["watch", "ring", "band", "scale", "cgm", "phone", "other"];
 

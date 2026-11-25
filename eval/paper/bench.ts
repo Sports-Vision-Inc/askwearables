@@ -54,11 +54,24 @@ function allocate(sizes: Map<string, number>, n: number, min = 0): Map<string, n
   return out;
 }
 
-function sampleStrata<T extends { id: string }>(items: T[], key: (t: T) => string, n: number, min = 0): T[] {
+function sampleStrata<T extends { id: string }>(items: T[], key: (t: T) => string, n: number, min = 0, seed = SEED): T[] {
   const by = new Map<string, T[]>();
   for (const t of items) (by.get(key(t)) ?? by.set(key(t), []).get(key(t))!).push(t);
   const alloc = allocate(new Map([...by].map(([k, v]) => [k, v.length])), n, min);
-  return [...by].flatMap(([k, v]) => [...v].sort((a, b) => draw(SEED, a.id) - draw(SEED, b.id) || a.id.localeCompare(b.id)).slice(0, alloc.get(k)!));
+  return [...by].flatMap(([k, v]) => [...v].sort((a, b) => draw(seed, a.id) - draw(seed, b.id) || a.id.localeCompare(b.id)).slice(0, alloc.get(k)!));
+}
+
+/** Second-iteration PHIA sample (EVAL_PHIA_FRESH=1): drawn with its own seed from questions the study never used,
+ *  excluding the study's PHIA sample and both planner-study samples (the planner prompt was revised with those in view). */
+export const FRESH_SEED = 20261126;
+const fresh = process.env.EVAL_PHIA_FRESH === "1";
+function usedIds(): Set<string> {
+  const used = new Set<string>();
+  for (const f of ["planner-phia.jsonl", "planner-phia-heldout.jsonl"]) {
+    const p = join(here, "results/final", f);
+    if (existsSync(p)) for (const l of readFileSync(p, "utf8").split("\n")) if (l.trim()) used.add((JSON.parse(l) as { id: string }).id);
+  }
+  return used;
 }
 
 function storeFor(id: string, sources: Source[], records: CanonicalRecord[]): Promise<{ store: Store; rejected: number }> {
@@ -109,8 +122,17 @@ export async function loadPhia(): Promise<Bench> {
     return ref !== null && agree2(ref, label);
   });
   const unsupported = mapping.filter((m) => m.status === "unsupported");
-  const pickA = sampleStrata(answerable, (m) => `${m.user}|${m.operation}`, PHIA_ANSWERABLE);
-  const pickU = sampleStrata(unsupported, (m) => m.reason!.split(":")[0]!, PHIA_UNSUPPORTED, 2);
+  let pickA = sampleStrata(answerable, (m) => `${m.user}|${m.operation}`, PHIA_ANSWERABLE);
+  let pickU = sampleStrata(unsupported, (m) => m.reason!.split(":")[0]!, PHIA_UNSUPPORTED, 2);
+  let excluded = 0;
+  if (fresh) {
+    const used = usedIds();
+    for (const m of [...pickA, ...pickU]) used.add(m.id);
+    const freeA = answerable.filter((m) => !used.has(m.id)), freeU = unsupported.filter((m) => !used.has(m.id));
+    excluded = answerable.length - freeA.length;
+    pickA = sampleStrata(freeA, (m) => `${m.user}|${m.operation}`, PHIA_ANSWERABLE, 0, FRESH_SEED);
+    pickU = sampleStrata(freeU, (m) => m.reason!.split(":")[0]!, PHIA_UNSUPPORTED, 2, FRESH_SEED);
+  }
   const tasks: BenchTask[] = [];
   // Seeded order (not file order), so `--limit N` takes a mix of users and strata.
   for (const m of [...pickA, ...pickU].sort((a, b) => draw(SEED + 1, a.id) - draw(SEED + 1, b.id) || a.id.localeCompare(b.id))) {
@@ -128,7 +150,7 @@ export async function loadPhia(): Promise<Bench> {
         phia: { label: label !== null && Number.isFinite(label) ? label : null, as_worded: null, window_differs: false, reason: m.reason!, reason_group: g, question_hash: m.question_hash } });
     }
   }
-  return { tasks, stores, info: { rejected, eligible_answerable: answerable.length, unsupported_pool: unsupported.length } };
+  return { tasks, stores, info: { rejected, eligible_answerable: answerable.length, unsupported_pool: unsupported.length, ...(fresh ? { sample: "fresh", seed: FRESH_SEED, answerable_excluded_as_used: excluded } : {}) } };
 }
 
 export interface PhiaScore { correct: boolean; correct_phia: boolean; correct_as_worded: boolean; correct_2pct: boolean; label_match: boolean }

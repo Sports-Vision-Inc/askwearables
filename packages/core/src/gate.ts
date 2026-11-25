@@ -1,6 +1,6 @@
 // The policy gate: plain code that runs before any data is read. It releases the coarsest level that
 // answers the question, only for metrics granted to this agent for this purpose. Deny by default.
-import { CATALOGUE, MIN_LEVEL, type Category } from "./catalogue.js";
+import { CATALOGUE, RELATED_METRICS, requiredLevel, type Category } from "./catalogue.js";
 import { addDays, daysBetween } from "./time.js";
 import type { Agent, DateWindow, GateDecision, Grant, Level, MetricId, Purpose, QuerySpec, TermsFlags } from "./types.js";
 
@@ -65,6 +65,7 @@ export function decide(input: GateInput): GateDecision {
     if (!grant.metrics.includes(m)) {
       denied.push(m);
       reasons.push(`metric_not_in_grant:${m}`);
+      for (const alt of RELATED_METRICS[m] ?? []) if (grant.metrics.includes(alt)) reasons.push(`granted_alternative:${m}:${alt}`);
     }
   }
 
@@ -103,8 +104,9 @@ export function decide(input: GateInput): GateDecision {
   }
 
   // 6. Level = the lowest of the grant's maximum and the lowest level that can answer the operation.
-  let level = Math.min(grant.max_level, MIN_LEVEL[spec.operation]) as Level;
-  if (grant.max_level < MIN_LEVEL[spec.operation]) reasons.push("level_lowered_by_grant");
+  const need = requiredLevel(spec);
+  let level = Math.min(grant.max_level, need) as Level;
+  if (grant.max_level < need) reasons.push("level_lowered_by_grant");
 
   // 7. Budget: stop when the agent passes its daily packet count.
   if (input.releasedToday >= grant.daily_packet_budget) return deny(clamped, [...reasons, "budget_exhausted"]);

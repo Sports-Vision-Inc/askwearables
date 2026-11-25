@@ -1,0 +1,1901 @@
+{
+ "about": "Second-iteration PHIA sample (EVAL_PHIA_FRESH=1): disjoint from the study sample (phia_sample.json) and from both planner-study samples. Ids only; PHIA is CC BY-NC 4.0.",
+ "seed": 20261126,
+ "answerable_target": 120,
+ "unsupported_target": 60,
+ "rejected": 0,
+ "eligible_answerable": 548,
+ "unsupported_pool": 2163,
+ "sample": "fresh",
+ "answerable_excluded_as_used": 219,
+ "items": [
+  {
+   "id": "41:423",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "fdaf5f606c76",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "171:669",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "a6a3afabb48c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:428",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "12176f2b6cba",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:670",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "1565f52eff2a",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:189",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "398f761bc1f0",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:797",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "c980053d0ca8",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:756",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "d16e8a3a522e",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:332",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "f1b8bc4073ba",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:465",
+   "stratum": "unsupported",
+   "tag": "unsupported:active_zone_minutes_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "6d1dc8022fc6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:730",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "717173bd4c57",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:957",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "7f4f58e94473",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:810",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "e9dcc159a100",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:678",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "1444653f5f26",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:961",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "404d74519da3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:440",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "5e356b9fc5b5",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:309",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "665a7f216b2d",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:650",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "b1a9c669a5b7",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:858",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_speed_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "1551b9d8d098",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:680",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "81b03cf81dba",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:971",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "d79d2163bbe1",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:882",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "762cff89d55c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:683",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "99dd0581291c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:663",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "3d4aca1f93f7",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:963",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "69b968447e3a",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:997",
+   "stratum": "unsupported",
+   "tag": "unsupported:active_zone_minutes_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "43527952366d",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:888",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "fe839a56fc4c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:443",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "426144fcb750",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "171:401",
+   "stratum": "unsupported",
+   "tag": "unsupported:single_sleep_stage_threshold_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "aafbd8a1bd23",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:973",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "2d7b98de3078",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:547",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "4974839024c6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:816",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "210cfb4f0993",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:287",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "6f7ffc389f13",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:268",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "d399ebfcd141",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:318",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "a03c4cd3b3ac",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:903",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "f6ff2be79d0f",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "171:771",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "f6eff85b00ba",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:325",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "78bcf6899aa4",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:482",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "06b8295bb324",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:847",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "4423fe0be919",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:371",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "68654aaa022b",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:383",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_filter_on_values_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "4df9804a97c3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:113",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "880e484f706b",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:381",
+   "stratum": "unsupported",
+   "tag": "unsupported:single_sleep_stage_threshold_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "f51304fed590",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:420",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "efeea41776b5",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:969",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "c3ff2cff9106",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:840",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "56cb505815fe",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:211",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "fc3e1e3542eb",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:421",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "5856352272fd",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:726",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "86b0cd4dccea",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:288",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "5df72c162322",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:678",
+   "stratum": "unsupported",
+   "tag": "unsupported:answer_is_a_list_of_names_not_a_number",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "30ff4c80c63f",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:953",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "5252746cd4f6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:693",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "dd5d2cbaa0c6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:17",
+   "stratum": "unsupported",
+   "tag": "unsupported:equality_threshold_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "49553faa6009",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:761",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "dc05f7e361c4",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:985",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "24b70aab8105",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:540",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "69d49d8831f4",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:271",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "930897d0c440",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:914",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "71163975ec55",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:276",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_speed_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "d5a1e403450c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:868",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "8ce4d7c0af34",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "465:530",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "657cfd23c8c3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:502",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "b8fbe0924069",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:463",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "d94bbee6e0d9",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:387",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "5b1595e2ffe7",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:550",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "c0a340c7cb1d",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:921",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "d5c52eca025d",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:480",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "3cb893dfe37e",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:790",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "30bb123394d2",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:410",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "85509ed1f8ad",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:737",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "e14177870690",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:779",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "d8fe3060d687",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:7",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_elevation_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "f9e1f2be9c89",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:187",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "b39d59e2bd94",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:829",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_filter_on_values_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "1fc33496e958",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:896",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "4f7379b34571",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:752",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "82c2b9c91465",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:892",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "0fc1c45c8c49",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:341",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "e0ea3f9babc6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:772",
+   "stratum": "unsupported",
+   "tag": "unsupported:active_zone_minutes_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "6cc4ee17ecb3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:741",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "95b5be7dcd9b",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:96",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_filter_on_values_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "4b15d363f859",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:957",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "f616c1694ea6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:39",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_steps_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "93de4adaee74",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:20",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_elevation_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "08fb21515b73",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:349",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_filter_on_values_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "03c13b76dbb3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:316",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "eab37b895fb5",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:64",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "7198603913e6",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:422",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "310ca876d3e0",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:914",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "d468c14ccfed",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:128",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "a461ee6cd564",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:911",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "51a7abc3b5c6",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:699",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_speed_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "330c3fc50f1a",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:921",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "0f87813a10ad",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:794",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "0d50ffcfcb24",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:456",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "e9f65a0081ee",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:118",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "eaec7416f201",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:988",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "773e83c81681",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:557",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "a4cf522c9328",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:338",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "e4264177d770",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:885",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "ede4c8391672",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:398",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "c05f0209e25c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:375",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "1952b3a73b05",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:397",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "e78b46502d81",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:216",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "906053ac0f54",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:425",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "50c6d65f0332",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:198",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "067e85b79b20",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:589",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "053a1a085913",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:50",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "e9de1701ad24",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:224",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "25cab46d83f0",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:106",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "78807ecb11eb",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:928",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "e7ea4532ba8b",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:275",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "ea3bfb5ae472",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:828",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "61435e775a67",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:758",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "8298017cd789",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:817",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "12eb85480516",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:232",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "900f6e0d040d",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:128",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "aac355f07ff5",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:635",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "f64380d67724",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:862",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "a82fe6f9fe85",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:762",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "30a0b637df6f",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "333:595",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "04e762bfa9aa",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:156",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "5ca977fe7cd9",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:369",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "89ad5d1bcf0a",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "333:759",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "58ff7a983b36",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:986",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "05cbbf90f24b",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:4",
+   "stratum": "unsupported",
+   "tag": "unsupported:equality_threshold_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "d2926cf81e65",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:858",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "018c52d3d657",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:137",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "4e2bd1617d97",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:219",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "664706e06b93",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "465:15",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "be25038e3583",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:311",
+   "stratum": "unsupported",
+   "tag": "unsupported:composed_query_window_depends_on_another_query",
+   "group": "phia_unsupported_computable",
+   "question_hash": "20cb8518eb64",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:689",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "33493a467067",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:485",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_steps_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "5c288ae72bd4",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:263",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "af9d0f589310",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "171:165",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "2f7607540800",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:475",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "1ff88c1c9d62",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:180",
+   "stratum": "unsupported",
+   "tag": "unsupported:active_zone_minutes_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "10ce15d96a9c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:552",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "2a4f39abc7e3",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:641",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "8904e4d368e9",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:820",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "d6cd37aa148c",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:368",
+   "stratum": "unsupported",
+   "tag": "unsupported:answer_is_a_list_of_names_not_a_number",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "b70b997acdd0",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:461",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "128113de112f",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:383",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "8c65bfddb0b9",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:890",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "e60ae657db52",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:681",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "9701f618e861",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "465:129",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "fb0726471e2e",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:370",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "648fc22ea0f8",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:585",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "c220d23b9ce5",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:120",
+   "stratum": "unsupported",
+   "tag": "unsupported:single_sleep_stage_threshold_not_offered",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "86df54bf9fcc",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:214",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "855104597f9a",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:639",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "dceca616c082",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:710",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "a346370e4ab0",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:358",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "b9043933c4bb",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:125",
+   "stratum": "answerable",
+   "tag": "aggregate:steps",
+   "group": "phia_answerable",
+   "question_hash": "d5d216e0b24b",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:855",
+   "stratum": "unsupported",
+   "tag": "unsupported:statistic_not_offered",
+   "group": "phia_unsupported_computable",
+   "question_hash": "951ae1e43af7",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:459",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "c4627357976c",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:955",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_elevation_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "7a3ba1c6aed4",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:215",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "694b9d56b552",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:482",
+   "stratum": "unsupported",
+   "tag": "unsupported:answer_is_a_list_of_names_not_a_number",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "210b588ca38a",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:578",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "746988461c56",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:116",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "f3daf42a6e73",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:837",
+   "stratum": "unsupported",
+   "tag": "unsupported:active_zone_minutes_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "3e552fbbbbf5",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:772",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "4741808061aa",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "171:438",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "a2034176b9c9",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "333:494",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "9f2aa05cae06",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:841",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "0c48b6580e57",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "41:521",
+   "stratum": "unsupported",
+   "tag": "unsupported:workout_steps_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "9e9fbb626b6f",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "41:682",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "32412f600e6a",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "41:624",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "eecfda2aef1c",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:158",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "605abcf767ec",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:430",
+   "stratum": "unsupported",
+   "tag": "unsupported:sleep_stage_percentage_not_in_catalogue",
+   "group": "phia_unsupported_not_in_data",
+   "question_hash": "b0330935634e",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:389",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "3983d1ab7b68",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": []
+  },
+  {
+   "id": "333:229",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "7e248f030296",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "171:882",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "998d1dde2c42",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:318",
+   "stratum": "answerable",
+   "tag": "aggregate:hrv_rmssd",
+   "group": "phia_answerable",
+   "question_hash": "8b389ca76676",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "333:604",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "b44de0669099",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "333:164",
+   "stratum": "answerable",
+   "tag": "aggregate:resting_hr",
+   "group": "phia_answerable",
+   "question_hash": "1dcdb5f14ebb",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": []
+  },
+  {
+   "id": "465:471",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "999670b39213",
+   "today": "2023-10-31",
+   "window_differs": true,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  },
+  {
+   "id": "171:416",
+   "stratum": "answerable",
+   "tag": "threshold_check:sleep_duration",
+   "group": "phia_answerable",
+   "question_hash": "ecb948c44545",
+   "today": "2023-10-31",
+   "window_differs": false,
+   "definition_notes": [
+    "sleep_minutes_is_time_in_bed"
+   ]
+  }
+ ]
+}

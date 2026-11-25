@@ -239,3 +239,24 @@ describe("concurrency", () => {
     expect(v).toMatchObject({ ok: true, count: 40 });
   });
 });
+
+describe("release level follows the question; denials name a granted alternative", () => {
+  it("a threshold count (mode count) is released at level 1, a yes/no threshold at level 0", () => {
+    const thr = (mode: "any" | "count") => sp({ operation: "threshold_check", window: { start: "2026-11-18", end: "2026-11-24" }, params: { comparator: "<", threshold: 360, mode } });
+    expect(decide(input({ spec: thr("any") })).level).toBe(0);
+    expect(decide(input({ spec: thr("count") })).level).toBe(1);
+    const g0 = testGrant({ max_level: 0, max_window_days: 14 });
+    const d = decide(input({ grant: g0, token: tok(g0), spec: thr("count") }));
+    expect(d.level).toBe(0);
+    expect(d.reasons).toContain("level_lowered_by_grant");
+  });
+  it("a denied metric with a related granted metric names it in the reasons and the hint", async () => {
+    const sql = await store();
+    const grant = testGrant({ metrics: ["resting_hr", "sleep_duration"], max_level: 2, max_window_days: 30 });
+    const spec = sp({ metrics: ["heart_rate"], operation: "aggregate", window: { start: "2026-11-18", end: "2026-11-24" }, params: { statistic: "mean" } });
+    const res = await answerSpec(sql, plainCipher, { token: tok(grant), grant, agent: testAgent(), spec, now: NOW, today: TODAY });
+    expect(res.status).toBe("denied");
+    expect(res.reasons).toContain("granted_alternative:heart_rate:resting_hr");
+    expect(res.hint).toMatch(/resting heart rate/i);
+  });
+});
