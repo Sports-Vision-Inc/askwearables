@@ -1,0 +1,22 @@
+{
+ "about": "Held-out planner window check, written before the third revision's prompt change and before any run of it. today = 2026-11-25 (a Wednesday). Each item gives the expected operation, window and, for comparisons, compare_window. Not used to write the prompt.",
+ "today": "2026-11-25",
+ "items": [
+  {"q": "Did I take more steps in the past 7 days than in the 7 days before that?", "op": "compare_periods", "w": ["2026-11-19","2026-11-25"], "cw": ["2026-11-12","2026-11-18"]},
+  {"q": "Compare my average steps over the 7 days ending yesterday with the week before that.", "op": "compare_periods", "w": ["2026-11-18","2026-11-24"], "cw": ["2026-11-11","2026-11-17"]},
+  {"q": "Was my sleep in the last 14 days longer or shorter than in the 14 days before?", "op": "compare_periods", "w": ["2026-11-12","2026-11-25"], "cw": ["2026-10-29","2026-11-11"]},
+  {"q": "Not counting today, how did my resting heart rate over the last 7 days compare with the 7 days before that?", "op": "compare_periods", "w": ["2026-11-18","2026-11-24"], "cw": ["2026-11-11","2026-11-17"]},
+  {"q": "Am I walking more this week than last week?", "op": "compare_periods", "w": ["2026-11-23","2026-11-25"], "cw": ["2026-11-16","2026-11-22"]},
+  {"q": "How does my HRV over the past 30 days compare to the 30 days before that?", "op": "compare_periods", "w": ["2026-10-27","2026-11-25"], "cw": ["2026-09-27","2026-10-26"]},
+  {"q": "Did I sleep more over the 3 nights ending yesterday than over the 3 nights before those?", "op": "compare_periods", "w": ["2026-11-22","2026-11-24"], "cw": ["2026-11-19","2026-11-21"]},
+  {"q": "Steps: last 7 days excluding today versus the previous 7 days. Higher, lower or the same?", "op": "compare_periods", "w": ["2026-11-18","2026-11-24"], "cw": ["2026-11-11","2026-11-17"]},
+  {"q": "What was my average daily step count over the last 7 days?", "op": "aggregate", "w": ["2026-11-19","2026-11-25"]},
+  {"q": "What was my total step count for the 7 days ending yesterday?", "op": "aggregate", "w": ["2026-11-18","2026-11-24"]},
+  {"q": "How many nights in the last 7 nights did I sleep under 6 hours?", "op": "threshold_check", "w": ["2026-11-19","2026-11-25"]},
+  {"q": "How many days in the 14 days ending yesterday did I walk more than 10,000 steps?", "op": "threshold_check", "w": ["2026-11-11","2026-11-24"]},
+  {"q": "What was my resting heart rate yesterday?", "op": "latest", "w": ["2026-11-24","2026-11-24"]},
+  {"q": "Is my HRV trending up or down over the last 28 days?", "op": "trend", "w": ["2026-10-29","2026-11-25"]},
+  {"q": "What was my average sleep duration over the last 14 days, not counting today?", "op": "aggregate", "w": ["2026-11-11","2026-11-24"]},
+  {"q": "Did I sleep less than usual over the last 3 nights ending yesterday?", "op": "compare_to_baseline", "w": ["2026-11-22","2026-11-24"]}
+ ]
+}
