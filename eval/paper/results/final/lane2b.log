@@ -55,3 +55,8 @@ phia: 1511 runs to do (3 models × 3 conditions × 180 tasks); ingest rejected 0
   1250/1511  openrouter spend $49.54 (cap $145)
   1300/1511  openrouter spend $49.77 (cap $145)
   1350/1511  openrouter spend $50.08 (cap $145)
+  1400/1511  openrouter spend $52.55 (cap $145)
+  1450/1511  openrouter spend $55.15 (cap $145)
+  1500/1511  openrouter spend $58.02 (cap $145)
+done. openrouter spend this process: $58.75; workers-ai calls: 1316
+FRONTIER DONE

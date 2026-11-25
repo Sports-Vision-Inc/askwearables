@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 NOV 2026 21:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 00:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1214,18 +1214,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--4
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--6
-[]|\T1/ptm/m/n/9 (+20) Daylight
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--8
+Underfull \hbox (badness 10000) in paragraph at lines 4--4
 []|\T1/ptm/m/n/9 (+20) unknown
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
-[]|\T1/ptm/m/n/9 (+20) no packet: the plan-ner re-fused
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]|\T1/ptm/m/n/9 (+20) Daylight
  []
 
 )
@@ -1234,21 +1229,21 @@ File: figures/fig_exposure.pdf Graphic file (type pdf)
 <use figures/fig_exposure.pdf>
 Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 247.
 (pdftex.def)             Requested size: 328.82707pt x 151.77455pt.
+ (./tables/tab_exposure.tex)
 
+[17 <./figures/fig_c_outcomes.pdf>]
 
-[17 <./figures/fig_c_outcomes.pdf>] (./tables/tab_exposure.tex)
+[18] (./tables/tab_leak_audit.tex) (./tables/tab_privacy.tex)
 
-[18] (./tables/tab_leak_audit.tex)
-
-[19 <./figures/fig_exposure.pdf>] (./tables/tab_privacy.tex)
-
-[20]
-<figures/fig_repeat.pdf, id=839, 469.755pt x 216.81pt>
+[19 <./figures/fig_exposure.pdf>]
+<figures/fig_repeat.pdf, id=832, 469.755pt x 216.81pt>
 File: figures/fig_repeat.pdf Graphic file (type pdf)
 <use figures/fig_repeat.pdf>
 Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 388.
 (pdftex.def)             Requested size: 469.75502pt x 216.80946pt.
- (./tables/tab_repeat.tex) (./tables/tab_planner_all.tex)
+ (./tables/tab_repeat.tex)
+
+[20] (./tables/tab_planner_all.tex)
 
 [21 <./figures/fig_repeat.pdf>] (./tables/tab_phia.tex)
 
@@ -1304,17 +1299,20 @@ https : / / owasp . org / API-[]Security / editions / 2019 / en /
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_accuracy.pdf, id=1111, 823.87799pt x 245.718pt>
+<figures/fig_accuracy.pdf, id=1109, 758.835pt x 245.718pt>
 File: figures/fig_accuracy.pdf Graphic file (type pdf)
 <use figures/fig_accuracy.pdf>
 Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 27.
-(pdftex.def)             Requested size: 469.75502pt x 140.10194pt.
-<figures/fig_traps.pdf, id=1114, 375.804pt x 303.534pt>
+(pdftex.def)             Requested size: 469.75502pt x 152.11487pt.
+<figures/fig_traps.pdf, id=1112, 375.804pt x 303.534pt>
 File: figures/fig_traps.pdf Graphic file (type pdf)
 <use figures/fig_traps.pdf>
 Package pdftex.def Info: figures/fig_traps.pdf  used on input line 36.
 (pdftex.def)             Requested size: 352.31625pt x 284.57631pt.
-<figures/fig_privacy.pdf, id=1117, 469.755pt x 216.81pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/fig_privacy.pdf, id=1115, 469.755pt x 216.81pt>
 File: figures/fig_privacy.pdf Graphic file (type pdf)
 <use figures/fig_privacy.pdf>
 Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 44.
@@ -1322,7 +1320,7 @@ Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 44.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_planner_phia.pdf, id=1120, 462.52798pt x 191.5155pt>
+<figures/fig_planner_phia.pdf, id=1118, 462.52798pt x 191.5155pt>
 File: figures/fig_planner_phia.pdf Graphic file (type pdf)
 <use figures/fig_planner_phia.pdf>
 Package pdftex.def Info: figures/fig_planner_phia.pdf  used on input line 52.
@@ -1334,11 +1332,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [34
 
- <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
+ <./figures/fig_accuracy.pdf>]
 
-[35 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>]
+[35 <./figures/fig_traps.pdf> <./figures/fig_privacy.pdf>]
 
-[36] (./main.aux)
+[36]
+
+[37 <./figures/fig_planner_phia.pdf>] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1347,11 +1347,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: ADDCE8FAB314F8289E851908F92F1887;6700.
  ) 
 Here is how much of TeX's memory you used:
- 32038 strings out of 473190
- 594417 string characters out of 5715801
- 1012478 words of memory out of 5000000
+ 32034 strings out of 473190
+ 594373 string characters out of 5715801
+ 1011476 words of memory out of 5000000
  53633 multiletter control sequences out of 15000+600000
- 692486 words of font info for 676 fonts, out of 8000000 for 9000
+ 693676 words of font info for 673 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1001b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1365,10 +1365,10 @@ onts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/
 utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pf
 b></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (36 pages, 457482 bytes).
+Output written on main.pdf (37 pages, 457708 bytes).
 PDF statistics:
- 1434 PDF objects out of 1440 (max. 8388607)
- 1010 compressed objects within 11 object streams
- 255 named destinations out of 1000 (max. 500000)
+ 1440 PDF objects out of 1440 (max. 8388607)
+ 1016 compressed objects within 11 object streams
+ 256 named destinations out of 1000 (max. 500000)
  125314 words of extra memory for PDF output out of 128383 (max. 10000000)
 
