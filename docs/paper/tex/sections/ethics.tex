@@ -1,4 +1,5 @@
 \phantomsection
+\begingroup\sloppy
 \section*{Ethics and Reproducibility Statement}\label{sec:ethics}
 \addcontentsline{toc}{section}{Ethics and Reproducibility Statement}
 
@@ -11,9 +12,10 @@ in this paper is a clinical claim.
 The broker, the synthetic generator, the question set and scoring rules, the privacy scenarios, the agent prompts,
 the per-run results (final text, parsed answer, tool calls and packet levels; not the packets themselves), the
 leak-detector audit with its hand labels, and the scripts that produce every table, figure and in-text number are
-available at \codeurl{}. The commands are \code{eval/paper/run-lane1.sh}, \code{eval/paper/run-lane2.sh} and
-\code{eval/paper/run-v2.sh} (runs), \code{eval/paper/report.py} (tables and figures),
-\code{eval/paper/leak\_audit.py} (detector audit), \code{eval/paper/example\_packets.ts} (packets of the worked
-examples), \code{eval/paper/summarize\_planner.py} (planner study) and \code{eval/paper/make\_macros.py} (the
-numbers in this paper). Every result in the text is a macro generated from
-the result files; a result that has not finished renders as \pending{}.
+available at \codeurl{}. The commands are \code{eval/paper/run-final.sh} and \code{eval/paper/run-final-frontier.sh}
+(runs), \code{eval/paper/run-final-retry3.sh} (retries of infrastructure errors), \code{eval/paper/report.py} (tables
+and figures), \code{eval/paper/leak\_audit.py} (detector audit), \code{eval/paper/example\_packets.ts} (packets of the
+worked examples), \code{eval/scripts/llm-planner-phia.ts} (planner study), \code{eval/paper/phia\_failures.py} (the
+attribution of PHIA errors) and \code{eval/paper/make\_macros.py} (the numbers in this paper). Every result in the
+text is a macro generated from the result files.
+\par\endgroup

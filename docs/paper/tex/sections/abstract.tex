@@ -10,19 +10,20 @@ answers it; and every agent receives the same short packet, with a hash-chained 
 denial. We compare \sys{} with raw context and with open tools, holding the agent model fixed, across \nModels{}
 models and \nTasks{} questions over a synthetic cohort whose ground truth is known by construction and which contains
 the data-quality traps of real wearable data. With \sys{}, accuracy ranged from \accCMin{} to \accCMax{} across the
-models with complete runs, against \accAMin{} to \accAMax{} with raw context and \accBMin{} to \accBMax{} with open
+models, against \accAMin{} to \accAMax{} with raw context and \accBMin{} to \accBMax{} with open
 tools; the pooled gain over raw context was \bootPooledCA{} percentage points (95\% interval from a bootstrap over
 people). \sys{} was more accurate than raw context for \nSigCA{} of \nTestedCA{} models (exact McNemar, $p<0.05$) and
-significantly less accurate for none, but it was worse on one of ten question types, a sleep threshold, partly
-because its planner rejected the unit ``hours''. For the strongest models no accuracy difference was detectable. We
+significantly less accurate for none; for the strongest models no accuracy difference was detectable. On 152
+questions over real Fitbit data, \sys{} raised accuracy for the four models that were weakest with raw context and
+lowered it for the two that were strongest. We
 name handing the model more of the record than the question needs \emph{context over-exposure} and measure it apart
 from leakage: raw context put \expRatioAC{} times as much of the record in front of the model as \sys{}; open tools
-delivered a similar volume but could reach the whole record. Under a leak detector corrected after a hand-label
-audit, \sys{} leaked in \leakPooledC{} of privacy runs, against \leakPooledA{} for raw context and \leakPooledB{} for open
-tools; for data outside a grant this is enforced by construction. On PHIA, the planner refused \plHeldLlamaThreeRefUnsup{} of
-unsupported questions in a held-out sample, from categories its prompt was written to refuse, and, given hand-mapped queries, the compute
-engine matched \phiaAccRef{} of reference answers on PHIA's window convention and \phiaAccWorded{} on the convention
-the questions state.
+delivered a similar volume but could reach the whole record. Under a leak detector validated against hand labels,
+\sys{} leaked in \leakPooledC{} of privacy runs, against \leakPooledA{} for raw context and \leakPooledB{} for open
+tools; for data outside a grant this is enforced by construction. On PHIA's objective questions, \sys{} answered \code{unknown} to \phiaUnsupPooledC{} of the questions it does not
+support, against \phiaUnsupPooledA{} for raw context, but was less accurate on the answerable ones
+(\phiaWordedPooledC{} against \phiaWordedPooledA{}); its two largest causes of error were properties of the broker
+rather than of the models: threshold counts were released as yes or no, and a metric outside the grant was denied.
 \end{abstract}
 
 \noindent\textit{Keywords}\enspace AI agents $\cdot$ wearable data $\cdot$ personal health informatics $\cdot$

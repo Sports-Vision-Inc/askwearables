@@ -9,7 +9,8 @@ over many days, a fitted trend, or knowledge that two sources report the same st
 model a computed value with its caveats. The study does not isolate this cause. \CC{} bundles computed values,
 data-quality caveats, a second, larger model as planner, and a tool description that tells the agent model to rely
 on the numbers. The decomposition in \cref{sec:res:failures} shows that runs with a released packet were correct far
-more often than runs the planner refused, which fits the explanation but is not an ablation. The pattern agrees with
+as often as they were, and that almost no run was left without a packet, which fits the explanation but is not an
+ablation. The pattern agrees with
 the program-aided reasoning literature~\citep{gao2022pal,chen2023pot} and with PHIA's finding that computing in code
 beats reasoning over the numbers~\citep{merrill2024phia}; in \sys{} the agent model writes no code at all.
 
@@ -32,23 +33,35 @@ figure to restate. Upstream minimization has worked in other settings~\citep{bag
 reconstruction of the record~\citep{dinur2003revealing,patil2025sumleaks}; the gate can cap releases per day, but
 this study did not exercise that limit or run a reconstruction attack.
 
-\paragraph{Measuring leakage needs a validated detector.} The leak detector we started with had a precision of
-\auditPrec{} against hand labels, and every one of its \CC{} positives was a false positive: advice to the user, a
-sync age, or a coincidental number. A study that reported it alone would have understated the difference between
-\sys{} and the baselines in some scenarios and misstated open tools in others. We recommend that agent-privacy
-evaluations report detector precision and recall on a labelled sample, as we do here.
+\paragraph{Measuring leakage needs a validated detector.} The first leak rule we wrote had a precision of
+\auditPrec{} against hand labels in the development run: it read advice to the user, a sync age or a coincidental
+number as a leak. A study that reported it alone would have misstated the difference between the designs. We
+recommend that agent-privacy evaluations report detector precision and recall on a labelled sample, and freeze the
+detector before the runs it scores, as we did.
 
-\paragraph{Errors move from computation to planning.} The failures that remain in \CC{} are planner refusals, planner
-validation failures, and agent models that misread the packet or asked a different question. Two of the planner
-failures were defects, not design choices: a schema that rejected ``hours'' as a unit, and a keyword check that read
-``period'' as cycle tracking. Both appeared as reasons in the broker's log, which is how we found them, and fixing
-them is what the second iteration measures (\cref{tab:v2}). Over-refusal is a cost of a planner told to refuse when
-unsure, both on PHIA and in the over-refusal counts of \cref{sec:res:refusal}.
+\paragraph{Where errors remain.} On the synthetic questions, \sys{}'s remaining errors were almost all the agent
+model's reading of a correct packet: a partial total reported despite a caveat that it is incomplete, or \emph{yes}
+to a threshold when every value received was above it. Planner faults that dominated the development run, a schema
+that rejected ``hours'' and a keyword check that read ``period'' as cycle tracking, were found through the reasons the
+broker logs for each refusal and did not recur after they were fixed.
+
+\paragraph{What PHIA shows about the design.} PHIA exposed two decisions that cost accuracy on questions the broker
+could answer. First, the gate releases the lowest level that can answer an \emph{operation}; for a threshold check
+that is a yes-or-no flag, so a question asking \emph{how many} days met a condition received a flag although the
+count was computed. The release level should follow the question asked, not only the operation. Second, a metric
+outside the grant is denied without saying which granted metric could answer; the planner mapped ``heart rate'' to
+the heart-rate metric, the grant held resting heart rate, and the agent model was left with a denial. A denial that
+names an answerable alternative would keep the gate's guarantee and recover most of these runs. Both changes are
+general, not specific to PHIA; we have not made them, because any change after the study must be measured on fresh
+questions. Two further observations are properties of the benchmark: some reference labels count time in bed or total
+sleep where the question says sleep or light sleep, and ``last $N$ days'' is labelled as $N{+}1$ days. We report
+PHIA as worded and with its labels for that reason. PHIA also shows the trade-off we chose: \sys{} refused
+unsupported questions far more often than the baselines, and refused some answerable ones.
 
 \paragraph{The open-tools condition depends on how the model calls tools.} Open tools were the worst condition for
 some models and the best for others. One model wrote most of its tool calls as text, which a harness that only
-reads structured calls would have scored as unanswered; after the harness was corrected, its open-tools accuracy was
-\accLlamaScoutB{}. A comparison of MCP-style designs therefore depends on the serving stack as much as on the design,
+reads structured calls would have scored as unanswered; the harness executes such calls in every condition, and
+with it the model's open-tools accuracy was \accLlamaScoutB{}. A comparison of MCP-style designs therefore depends on the serving stack as much as on the design,
 and studies should state how text-format tool calls are handled.
 
 \subsection{Implications for agent builders}
@@ -57,7 +70,8 @@ For people building agents over personal data, we draw three lessons. First, giv
 with caveats rather than records; the packet contract cost the strongest models nothing measurable in accuracy and
 helped the weaker ones. Second, decide disclosure in code, outside the model, and bind purpose at consent time rather
 than in the request. Third, log both releases and denials with their reasons; the logged reasons let us find and fix
-the planner defects.
+the planner defects. Fourth, choose the release level from the question and make denials point to what the grant
+does allow; a minimal answer that does not answer the question is not minimal, only unhelpful.
 
 \subsection{Limitations of the design}
 

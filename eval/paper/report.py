@@ -20,6 +20,18 @@ MODEL_ORDER = ["llama-3.3-70b", "llama-4-scout", "mistral-small-3.1", "gemma-4-2
                "nemotron-3-ultra-550b", "gemini-4-neon", "gpt-6.2-astra", "claude-fable-5.2"]
 
 
+
+def load_planner_rows(path):
+    """Planner-study rows: last row per (question, planner) wins; failures caused by the infrastructure (recorded as
+    infra_error, or, before errors were recorded, a planner_failed that took over 300 s) are not outcomes."""
+    last = {}
+    for l in open(path):
+        if l.strip():
+            r = json.loads(l)
+            last[(r["id"], r["planner"])] = r
+    return [r for r in last.values()
+            if not (r.get("infra_error") is True or (r.get("reason") == "planner_failed" and r.get("infra_error") is None and r["ms"] > 300_000))]
+
 def load(suite):
     rows = {}
     step_limited = set()
@@ -528,7 +540,7 @@ for suite in ("phia", "real"):
 pp = os.path.join(RES, "planner-phia.jsonl")
 if os.path.exists(pp):
     mp = {e["id"]: e for e in json.load(open(os.path.join(HERE, "..", "phia", "mapping.json")))["entries"]}
-    rows = [json.loads(l) for l in open(pp) if l.strip()]
+    rows = load_planner_rows(pp)
     byp = collections.defaultdict(list)
     for r in rows:
         e = mp[r["id"]]

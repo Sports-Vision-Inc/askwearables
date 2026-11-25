@@ -349,4 +349,4 @@ Unsupported = PHIA questions outside the operation set (must be refused). Answer
 
 | Planner model | n | Refused unsupported | Guessed on unsupported | Refused answerable | Operation + metric match | + window match | Median latency (s) |
 |---|---|---|---|---|---|---|---|
-| llama-3.3-70b | 400 | 100.0% | 0 | 29.0% | 64.5% | 53.2% | 43.9 |
+| llama-3.3-70b | 400 | 100.0% | 0 | 12.9% | 79.0% | 64.5% | 32.7 |

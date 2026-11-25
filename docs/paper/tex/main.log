@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 09:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  25 NOV 2026 09:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1069,16 +1069,27 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+3.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 29.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 28.
-) (./sections/introduction.tex
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 29.
+)
+(./sections/introduction.tex
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
 ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
-]
+{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
 7.
 
@@ -1104,7 +1115,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 [3]
 
 [4]) (./sections/design.tex
-<figures/fig_architecture.pdf, id=462, 722.7pt x 354.36388pt>
+<figures/fig_architecture.pdf, id=464, 722.7pt x 354.36388pt>
 File: figures/fig_architecture.pdf Graphic file (type pdf)
 <use figures/fig_architecture.pdf>
 Package pdftex.def Info: figures/fig_architecture.pdf  used on input line 5.
@@ -1112,19 +1123,8 @@ Package pdftex.def Info: figures/fig_architecture.pdf  used on input line 5.
 
 
 [5]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-7.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 
-
-[6{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc} <./figures/
-fig_architecture.pdf>]
+[6 <./figures/fig_architecture.pdf>]
 
 [7]) (./sections/study.tex
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -1136,32 +1136,32 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 [8]
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 140--140
+Underfull \hbox (badness 10000) in paragraph at lines 141--141
 []|\T1/ptm/m/n/9 (+20) Scheduling as-sis-tant;
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 140--140
+Underfull \hbox (badness 10000) in paragraph at lines 141--141
 []|\T1/ptm/m/n/9 (+20) sleep num-bers,
  []
 
 
-Underfull \hbox (badness 5939) in paragraph at lines 140--140
+Underfull \hbox (badness 5939) in paragraph at lines 141--141
 []|\T1/ptm/m/n/9 (+20) Running-coach as-sis-
  []
 
 
-Underfull \hbox (badness 1635) in paragraph at lines 140--140
+Underfull \hbox (badness 1635) in paragraph at lines 141--141
 \T1/ptm/m/n/9 (+20) as-sis-tant; sleep only,
  []
 
 
-Underfull \hbox (badness 4391) in paragraph at lines 140--140
+Underfull \hbox (badness 4391) in paragraph at lines 141--141
 []|\T1/ptm/m/n/9 (+20) Sleep-coaching as-sis-
  []
 
 
-Underfull \hbox (badness 8132) in paragraph at lines 140--140
+Underfull \hbox (badness 8132) in paragraph at lines 141--141
 \T1/ptm/m/n/9 (+20) tant; sleep met-rics,
  []
 
@@ -1172,30 +1172,220 @@ Underfull \hbox (badness 8132) in paragraph at lines 140--140
 [11]
 
 [12]) (./sections/results.tex
-<figures/fig_accuracy_cost.pdf, id=604, 621.52202pt x 332.44202pt>
+<figures/fig_accuracy_cost.pdf, id=608, 621.52202pt x 332.44202pt>
 File: figures/fig_accuracy_cost.pdf Graphic file (type pdf)
 <use figures/fig_accuracy_cost.pdf>
 Package pdftex.def Info: figures/fig_accuracy_cost.pdf  used on input line 12.
 (pdftex.def)             Requested size: 469.75502pt x 251.26865pt.
  (./tables/tab_accuracy.tex)
 
-[13]
-! Undefined control sequence.
-l.56 ...code{nemotron-3-ultra-550b} (\accNemotronA
-                                                  {},
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+[13] (./tables/tab_bootstrap.tex) (./tables/tab_traps.tex)
+(./tables/tab_questions.tex)
 
- 
+[14 <./figures/fig_accuracy_cost.pdf>]
+
+[15] (./tables/tab_refusal.tex)
+<figures/fig_c_outcomes.pdf, id=697, 448.07399pt x 148.8762pt>
+File: figures/fig_c_outcomes.pdf Graphic file (type pdf)
+<use figures/fig_c_outcomes.pdf>
+Package pdftex.def Info: figures/fig_c_outcomes.pdf  used on input line 170.
+(pdftex.def)             Requested size: 352.31625pt x 117.06116pt.
+
+
+[16] (./tables/tab_examples.tex) (./tables/tab_examples.tex)
+(./tables/tab_examples.tex
+Underfull \hbox (badness 10000) in paragraph at lines 2--2
+[]|\T1/ptm/m/n/9 (+20) Two step
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--4
+[]|\T1/ptm/m/n/9 (+20) Daylight
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]|\T1/ptm/m/n/9 (+20) Missing
+ []
+
+
+Overfull \hbox (2.07977pt too wide) in paragraph at lines 6--6
+[]|\T1/lmtt/m/n/9 mistral-small-3.1| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]|\T1/ptm/m/n/9 (+20) unknown
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--6
+[]|\T1/ptm/m/n/9 (+20) unknown
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--8
+[]|\T1/ptm/m/n/9 (+20) Missing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--8
+\T1/ptm/m/n/9 (+20) days (\T1/phv/m/n/9 (+20) C
+ []
+
+)
+
+[17 <./figures/fig_c_outcomes.pdf>]
+<figures/fig_exposure.pdf, id=756, 375.804pt x 173.448pt>
+File: figures/fig_exposure.pdf Graphic file (type pdf)
+<use figures/fig_exposure.pdf>
+Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 232.
+(pdftex.def)             Requested size: 328.82707pt x 151.77455pt.
+ (./tables/tab_exposure.tex)
+
+[18] (./tables/tab_leak_audit.tex)
+
+[19 <./figures/fig_exposure.pdf>] (./tables/tab_privacy.tex)
+
+[20]
+<figures/fig_repeat.pdf, id=839, 469.755pt x 216.81pt>
+File: figures/fig_repeat.pdf Graphic file (type pdf)
+<use figures/fig_repeat.pdf>
+Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 367.
+(pdftex.def)             Requested size: 469.75502pt x 216.80946pt.
+ (./tables/tab_repeat.tex) (./tables/tab_planner_all.tex)
+
+[21 <./figures/fig_repeat.pdf>] (./tables/tab_phia.tex)
+
+[22] (./tables/tab_bench_phia_split.tex) (./tables/tab_bench_real.tex)
+
+[23]) (./sections/discussion.tex
+
+[24]
+
+[25]) (./sections/scope.tex
+
+[26]) (./sections/conclusion.tex) (./sections/ethics.tex
+
+[27]
+Underfull \hbox (badness 2538) in paragraph at lines 12--21
+\T1/ptm/m/n/10.95 (+20) and in-text num-ber are avail-able at [][]$\T1/lmtt/m/n
+/10.95 https : / / github . com / Sports-[]Vision-[]Inc / askwearables$[][]\T1/
+ptm/m/n/10.95 (+20) .
+ []
+
+
+Underfull \hbox (badness 3579) in paragraph at lines 12--21
+\T1/ptm/m/n/10.95 (+20) and fig-ures), \T1/lmtt/m/n/10.95 eval/paper/leak_audit
+.py \T1/ptm/m/n/10.95 (+20) (de-tec-tor au-dit), \T1/lmtt/m/n/10.95 eval/paper/
+example_packets.ts
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--21
+\T1/ptm/m/n/10.95 (+20) (pack-ets of the worked ex-am-ples), \T1/lmtt/m/n/10.95
+ eval/scripts/llm-planner-phia.ts \T1/ptm/m/n/10.95 (+20) (plan-ner study),
+ []
+
+) (./main.bbl
+
+[28]
+Underfull \hbox (badness 5316) in paragraph at lines 105--110
+[]\T1/ptm/m/n/10.95 (+20) OWASP Foun-da-tion.  API3:2019 Ex-ces-sive Data Ex-po
+-sure.  OWASP API Se-cu-rity Top
+ []
+
+
+Underfull \hbox (badness 5756) in paragraph at lines 105--110
+\T1/ptm/m/n/10.95 (+20) 10 (2019 edi-tion), 2019.  URL [][]$\T1/lmtt/m/n/10.95 
+https : / / owasp . org / API-[]Security / editions / 2019 / en /
+ []
+
+
+
+[29]
+
+[30]
+
+[31]
+
+[32]
+
+[33])
+
+[34] (./sections/appendix.tex (./tables/tab_usage.tex)
+<figures/fig_accuracy.pdf, id=1121, 693.792pt x 245.718pt>
+File: figures/fig_accuracy.pdf Graphic file (type pdf)
+<use figures/fig_accuracy.pdf>
+Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
+(pdftex.def)             Requested size: 469.75502pt x 166.37364pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/fig_traps.pdf, id=1124, 375.804pt x 303.534pt>
+File: figures/fig_traps.pdf Graphic file (type pdf)
+<use figures/fig_traps.pdf>
+Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
+(pdftex.def)             Requested size: 352.31625pt x 284.57631pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/fig_privacy.pdf, id=1127, 469.755pt x 216.81pt>
+File: figures/fig_privacy.pdf Graphic file (type pdf)
+<use figures/fig_privacy.pdf>
+Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
+(pdftex.def)             Requested size: 399.29463pt x 184.28935pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<figures/fig_planner_phia.pdf, id=1130, 462.52798pt x 151.767pt>
+File: figures/fig_planner_phia.pdf Graphic file (type pdf)
+<use figures/fig_planner_phia.pdf>
+Package pdftex.def Info: figures/fig_planner_phia.pdf  used on input line 49.
+(pdftex.def)             Requested size: 375.80544pt x 123.31732pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+)
+
+[35
+
+]
+
+[36 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
+
+[37 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>] (./main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 27F581F95536CCC492A77B55049A7E03;6571.
+ ) 
 Here is how much of TeX's memory you used:
- 31298 strings out of 473190
- 581748 string characters out of 5715801
- 995478 words of memory out of 5000000
- 53280 multiletter control sequences out of 15000+600000
- 673213 words of font info for 507 fonts, out of 8000000 for 9000
+ 31983 strings out of 473190
+ 594260 string characters out of 5715801
+ 1009478 words of memory out of 5000000
+ 53610 multiletter control sequences out of 15000+600000
+ 690526 words of font info for 654 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1001b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
-!  ==> Fatal error occurred, no output PDF file produced!
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/202
+5/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2025/texmf-dist/f
+onts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
+urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/
+utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pf
+b></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (37 pages, 460467 bytes).
+PDF statistics:
+ 1448 PDF objects out of 1728 (max. 8388607)
+ 1024 compressed objects within 11 object streams
+ 258 named destinations out of 1000 (max. 500000)
+ 125314 words of extra memory for PDF output out of 128383 (max. 10000000)
+

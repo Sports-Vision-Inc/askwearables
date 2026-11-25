@@ -7,8 +7,7 @@
 Context = median input tokens per question read by the agent model, and in \CC{} separately by the broker's planner
 (\code{llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question
 (provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \CC{});
-cost per correct answer is total cost divided by correct answers. $^{\dagger}$Planner usage estimated from measured
-per-call usage for the runs in which it was not logged.}
+cost per correct answer is total cost divided by correct answers. $^{\dagger}$Includes runs whose planner usage was estimated from measured per-call usage.}
 \label{tab:usage}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l c c r r r r r@{}}
@@ -34,16 +33,14 @@ and \CB{} (open tools).}
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.75\textwidth]{figures/fig_traps.pdf}
-\caption{Accuracy by data-quality trap and condition, pooled over all models including those with incomplete runs
-(\cref{tab:traps} restricts to complete models).}
+\caption{Accuracy by data-quality trap and condition, pooled over all models (the data of \cref{tab:traps}).}
 \label{fig:traps}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_privacy.pdf}
-\caption{Leak rate by scenario and condition under the \emph{original} detector, kept for comparison. The corrected
-detector and hand labels in \cref{tab:privacy} are the primary result; under them \sys{} leaked in no scenario.}
+\caption{Leak rate by scenario and condition under the frozen detector (the data of \cref{tab:privacy}).}
 \label{fig:privacy}
 \end{figure}
 

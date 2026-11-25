@@ -61,9 +61,9 @@ broker. The comparison covers \nModels{} models, from open-weight models with a 
 frontier systems, on a synthetic cohort whose ground truth is recorded by construction and which contains the data-quality
 traps real wearable data contains: duplicate step sources, time-zone travel, daylight-saving changes, missing
 days, stale syncs and device switches. We measure accuracy, honest refusal, tokens, latency and cost, leakage under
-contextual-integrity and injection scenarios, and repeatability. We also evaluate the planner alone on a stratified
-sample of the PHIA objective questions, and the compute engine on all of PHIA's questions that its operations
-cover.
+contextual-integrity and injection scenarios, and repeatability. We repeat the comparison end to end on PHIA's
+objective questions and on real Fitbit data from two public datasets, and evaluate the planner alone and the compute
+engine alone on PHIA.
 
 \subsection{Contributions}
 
@@ -78,10 +78,10 @@ cover.
 \item A measurement of context over-exposure, the share of the record each design puts in front of the model per
   question, kept separate from leakage, which we score with a detector validated against hand labels
   (\cref{sec:res:exposure,sec:res:privacy}).
-\item An account of where the benefit lies for each class of model, where \sys{} fails, and what one round of fixes
-  to its planner changed (\cref{sec:res:accuracy,sec:res:failures}).
-\item An evaluation of the planner and the compute engine on the public PHIA benchmark, with every candidate planner
-  and a held-out sample (\cref{sec:res:planner,sec:res:phia}).
+\item An account of where the benefit lies for each class of model and where \sys{} fails, including two design
+  decisions that cost it accuracy on a public benchmark (\cref{sec:res:accuracy,sec:res:failures,sec:res:bench}).
+\item End-to-end comparisons on the public PHIA benchmark and on real Fitbit data, and evaluations of the planner
+  (with a held-out sample) and the compute engine on PHIA (\cref{sec:res:bench,sec:res:planner,sec:res:phia}).
 \end{itemize}
 
 Neither ingredient is new on its own. Computing outside the model is the idea behind program-aided

@@ -3,11 +3,13 @@
 We set out to measure what changes when an AI agent asks about wearable data through a broker that computes the
 answer, releases only what the question needs, and records every decision. Holding the agent model fixed, \sys{}
 raised accuracy for the models that were weak with raw context (\nSigCA{} of \nTestedCA{} at $p<0.05$ against raw
-context; pooled \bootPooledCA{} points) and lowered it significantly for none, though it was worse on a sleep
-threshold question where its planner failed. For the strongest models no accuracy difference was detectable; for
-them the benefit was a shorter context, a release limited to the granted level and an audit record, at the cost of
-an extra planner call. Raw context over-exposed the record by a factor of \expRatioAC{}, and under a corrected,
-hand-audited leak detector \sys{} leaked in \leakPooledC{} of privacy runs against \leakPooledA{} for raw context and
-\leakPooledB{} for open tools. The remaining errors sit in planning and in the agent model's reading of the packet,
-where the broker's logged reasons make them visible; one round of fixes to the planner is measured in the second
-iteration. Code, data and the scripts that produce every number in this paper are available at \codeurl{}.
+context; pooled \bootPooledCA{} points) and lowered it significantly for none. For the strongest models no accuracy
+difference was detectable; for them the benefit was a shorter context, a release limited to the granted level and an
+audit record, at the cost of an extra planner call. On real Fitbit data the same pattern held for the weaker models,
+while the two strongest open-weight models lost accuracy. Raw context over-exposed the record by a factor of
+\expRatioAC{}, and \sys{} leaked in \leakPooledC{} of privacy runs against \leakPooledA{} for raw context and
+\leakPooledB{} for open tools. On PHIA, \sys{} refused what it does not support far more reliably than either
+baseline but answered fewer of the answerable questions, mostly because it released threshold counts as yes or no and
+denied a metric its grant did not cover; both are design choices that the broker's logged reasons made visible, and
+both point to changes we leave for a fresh evaluation. Code, data and the scripts that produce every number in this
+paper are available at \codeurl{}.

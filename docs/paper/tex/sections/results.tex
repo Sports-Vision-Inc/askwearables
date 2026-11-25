@@ -39,8 +39,7 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{} & \CC{} vs.\ \
 \end{tabular}
 \end{table}
 
-\paragraph{\sys{} narrowed the spread of accuracy across models.} Across the \nModelsComplete{} models with complete
-runs, accuracy in \CC{} ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} in \CA{} and
+\paragraph{\sys{} narrowed the spread of accuracy across models.} Across the \nModels{} models, accuracy in \CC{} ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} in \CA{} and
 \accBMin{} to \accBMax{} in \CB{} (\cref{fig:acccost,tab:accuracy}). Pooled over these models, accuracy was
 \accPooledA{} in \CA{}, \accPooledB{} in \CB{} and \accPooledC{} in \CC{}. With people resampled as clusters, the
 pooled difference was \bootPooledCA{} percentage points against \CA{} and \bootPooledCB{} against \CB{}
@@ -86,8 +85,7 @@ Agent model & \CC{} $-$ \CA{} & \CC{} $-$ \CB{}\\
 \begin{table}[t]
 \centering\small
 \begin{minipage}[t]{0.40\textwidth}\centering
-\caption{\CC{} was the most accurate condition on every trap. Accuracy (\%) over the \nModelsComplete{} models with
-complete runs.}
+\caption{\CC{} was the most accurate condition on every trap. Accuracy (\%) over the \nModels{} models.}
 \label{tab:traps}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c@{}}
@@ -100,7 +98,7 @@ Trap & \CA{} & \CB{} & \CC{}\\
 \end{minipage}\hfill
 \begin{minipage}[t]{0.56\textwidth}\centering
 \caption{\CC{} helped most on the trend and multi-day aggregates; on the threshold question it was level with
-\CA{}. Accuracy (\%) over the \nModelsComplete{} models.}
+\CA{}. Accuracy (\%) over the \nModels{} models.}
 \label{tab:questions}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c@{}}
@@ -113,7 +111,7 @@ Question & \CA{} & \CB{} & \CC{}\\
 \end{minipage}
 \end{table}
 
-\paragraph{The traps cost \CA{} and \CB{} more than \CC{}.} Over the models with complete runs, raw context lost most
+\paragraph{The traps cost \CA{} and \CB{} more than \CC{}.} Over all models, raw context lost most
 on missing days (\trapMissingA{}), stale sync (\trapStaleA{}) and two step sources (\trapTwoSourcesA{}); open tools
 on two step sources (\trapTwoSourcesB{}) and missing days (\trapMissingB{}). In \CC{} accuracy stayed between
 \trapCMin{} and \trapCMax{} on every trap (\cref{tab:traps}). These are descriptive; the paired tests in
@@ -151,13 +149,13 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
 \midrule
 \inputtab{tables/tab_refusal.tex}
 \midrule
-\multicolumn{4}{@{}l}{\code{unknown} on answerable tasks (complete models): \CA{} \overRefA{}, \CB{} \overRefB{}, \CC{} \overRefC{}}\\
+\multicolumn{4}{@{}l}{\code{unknown} on answerable tasks (all models): \CA{} \overRefA{}, \CB{} \overRefB{}, \CC{} \overRefC{}}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Of the \nTasks{} tasks, \nUnknownTasks{} have \code{unknown} as their only correct answer, because days are missing
-or never synced. Over the models with complete runs, agent models answered \code{unknown} on \refPooledA{} of these
+or never synced. Over all models, agent models answered \code{unknown} on \refPooledA{} of these
 runs in \CA{}, \refPooledB{} in \CB{} and \refPooledC{} in \CC{} (\cref{tab:refusal}). The difference came from the
 models that otherwise gave a number: \code{mistral-small-3.1} answered \code{unknown} on \refMistralA{} in \CA{} and
 \refMistralC{} in \CC{}. In \CC{} the packet states the missing days and the stale sync as caveats. The mirror image
@@ -192,7 +190,7 @@ value with a second question (``\ldots and is that total reliable?''); after a r
 rephrased and asked again. The two planner faults that dominated \CC{}'s errors in the development run, the unit
 ``hours'' and the word ``period'', did not recur.
 
-\paragraph{Release against refusal.} Over the complete models, \CC{} runs in which at least one packet was released
+\paragraph{Release against refusal.} Over all models, \CC{} runs in which at least one packet was released
 (\cReleasedN{}) were correct in \cReleasedAcc{} of cases; the \cRefusedN{} runs in which every attempt was refused were
 correct in \cRefusedAcc{}. If every fully refused run had been answered correctly, \CC{} accuracy over these models
 would rise from \cAccNow{} to \cAccPerfectPlanner{}: on these questions a better planner has almost nothing left to
@@ -273,7 +271,7 @@ whatever the request says. The privacy scenarios measure the consequence of that
 \subsection{Context length, output and cost}\label{sec:res:efficiency}
 
 \paragraph{The agent model read a fraction of the context.} In \CC{} the agent model's median input was
-\ctxRatioCAMin{}--\ctxRatioCAMax{} times its input in \CA{} across the models with complete runs; with the planner's
+\ctxRatioCAMin{}--\ctxRatioCAMax{} times its input in \CA{} across the models; with the planner's
 input added, the total tokens per question were \tokRatioCAMin{}--\tokRatioCAMax{} times those of \CA{}
 (\cref{tab:usage} in \cref{app:tables}). The agent model's input in \CB{} was of the same order as in \CC{}, because
 an agent model with open tools usually fetched one metric for a short range; once the planner's input is added,
@@ -300,9 +298,9 @@ broker call.
 
 \begin{table}[t]
 \centering\small
-\caption{Validating the original leak detector against hand labels: it missed little but one in three of its
-positives was wrong, all in the two scenarios with free-form replies. Decided rows of the hand-labelled sample
-(\auditAmbiguous{} ambiguous row excluded).}
+\caption{Validating the first leak rule against hand labels in the development run: it missed little but one in
+three of its positives was wrong, all in the two scenarios with free-form replies, which led to the corrected
+detector used in the study. Decided rows of the hand-labelled sample (\auditAmbiguous{} ambiguous row excluded).}
 \label{tab:audit}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l r r r r r c c c@{}}
@@ -314,54 +312,48 @@ Scenario & $n$ & TP & FP & FN & TN & precision & recall & $\kappa$\\
 \end{tabular}
 \end{table}
 
-\paragraph{The original detector was not good enough to report alone.} On the \auditDecided{} decided rows of the
-hand-labelled sample, the detector the study ran with had precision \auditPrec{}, recall \auditRec{} and Cohen's
-$\kappa$ \auditKappa{} (\cref{tab:audit}). It scored \code{exfil\_user\_turn} and \code{purpose\_drift} perfectly;
-every error was in \code{ci\_manager\_message} ($\kappa$ \auditManagerKappa{}) and \code{injection\_in\_data}
-($\kappa$ \auditInjectionKappa{}). The main error was scoring the whole reply rather than the message to the manager:
-agent models often explained the user's own sleep figures to the user and then wrote a draft with no numbers. The
-second was matching numbers out of context, such as a training load equal to the canary weight or ``6 h 54 min''
-read as a resting heart rate of 54. All \auditCPositives{} of the detector's \CC{} positives were in the sample, and
-the hand labels confirmed \auditCPosReal{} of them. On the sample the corrected detector agrees with every label
-(precision \auditFixedPrec{}, recall \auditFixedRec{}); because it was written with the sample in view, that agreement
-is fit, not validation, and the held-out check is the 38 changed verdicts outside the sample, none of which we judged
-wrong.
+\paragraph{The leak detector.} In the development run, the first pattern rule had precision \auditPrec{}, recall
+\auditRec{} and Cohen's $\kappa$ \auditKappa{} against hand labels on \auditDecided{} decided rows (\cref{tab:audit}).
+It scored \code{exfil\_user\_turn} and \code{purpose\_drift} perfectly; every error was in
+\code{ci\_manager\_message} ($\kappa$ \auditManagerKappa{}) and \code{injection\_in\_data} ($\kappa$
+\auditInjectionKappa{}). The main error was scoring the whole reply rather than the message to the manager: agent
+models often explained the user's own sleep figures to the user and then wrote a draft with no numbers. The second
+was matching numbers out of context, such as a training load equal to the canary weight or ``6 h 54 min'' read as a
+resting heart rate of 54. The corrected detector, frozen with the study, fixes both (\cref{sec:measures}).
 
 \begin{table}[t]
 \centering\small
-\caption{Under hand labels and the corrected detector, \sys{} leaked in no scenario; open tools leaked less than raw
-context but far more than \sys{} where the request asked for data outside the role. Leak rate (\%) per scenario and
-condition: corrected detector on all runs (leaked / runs), the design-weighted hand-label estimate, and the original
-detector.}
+\caption{\sys{} leaked in one of 300 privacy runs; open tools leaked less than raw context but far more than \sys{}
+where the request asked for data outside the role. Leak rate in \% (leaked / runs) per scenario and condition, scored
+by the frozen detector.}
 \label{tab:privacy}
-\setlength{\tabcolsep}{2.5pt}\footnotesize
-\begin{tabular}{@{}l ccc ccc ccc@{}}
+\begin{tabular}{@{}l c c c@{}}
 \toprule
- & \multicolumn{3}{c}{\CA{} raw context} & \multicolumn{3}{c}{\CB{} open tools} & \multicolumn{3}{c}{\CC{} \sys{}}\\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
-Scenario & corrected & hand & orig. & corrected & hand & orig. & corrected & hand & orig.\\
+Scenario & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
 \midrule
 \inputtab{tables/tab_privacy.tex}
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Leak rates.} Pooled over scenarios, the corrected detector found leaks in \leakPooledA{} of \CA{} runs,
-\leakPooledB{} of \CB{} runs and \leakPooledC{} of \CC{} runs; the hand-label estimates were \leakPooledHumanA{},
-\leakPooledHumanB{} and \leakPooledHumanC{}; the original detector reported \leakPooledOrigA{}, \leakPooledOrigB{}
-and \leakPooledOrigC{} (\cref{tab:privacy}). In \code{purpose\_drift}, where a sleep-coaching assistant is asked for
+\paragraph{Leak rates.} Pooled over scenarios, the detector found leaks in \leakPooledA{} of \CA{} runs,
+\leakPooledB{} of \CB{} runs and \leakPooledC{} of \CC{} runs (\cref{tab:privacy}). In \code{purpose\_drift}, where a sleep-coaching assistant is asked for
 weight and resting heart rate, \CA{} leaked in \leakDriftA{} of runs and \CB{} in \leakDriftB{}; in \CC{} the gate
 denied both metrics and no run leaked. In \code{injection\_in\_data}, the injected workout title was in the agent model's context in \CA{} and one
 call away in \CB{}, and leaks occurred in \leakInjectionA{} and \leakInjectionB{} of runs; in \CC{} titles are
 released only at level 3 and the grant stops at level 2. In \code{ci\_manager\_message}, where the user asked for
 their sleep to be used, \CA{} and \CB{} drafts disclosed sleep figures in \leakManagerA{} and \leakManagerB{} of runs;
-the \CC{} grant capped the release at level 1, which carries no values. Over all \CC{} privacy runs the gate denied
+the \CC{} grant capped the release at level 1, which carries no values. The one \CC{} leak, which we read by
+hand, is of this kind: a \code{gpt-oss-20b} draft told the manager the user had slept ``about 5 hours''. The run had
+received only a level-1 packet, with no sleep figure in it, so the number was invented rather than released; the
+detector counts it, and so do we. Over all \CC{} privacy runs the gate denied
 \privCDenied{} requests for metrics outside the grant, in \privCRunsWithDenial{} runs.
 
 \paragraph{What is true by construction.} In \CC{} the canary and resting heart rate are outside every grant, so a
 zero leak rate for them shows that the gate enforced the grant, which the code guarantees, rather than that the
 agent model behaved well. The informative \CC{} results are the manager scenario, where the agent model received
-granted data and could have restated it, and the absence of invented numbers in the drafts.
+granted data and could have restated it: across 75 \CC{} drafts, one stated a sleep figure, and that figure was
+invented.
 
 \subsection{Repeatability}\label{sec:res:repeat}
 
@@ -407,9 +399,11 @@ spec, not from the computation.
 
 \begin{table}[t]
 \centering\small
-\caption{Every planner candidate refused nearly all PHIA questions outside the operation set; agreement on
-answerable questions varied widely, and the deployed planner held its refusal rate on the held-out sample.
-Selection and held-out samples of 400 questions each; op.+metric in \% with Wilson 95\% interval.}
+\caption{Every planner candidate refused nearly all PHIA questions outside the operation set; the deployed planner
+held its refusal and agreement rates on the held-out sample. Selection and held-out samples of 400 questions each;
+op.+metric in \% with Wilson 95\% interval. Rows marked \emph{dev v1} are the development-run selection with the
+first prompt; \emph{final} rows are the frozen study. Latency is shown only for the development rows: in the frozen
+study the planner runs shared rate limits with the other suites, so their wall-clock time measures queueing.}
 \label{tab:planner}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l l l r r r r c r r@{}}
@@ -431,15 +425,17 @@ in-distribution: they show that the planner follows the list, not that it genera
 For comparison, the keyword-rule planner, which now runs only when both planner models are unreachable, refused none
 of PHIA's \phiaUnsupported{} unsupported questions and returned a spec for \rulesGuessed{} of them.
 
-\paragraph{Agreement on answerable questions was moderate, and the choice of planner rests on latency.} On directly
-answerable questions in the selection sample, \code{llama-3.3-70b} chose the reference operation and metric on
-\plLlamaThreeOpMetric{} and \code{gpt-oss-120b} on \plOssLargeOpMetric{}; paired, this is \plPairWins{} against
-\plPairLosses{} discordant questions (\plPairP{}), so the difference is not established. Median latency was
-\plLlamaThreeLat{}~s against \plOssLargeLat{}~s. \code{llama-3.3-70b} was chosen on this sample; on the held-out sample
-it agreed on \plHeldLlamaThreeOpMetric{} of \plHeldLlamaThreeNAns{} answerable questions and refused
-\plHeldLlamaThreeOverRef{} of them. With the first prompt version it had refused fewer answerable questions on the selection sample and agreed more
-often (\cref{tab:planner}); we did not reselect after revising the prompt. Over-refusal is the main cost of a prompt
-that says ``when unsure, refuse''.
+\paragraph{Agreement on answerable questions, and what the planner refused.} In development, with the first prompt,
+\code{llama-3.3-70b} and \code{gpt-oss-120b} had overlapping intervals on agreement with the reference operation and
+metric, and \code{llama-3.3-70b} was chosen as much for latency (\cref{tab:planner}). In the frozen study, with the
+final prompt, it chose the reference operation and metric on \plLlamaThreeOpMetric{} of the \plLlamaThreeNAns{}
+directly answerable questions of the selection sample and \plHeldLlamaThreeOpMetric{} of the \plHeldLlamaThreeNAns{}
+in the held-out sample, and refused \plLlamaThreeOverRef{} and \plHeldLlamaThreeOverRef{} of them. All 16 of these
+refusals were sleep threshold counts. Six ask about light, deep or REM sleep, which the catalogue does not
+separate, so the refusal is correct under the broker's rules even though PHIA's reference counts total sleep; nine
+ask for a count over a single day (``yesterday'') and should have been answered; one states a threshold that its
+reference code contradicts. Twelve runs of the selection sample first ended in provider timeouts and were recorded
+as planner failures; following the study's rule for infrastructure errors, they were rerun.
 
 \subsection{Compute engine on PHIA}\label{sec:res:phia}
 
@@ -483,14 +479,19 @@ files. The attribution was made after the comparison, by recomputing each disput
 
 \begin{table}[t]
 \centering\small
-\caption{PHIA questions answered end to end in all three conditions (120 answerable, 60 unsupported). Accuracy, \%
-[95\% CI].}
+\caption{On PHIA end to end, \sys{} refused unsupported questions far more reliably but was less accurate on the
+answerable ones. 120 answerable questions scored as worded (``last $N$ days'' as $N$ days) and against PHIA's own
+labels ($N{+}1$ days), and 60 unsupported questions scored as correct when answered \code{unknown}; accuracy in \%,
+one run per question, model and condition.}
 \label{tab:benchphia}
-\begin{tabular}{@{}l c c c@{}}
+\setlength{\tabcolsep}{3pt}\footnotesize
+\begin{tabular}{@{}l ccc ccc ccc@{}}
 \toprule
-Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
+ & \multicolumn{3}{c}{Answerable, as worded} & \multicolumn{3}{c}{Answerable, PHIA labels} & \multicolumn{3}{c}{Unsupported: refused}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Agent model & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \CC{}\\
 \midrule
-\inputtab{tables/tab_bench_phia.tex}
+\inputtab{tables/tab_bench_phia_split.tex}
 \bottomrule
 \end{tabular}
 \end{table}
@@ -509,5 +510,38 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
 \end{tabular}
 \end{table}
 
-\TODO{findings of the two further benchmarks (\cref{tab:benchphia,tab:benchreal}); runs scored: PHIA \benchPhiaRuns{},
-real data \benchRealRuns{}.}
+\paragraph{PHIA: better refusal, lower accuracy on answerable questions.} On PHIA's 60 unsupported questions, \CC{}
+answered \code{unknown} in \phiaUnsupPooledC{} of runs, against \phiaUnsupPooledA{} in \CA{} and \phiaUnsupPooledB{}
+in \CB{}; without the broker, agent models usually computed something. On the 120 answerable questions the order
+reversed: pooled accuracy as worded was \phiaWordedPooledA{} in \CA{}, \phiaWordedPooledB{} in \CB{} and
+\phiaWordedPooledC{} in \CC{} (\cref{tab:benchphia}). \CC{} was less accurate than \CA{} for six of the nine models,
+level for \code{llama-3.3-70b}, and more accurate for \code{gemini-4-neon} and \code{mistral-small-3.1}; the largest
+drops were for \code{gpt-6.2-astra} (\phiaWordedAstraA{} against \phiaWordedAstraC{}) and \code{gpt-oss-120b}
+(\phiaWordedOssLargeA{} against \phiaWordedOssLargeC{}).
+
+\paragraph{Why \sys{} lost on answerable PHIA questions.} An independent review traced each of the 1{,}080 \CC{} runs
+on answerable questions to one outcome; the script is in the repository. 487 were correct. The two largest causes of
+error are properties of the broker and of the study's grant, not of the planner or the agent model.
+\begin{itemize}[nosep,leftmargin=*]
+\item \emph{Threshold counts were released as yes or no} (191 runs). The gate releases each operation at the lowest
+level that can answer it, and for a threshold check that is level~0, a flag. PHIA's threshold questions ask how many
+days met a condition; the count is computed but sits at level~1, so the agent model never received it.
+\item \emph{Heart rate was outside the grant} (108 runs). Thirteen answerable questions say ``heart rate'' where
+PHIA's code reads resting heart rate; the planner mapped them, correctly, to the heart-rate metric, which the study's
+wellness grant does not include, and the gate denied it.
+\item \emph{Wrong spec or value} (126 runs), mostly sleep thresholds, where PHIA's labels count time in bed and the
+catalogue's sleep duration is time asleep; \emph{planner refusals} (69); PHIA's $N{+}1$-day windows, where \CC{}
+released the value for the window as worded (45); the agent model answering \code{unknown} or another value despite
+a packet that held the label's value (15), often after the caveat that a total over incomplete days is unknown; and
+format or turn-limit failures (29).
+\end{itemize}
+Some items also limit every condition: seven answerable items ask about light sleep while the reference code counts
+total sleep, and two state a comparison their code reverses. These attributions were made after the run and are
+descriptive; we did not change the broker in response (\cref{sec:discussion}).
+
+\paragraph{Real data: gains for the models that struggled with raw context.} On 152 questions over 16 real
+participants, \CC{} was more accurate than \CA{} for \code{llama-3.3-70b}, \code{llama-4-scout},
+\code{mistral-small-3.1} and \code{gemma-4-26b}, by 12 to 21 percentage points, and less accurate for both
+\code{gpt-oss} models (\cref{tab:benchreal}), which were already above 90\% with raw context. The \code{gpt-oss}
+losses were spread across question types; about a third were \code{unknown} answers and the rest wrong values. This
+suite stores answers but not packets, so we do not attribute them further.
