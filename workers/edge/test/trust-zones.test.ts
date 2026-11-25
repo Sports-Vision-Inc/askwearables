@@ -26,7 +26,8 @@ describe("trust zones", () => {
       expect(services(w)).not.toContain("vault");
     }
     expect(services("site")).toEqual([]);
-    expect(services("console")).toEqual(["gate"]);
+    // The console also reaches the planner, which receives only question text and holds no data.
+    expect(services("console")).toEqual(["gate", "planner"]);
   });
   it("auth reaches D1 and its OAuth KV, never health data", () => {
     const c = cfg("auth");

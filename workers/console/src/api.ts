@@ -1,9 +1,12 @@
 // The console's /api: forwards the owner's session to gate. Used by the console Worker and, unchanged,
 // by the self-host edition.
 import type { GateRpc } from "../../gate/src/rpc.js";
+import type { PlannerRpc } from "../../planner/src/rpc.js";
 
 export interface ApiEnv {
   GATE: GateRpc;
+  /** The LLM planner: receives only the question text, holds no data. */
+  PLANNER: PlannerRpc;
   AUTH_URL: string;
   CONSOLE_ORIGIN: string;
 }
@@ -42,6 +45,15 @@ export async function api(req: Request, env: ApiEnv, path: string): Promise<Resp
       case "POST revoke": return json(await g.ownerRevokeGrant(cred, String(body.grant_id ?? "")));
       case "POST tz": return json(await g.ownerSetTz(cred, String(body.tz ?? "")));
       case "POST query": return json(await g.ownerQuery(cred, body.spec));
+      case "POST ask": {
+        // Plan with the LLM planner (question text only), then release through the gate like any query.
+        const question = String(body.question ?? "").slice(0, 500);
+        const tz = typeof body.tz === "string" && body.tz ? body.tz : "UTC";
+        if (!question.trim()) return json({ status: "unsupported", reason: "empty_question" });
+        const plan = await env.PLANNER.plan(question, tz, new Date().toISOString());
+        if (plan.status !== "ok") return json({ status: plan.status, reason: plan.reason, supported: plan.supported });
+        return json({ ...(await g.ownerQuery(cred, plan.spec)), spec: plan.spec });
+      }
       case "POST import": return json(await g.ownerIngest(cred, body.source as never, (body.records ?? []) as never));
       case "POST keys": return json(await g.ownerCreateKey(cred, body.kind === "sync" ? "sync" : "owner", body.source as never));
       case "POST developer": return json(await g.ownerCreateDeveloperKey(cred, String(body.org ?? ""), String(body.agent ?? ""), typeof body.webhook_url === "string" ? body.webhook_url : undefined));

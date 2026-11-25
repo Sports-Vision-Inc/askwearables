@@ -2,7 +2,7 @@
 // and controls (pause, export, delete). Apple Health export.xml is parsed here, in the browser, as a
 // stream; only normalized batches are uploaded. The raw file never leaves this page.
 import { importAppleHealth } from "@askwearables/importers";
-import { type CanonicalRecord, type Source, planWithRules, todayIn } from "@askwearables/core";
+import type { CanonicalRecord, Source } from "@askwearables/core";
 
 // Host-specific links. The hosted console uses the defaults; the self-host edition marks <html data-selfhost="1">,
 // where everything is on one origin and developer keys are not offered.
@@ -99,9 +99,13 @@ async function render() {
   };
   $("#askbtn").onclick = async () => {
     const q = ($("#q") as HTMLInputElement).value;
-    const plan = planWithRules(q, todayIn(tz, new Date()));
-    if (!plan || plan.status !== "ok") { $("#answer").textContent = "That question is not covered by the console's rules. Try: how much did I sleep this week?"; return; }
-    const r = await call("query", { spec: plan.spec });
+    $("#answer").textContent = "Planning…";
+    const r = await call("ask", { question: q, tz });
+    if (r.status !== "ok" || !r.packet) {
+      $("#answer").textContent = r.reason === "planner_unavailable" ? "The planner is unavailable right now. Try again in a minute."
+        : `AskWearables cannot answer that from your data (${r.reason ?? r.status}). It answers questions about steps, sleep, heart rate, HRV and workouts: totals, averages, trends, comparisons and thresholds.`;
+      return;
+    }
     $("#answer").textContent = JSON.stringify({ ...r.packet, findings: r.packet.findings.map((f: any) => ({ ...f, raw: f.raw ? `[${Array.isArray(f.raw) ? f.raw.length : 1} raw items]` : undefined })) }, null, 2);
   };
   $("#ownerkey").onclick = async () => { const r = await call("keys", { kind: "owner" }); $("#keyout").textContent = `Owner API key (shown once):\n${r.key}`; };

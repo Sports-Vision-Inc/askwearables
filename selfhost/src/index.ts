@@ -80,7 +80,7 @@ function authRpc(env: Env, oauth: OAuthHelpers): AuthRpc {
   };
 }
 
-interface Zones { gate: Gate; edgeEnv: EdgeEnv; flowEnv: FlowEnv }
+interface Zones { gate: Gate; planner: Planner; edgeEnv: EdgeEnv; flowEnv: FlowEnv }
 
 async function zones(env: Env, ctx: ExecutionContext, origin: string, oauth: OAuthHelpers): Promise<Zones> {
   const vault = new VaultService(ctx, { USER_VAULT: env.USER_VAULT, ANCHORS: undefined as never, MASTER_KEY: env.MASTER_KEY });
@@ -97,7 +97,7 @@ async function zones(env: Env, ctx: ExecutionContext, origin: string, oauth: OAu
     ISSUER: origin, MCP_RESOURCE: resource, API_RESOURCE: resource, MCP_HOST: host, API_HOST: host,
   };
   const flowEnv: FlowEnv = { DB: env.DB, GATE: gate, ISSUER: origin, RP_ID: host, COOKIE_DOMAIN: "", OWNER_SETUP_TOKEN: env.OWNER_SETUP_TOKEN, TERMS: SELFHOST_TERMS };
-  return { gate, edgeEnv, flowEnv };
+  return { gate, planner, edgeEnv, flowEnv };
 }
 
 // ---------- OAuth: one combined provider per origin ----------
@@ -237,7 +237,7 @@ async function site(req: Request, env: Env, ctx: ExecutionContext): Promise<Resp
   if (p.startsWith("/api/")) {
     const path = p.slice(5);
     if (path === "developer") return withHeaders(json({ error: "not_available_in_selfhost" }, 404), CONSOLE_SECURITY, https);
-    return withHeaders(await api(req, { GATE: z.gate, AUTH_URL: url.origin, CONSOLE_ORIGIN: url.origin }, path), CONSOLE_SECURITY, https);
+    return withHeaders(await api(req, { GATE: z.gate, PLANNER: z.planner as never, AUTH_URL: url.origin, CONSOLE_ORIGIN: url.origin }, path), CONSOLE_SECURITY, https);
   }
   if ((p === "/" || p === "/index.html") && !(await ownerExists(env))) return notSetUpPage();
   return withHeaders(await env.ASSETS.fetch(req), CONSOLE_SECURITY, https);

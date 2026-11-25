@@ -2,7 +2,7 @@
 // LLM-first (Workers AI, structured output). The output is validated in code; anything invalid is retried on
 // the second model, then refused. The keyword rules run only if both models are unavailable.
 import { WorkerEntrypoint } from "cloudflare:workers";
-import { type PlanResult, planWithLlm, planWithRules, querySpecJsonSchema, SUPPORTED_HELP, todayIn } from "@askwearables/core";
+import { type PlanResult, planWithLlm, querySpecJsonSchema, SUPPORTED_HELP, todayIn } from "@askwearables/core";
 import type { PlannerRpc } from "./rpc.js";
 
 export interface Env {
@@ -45,7 +45,7 @@ export default class Planner extends WorkerEntrypoint<Env> implements PlannerRpc
     };
     const res = await planWithLlm(complete, [this.env.PLANNER_MODEL, this.env.PLANNER_FALLBACK_MODEL], q, today, tz);
     if (res.status === "ok" || reachable) return res;
-    // Both models unreachable: the conservative keyword rules, which refuse anything they cannot represent.
-    return planWithRules(q, today) ?? { status: "unsupported", reason: "planner_unavailable", supported: SUPPORTED_HELP };
+    // Both models unreachable: no keyword fallback; the agent is told the planner is unavailable and can retry.
+    return { status: "unsupported", reason: "planner_unavailable", supported: SUPPORTED_HELP };
   }
 }

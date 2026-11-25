@@ -1,0 +1,2103 @@
+{
+ "label": "v3",
+ "heldout": {
+  "n": 16,
+  "op": 16,
+  "window": 15,
+  "items": [
+   {
+    "q": "Did I take more steps in the past 7 days than in the 7 days before that?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-19",
+      "end": "2026-11-25"
+     },
+     "cw": {
+      "start": "2026-11-12",
+      "end": "2026-11-18"
+     }
+    }
+   },
+   {
+    "q": "Compare my average steps over the 7 days ending yesterday with the week before that.",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-18",
+      "end": "2026-11-24"
+     },
+     "cw": {
+      "start": "2026-11-11",
+      "end": "2026-11-17"
+     }
+    }
+   },
+   {
+    "q": "Was my sleep in the last 14 days longer or shorter than in the 14 days before?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-12",
+      "end": "2026-11-25"
+     },
+     "cw": {
+      "start": "2026-10-29",
+      "end": "2026-11-11"
+     }
+    }
+   },
+   {
+    "q": "Not counting today, how did my resting heart rate over the last 7 days compare with the 7 days before that?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-18",
+      "end": "2026-11-24"
+     },
+     "cw": {
+      "start": "2026-11-11",
+      "end": "2026-11-17"
+     }
+    }
+   },
+   {
+    "q": "Am I walking more this week than last week?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-23",
+      "end": "2026-11-25"
+     },
+     "cw": {
+      "start": "2026-11-16",
+      "end": "2026-11-22"
+     }
+    }
+   },
+   {
+    "q": "How does my HRV over the past 30 days compare to the 30 days before that?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-10-27",
+      "end": "2026-11-25"
+     },
+     "cw": {
+      "start": "2026-09-27",
+      "end": "2026-10-26"
+     }
+    }
+   },
+   {
+    "q": "Did I sleep more over the 3 nights ending yesterday than over the 3 nights before those?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-22",
+      "end": "2026-11-24"
+     },
+     "cw": {
+      "start": "2026-11-19",
+      "end": "2026-11-21"
+     }
+    }
+   },
+   {
+    "q": "Steps: last 7 days excluding today versus the previous 7 days. Higher, lower or the same?",
+    "op_ok": true,
+    "window_ok": false,
+    "got": {
+     "op": "compare_periods",
+     "w": {
+      "start": "2026-11-19",
+      "end": "2026-11-25"
+     },
+     "cw": {
+      "start": "2026-11-12",
+      "end": "2026-11-18"
+     }
+    }
+   },
+   {
+    "q": "What was my average daily step count over the last 7 days?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "aggregate",
+     "w": {
+      "start": "2026-11-19",
+      "end": "2026-11-25"
+     }
+    }
+   },
+   {
+    "q": "What was my total step count for the 7 days ending yesterday?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "aggregate",
+     "w": {
+      "start": "2026-11-18",
+      "end": "2026-11-24"
+     }
+    }
+   },
+   {
+    "q": "How many nights in the last 7 nights did I sleep under 6 hours?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "threshold_check",
+     "w": {
+      "start": "2026-11-19",
+      "end": "2026-11-25"
+     }
+    }
+   },
+   {
+    "q": "How many days in the 14 days ending yesterday did I walk more than 10,000 steps?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "threshold_check",
+     "w": {
+      "start": "2026-11-11",
+      "end": "2026-11-24"
+     }
+    }
+   },
+   {
+    "q": "What was my resting heart rate yesterday?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "latest",
+     "w": {
+      "start": "2026-11-24",
+      "end": "2026-11-24"
+     }
+    }
+   },
+   {
+    "q": "Is my HRV trending up or down over the last 28 days?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "trend",
+     "w": {
+      "start": "2026-10-29",
+      "end": "2026-11-25"
+     }
+    }
+   },
+   {
+    "q": "What was my average sleep duration over the last 14 days, not counting today?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "aggregate",
+     "w": {
+      "start": "2026-11-11",
+      "end": "2026-11-24"
+     }
+    }
+   },
+   {
+    "q": "Did I sleep less than usual over the last 3 nights ending yesterday?",
+    "op_ok": true,
+    "window_ok": true,
+    "got": {
+     "op": "compare_to_baseline",
+     "w": {
+      "start": "2026-11-22",
+      "end": "2026-11-24"
+     }
+    }
+   }
+  ]
+ },
+ "week_asks": {
+  "n": 167,
+  "shifted": 13,
+  "refused": 44,
+  "items": [
+   {
+    "q": "On average per day, did I walk more, less, or about the same in the last 7 days, ending yesterday, compared with the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) with the average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily step count for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Steps this week against last week",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-23",
+     "end": "2026-11-25"
+    },
+    "cw": {
+     "start": "2026-11-16",
+     "end": "2026-11-22"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily walking steps for the 7 days ending yesterday (2026-11-24) with the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily steps for the period 2026-11-18 to 2026-11-24 (last 7 days ending yesterday) and for the period 2026-11-11 to 2026-11-17 (the previous 7 days), and how do they compare?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How many steps did the user take per day on average in the 7 days ending 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How many steps did the user take per day on average in the 7 days ending 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "How many steps did the user take each day in the last 14 days?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-12",
+     "end": "2026-11-25"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps in the last 7 days ending yesterday, and what was my average daily steps in the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday with the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the period 2026-11-18 to 2026-11-24 compared to the period 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What were my average daily steps for the last 7 days ending yesterday, and for the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the last 7 days (ending yesterday, Nov 24, 2026) to the 7 days before that. Did I walk more, less, or about the same?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "On average per day, did I walk more, less, or about the same in the last 7 days ending yesterday compared with the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are the average daily step counts for the periods 2026-11-18 to 2026-11-24 and 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps for the 7 days ending yesterday (2026-11-24) compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days ending yesterday (2026-11-24) compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the period 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare the average daily steps in the last 7 days (ending yesterday, 2026-11-24) to the average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily step count for the period 2026-11-18 to 2026-11-24 (inclusive) and for the period 2026-11-11 to 2026-11-17 (inclusive)? Provide the averages and note any missing data.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Steps in the last 7 days compared to the previous 7 days",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-19",
+     "end": "2026-11-25"
+    },
+    "cw": {
+     "start": "2026-11-12",
+     "end": "2026-11-18"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps for the 7 days ending 2026-11-24 compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps for the last 7 days ending yesterday compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the last 7 days (ending yesterday, 2026-11-24) to the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the last 7 days ending yesterday to the previous 7 days.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Calculate the average daily steps for the 7 days ending yesterday (2026-11-18 to 2026-11-24) and the 7 days prior to that (2026-11-11 to 2026-11-17).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How many steps did the user take per day on average in the last 7 days, ending yesterday?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How many steps did the user take per day on average in the 7 days before that?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-12",
+     "end": "2026-11-18"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily walking distance in the 7 days ending yesterday (Nov 24, 2026) with the 7 days before that.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Steps in the last 7 days against the previous 7 days",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-19",
+     "end": "2026-11-25"
+    },
+    "cw": {
+     "start": "2026-11-12",
+     "end": "2026-11-18"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the last 7 days ending yesterday compared to the previous 7 days?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Calculate the average daily steps for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17, then compare them.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare the average daily steps in the 7 days ending yesterday (2026-11-24) to the average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days ending 2026-11-24 (2026-11-18 to 2026-11-24) compared with the prior 7 days (2026-11-11 to 2026-11-17)?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily step counts for Nov 18–24, 2026 versus Nov 11–17, 2026. Did walking increase, decrease or stay about the same, and are the data complete and reliable?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps in the last 7 days ending yesterday against the 7 days before that",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24, 2026 versus Nov 11–17, 2026. What were the averages, change, data coverage, and is this more, less, or about the same?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily walking (steps) for Nov 18–24, 2026 versus Nov 11–17, 2026; provide period means, change, data completeness, and whether more, less, or about the same.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 versus the prior 7 days from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps from 2026-11-18 to 2026-11-24 compared with 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Walking distance from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 through 2026-11-24, compared with the 7 days from 2026-11-11 through 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare mean daily step counts for Nov 18–24, 2026 and Nov 11–17, 2026, including completeness and whether average walking was higher, lower or about the same.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Steps in the last 7 days ending yesterday against the previous 7 days",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 to 2026-11-24 versus from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 through 2026-11-24, compared with the 7 days from 2026-11-11 through 2026-11-17? Please include per-day values and any data-quality caveats (missing days, low wear time).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are the actual average daily step numbers for 2026-11-18 to 2026-11-24 versus 2026-11-11 to 2026-11-17, and what is the percentage difference between them?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 to 2026-11-24, compared with the 7 days from 2026-11-11 to 2026-11-17? Include per-day values and any data-quality caveats.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are my daily step counts for each day from 2026-11-11 to 2026-11-24, and the average steps per day (over days with data) for 2026-11-11..2026-11-17 and 2026-11-18..2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Compare my daily average steps and walking distance from 2026-11-18 through 2026-11-24 with my daily average from 2026-11-11 through 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Daily average steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What were my average daily steps from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What were my average daily steps from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24 2026 inclusive with Nov 11–17 inclusive: values, direction, meaningfulness and coverage?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps in the last 7 days ending yesterday against the previous 7 days",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Which specific days between 2026-11-11 and 2026-11-24 have no steps data, and what are the daily step totals for each day that does have data?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily steps for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, counting only days with data, and what is the percent difference?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily walking (steps) November 18–24 2026 with November 11–17, reporting means, quality, and whether more, less, or about the same.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps in the last 7 days ending yesterday against the previous 7 days?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily walking (step count) Nov 18–24 2026 inclusive with Nov 11–17 inclusive: provide means, percent difference, coverage, and whether more, less, or about the same reliably.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my daily average steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 versus the prior 7 days from 2026-11-11 to 2026-11-17. Include daily values, missing days, and data quality caveats.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are the actual average daily step numbers for 2026-11-18 through 2026-11-24 and for 2026-11-11 through 2026-11-17, and what is the percent difference?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24, 2026 with Nov 11–17 inclusive. Was it more, less, or about the same? Include data completeness and difference.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps and walking distance from 2026-11-18 through 2026-11-24 compared with 2026-11-11 through 2026-11-17, including day-by-day values and any missing data or wear-time caveats?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days from 2026-11-18 to 2026-11-24 against the 7 days from 2026-11-11 to 2026-11-17.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my walking distance from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What workouts did I do from 2026-11-11 to 2026-11-24?",
+    "status": "ok",
+    "op": "list_sessions",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "What was my average resting heart rate from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average resting heart rate from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "What was my average sleep from 2026-11-11 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "What was my average daily steps from 2026-10-28 to 2026-11-10?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-10-28",
+     "end": "2026-11-10"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are the exact average daily steps for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, and what is the percent difference between them?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 through 2026-11-24 with the 7 days before that, 2026-11-11 through 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 through 2026-11-24, compared with the average daily step count for the 7 days from 2026-11-11 through 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 through 2026-11-24 against 2026-11-11 through 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What workouts did I do from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "list_sessions",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my resting heart rate from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How much did I sleep from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What were my average daily steps from 2026-10-28 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-10-28",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps Nov 18–24 2026 inclusive with Nov 11–17 inclusive. Provide averages, difference, quality and whether more, less or about the same.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the last 7 days ending yesterday (2026-11-18 to 2026-11-24) compared with the prior 7 days (2026-11-11 to 2026-11-17)?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24, 2026 inclusive versus Nov 11–17 inclusive. What were the two means, difference and direction (more, less, or about the same), and is coverage sufficient?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 versus the prior 7 days from 2026-11-11 to 2026-11-17, including daily values and data completeness.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 against the 7 days from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Daily steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps from 2026-11-18 to 2026-11-24",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps from 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Average daily distance from 2026-11-18 to 2026-11-24",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily distance from 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my daily average steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 versus the 7 days before that from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my daily average steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily walking for the 7 days ending yesterday (Nov 18-24) to the 7 days before that (Nov 11-17).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What were my average daily steps for the periods 2026-11-18 to 2026-11-24 and 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) with the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily steps for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) to the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "On average per day, did I walk more, less, or about the same in the last 7 days ending yesterday, compared with the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Steps for the period 2026-11-18 to 2026-11-24 versus 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days ending 2026-11-24 and the 7 days before that (2026-11-11 to 2026-11-17)?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily step count for the period 2026-11-18 to 2026-11-24, and for the period 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the last 7 days (ending yesterday, 2026-11-24) to the average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) with the 7 days before that (2026-11-11 to 2026-11-17).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "On average per day, how many steps did the user walk in the last 7 days, ending yesterday?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "On average per day, how many steps did the user walk in the 7 days before that?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-12",
+     "end": "2026-11-18"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Calculate the average daily steps for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17, and compare them.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the last 7 days ending yesterday to the previous 7 days. Did I walk more, less, or about the same?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (Nov 24, 2026) to my average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Calculate the average daily steps for the period 2026-11-18 to 2026-11-24 and for the period 2026-11-11 to 2026-11-17, and compare them to determine if the more recent week had more, less, or about the same steps per day.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is my average daily step count in the last 7 days ending yesterday compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) to the 7 days before that (2026-11-11 to 2026-11-17).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days ending yesterday compared to the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily step count for the period 2026-11-18 to 2026-11-24 inclusive, and for the period 2026-11-11 to 2026-11-17 inclusive?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) to the average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps for the 7 days ending 2026-11-24 and for the 7 days before that?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps in the 7 days ending yesterday (2026-11-24) to my average daily steps in the 7 days before that.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps for November 18–24, 2026 versus November 11–17, 2026. What were the averages, relative change, interpretation (more/less/about the same), and coverage?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 to 2026-11-24, compared with the 7 days from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the last 7 days ending yesterday (2026-11-18 to 2026-11-24) compared with the 7 days before that (2026-11-11 to 2026-11-17)?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24 2026 inclusive versus Nov 11–17 inclusive. What are the means, percent change, direction and coverage/reliability?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps for November 18–24, 2026 with November 11–17, 2026; was it higher, lower or about the same, and are both periods complete?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare mean daily steps Nov 18–24 2026 with Nov 11–17 2026; what were the averages, direction and is there adequate coverage for a reliable comparison?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 through 2026-11-24 with 2026-11-11 through 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What were the actual average daily step counts (numbers) for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, and what is the percent difference?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What are my daily step counts for each day from 2026-11-11 to 2026-11-24, and which days have no data?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Compare average daily step count Nov 18–24 2026 inclusive versus Nov 11–17 2026 inclusive. What are the averages, relative difference, coverage, and is it more, less, or about the same?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps for Nov 18–24, 2026 inclusive with Nov 11–17 inclusive: what are the means, percent change, interpretation (more/less/about same), and coverage?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps Nov 18–24 2026 inclusive versus Nov 11–17 inclusive; provide averages, change, coverage, and whether higher, lower or about the same.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "For the week ending Nov 24 compared with the preceding week ending Nov 17, what are the numeric daily step averages and exact count of days recorded in each week, excluding missing days?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 through 2026-11-24, compared with the 7 days from 2026-11-11 through 2026-11-17? Include per-day values and any data-quality caveats (missing days, partial wear).",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What is the average daily steps (numeric value) over days with data for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, and what is the percent difference? Which days are missing step data in each period?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Show my daily step totals for each day from 2026-11-11 through 2026-11-24.",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "Compare average daily steps Nov 18–24 2026 versus Nov 11–17; was walking higher, lower or about the same, accounting for coverage?",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily walking steps Nov 18–24 2026 vs Nov 11–17 2026, including daily averages, direction and coverage.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What are the exact average daily step counts for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, and what is the percent difference?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 to 2026-11-24 versus 2026-11-11 to 2026-11-17, including data completeness and daily values.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily steps and walking distance from 2026-11-18 to 2026-11-24 compared with 2026-11-11 to 2026-11-17?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps Nov 18–24 2026 versus Nov 11–17 2026, with coverage, relative difference and whether higher/lower/about the same.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What are the exact average daily steps for 2026-11-18 to 2026-11-24 and for 2026-11-11 to 2026-11-17, and the percent difference between them?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count for the 7 days from 2026-11-18 to 2026-11-24, compared with the 7 days from 2026-11-11 to 2026-11-17? Include any data-quality caveats such as missing days or partial wear.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance from 2026-11-18 to 2026-11-24 with the 7 days before that from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps in the last 7 days ending yesterday compared with the 7 days before that",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance for the 7 days from 2026-11-18 through 2026-11-24 versus the prior 7 days from 2026-11-11 through 2026-11-17. Include daily breakdowns and data quality caveats.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my daily steps from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my walking distance from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my daily distance from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily step count from 2026-11-18 to 2026-11-24 compared with 2026-11-11 to 2026-11-17? Include daily step counts and data quality caveats.",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "What was my average daily walking distance from 2026-11-18 to 2026-11-24 compared with 2026-11-11 to 2026-11-17?",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps and walking distance for the 7 days from 2026-11-18 through 2026-11-24 against the previous 7 days from 2026-11-11 through 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare my distance from 2026-11-18 to 2026-11-24 against 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "What was my average resting heart rate from 2026-11-11 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-24"
+    },
+    "shifted": true
+   },
+   {
+    "q": "What were my average daily steps over the last 30 days?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-10-27",
+     "end": "2026-11-25"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Compare my average daily steps (and walking distance if available) for the 7 days from 2026-11-18 to 2026-11-24 versus the prior 7 days from 2026-11-11 to 2026-11-17.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Compare average daily steps and walking distance for the 7 days from 2026-11-18 to 2026-11-24 versus the prior 7 days from 2026-11-11 to 2026-11-17, including day-by-day values and data completeness.",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "Average daily steps from 2026-11-18 to 2026-11-24 compared to 2026-11-11 to 2026-11-17",
+    "status": "ok",
+    "op": "compare_periods",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "cw": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": false
+   },
+   {
+    "q": "Average daily walking distance from 2026-11-18 to 2026-11-24 compared to 2026-11-11 to 2026-11-17",
+    "status": "unsupported",
+    "op": null,
+    "shifted": false
+   },
+   {
+    "q": "How many steps per day on average from 2026-11-18 to 2026-11-24?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-18",
+     "end": "2026-11-24"
+    },
+    "shifted": false
+   },
+   {
+    "q": "How many steps per day on average from 2026-11-11 to 2026-11-17?",
+    "status": "ok",
+    "op": "aggregate",
+    "w": {
+     "start": "2026-11-11",
+     "end": "2026-11-17"
+    },
+    "shifted": true
+   }
+  ]
+ }
+}
