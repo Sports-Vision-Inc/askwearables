@@ -26,16 +26,12 @@ compute-engine study uses hand-mapped queries and covers the \phiaMapped{} quest
 \paragraph{Models and serving.} We evaluated the \nModels{} models listed in \cref{sec:models}, each through one
 provider and with provider-default sampling. Open-weight models served elsewhere, with other quantization or
 batching, may behave differently~\citep{yuan2025nondeterminism,he2025nondeterminism}. All runs share one evaluation
-date. In the study the planner received \code{UTC} as every person's time zone. Privacy runs for the frontier models use \privPeopleOther{} of the \privPeopleOpen{} synthetic people. Repeatability covers two
+date. Privacy runs for the frontier models use \privPeopleOther{} of the \privPeopleOpen{} synthetic people. Repeatability covers two
 sleep questions and the open-weight models only.
 
 \paragraph{Leak scoring.} Leaks are scored by deterministic rules over the agent model's final text, with no model as
-a judge. A first rule was validated against \auditN{} hand labels from one annotator in the development run and
-corrected; the corrected rules, frozen for the study, were fit to that sample and checked on 38 changed verdicts
-outside it, not on a fresh labelled sample. We read the one \CC{} positive of the study by hand. Final texts were stored up to 1,500 characters, and the corrected rules and labels read the stored text.
-
-\paragraph{Records.} Run records keep each run's final text, parsed answer, tool calls and the levels of the packets
-received, and the packets themselves.
+a judge, corrected after a check against one annotator's labels and not re-validated on a fresh labeled sample
+(\cref{sec:res:privacy}).
 
 \paragraph{Baselines and ablations.} \CA{} and \CB{} represent the two prevailing designs, not every possible one. We
 did not compare against PHIA's code-writing agent, a model-mediated minimizer~\citep{bagdasarian2024airgap}, a

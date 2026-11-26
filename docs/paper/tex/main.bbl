@@ -1,4 +1,4 @@
-\begin{thebibliography}{73}
+\begin{thebibliography}{78}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -83,15 +83,6 @@ Niloofar Mireshghallah, Hyunwoo Kim, Xuhui Zhou, Yulia Tsvetkov, Maarten Sap,
   (ICLR)}, 2024.
 \newblock URL \url{https://arxiv.org/abs/2310.17884}.
 
-\bibitem[{European Parliament and Council of the European
-  Union}(2016)]{gdpr2016}
-{European Parliament and Council of the European Union}.
-\newblock {Regulation (EU) 2016/679 of the European Parliament and of the
-  Council (General Data Protection Regulation), Article 5: Principles relating
-  to processing of personal data}.
-\newblock Official Journal of the European Union, L 119, 2016.
-\newblock URL \url{https://gdpr-info.eu/art-5-gdpr/}.
-
 \bibitem[{U.S. Department of Health and Human Services}(2024)]{hipaa164502}
 {U.S. Department of Health and Human Services}.
 \newblock {45 CFR \S 164.502(b): Standard: Minimum necessary}.
@@ -100,6 +91,20 @@ Niloofar Mireshghallah, Hyunwoo Kim, Xuhui Zhou, Yulia Tsvetkov, Maarten Sap,
 \newblock URL \url{https://www.law.cornell.edu/cfr/text/45/164.502}.
 \newblock 65 FR 82802, Dec. 28, 2000, as last amended at 89 FR 33063, Apr. 26,
   2024; text read at Cornell LII.
+
+\bibitem[{U.S. Federal Trade Commission}(2024)]{ftc2024hbnr}
+{U.S. Federal Trade Commission}.
+\newblock {Health Breach Notification Rule, 16 CFR Part 318}.
+\newblock Code of Federal Regulations, Title 16, Part 318, 2024.
+\newblock URL
+  \url{https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-318}.
+\newblock As amended at 89 FR 47028, May 30, 2024.
+
+\bibitem[{Washington State Legislature}(2023)]{wa2023mhmda}
+{Washington State Legislature}.
+\newblock {My Health My Data Act, RCW Chapter 19.373}.
+\newblock Revised Code of Washington, Chapter 19.373, 2023.
+\newblock URL \url{https://app.leg.wa.gov/RCW/default.aspx?cite=19.373}.
 
 \bibitem[{OWASP Foundation}(2019)]{owasp2019api3}
 {OWASP Foundation}.
@@ -530,6 +535,21 @@ Mohammed~Mehedi Hasan, Hao Li, Emad Fallahzadeh, Gopi~Krishnan Rajbahadur, Bram
 \newblock arXiv preprint arXiv:2506.13538, 2025.
 \newblock URL \url{https://arxiv.org/abs/2506.13538}.
 
+\bibitem[de~Montjoye et~al.(2014)de~Montjoye, Shmueli, Wang, and
+  Pentland]{demontjoye2014openpds}
+Yves-Alexandre de~Montjoye, Erez Shmueli, Samuel~S. Wang, and Alex~Sandy
+  Pentland.
+\newblock {openPDS}: Protecting the privacy of metadata through {SafeAnswers}.
+\newblock \emph{PLoS ONE}, 9\penalty0 (7):\penalty0 e98790, 2014.
+\newblock \doi{10.1371/journal.pone.0098790}.
+
+\bibitem[Agrawal et~al.(2002)Agrawal, Kiernan, Srikant, and
+  Xu]{agrawal2002hippocratic}
+Rakesh Agrawal, Jerry Kiernan, Ramakrishnan Srikant, and Yirong Xu.
+\newblock Hippocratic databases.
+\newblock In \emph{Proceedings of the 28th International Conference on Very
+  Large Data Bases (VLDB)}, pages 143--154, 2002.
+
 \bibitem[Dinur and Nissim(2003)]{dinur2003revealing}
 Irit Dinur and Kobbi Nissim.
 \newblock {Revealing Information while Preserving Privacy}.
@@ -618,6 +638,18 @@ Potsawee Manakul, Adian Liusie, and Mark J.~F. Gales.
 \newblock In \emph{Conference on Empirical Methods in Natural Language
   Processing (EMNLP)}, 2023.
 \newblock URL \url{https://arxiv.org/abs/2303.08896}.
+
+\bibitem[Nissenbaum(2004)]{nissenbaum2004ci}
+Helen Nissenbaum.
+\newblock Privacy as contextual integrity.
+\newblock \emph{Washington Law Review}, 79\penalty0 (1):\penalty0 119--157,
+  2004.
+
+\bibitem[Nissenbaum(2010)]{nissenbaum2010context}
+Helen Nissenbaum.
+\newblock \emph{Privacy in Context: Technology, Policy, and the Integrity of
+  Social Life}.
+\newblock Stanford University Press, Stanford, CA, 2010.
 
 \bibitem[Patil et~al.(2025)Patil, Stengel-Eskin, and Bansal]{patil2025sumleaks}
 Vaidehi Patil, Elias Stengel-Eskin, and Mohit Bansal.

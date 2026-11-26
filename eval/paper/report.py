@@ -677,7 +677,7 @@ if acc:
         ax.set_yticklabels([COND_LABEL[c] for c in COND])
         ax.set_xscale("log")
         ax.set_xlim(100, max(vals) * 4)
-        ax.set_xlabel("Health data delivered to the agent model per question (median characters, log scale)")
+        ax.set_xlabel("Median characters of health data per question (log scale)")
         ax.xaxis.grid(True, color=GRID, linewidth=0.6, zorder=0)
         ax.spines[["top", "right"]].set_visible(False)
         save(fig, "fig_exposure")

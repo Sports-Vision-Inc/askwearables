@@ -23,7 +23,7 @@ depended less on the model, from \accCMin{} to \accCMax{} across all nine agains
 context, and high accuracy did not mean discretion. \code{gpt-oss-120b}, at \accOssLargeA{} with raw context, leaked
 in \leakOssLargeA{} privacy runs with raw context and \leakOssLargeB{} with open tools, against \leakOssLargeC{} with
 \sys{}, while the frontier models leaked in at most one of 20 runs in any condition (\cref{tab:privacymodels}). What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
-read \ctxRatioCAMin{}--\ctxRatioCAMax{} of its raw-context input; the release was limited to the level the question
+read \ctxRatioCAMin{} to \ctxRatioCAMax{} of its raw-context input; the release was limited to the level the question
 needed, so a scheduling assistant receives a bucket rather than a night's sleep in minutes; and every release and
 denial left a hash-chained receipt. For \code{claude-fable-5.2} and \code{gemini-4-neon} it also lowered the cost per
 correct answer; for \code{gpt-6.2-astra} it raised it, and it added latency for every fast model.
@@ -37,19 +37,15 @@ manager message, the difference came from the release level: the \CC{} agent mod
 figure to restate. Upstream minimization has worked in other settings~\citep{bagdasarian2024airgap,abdelnabi2025firewalls,li2026toolminimize};
 \sys{} applies it with computed release levels rather than a second model. Minimal answers can still compose into a
 reconstruction of the record~\citep{dinur2003revealing,patil2025sumleaks}; the gate can cap releases per day, but
-this study did not exercise that limit or run a reconstruction attack.
+this study did not exercise that limit or run a reconstruction attack. Coarse levels limit values, not inference: a
+bucket for temperature or HRV deviation can still hint at a cycle phase or an illness, and sensitive categories are
+handled by catalog category, not by what a released value implies. Leak rates also depend on the detector; we
+recommend that agent-privacy evaluations report detector precision and recall on a labeled sample and freeze the
+detector before the runs it scores.
 
-\paragraph{Measuring leakage needs a validated detector.} The first leak rule we wrote had a precision of
-\auditPrec{} against hand labels in the development run: it read advice to the user, a sync age or a coincidental
-number as a leak. A study that reported it alone would have misstated the difference between the designs. We
-recommend that agent-privacy evaluations report detector precision and recall on a labelled sample, and freeze the
-detector before the runs it scores, as we did.
-
-\paragraph{Where errors remain.} On the synthetic questions, \sys{}'s remaining errors were almost all the agent
-model's reading of a correct packet: a partial total reported despite a caveat that it is incomplete, or \emph{yes}
-to a threshold when every value received was above it. Planner faults that dominated the development run, a schema
-that rejected ``hours'' and a keyword check that read ``period'' as cycle tracking, were found through the reasons the
-broker logs for each refusal and did not recur after they were fixed.
+\paragraph{Where errors remain.} On the synthetic questions, \sys{}'s remaining errors came almost all after a packet
+was released: a partial total reported despite a caveat that it is incomplete, or \emph{yes} to a threshold when every
+value received was above it.
 
 \paragraph{What PHIA shows about the design.} PHIA exposed two decisions that cost accuracy on questions the broker
 could answer. First, the gate releases the lowest level that can answer an \emph{operation}; for a threshold check
@@ -57,14 +53,11 @@ that is a yes-or-no flag, so a question asking \emph{how many} days met a condit
 count was computed. The release level should follow the question asked, not only the operation. Second, a metric
 outside the grant is denied without saying which granted metric could answer; the planner mapped ``heart rate'' to
 the heart-rate metric, the grant held resting heart rate, and the agent model was left with a denial. A denial that
-names an answerable alternative keeps the gate's guarantee and lets the agent model recover; after step~1 a quarter of the denied runs did. Both changes are
-general, not specific to PHIA. They were the first step on the path from the study to the deployed broker, measured
-on fresh questions (\cref{sec:res:v2}): counts now reach the agent model, a quarter of the denied runs recovered
-through the hint, and pooled accuracy on answerable questions, as worded, moved level with raw context, though the
-gap on PHIA's labels grew, while the strongest open models still did better with raw context and a prompt change
-cost accuracy on one synthetic question; the second step, which gave the planner the comparison windows, removed
-that loss and, in an analysis we did not pre-register, raised accuracy on real data. Two further observations are properties of the benchmark: some reference labels count time in bed or total
-sleep where the question says sleep or light sleep, and ``last $N$ days'' is labelled as $N{+}1$ days. We report
+names an answerable alternative keeps the gate's guarantee and lets the agent model recover. Both changes are
+general, not specific to PHIA, and form the first step of the path in \cref{sec:res:v2}: counts then reached the
+agent model, a quarter of the denied runs recovered through the hint, and pooled accuracy on fresh answerable
+questions, as worded, was not detectably different from raw context, though the gap on PHIA's labels grew. Two further observations are properties of the benchmark: some reference labels count time in bed or total
+sleep where the question says sleep or light sleep, and ``last $N$ days'' is labeled as $N{+}1$ days. We report
 PHIA as worded and with its labels for that reason. PHIA also shows the trade-off we chose: \sys{} refused
 unsupported questions far more often than the baselines, and refused some answerable ones.
 
@@ -77,10 +70,10 @@ and studies should state how text-format tool calls are handled.
 \subsection{Implications for agent builders}
 
 For people building agents over personal data, we draw four lessons. First, give agent models computed answers
-with caveats rather than records; the packet contract cost the strongest models nothing measurable in accuracy and
-helped the weaker ones. Second, decide disclosure in code, outside the model, and bind purpose at consent time rather
-than in the request. Third, log both releases and denials with their reasons; the logged reasons let us find and fix
-the planner defects. Fourth, choose the release level from the question and make denials point to what the grant
+with caveats rather than records; the packet contract cost the strongest models nothing measurable on the synthetic
+questions, though they lost accuracy on PHIA and real data, and it helped the weaker ones. Second, decide disclosure in code, outside the model, and bind purpose at consent time rather
+than in the request. Third, log both releases and denials with their reasons, which make planner and gate failures
+traceable. Fourth, choose the release level from the question and make denials point to what the grant
 does allow; a minimal answer that does not answer the question is not minimal, only unhelpful.
 
 \subsection{Limitations of the design}
@@ -89,4 +82,6 @@ The gate cannot stop an agent model from misreading a packet, and a released pac
 control once an agent's provider stores it. Within the ceiling the grant sets, what is requested is chosen by the
 planner and the agent model, so the release is deterministic in its limits, not in its content. The operation set is
 deliberately narrow, so \sys{} refuses questions a code-writing agent could answer (\phiaUnsupported{} of PHIA's
-\phiaTotal{} objective questions). The threat model assumes the hosting platform is not compromised.
+\phiaTotal{} objective questions). In the threat model the operator of the broker is trusted.
+Receipts are hash-chained but anchored on the same platform, so they detect tampering by others, not by the
+operator, and a stolen agent token reaches only that agent's grant.

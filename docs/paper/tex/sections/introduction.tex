@@ -20,11 +20,12 @@ answers~\citep{atil2024nondeterminism}.
 
 Before any of these failures there is an earlier one. Privacy evaluations of language-model agents mostly ask
 whether the model \emph{leaks}: whether sensitive information in its context reaches an output where it should
-not~\citep{mireshghallah2024confaide,shao2024privacylens}. We argue that the step before is already a harm. Data
-protection law requires that personal data be ``limited to what is necessary'' for the purpose of
-processing~\citep{gdpr2016}, the principle of \emph{data minimization}, and health privacy law requires that
-protected health information be limited to the ``minimum necessary'' for the intended purpose~\citep{hipaa164502}.
-API security has long treated an interface that returns more fields than its client needs, and relies on the client
+not~\citep{mireshghallah2024confaide,shao2024privacylens}. We argue that the step before is already a harm. The
+principle at stake is \emph{data minimization}. In the United States, HIPAA's ``minimum necessary'' standard binds covered entities to limit protected
+health information to what the intended purpose requires~\citep{hipaa164502}, and it is the principle we borrow;
+consumer wearable data mostly falls outside HIPAA, under the FTC Health Breach Notification
+Rule~\citep{ftc2024hbnr} and state consumer-health-data laws such as Washington's My Health My Data
+Act~\citep{wa2023mhmda}. API security has long treated an interface that returns more fields than its client needs, and relies on the client
 to filter them, as a vulnerability in its own right: Excessive Data Exposure~\citep{owasp2019api3}, since folded into
 Broken Object Property Level Authorization~\citep{owasp2023api3}. An agent given a raw wearable record is exactly
 such a client. By analogy we name the failure \emph{context over-exposure}: the model's context receives personal
@@ -44,9 +45,9 @@ does next. \sys{} therefore minimizes what enters the context, not only what lea
 We present \sys{}, a broker that sits between wearable data and any agent and takes the three jobs away from the
 model (\cref{fig:arch}). It has three parts:
 \begin{itemize}[leftmargin=1.4em,itemsep=2pt]
-\item \textbf{Per-question retrieval by computation.} An LLM planner turns each question into a typed query, a
-  \emph{QuerySpec}, over a metric layer. Fixed, tested code computes the answer. The planner never sees health
-  data, and the model that reads the answer never computes it.
+\item \textbf{Per-question retrieval by computation.} A large language model (LLM) planner turns each question into
+  a typed query, a \emph{QuerySpec}, over a metric layer. Fixed, tested code computes the answer. The planner never
+  sees the stored record, only the question text, and the model that reads the answer never computes it.
 \item \textbf{Deterministic minimum-necessary release.} A policy gate outside the model checks every query against
   a grant that is specific to one agent and one purpose, and releases the coarsest of four levels (flag, bucket, values, raw) that answers it. It writes a hash-chained
   receipt for every release and every denial, and can cap the number of packets an agent receives per day.
@@ -68,7 +69,7 @@ engine alone on PHIA.
 \subsection{Contributions}
 
 \begin{itemize}[leftmargin=1.4em,itemsep=2pt]
-\item \sys{}, a broker that separates planning (an LLM that sees only the question and a metric catalogue),
+\item \sys{}, a broker that separates planning (an LLM that sees only the question and a metric catalog),
   computation (tested code over a metric layer that handles duplicate sources, local days, coverage and personal
   baselines) and release (a deterministic gate with purpose-bound grants, four release levels and hash-chained
   receipts) (\cref{sec:design}).
@@ -76,19 +77,16 @@ engine alone on PHIA.
   ground truth rather than against the broker's own output, with paired exact tests and a bootstrap that resamples
   people (\cref{sec:study,sec:results}).
 \item A measurement of context over-exposure, the share of the record each design puts in front of the model per
-  question, kept separate from leakage, which we score with a detector validated against hand labels
+  question, kept separate from leakage, which we score with a detector checked against hand labels
   (\cref{sec:res:exposure,sec:res:privacy}).
-\item An account of where the benefit lies for each class of model and where \sys{} fails, including two design
-  decisions that cost it accuracy on a public benchmark, and the path from the study to the deployed broker: two pre-registered steps that change
-  them and the planner prompt, each measured against the study, the first on fresh questions
-  (\cref{sec:res:accuracy,sec:res:failures,sec:res:bench,sec:res:v2}).
-\item End-to-end comparisons on the public PHIA benchmark and on real Fitbit data, and evaluations of the planner
-  (with a held-out sample) and the compute engine on PHIA (\cref{sec:res:bench,sec:res:planner,sec:res:phia}).
+\item An account of where the benefit lies for each class of model and where \sys{} fails, with end-to-end
+  comparisons on the public PHIA benchmark and on real Fitbit data and evaluations of the planner and the compute
+  engine on PHIA; two design decisions that cost accuracy on PHIA, and the path from the study to the deployed broker:
+  two pre-registered steps that change them and the planner prompt, each measured against the study
+  (\cref{sec:res:accuracy,sec:res:failures,sec:res:bench,sec:res:planner,sec:res:phia,sec:res:v2}).
 \end{itemize}
 
-Neither ingredient is new on its own. Computing outside the model is the idea behind program-aided
-reasoning~\citep{gao2022pal,chen2023pot} and PHIA's code-writing agent~\citep{merrill2024phia}, and deterministic
-policy outside the model has been built several times~\citep{shi2025progent,debenedetti2025camel,kodathala2026aiauthz}.
-Our contribution is the combination for personal wearable data, with release levels and purpose-bound grants, and
-the measurement of what it changes across models. \sys{} answers wellness questions about a person's own data; it
-makes no medical claims and gives no diagnosis.
+Computing outside the model~\citep{gao2022pal,chen2023pot,merrill2024phia} and deterministic policy outside the
+model~\citep{shi2025progent,debenedetti2025camel,kodathala2026aiauthz} each exist; our contribution is their
+combination for personal wearable data, with release levels and purpose-bound grants, and the measurement of what it
+changes across models.

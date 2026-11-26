@@ -57,7 +57,7 @@ for suite, models, label in (("accuracy", OPEN + FRONTIER, "Synthetic questions"
         mac("vthreeWeekN", str(len(wk)))
         for n_, c in (("One", c1), ("Two", c2), ("Three", c3)):
             mac(f"vthreeWeek{n_}", str(sum(corr(c[k]) for k in wk)))
-        lines.append(f"Week-over-week question (correct runs) & {len(wk)} & {M['vthreeWeekOne']} & {M['vthreeWeekTwo']} & {M['vthreeWeekThree']} & \\\\")
+        lines.append(f"Week-over-week question (correct runs) & {len(wk)} & {M['vthreeWeekOne']} & {M['vthreeWeekTwo']} & {M['vthreeWeekThree']} & -- \\\\")
         sig = []
         for m in models:
             mk = [k for k in ks if k[0] == m]
@@ -90,7 +90,7 @@ ks = sorted(set(p1) & set(p2) & set(p3))
 mac("vthreePrivN", str(len(ks)) if ks else "0")
 for n_, c in (("One", p1), ("Two", p2), ("Three", p3)):
     mac(f"vthreePriv{n_}", f"{sum(lk(c[k]) for k in ks)}/{len(ks)}")
-lines.append(f"Privacy (leaks) & {len(ks)} & {sum(lk(p1[k]) for k in ks)} & {sum(lk(p2[k]) for k in ks)} & {sum(lk(p3[k]) for k in ks)} & \\\\")
+lines.append(f"Privacy (leaks) & {len(ks)} & {sum(lk(p1[k]) for k in ks)} & {sum(lk(p2[k]) for k in ks)} & {sum(lk(p3[k]) for k in ks)} & -- \\\\")
 
 # Fresh PHIA: C3 against C2 and against A (A from the second iteration, same questions).
 ph2, _ = load(v2.V2, "phia")
@@ -117,9 +117,9 @@ mac("vthreePhiaUnsupTwo", pct(sum(rf(C2[k]) for k in uns) / len(uns)) if uns els
 mac("vthreePhiaUnsupThree", pct(sum(rf(C3[k]) for k in uns) / len(uns)) if uns else "--")
 mac("vthreePhiaUnsupA", pct(sum(rf(A[k]) for k in uns) / len(uns)) if uns else "--")
 mac("vthreePhiaN", str(len(ans) + len(uns)))
-lines.append(f"Fresh PHIA, answerable, as worded & {len(ans)} & -- & {M['vthreePhiaWordedTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaWordedThree'].replace(chr(92) + '%', '')} & \\\\")
-lines.append(f"Fresh PHIA, answerable, PHIA labels & {len(ans)} & -- & {M['vthreePhiaLabelTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaLabelThree'].replace(chr(92) + '%', '')} & \\\\")
-lines.append(f"Fresh PHIA, unsupported refused & {len(uns)} & -- & {M['vthreePhiaUnsupTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaUnsupThree'].replace(chr(92) + '%', '')} & \\\\")
+lines.append(f"Fresh PHIA, answerable, as worded & {len(ans)} & -- & {M['vthreePhiaWordedTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaWordedThree'].replace(chr(92) + '%', '')} & -- \\\\")
+lines.append(f"Fresh PHIA, answerable, PHIA labels & {len(ans)} & -- & {M['vthreePhiaLabelTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaLabelThree'].replace(chr(92) + '%', '')} & -- \\\\")
+lines.append(f"Fresh PHIA, unsupported refused & {len(uns)} & -- & {M['vthreePhiaUnsupTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaUnsupThree'].replace(chr(92) + '%', '')} & -- \\\\")
 per = []
 for m in OPEN:
     mk = [k for k in ans if k[0] == m]

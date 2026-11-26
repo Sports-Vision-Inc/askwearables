@@ -3,9 +3,9 @@
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_architecture.pdf}
-\caption{Request flow. The agent sends a question (1); the planner turns it into a QuerySpec without seeing any
-data (2); the gate checks the QuerySpec against the user's grant and picks the coarsest release level (3, step 7 in
-the gate box is the daily release limit, ``daily budget'' in the figure); only the per-user vault reads health data, computes the answer and
+\caption{Request flow. The agent sends a question (1); the planner turns it into a QuerySpec without seeing the
+stored record (2); the gate checks the QuerySpec against the user's grant and picks the coarsest release level (3; step 7 in
+the gate box is the daily limit); only the per-user vault reads health data, computes the answer and
 builds the packet (4); the packet and a receipt identifier return to the agent (5). Seven Cloudflare Workers form
 four trust zones: public (site, console), identity (auth), request path (edge, planner) and protected (gate,
 vault). The planner and the edge hold no binding to data or policy, and a test checks the bindings between
@@ -40,7 +40,7 @@ nearer quartile, in units of the IQR, places it \emph{slightly} (up to 0.5), \em
 \emph{far} above or below usual. Proprietary vendor scores (readiness, recovery, strain) are kept apart and never
 merged.
 
-\paragraph{Catalogue.} The catalogue defines 15 metrics, each with one unit, one daily aggregation and a plausible
+\paragraph{Catalog.} The catalog defines 15 metrics, each with one unit, one daily aggregation and a plausible
 physical range checked on ingest. Four sensitive categories (blood glucose, cycle tracking, ECG and rhythm
 notifications, sleep-apnea events) are listed only so that the gate can refuse them by name.
 
@@ -53,21 +53,15 @@ deliberately not offered.
 
 \subsection{Planner}\label{sec:planner}
 
-The planner is a language model that emits a JSON object, validated in code against the QuerySpec schema; the
-deployed service also requests schema-constrained decoding from the model provider. Its prompt holds the date, the user's time zone, the
-metric catalogue, the eight operations, rules for resolving relative windows and a list of question types to
-refuse; it never holds data. The question is passed as data, truncated to 500 characters, with an instruction to
-ignore any request inside it. The model either emits a QuerySpec, which names the metrics, the operation, the
-window and the operation's parameters, or refuses.
-
-The model's output is validated against the QuerySpec schema in code. A spec that fails validation is retried once
-on a second model and then refused. In the study, a keyword pre-check refused questions that named a sensitive category before
-any model was called; it has since been removed, since the prompt refuses those categories and a plan naming a
-sensitive metric is refused in code (all 20 sensitive questions and none of 10 near-misses refused without it;
-\code{eval/scripts/planner-sensitive.ts}). The planner runs at temperature 0. The deployed primary model is \code{llama-3.3-70b} with
-\code{gpt-oss-120b} as the second model, chosen by the measurement in \cref{sec:res:planner}. During the study a keyword-rule planner was a last fallback when both models were
-unreachable; it has since been removed, so the deployed service refuses such a request as \emph{planner unavailable},
-and the owner's console plans its own questions through the same planner.
+The planner is a language model that emits a JSON object, validated in code against the QuerySpec schema. Its
+prompt holds the date, the user's time zone, the metric catalog, the eight operations, rules for resolving relative
+windows and a list of question types to refuse; it never holds data. The question is passed as data, truncated to 500
+characters, with an instruction to ignore any request inside it. The model either emits a QuerySpec, which names the
+metrics, the operation, the window and the operation's parameters, or refuses. A keyword pre-check refuses questions
+that name a sensitive category before any model is called, and a plan naming a sensitive metric is refused in code.
+A spec that fails validation is retried once on a second model and then refused. The planner runs at temperature 0;
+its primary model is \code{llama-3.3-70b}, with \code{gpt-oss-120b} as the second model, chosen by the measurement
+in \cref{sec:res:planner}. The deployed broker differs from the one studied only as described in \cref{sec:res:v2} and \cref{app:repro}.
 
 \subsection{Policy gate}\label{sec:gate}
 
@@ -80,10 +74,10 @@ The gate is plain code that runs before any data is read and denies by default. 
 \item sensitive categories only when the grant names them one by one;
 \item the window clamped to the grant's maximum window, ending no later than today;
 \item the release level set to the lower of the grant's maximum and the lowest level that answers the operation;
-\item the daily release limit: the number of packets already released to this agent today (not exercised in this
-  study, where the limit was set far above any run's needs);
-\item a contextual-integrity check of the grant's purpose against each metric's category and the level, which can
-  lower the level or deny, but never raise it;
+\item the daily limit on the number of packets released to this agent (not exercised in this study);
+\item a purpose check, a coarse, category-level approximation of contextual-integrity
+  norms~\citep{nissenbaum2004ci,nissenbaum2010context}: the grant's purpose is checked against each metric's category
+  and the level, which can lower the level or deny, but never raise it;
 \item a receipt, written for releases and denials alike.
 \end{enumerate}
 
@@ -110,9 +104,7 @@ Each operation has a lowest level that can answer it: \code{threshold\_check} ne
 \code{compare\_to\_baseline}, \code{compare\_periods} and \code{correlate} need level 1; \code{latest},
 \code{aggregate} and \code{list\_sessions} need level 2. The gate releases that level unless the grant or the
 purpose caps it lower. A threshold question about sleep therefore returns a flag and a count of days, not the
-nightly durations. This is the broker as studied; in the broker as deployed, after the two steps of
-\cref{sec:v2-design}, a threshold check that asks how many days met a condition is released at level~1, which
-carries the count, and a denial names a closely related granted metric where there is one.
+nightly durations.
 Free text from providers, such as workout titles and notes, appears only at level 3. Every packet also carries a
 data-quality block (freshness, coverage, sources, baseline length and caveats such as a device change or a
 time-zone change in the window), the data version, and a flag stating that it is not medical advice. Packets at

@@ -39,27 +39,20 @@ gate, compute engine and packet builder and returns the packet or the refusal.\\
 \paragraph{\CC{} adds a planner model.} In \CC{} every broker call runs the planner, \code{llama-3.3-70b} with
 \code{gpt-oss-120b} as the second model, in addition to the agent model. For the smaller agent models, \CC{} therefore
 puts a larger model in the loop, and part of any gain may come from the planner rather than from computing in code.
-For \code{llama-3.3-70b} as the agent model, agent and planner are the same model. In the study the planner received
-the time zone \code{UTC} for every person, while the cohort lives at UTC$-$5, UTC$-$4 and UTC$+$1; windows in the
-questions are stated in days, so this affects only the planner's notion of ``today'', which the prompt fixes.
-The study harness called the planner without schema-constrained decoding and validated its JSON afterwards.
+For \code{llama-3.3-70b} as the agent model, agent and planner are the same model. The planner received the time
+zone \code{UTC} for every person, while the cohort lives at UTC$-$5, UTC$-$4 and UTC$+$1; windows in the questions are
+stated in days, so this affects only the planner's notion of ``today'', which the prompt fixes.
 
 \paragraph{Harness.} Each agent model runs for at most eight turns. Some models write a tool call as text in their
 reply rather than as a structured call (for example \code{[get\_daily(metric=steps, start=...)]}). The harness
 parses tool calls written as text and executes them, in all conditions (\textRecoveredB{} of the scored \CB{} runs
-contain such a call; \textRecoveredA{} in \CA{}, where no tools exist, and \textRecoveredC{} in \CC{}). A run that
-ended in an infrastructure error (an authentication, rate-limit, credit or network failure of a provider) is retried;
-a run is never re-sampled because of its answer. Two outcomes are results, not errors, and are never retried: an
-input that does not fit the model's context window, scored as a failed answer, and a run that reaches the turn limit
-without answering, scored as no answer in every condition; the first such outcome for a task is final. Error rows
-were \errRowsA{} in \CA{}, \errRowsB{} in \CB{} and \errRowsC{} in \CC{}, nearly all authentication failures of the
-serving platform, and every planned run has a scored row (\cref{sec:procedure}).
+contain such a call; \textRecoveredA{} in \CA{}, where no tools exist, and \textRecoveredC{} in \CC{}).
 
 \subsection{Synthetic cohort with ground truth}\label{sec:cohort}
 
 Ten synthetic people, each with 45 days of data ending the day before the evaluation date, are generated from fixed
 seeds. The generator records each person's \emph{truth}, the steps, sleep, resting heart rate, heart-rate
-variability (HRV) and workouts they actually had each day, separately from what the devices report. Each person
+variability (HRV, as RMSSD; the catalog keeps SDNN as a separate metric) and workouts they actually had each day, separately from what the devices report. Each person
 carries one data-quality trap (\cref{tab:traps-def}). Every person wears a watch; steps are recorded hourly over 15
 waking hours, sleep as a main sleep session, resting heart rate and HRV as daily values, and a workout every third
 day.
@@ -95,8 +88,8 @@ only accepted answer is \code{unknown}; for example, a seven-day step total with
 supports an answer but a cautious agent might reasonably decline, both the answer and \code{unknown} are accepted.
 
 \paragraph{Tolerances.} Numeric answers are accepted within 2\% for steps and 3\% for mean sleep; within 1.01~bpm for
-yesterday's resting heart rate; within 1.01/60 of the reference (0.87 to 1.04~bpm across the cohort) for the
-14-day mean resting heart rate; and with an absolute floor of 0.5 on every numeric tolerance. Workout counts must be
+yesterday's resting heart rate; within 1.7\% (a relative tolerance of 1.01/60, which is 0.87 to 1.04~bpm across the
+cohort) for the 14-day mean resting heart rate; and never with a tolerance below 0.5 in the answer's unit. Workout counts must be
 exact.
 
 \paragraph{Parsing.} An answer counts only if the final message contains an \code{ANSWER:} line; a run without one is
@@ -105,8 +98,7 @@ scored wrong, in every condition. The parser reads the last such line and maps s
 \code{down} and \code{flat} are read as \code{higher}, \code{lower} and \code{same}. Runs without an \code{ANSWER:}
 line numbered \noAnswerA{} in \CA{}, \noAnswerB{} in \CB{} and \noAnswerC{} in \CC{}.
 
-The evaluation date is anchored on the real date at the start of a run, because some model providers insert the
-current date into the model's system prompt; a synthetic cohort dated elsewhere would contradict it.
+The evaluation date, 2026-11-25, is stated in every prompt.
 
 \subsection{Privacy scenarios}\label{sec:privacy-design}
 
@@ -116,11 +108,13 @@ and all data is available. In \CC{} the same system prompt is used and the role 
 maximum level and maximum window. In \CC{} the canary and resting heart rate are outside every grant, so the gate
 cannot release them; for those two quantities a \CC{} leak could only be a number the agent model invents. The
 informative \CC{} measurements are therefore what the agent model does with what it \emph{was} given, and whether the
-gate's refusals hold. \Cref{sec:measures} describes how leaks are scored.
+gate's refusals hold. In \code{purpose\_drift} and \code{ci\_manager\_message} the user asks about their own data,
+so these two scenarios measure disclosure beyond the agent's role and grant, not harm to the data subject.
+\Cref{sec:measures} describes how leaks are scored.
 
 \begin{table}[t]
 \centering\small
-\caption{Privacy scenarios. Each grant is what a user would plausibly consent to for the role.}
+\caption{Privacy scenarios. The grants are illustrative, chosen by the authors for each role.}
 \label{tab:scenarios}
 \footnotesize
 \begin{tabularx}{\textwidth}{@{}p{3.05cm} p{2.9cm} X p{2.75cm}@{}}
@@ -147,8 +141,7 @@ We evaluated \nModels{} agent models. Six open-weight models were served on Clou
 \code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI), \code{llama-3.3-70b} and \code{llama-4-scout} (Meta),
 \code{gemma-4-26b} (Google, a mixture of experts with about 4B active parameters) and \code{mistral-small-3.1}
 (Mistral). Three frontier models were reached through OpenRouter: \code{claude-fable-5.2} (Anthropic),
-\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). The
-model set does not include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
+\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). Agent models ran with provider-default sampling; the planner ran at
 temperature 0.
 
 \subsection{Measures}\label{sec:measures}
@@ -176,83 +169,57 @@ correct answer (total cost divided by the number of correct answers). We also re
 provider-reported cost for the frontier models on OpenRouter, and Workers AI list prices (Cloudflare's published
 Workers AI pricing, read 2026-11-25\footnote{\url{https://developers.cloudflare.com/workers-ai/platform/pricing/}})
 for the open-weight models. In \CC{}, the planner's tokens and cost (\code{llama-3.3-70b} at Workers AI list price)
-are included, logged per run (\plannerLogged{} of the \plannerLoggedOf{} \CC{} runs carry a planner record; for the remaining run,
-which reached the turn limit after eight broker calls, planner usage is estimated from measured per-call usage).
+are included (for one run that reached the turn limit, planner usage is estimated from measured per-call usage).
 
 \paragraph{Leak rate.} A leak is scored by a deterministic detector from the agent model's final text: the canary
 weight within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message, sleep
-durations or other metrics in the draft meant for the manager. The detector was built and validated in the
-development run (\cref{sec:procedure}) and frozen with the study. There, a first pattern rule was compared with
-hand labels: one annotator labelled a stratified sample of \auditN{} final texts (40 per scenario, split across
-conditions and between detector positives and negatives) for whether the reply discloses what the scenario forbids,
-judging the manager message on the draft rather than on advice to the user around it. The rule missed little but
-over-flagged (\cref{tab:audit}), so we corrected it: it now scores only the draft in the manager scenario, parses more
-number formats (decimal bpm, ``6\,\textonehalf{} hours'', spelled-out hours) and requires a weight or heart-rate
-number to appear in its context. Because the corrected detector was written with that sample in view, we checked it
-on the 38 development rows outside the sample where its verdict differed from the first rule, none of which we
-judged wrong, and we read every \CC{} positive in the frozen study by hand. In development it still counted more
-manager-message leaks in \CB{} than the hand labels did, so its \CB{} rate in that scenario may be high.
+durations or other metrics in the draft meant for the manager. The detector was corrected after a check against hand labels in a
+development pass and frozen with the study; \cref{sec:res:privacy} reports that check.
 
 \paragraph{Repeatability.} \repTasks{} tasks, the mean-sleep and sleep-versus-usual questions for each person, run
-\repRuns{} times each with the open-weight models. Agreement is the share of tasks on which every run gave the same
-parsed answer (TARa@\repRuns{}~\citep{atil2024nondeterminism}); consistent-correct is the share on which every run was
-correct. Both questions reduce, in \CC{}, to a single packet value or bucket, so they test whether the agent model
+\repRuns{} times each with the open-weight models. The main figure is the share of tasks on which every run was
+correct. We also report agreement, the share of tasks on which every run gave exactly the same parsed answer (total
+agreement rate over the parsed answers, TARa@\repRuns{}~\citep{atil2024nondeterminism}); exact agreement favors a
+condition that hands the agent model a fixed packet value. Both questions reduce, in \CC{}, to a single packet value or bucket, so they test whether the agent model
 reads a fixed packet the same way; questions where the agent model interprets more (trends, thresholds) were not
 repeated.
 
-\subsection{Development run and frozen study}\label{sec:procedure}
+\subsection{Frozen study}\label{sec:procedure}
 
-We ran the study twice. A development run on an earlier version of the broker and harness exposed faults that we
-fixed before the study: the planner rejected a threshold written in words (``6 hours'') because ``hours'' was not an
-accepted unit; the sensitive-category pre-check read the ordinary word ``period'' (as in ``the previous period'') as
-cycle tracking; requests for each day's values were often refused rather than planned (we added guidance to the
-prompt, which reduced but did not remove these refusals); the harness did not execute tool
-calls written as text; and the first leak detector over-flagged (\cref{sec:measures}). We then froze the broker, the
-planner prompt, the scoring and the leak detector (one commit, recorded in every row), fixed the evaluation date at
-2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run, except the two steps
-after the study (\cref{sec:res:v2}), run afterwards on a changed broker; no development row is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
-
-During the frozen run we changed only how the harness talks to providers, never the broker or the scoring: tool-call
-arguments that were not valid JSON are replaced by an empty object and the tool result says so, and
-\code{llama-3.3-70b} on Workers AI is sent one tool call per turn, both cases that the provider had rejected with an
-error, so these changes reached only runs that had failed; later changes refreshed the serving platform's credentials
-and paced requests to the providers' documented limits. Every row records the commit it ran under. An earlier retry
-rule also reran runs that had reached the turn limit; the analysis counts the first turn-limit outcome for each task,
-so those reruns do not enter the results.
+We froze the broker, planner prompt, scoring and leak detector before the runs, fixed the evaluation date at
+2026-11-25, and ran every suite once from the frozen version (the repeatability suite \repRuns{} times by design); planner selection and the leak-detector validation used
+a separate development pass. Runs that did not complete for technical reasons were rerun; no run was repeated because
+of its answer, and a run that hit the turn limit or the context window is scored as wrong. All results come from the
+frozen version, except the steps after the study (\cref{sec:res:v2}).
 
 \subsection{From the study to the deployed broker}\label{sec:v2-design}
 
-The study measured one frozen broker. Its attribution of the PHIA errors (\cref{sec:res:bench}) showed what to
-change, and we changed the broker in two steps, each pre-registered before its end-to-end runs and measured against
-the study on the same tasks; the second step ends at the broker as deployed. We call the broker as studied \CC{},
-the broker after step~1 \CC{}$_1$ and the broker after step~2 \CC{}$_2$.
+The study's attribution of the PHIA errors (\cref{sec:res:bench}) showed what to change, and we changed the broker in
+two steps, each pre-registered before its end-to-end runs and measured against the study on the same tasks; the
+second step ends at the broker as deployed. We call the broker as studied \CC{}, the broker after step~1 \CC{}$_1$
+and the broker after step~2 \CC{}$_2$.\footnote{The pre-registration names these brokers C2 and C3.}
 
-\paragraph{Step 1: the release level follows the question, and a denial names a granted alternative.} The
-attribution pointed to two decisions of the broker. We changed both, in general form, and changed the planner
-prompt: a threshold check that asks how many days met a condition is released at level~1, which carries the count
-(the grant's maximum still caps it); a denial of a metric outside the grant names a closely related metric inside
-it, if there is one (heart rate and resting heart rate, sleep duration and sleep efficiency); and the planner prompt
-says that ``how many days'' is a count also over a single day and that a question joining a supported and an
-unsupported request is planned for the supported part. Nothing refers to PHIA's users, wording or labels, and the
-operation set, the catalogue's definitions, the window rule, the study grant, the agent prompts and the scoring are
-unchanged. We wrote down the changes, three hypotheses and the analysis, and committed them before any run
-(\code{docs/paper/v2-preregistration.md}, commit \code{1a47899}).
+\paragraph{Step 1: the release level follows the question, and a denial names a granted alternative.} We changed the
+two broker decisions the attribution pointed to, in general form, and the planner prompt: a threshold check that asks
+how many days met a condition is released at level~1, which carries the count (the grant's maximum still caps it); a
+denial of a metric outside the grant names a closely related metric inside it, if there is one (heart rate and
+resting heart rate, sleep duration and sleep efficiency); and the planner prompt says that ``how many days'' is a
+count also over a single day and that a question joining a supported and an unsupported request is planned for the
+supported part. Nothing refers to PHIA's users, wording or labels, and the operation set, the catalog's definitions,
+the window rule, the study grant, the agent prompts and the scoring are unchanged. The changes, three hypotheses and
+the analysis were committed before any run (commit \code{1a47899}).
 
 \CC{}$_1$ was measured on a fresh PHIA sample of 120 answerable and 60 unsupported questions, drawn with the study's
-stratification and a new seed from questions in neither the study's sample nor either planner sample (the prompt
-had been changed with those in view), in all three conditions with the six open-weight models; and, against the
-study's \CC{} on the same tasks, on the synthetic and privacy suites with all nine models and on real data with the
-open-weight models. The hypotheses were: H1, the gap to raw context on answerable PHIA questions narrows; H2,
-refusal of unsupported questions stays at least at the study's rate; H3, no regression on the other suites.
-Deviations from the pre-registration: the frontier models were not run on the fresh PHIA sample (the
-pre-registration allowed this; their $n$ is zero), and the analyses marked in \cref{sec:res:v2} as not
-pre-registered were added after the runs.
+stratification and a new seed from questions in neither the study's sample nor either planner sample, in all three
+conditions with the six open-weight models; and, against the study's \CC{} on the same tasks, on the synthetic and
+privacy suites with all nine models and on real data with the open-weight models. The hypotheses were: H1, the gap
+to raw context on answerable PHIA questions narrows; H2, refusal of unsupported questions stays at least at the
+study's rate; H3, no regression on the synthetic and privacy suites, with real data reported against the study
+without a criterion. The frontier models were not run on the fresh PHIA sample, as the pre-registration allowed.
 
 \paragraph{Step 2: the planner is given the comparison windows.} Step~1's planner prompt cost accuracy on one
 synthetic question. Step~2 changed only the planner prompt and was measured in condition \CC{} on the same tasks as
-step~1, including the fresh PHIA sample drawn for step~1, which it reused. Its hypotheses were added to the
-pre-registration as an addendum before its end-to-end runs (commit \code{06e670a}); a planner-alone check, run
-earlier on two drafts of the prompt, is reported with them (\cref{sec:res:v3}).
+step~1, reusing the fresh PHIA sample. Its hypotheses were added to the pre-registration before its end-to-end runs.
 
 \subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
 
@@ -267,7 +234,8 @@ questions); the other \phiaSessions{} need a reduction (sum, mean, first or $n$-
 packet lists, which the evaluation harness performs.
 
 \paragraph{Planner study.} The refusal list in the planner prompt was written from the categories of PHIA questions
-the broker does not support. In development we ran \plCandidates{} candidate planner models with the first prompt
+the broker does not support. In development we ran \plCandidates{} candidate planner models (\code{gpt-oss-120b},
+\code{llama-3.3-70b}, \code{mistral-small-3.1}, \code{gemma-4-26b} and \code{inkling-2-small}) with the first prompt
 version (v1) on a stratified selection sample of 400 questions and chose \code{llama-3.3-70b}; we then revised the
 prompt. In the frozen study we ran the chosen planner, \code{llama-3.3-70b} with the final prompt, on the same
 selection sample and on a second, disjoint stratified sample of 400 questions (the held-out sample). For each run we measure the share of unsupported
@@ -284,9 +252,8 @@ label.
 
 \subsection{Further benchmarks}\label{sec:bench-design}
 
-Two further suites run the same three conditions, prompts, tools and broker on other data
-(documented in the repository's benchmark notes). \emph{PHIA end to end}: 180 PHIA objective questions over its four users, 120
-directly answerable (scored against PHIA's labels to two significant digits) and 60 unsupported (correct only if
+Two further suites run the same three conditions, prompts, tools and broker on other data. \emph{PHIA end to end}: 180 PHIA objective questions over its four users, 120
+directly answerable (scored as worded and against PHIA's labels, to two significant digits) and 60 unsupported (correct only if
 answered \code{unknown}), stratified with a fixed seed. \emph{Real data}: 152 questions, the ten templates of the
 synthetic study with a resting-heart-rate trend in place of the HRV trend, over 16 participants of the public PMData
 (Fitbit Versa~2) and LifeSnaps (Fitbit Sense) datasets, with reference answers computed from the raw files by a

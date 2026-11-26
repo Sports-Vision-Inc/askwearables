@@ -71,3 +71,16 @@ Agent model & tasks & \CC{} & \CC{}$_1$ & \CC{}$_1$-only & \CC{}-only & $p$\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Reproducibility Notes}\label{app:repro}
+
+\paragraph{Harness.} Tool-call arguments that are not valid JSON are passed to the tool as an empty object, and the
+tool result says so; \code{llama-3.3-70b} on Workers AI receives one tool call per turn. The planner in the study was
+called without schema-constrained decoding, and its JSON was validated afterwards. Final texts are stored up to
+1{,}500 characters, and the leak detector and the hand labels read the stored text. Every run record carries the
+commit it ran under.
+
+\paragraph{Deployed broker.} Besides the two steps of \cref{sec:res:v2}, the deployed broker requests
+schema-constrained decoding from the model provider, and it drops the keyword pre-check for sensitive categories:
+the planner prompt and the code check on the plan refuse them (all 20 sensitive test questions and none of 10
+near-misses were refused without the pre-check).

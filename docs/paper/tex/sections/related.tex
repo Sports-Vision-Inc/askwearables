@@ -62,6 +62,12 @@ audit~\citep{kodathala2026aiauthz}, extended to verifiable step-up approval~\cit
 MCP document how broad tool exposure enables exploitation~\citep{hou2025mcp,radosevich2025mcpaudit,hasan2025mcp}.
 These systems decide whether a call may run; \sys{} also decides how much information an allowed call returns.
 
+\paragraph{Personal data stores and purpose-based access control.} openPDS keeps personal data in a store the user
+controls and answers third-party questions with computed aggregates, SafeAnswers, rather than raw
+records~\citep{demontjoye2014openpds}, and Hippocratic Databases bind every access to a declared purpose and limit
+disclosure to what that purpose needs~\citep{agrawal2002hippocratic}. \sys{} follows both ideas and differs in
+computing a release level per question and in returning one agent-facing packet with data-quality caveats.
+
 \paragraph{Reconstruction from aggregate answers.} Answering many aggregate queries accurately permits
 reconstruction of the underlying data~\citep{dinur2003revealing,dwork2017exposed,garfinkel2018reconstruction}, the
 observation behind differential privacy and its composition
