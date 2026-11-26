@@ -65,7 +65,10 @@ which excludes zero) and \bootFableCAEst{} points for \code{claude-fable-5.2} (\
 (\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}; a difference of \bootOssSmallCAEst{} points against \CA{}, \bootOssSmallCACI{};
 \code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}; a difference of \bootOssLargeCAEst{} points, \bootOssLargeCACI{}). For \code{gpt-oss-120b}
 \sys{} neither helped nor hurt measurably; for \code{gpt-oss-20b} \CC{} was \bootOssSmallCBEst{} points higher than \CB{}
-by the bootstrap (\bootOssSmallCBCI{}), while the McNemar test was not significant.
+by the bootstrap (\bootOssSmallCBCI{}), while the McNemar test was not significant. Near ceiling describes the
+synthetic questions only: on PHIA, as worded, both frontier models were less accurate with \sys{} than with raw
+context (\code{gpt-6.2-astra} \phiaWordedAstraC{} against \phiaWordedAstraA{}, \code{claude-fable-5.2}
+\phiaWordedFableC{} against \phiaWordedFableA{}; \cref{sec:res:bench}).
 
 \begin{table}[t]
 \centering\small

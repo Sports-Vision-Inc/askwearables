@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 NOV 2026 14:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 NOV 2026 14:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1185,7 +1185,7 @@ Package pdftex.def Info: figures/fig_accuracy_cost.pdf  used on input line 12.
  (./tables/tab_accuracy.tex)
 
 [15 <./figures/fig_accuracy_cost.pdf>]
-Underfull \hbox (badness 2478) in paragraph at lines 59--69
+Underfull \hbox (badness 2478) in paragraph at lines 59--72
  []\T1/ptm/b/n/10.95 (+20) For mod-els near ceil-ing, dif-fer-ences were small.
 [] \T1/lmtt/m/n/10.95 gpt-6.2-astra \T1/ptm/m/n/10.95 (+20) (96%, 99%, 100%) an
 d
@@ -1197,10 +1197,10 @@ d
 [16] (./tables/tab_refusal.tex)
 
 [17]
-<figures/fig_c_outcomes.pdf, id=727, 448.07399pt x 148.8762pt>
+<figures/fig_c_outcomes.pdf, id=728, 448.07399pt x 148.8762pt>
 File: figures/fig_c_outcomes.pdf Graphic file (type pdf)
 <use figures/fig_c_outcomes.pdf>
-Package pdftex.def Info: figures/fig_c_outcomes.pdf  used on input line 175.
+Package pdftex.def Info: figures/fig_c_outcomes.pdf  used on input line 178.
 (pdftex.def)             Requested size: 352.31625pt x 117.06116pt.
 
 
@@ -1246,10 +1246,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--8
  []
 
 )
-<figures/fig_exposure.pdf, id=780, 375.804pt x 173.448pt>
+<figures/fig_exposure.pdf, id=781, 375.804pt x 173.448pt>
 File: figures/fig_exposure.pdf Graphic file (type pdf)
 <use figures/fig_exposure.pdf>
-Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 235.
+Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 238.
 (pdftex.def)             Requested size: 328.82707pt x 151.77455pt.
  (./tables/tab_exposure.tex)
 
@@ -1259,15 +1259,14 @@ Package pdftex.def Info: figures/fig_exposure.pdf  used on input line 235.
 (./tables/tab_privacy.tex)
 
 [21] (./tables/tab_privacy_models.tex)
-<figures/fig_repeat.pdf, id=863, 469.755pt x 216.81pt>
+<figures/fig_repeat.pdf, id=864, 469.755pt x 216.81pt>
 File: figures/fig_repeat.pdf Graphic file (type pdf)
 <use figures/fig_repeat.pdf>
-Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 387.
+Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 390.
 (pdftex.def)             Requested size: 469.75502pt x 216.80946pt.
  (./tables/tab_repeat.tex)
-(./tables/tab_planner_all.tex)
 
-[22]
+[22] (./tables/tab_planner_all.tex)
 
 [23 <./figures/fig_repeat.pdf>] (./tables/tab_phia.tex)
 
@@ -1285,9 +1284,9 @@ Package pdftex.def Info: figures/fig_repeat.pdf  used on input line 387.
 
 [30]) (./sections/scope.tex
 
-[31]) (./sections/conclusion.tex) (./sections/ethics.tex
+[31]
 
-[32]
+[32]) (./sections/conclusion.tex) (./sections/ethics.tex
 Underfull \hbox (badness 2538) in paragraph at lines 12--22
 \T1/ptm/m/n/10.95 (+20) and in-text num-ber are avail-able at [][]$\T1/lmtt/m/n
 /10.95 https : / / github . com / Sports-[]Vision-[]Inc / askwearables$[][]\T1/
@@ -1321,9 +1320,11 @@ Underfull \hbox (badness 2073) in paragraph at lines 12--22
 l/paper/v3_report.py \T1/ptm/m/n/10.95 (+20) (the two
  []
 
-) (./main.bbl
 
-[33]
+
+[33]) (./main.bbl
+
+[34]
 Underfull \hbox (badness 5316) in paragraph at lines 105--110
 []\T1/ptm/m/n/10.95 (+20) OWASP Foun-da-tion.  API3:2019 Ex-ces-sive Data Ex-po
 -sure.  OWASP API Se-cu-rity Top
@@ -1337,18 +1338,18 @@ https : / / owasp . org / API-[]Security / editions / 2019 / en /
 
 
 
-[34]
-
 [35]
 
 [36]
 
 [37]
 
-[38])
+[38]
 
-[39] (./sections/appendix.tex (./tables/tab_usage.tex)
-<figures/fig_accuracy.pdf, id=1188, 693.792pt x 245.718pt>
+[39])
+
+[40] (./sections/appendix.tex (./tables/tab_usage.tex)
+<figures/fig_accuracy.pdf, id=1195, 693.792pt x 245.718pt>
 File: figures/fig_accuracy.pdf Graphic file (type pdf)
 <use figures/fig_accuracy.pdf>
 Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
@@ -1357,7 +1358,7 @@ Package pdftex.def Info: figures/fig_accuracy.pdf  used on input line 26.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_traps.pdf, id=1191, 375.804pt x 303.534pt>
+<figures/fig_traps.pdf, id=1198, 375.804pt x 303.534pt>
 File: figures/fig_traps.pdf Graphic file (type pdf)
 <use figures/fig_traps.pdf>
 Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
@@ -1365,7 +1366,7 @@ Package pdftex.def Info: figures/fig_traps.pdf  used on input line 35.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_privacy.pdf, id=1194, 469.755pt x 216.81pt>
+<figures/fig_privacy.pdf, id=1201, 469.755pt x 216.81pt>
 File: figures/fig_privacy.pdf Graphic file (type pdf)
 <use figures/fig_privacy.pdf>
 Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
@@ -1373,7 +1374,7 @@ Package pdftex.def Info: figures/fig_privacy.pdf  used on input line 42.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/fig_planner_phia.pdf, id=1197, 462.52798pt x 151.767pt>
+<figures/fig_planner_phia.pdf, id=1204, 462.52798pt x 151.767pt>
 File: figures/fig_planner_phia.pdf Graphic file (type pdf)
 <use figures/fig_planner_phia.pdf>
 Package pdftex.def Info: figures/fig_planner_phia.pdf  used on input line 49.
@@ -1387,15 +1388,15 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 )
 
-[40
+[41
 
 ]
 
-[41 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
+[42 <./figures/fig_accuracy.pdf> <./figures/fig_traps.pdf>]
 
-[42 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>]
+[43 <./figures/fig_privacy.pdf> <./figures/fig_planner_phia.pdf>]
 
-[43] (./main.aux)
+[44] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1404,11 +1405,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DAFBBD7D9D45E2AEAAEA6CA0AE122DC6;7096.
  ) 
 Here is how much of TeX's memory you used:
- 32402 strings out of 473190
- 601041 string characters out of 5715801
+ 32400 strings out of 473190
+ 601015 string characters out of 5715801
  1017478 words of memory out of 5000000
  53939 multiletter control sequences out of 15000+600000
- 695092 words of font info for 681 fonts, out of 8000000 for 9000
+ 694867 words of font info for 679 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,12n,93p,1001b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1423,10 +1424,10 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
 utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (43 pages, 505098 bytes).
+Output written on main.pdf (44 pages, 506366 bytes).
 PDF statistics:
- 1528 PDF objects out of 1728 (max. 8388607)
- 1095 compressed objects within 11 object streams
- 286 named destinations out of 1000 (max. 500000)
+ 1536 PDF objects out of 1728 (max. 8388607)
+ 1101 compressed objects within 12 object streams
+ 287 named destinations out of 1000 (max. 500000)
  129938 words of extra memory for PDF output out of 154059 (max. 10000000)
 

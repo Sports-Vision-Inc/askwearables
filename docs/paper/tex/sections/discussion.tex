@@ -14,7 +14,15 @@ the program-aided reasoning literature~\citep{gao2022pal,chen2023pot} and with P
 beats reasoning over the numbers~\citep{merrill2024phia}; in \sys{} the agent model writes no code at all.
 
 \paragraph{For models near ceiling, the benefit is not accuracy.} The strongest models answered almost every
-question correctly in every condition, and we claim no accuracy gain for them; the differences are at most a few points. What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
+synthetic question correctly in every condition, and we claim no accuracy gain for them there; the differences are at
+most a few points. That is specific to the suite: on PHIA, as worded, \code{gpt-6.2-astra} and \code{claude-fable-5.2}
+were less accurate with \sys{} (\phiaWordedAstraC{} against \phiaWordedAstraA{}, \phiaWordedFableC{} against
+\phiaWordedFableA{}), and in the study both \code{gpt-oss} models, the strongest on real data, were less accurate
+with it there (\cref{sec:res:bench}). Nor were the strongest models simply the best choice: with \sys{}, accuracy
+depended less on the model, from \accCMin{} to \accCMax{} across all nine against \accAMin{} to \accAMax{} with raw
+context, and high accuracy did not mean discretion. \code{gpt-oss-120b}, at \accOssLargeA{} with raw context, leaked
+in \leakOssLargeA{} privacy runs with raw context and \leakOssLargeB{} with open tools, against \leakOssLargeC{} with
+\sys{}, while the frontier models leaked in at most one of 20 runs in any condition (\cref{tab:privacymodels}). What \sys{} changes for these models is what they are given and what remains afterwards. The agent model
 read \ctxRatioCAMin{}--\ctxRatioCAMax{} of its raw-context input; the release was limited to the level the question
 needed, so a scheduling assistant receives a bucket rather than a night's sleep in minutes; and every release and
 denial left a hash-chained receipt. For \code{claude-fable-5.2} and \code{gemini-4-neon} it also lowered the cost per

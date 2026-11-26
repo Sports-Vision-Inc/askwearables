@@ -4,7 +4,8 @@ We set out to measure what changes when an AI agent asks about wearable data thr
 answer, releases only what the question needs, and records every decision. Holding the agent model fixed, \sys{}
 raised accuracy for the models that were weak with raw context (\nSigCA{} of \nTestedCA{} at $p<0.05$ against raw
 context; pooled, \bootPooledCAEst{} points higher, \bootPooledCACI{}) and lowered it significantly for none. For the strongest models the accuracy
-differences were small; for them the benefit was a shorter context, a release limited to the granted level and an
+differences on the synthetic questions were small, and with \sys{} accuracy depended less on the choice of model
+(\accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} with raw context); for them the benefit was a shorter context, a release limited to the granted level and an
 audit record, at the cost of an extra planner call. On real Fitbit data, with the open-weight models, the same pattern held for the weaker ones,
 while the two strongest open-weight models lost accuracy; after the second step on the path to the deployed broker, a change to the planner prompt, they were
 no longer significantly below raw context from the study's runs (one remained five points lower), and the four
