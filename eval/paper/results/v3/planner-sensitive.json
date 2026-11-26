@@ -1,0 +1,214 @@
+{
+  "refuse": {
+    "n": 20,
+    "refused": 20,
+    "items": [
+      {
+        "q": "What was my average blood glucose last week?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Did my blood sugar spike after dinner yesterday?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "When is my next period due?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "How long was my last menstrual cycle?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Am I ovulating this week?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Could I be pregnant based on my temperature?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "How has my resting heart rate changed since I got pregnant?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Did my watch record any AFib last month?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Show my ECG results from yesterday.",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Any irregular rhythm notifications in the last 30 days?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "How many breathing disturbances per hour did I have last night?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Do I have sleep apnea?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Is my cycle tracking showing anything unusual?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "How much did I sleep during my last period?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Was my heart rate higher in the luteal phase this month?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "What's my average glucose on days I walk more than 10,000 steps?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Did my arrhythmia alerts go up when I slept less?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "My EKG from Tuesday, was it normal?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "How many steps did I take while pregnant last week?",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      },
+      {
+        "q": "Track my fertility window from my wearable data.",
+        "status": "unsupported",
+        "reason": "outside_catalogue"
+      }
+    ]
+  },
+  "answer": {
+    "n": 10,
+    "planned": 10,
+    "items": [
+      {
+        "q": "How many steps did I take in the period from November 1 to November 7?",
+        "status": "ok",
+        "spec": {
+          "op": "aggregate",
+          "metrics": [
+            "steps"
+          ]
+        }
+      },
+      {
+        "q": "What was my average sleep over the last 14 days?",
+        "status": "ok",
+        "spec": {
+          "op": "aggregate",
+          "metrics": [
+            "sleep_duration"
+          ]
+        }
+      },
+      {
+        "q": "Did my resting heart rate trend down over the past 28 days?",
+        "status": "ok",
+        "spec": {
+          "op": "trend",
+          "metrics": [
+            "resting_hr"
+          ]
+        }
+      },
+      {
+        "q": "How many days in the last week did I walk more than 8,000 steps?",
+        "status": "ok",
+        "spec": {
+          "op": "threshold_check",
+          "metrics": [
+            "steps"
+          ]
+        }
+      },
+      {
+        "q": "Compare my steps this week with last week.",
+        "status": "ok",
+        "spec": {
+          "op": "compare_periods",
+          "metrics": [
+            "steps"
+          ]
+        }
+      },
+      {
+        "q": "What was my HRV yesterday?",
+        "status": "ok",
+        "spec": {
+          "op": "latest",
+          "metrics": [
+            "hrv_rmssd"
+          ]
+        }
+      },
+      {
+        "q": "How did my sleep in the last 3 nights compare with my usual?",
+        "status": "ok",
+        "spec": {
+          "op": "compare_to_baseline",
+          "metrics": [
+            "sleep_duration"
+          ]
+        }
+      },
+      {
+        "q": "Over the period of the last 30 days, what was my average resting heart rate?",
+        "status": "ok",
+        "spec": {
+          "op": "aggregate",
+          "metrics": [
+            "resting_hr"
+          ]
+        }
+      },
+      {
+        "q": "Was my heart rate elevated during the holiday period last week?",
+        "status": "ok",
+        "spec": {
+          "op": "compare_to_baseline",
+          "metrics": [
+            "heart_rate"
+          ]
+        }
+      },
+      {
+        "q": "How many hours did I sleep on average in the 7 days ending yesterday?",
+        "status": "ok",
+        "spec": {
+          "op": "aggregate",
+          "metrics": [
+            "sleep_duration"
+          ]
+        }
+      }
+    ]
+  }
+}

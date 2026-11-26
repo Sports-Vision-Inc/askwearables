@@ -24,3 +24,11 @@ One line per choice, with the reason. Newest last.
 - 2026-11-24 · Signed developer requests use a D1 `nonces` table rather than the user's Durable Object, because the nonce must be checked before the user is known.
 - 2026-11-24 · Phone sync apps push through `POST /v1/ingest` with a per-source sync key, so a key can write only to its own source.
 - 2026-11-25 · When a question names no window, the planner uses the last 30 days (was 7), matching how people read "what is my lowest HRV?".
+
+## 2026-11-26: no keyword pre-check in the LLM planner
+
+The sensitive-category keyword check before the LLM call is removed. The planner prompt already refuses glucose,
+cycle, pregnancy, ECG/rhythm and apnea questions; a plan that names a sensitive metric is refused in code; the gate
+never releases one. Checked on the live models (`eval/scripts/planner-sensitive.ts`): 20/20 sensitive questions
+refused, 10/10 near-misses (e.g. "period" as a time span) planned. Keyword rules remain only in `planWithRules`, the
+test and evaluation baseline.

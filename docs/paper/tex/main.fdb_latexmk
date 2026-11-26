@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1795632914.04628 "main.aux" "main.bbl" "main" 1795632916.47542 0
+["bibtex main"] 1795632914.04628 "main.aux" "main.bbl" "main" 1795720525.48846 0
   "./references.bib" 1795574237.52327 33151 2e7f7b7ec8bdc4fcc2ca2ebea61e7aab ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "main.aux" 1795632916.02656 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
+  "main.aux" 1795720525.20182 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1795632914.21157 "main.tex" "main.pdf" "main" 1795632916.47575 0
+["pdflatex"] 1795720524.02067 "main.tex" "main.pdf" "main" 1795720525.48865 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -240,15 +240,15 @@
   "figures/fig_repeat.pdf" 1795622455.76393 17559 b90d8cd2c0e9d053bfeb168539f28bab ""
   "figures/fig_traps.pdf" 1795622455.76053 20444 8a8a2b274db6b4bcc435022e4093d280 ""
   "macros.tex" 1795622265.74489 1787 eb4689855ee9ce40a8a7f57f19556680 ""
-  "main.aux" 1795632916.02656 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
+  "main.aux" 1795720525.20182 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
   "main.bbl" 1795632914.20602 31174 0f18259bc9a388eb0eb46fa5fb925f2f "bibtex main"
-  "main.out" 1795632916.03055 7097 272254516ea89a4eb81a6264202cad74 "pdflatex"
+  "main.out" 1795720525.20402 7097 272254516ea89a4eb81a6264202cad74 "pdflatex"
   "main.tex" 1795632661.09488 2812 1a2ae1df574515c460cff035169d8a31 ""
   "results-macros.tex" 1795622455.76464 34406 92a7b4a7fe424c07a030051cb1acfe53 ""
   "sections/abstract.tex" 1795632911.49367 3605 577a1aa0bee33a42b86ba8b1acf26fa7 ""
   "sections/appendix.tex" 1795622293.69052 2367 a4a9cc3416d01b0eedaa9b96d0a278a0 ""
   "sections/conclusion.tex" 1795632911.49421 1859 6e3e79e3b816a651d15809063e9df672 ""
-  "sections/design.tex" 1795632661.09425 9814 ee9c4ba36384965bea11e33f524fea2d ""
+  "sections/design.tex" 1795720523.86491 10073 3d0111b1f4a12b05f132f8423f28448e ""
   "sections/discussion.tex" 1795632911.49388 7960 a53520220a9b391dfa2a57c9c5d72dbe ""
   "sections/ethics.tex" 1795627715.22494 1827 c2d7c82eaf9c9595238d41eb0c4041b7 ""
   "sections/introduction.tex" 1795632710.02688 7926 d3c8ab92660e2f21b72fd8ce871fc44d ""

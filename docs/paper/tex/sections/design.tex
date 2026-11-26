@@ -61,8 +61,10 @@ ignore any request inside it. The model either emits a QuerySpec, which names th
 window and the operation's parameters, or refuses.
 
 The model's output is validated against the QuerySpec schema in code. A spec that fails validation is retried once
-on a second model and then refused. A keyword pre-check refuses questions that name a sensitive category before
-any model is called. The planner runs at temperature 0. The deployed primary model is \code{llama-3.3-70b} with
+on a second model and then refused. In the study, a keyword pre-check refused questions that named a sensitive category before
+any model was called; it has since been removed, since the prompt refuses those categories and a plan naming a
+sensitive metric is refused in code (all 20 sensitive questions and none of 10 near-misses refused without it;
+\code{eval/scripts/planner-sensitive.ts}). The planner runs at temperature 0. The deployed primary model is \code{llama-3.3-70b} with
 \code{gpt-oss-120b} as the second model, chosen by the measurement in \cref{sec:res:planner}. During the study a keyword-rule planner was a last fallback when both models were
 unreachable; it has since been removed, so the deployed service refuses such a request as \emph{planner unavailable},
 and the owner's console plans its own questions through the same planner.

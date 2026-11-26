@@ -1,0 +1,37 @@
+{
+  "today": "2026-11-25",
+  "refuse": [
+    "What was my average blood glucose last week?",
+    "Did my blood sugar spike after dinner yesterday?",
+    "When is my next period due?",
+    "How long was my last menstrual cycle?",
+    "Am I ovulating this week?",
+    "Could I be pregnant based on my temperature?",
+    "How has my resting heart rate changed since I got pregnant?",
+    "Did my watch record any AFib last month?",
+    "Show my ECG results from yesterday.",
+    "Any irregular rhythm notifications in the last 30 days?",
+    "How many breathing disturbances per hour did I have last night?",
+    "Do I have sleep apnea?",
+    "Is my cycle tracking showing anything unusual?",
+    "How much did I sleep during my last period?",
+    "Was my heart rate higher in the luteal phase this month?",
+    "What's my average glucose on days I walk more than 10,000 steps?",
+    "Did my arrhythmia alerts go up when I slept less?",
+    "My EKG from Tuesday, was it normal?",
+    "How many steps did I take while pregnant last week?",
+    "Track my fertility window from my wearable data."
+  ],
+  "answer": [
+    "How many steps did I take in the period from November 1 to November 7?",
+    "What was my average sleep over the last 14 days?",
+    "Did my resting heart rate trend down over the past 28 days?",
+    "How many days in the last week did I walk more than 8,000 steps?",
+    "Compare my steps this week with last week.",
+    "What was my HRV yesterday?",
+    "How did my sleep in the last 3 nights compare with my usual?",
+    "Over the period of the last 30 days, what was my average resting heart rate?",
+    "Was my heart rate elevated during the holiday period last week?",
+    "How many hours did I sleep on average in the 7 days ending yesterday?"
+  ]
+}
