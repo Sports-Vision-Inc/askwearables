@@ -44,10 +44,10 @@
   <!-- planner -->
   <rect class="boxk" x="190" y="190" width="220" height="92"/>
   <text class="t" x="300" y="214" text-anchor="middle">LLM planner</text>
-  <text class="s" x="300" y="232" text-anchor="middle">sees question + metric catalogue only</text>
+  <text class="s" x="300" y="232" text-anchor="middle">sees question + metric catalog only</text>
   <text class="s" x="300" y="247" text-anchor="middle">emits a typed QuerySpec or refuses</text>
   <text class="s" x="300" y="262" text-anchor="middle">output validated against a schema</text>
-  <text class="s" x="300" y="276" text-anchor="middle" fill="#2a78d6">never sees health data</text>
+  <text class="s" x="300" y="276" text-anchor="middle" fill="#2a78d6">never sees the stored record</text>
 
   <!-- gate -->
   <rect class="box" x="460" y="90" width="210" height="140"/>
@@ -57,12 +57,12 @@
   <text class="s" x="475" y="164">3 provider terms (no-AI)</text>
   <text class="s" x="475" y="179">4 sensitive categories</text>
   <text class="s" x="475" y="194">5 clamp window  6 release level</text>
-  <text class="s" x="475" y="209">7 daily budget  8 purpose check</text>
+  <text class="s" x="475" y="209">7 daily limit  8 purpose check</text>
   <text class="s" x="475" y="224">deterministic code, deny by default</text>
 
   <!-- vault -->
   <rect class="box" x="690" y="90" width="245" height="235"/>
-  <text class="t" x="812" y="114" text-anchor="middle">Per-user vault (Durable Object)</text>
+  <text class="t" x="812" y="114" text-anchor="middle">Per-user vault</text>
   <rect class="boxp" x="705" y="126" width="215" height="44"/>
   <text class="t" x="812" y="145" text-anchor="middle" font-size="12">Compute engine</text>
   <text class="s" x="812" y="161" text-anchor="middle">8 fixed operations, tested code</text>
