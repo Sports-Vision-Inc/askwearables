@@ -80,7 +80,7 @@ context (\code{gpt-6.2-astra} \phiaWordedAstraC{} against \phiaWordedAstraA{}, \
 \centering\small
 \caption{Accuracy differences in points (the difference between two percentages), with 95\% intervals from a
 bootstrap that resamples the ten people (\bootReps{} replicates). A positive difference means \CC{} was more
-accurate. Intervals that include zero mark differences we could not detect.}
+accurate. Intervals that include zero mark differences we could not detect. Differences whose interval excludes zero in bold.}
 \label{tab:bootstrap}
 \begin{tabular}{@{}l c c@{}}
 \toprule
@@ -205,7 +205,7 @@ the planner's choice of query.
 \caption{Four tasks side by side: three where \sys{} was right and the baselines were not, and the same missing-days
 packet read correctly by one agent model and ignored by another.
 Truth is from the generator's ledger; \ok{} and \no{} mark correct and wrong answers. The \CC{} column shows the packet
-for the question's QuerySpec, recomputed from the same data; it matches the packet the run received.}
+for the question's QuerySpec, recomputed from the same data; it matches the packet the run received. Correct answers in bold.}
 \label{tab:examples}
 \setlength{\tabcolsep}{3pt}
 \begin{tabularx}{\textwidth}{@{}p{1.45cm} p{2.75cm} p{1.2cm} p{1.2cm} p{1.2cm} p{1.2cm} X@{}}
@@ -301,7 +301,7 @@ broker call.
 \centering\small
 \caption{Validating the first leak rule against hand labels in the development pass: it missed little but one in
 three of its positives was wrong, all in the two scenarios with free-form replies, which led to the corrected
-detector used in the study. Decided rows of the hand-labeled sample (\auditAmbiguous{} ambiguous row excluded).}
+detector used in the study. Decided rows of the hand-labeled sample (\auditAmbiguous{} ambiguous row excluded). Precision below 1 in bold.}
 \label{tab:audit}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l r r r r r c c c@{}}
@@ -460,7 +460,7 @@ counted as refusals.
 window convention and \phiaAccWorded{} on the convention the questions state; every disagreement was traced to one
 of seven documented causes. The \phiaMapped{} mapped questions are those of PHIA's \phiaTotal{} inside the operation
 set; session
-questions are reduced by the evaluation harness over the level-3 session list.}
+questions are reduced by the evaluation harness over the level-3 session list. Match rates on the convention the engine uses (as worded) in bold.}
 \label{tab:phia}
 \begin{tabular}{@{}l r r r r r@{}}
 \toprule
