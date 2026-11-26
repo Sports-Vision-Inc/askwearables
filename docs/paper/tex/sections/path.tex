@@ -1,0 +1,162 @@
+\subsection{From the study to the deployed broker}\label{sec:res:v2}
+
+\begin{table}[t]
+\centering\small
+\caption{One path from the study to the broker as deployed, condition \CC{} on the same tasks at each point: the
+study's \CC{}, \CC{}$_1$ after step~1 and \CC{}$_2$ after step~2 (\cref{sec:v2-design}). Accuracy in \%, except the
+week-over-week question (correct runs) and privacy (leaks counted by the detector). $p$: exact McNemar, \CC{}$_2$
+against the study's \CC{} (\CC{}$_2$-only / \CC{}-only). Fresh PHIA: the sample drawn for step~1, reused for
+step~2, six open-weight models.}
+\label{tab:v3}
+\setlength{\tabcolsep}{4pt}\footnotesize
+\begin{tabular}{@{}l r c c c l@{}}
+\toprule
+ & & Study & After step 1 & After step 2 & \\
+Suite & runs & \CC{} & \CC{}$_1$ & \CC{}$_2$ & $p$\\
+\midrule
+\inputtab{tables/tab_v3.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\caption{After step~1, on a fresh PHIA sample: on answerable questions as worded \sys{} was level with raw context
+when pooled (not significantly different), better for two models and worse for two; refusal of unsupported questions
+held. Six open-weight models, 120
+answerable and 60 unsupported questions disjoint from the study's and from the planner samples; accuracy in \%. $p$:
+exact McNemar, \CC{}$_1$ against \CA{} on answerable questions as worded (\CC{}$_1$-only / \CA{}-only).}
+\label{tab:v2phia}
+\setlength{\tabcolsep}{2.5pt}\footnotesize
+\begin{tabular}{@{}l ccc ccc ccc c@{}}
+\toprule
+ & \multicolumn{3}{c}{Answerable, as worded} & \multicolumn{3}{c}{Answerable, PHIA labels} & \multicolumn{3}{c}{Unsupported: refused} & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Agent model & \CA{} & \CB{} & \CC{}$_1$ & \CA{} & \CB{} & \CC{}$_1$ & \CA{} & \CB{} & \CC{}$_1$ & $p$\\
+\midrule
+\inputtab{tables/tab_v2_phia.tex}
+\bottomrule
+\end{tabular}
+\end{table}
+
+The study measured one frozen broker, and its attribution of the PHIA errors (\cref{sec:res:bench}) showed what to
+change. We changed the broker in two steps (\cref{sec:v2-design}) and measured each against the study on the same
+tasks; the second step ends at the broker as deployed. Each step's changes, hypotheses and analysis were committed
+before its end-to-end runs; analyses we added afterwards are marked as not pre-registered. \Cref{tab:v3} follows
+\sys{} along the path.
+
+\paragraph{Step 1: what the study showed and what changed.} The two largest causes of error on answerable PHIA
+questions lay in the broker's design: threshold counts were released as yes or no, and a metric the planner chose
+fell outside the grant and was denied without a usable alternative. In step~1 the release level of a threshold check
+follows the question (a count when it asks how many days), a denial names a granted alternative, and the planner
+prompt treats ``how many days'' as a count and plans the supported part of a compound question. \CC{}$_1$ was
+measured on questions the study never used.
+
+\paragraph{Step 1, H1: level with raw context when pooled, not for every model, and not on PHIA's labels.} Over the six
+open-weight models, \CC{}$_1$ answered \vtwoWordedPooledC{} \vtwoWordedPooledCIC{} of the answerable questions as
+worded, against \vtwoWordedPooledA{} \vtwoWordedPooledCIA{} for raw context and \vtwoWordedPooledB{}
+\vtwoWordedPooledCIB{} for open tools (\cref{tab:v2phia}); paired, \CC{}$_1$ and raw context did not differ
+($p=$ \vtwoPooledMcn{}, \vtwoPooledMcnPairs{} discordant questions). Both pre-registered parts of H1 were met on these
+terms: \CC{}$_1$'s pooled accuracy was above the study's \CC{} (\vtwoStudyWordedC{}), and it moved from \vtwoGapStudy{} raw
+context to \vtwoGapNew{} it. These are different question samples; raw context scored
+\vtwoStudyWordedA{} on the study's and \vtwoWordedPooledA{} on the fresh one, which supports comparing them. The
+pooled figure hides a split. \CC{}$_1$ was significantly more accurate than raw context for \code{llama-3.3-70b}
+(\vtwoWordedLlamaThreeA{} against \vtwoWordedLlamaThreeC{}, $p$ \vtwoMcnLlamaThree{}) and \code{llama-4-scout}
+(\vtwoWordedLlamaScoutA{} against \vtwoWordedLlamaScoutC{}), level for \code{mistral-small-3.1} and
+\code{gemma-4-26b}, and significantly less accurate for both \code{gpt-oss} models (\code{gpt-oss-120b}:
+\vtwoWordedOssLargeA{} against \vtwoWordedOssLargeC{}). Against PHIA's own labels the gap grew: \CC{}$_1$ scored
+\vtwoLabelPooledC{} against \vtwoLabelPooledA{} for raw context ($p$ \vtwoLabelPooledMcn{}), where the study's \CC{} had
+scored \vtwoStudyLabelC{} against \vtwoStudyLabelA{}.
+
+\paragraph{Step 1, what each change did (not pre-registered).} Attributed against PHIA's labels as in \cref{sec:res:bench},
+the 720 \CC{}$_1$ runs on answerable questions had 2 that received only a threshold flag, against 159 for the same
+models' \CC{} runs in the study: counts now reach the agent model. Those counts follow the catalogue's definitions,
+in which sleep is time asleep, while PHIA's reference code, both as worded and in its labels, counts time in bed; so
+threshold accuracy stayed low (\vtwoThrAcc{} as worded for \CC{}$_1$, \vtwoThrAccA{} for raw context), and runs whose
+released value differed from the label rose from 40 to 148, and those with PHIA's $N{+}1$-day window from 33 to 118,
+which is why the gap on labels grew. The denial hint was carried by \vtwoDeniedWithAlt{} of the \vtwoDeniedRuns{}
+runs with a denied metric; in \vtwoDeniedFollowed{} of them the agent model asked again for the granted metric and
+received a packet, and \vtwoDeniedFollowedCorrect{} of those were correct as worded. In the rest it stopped.
+
+\paragraph{Step 1, H2: met.} On the 60 unsupported questions, \CC{}$_1$ answered \code{unknown} in \vtwoUnsupPooledC{} of
+runs, against \vtwoUnsupPooledA{} for raw context and \vtwoUnsupPooledB{} for open tools, above the pre-registered bar
+of the study's overall rate (84\%). For the same six models the study's rate had been \vtwoStudyUnsupC{} (not
+pre-registered).
+
+\paragraph{Step 1, H3: met on real data, not met on two counts.} \emph{Synthetic questions:} \CC{}$_1$ was
+\vtwoRegAccuracyNew{} accurate against \vtwoRegAccuracyOld{} for \CC{} on the same \vtwoRegAccuracyN{} tasks (pooled
+$p=$ \vtwoRegAccuracyPooledP{}, \vtwoRegAccuracyPooledPairs{} discordant; \cref{tab:v2reg}), with one significant drop,
+\code{mistral-small-3.1}, and one significant gain, \code{gpt-oss-120b}. By question (not pre-registered), the loss is
+in the week-over-week comparison, right in \vtwoRegQWeekNew{} of \vtwoRegQWeekN{} runs against \vtwoRegQWeekOld{},
+because step~1's planner prompt more often compared the two weeks before last instead of the last seven days with
+the seven before; no other question moved by more than three runs. \emph{Real data:} \vtwoRegRealNew{} against
+\vtwoRegRealOld{}, no model significantly different; met. \emph{Privacy:} the pre-registered criterion, no more leaks
+than \CC{}, was not met by the detector, which counted \vtwoRegPrivacyNew{} against \vtwoRegPrivacyOld{}. Reading the
+four (not pre-registered): two are false positives, a fill-in template and a request asking the user for their
+figures; one restates a granted yes-or-no answer (``I slept under 6 hours''); and one states a resting heart rate
+after the broker denied the whole request (weight outside the grant), so no heart-rate figure was released and the
+number was invented. None follows a release outside the grant.
+
+\paragraph{Where step 1 left the broker.} The two changes removed the largest PHIA failure of the study and let some
+denied runs recover, and pooled accuracy on fresh questions, as worded, was level with raw context rather than behind
+it. They did not make \sys{} better for the models already strong with raw context, they widened the gap on PHIA's
+own labels, the prompt change cost accuracy on one synthetic question, and the privacy criterion was not met by the
+detector. These results come from one step measured once.
+
+\paragraph{Step 2: what step 1 showed and what changed.}\label{sec:res:v3} Step~1's prompt cost accuracy on the
+week-over-week question, because the planner more often compared the two weeks before last. Step~2 changes only the
+planner prompt: for comparisons with the period before, it lists both windows for 3, 7, 14, 28 and 30 days and for
+this week against last week, computed from the date as the prompt already did for single windows; it adds one
+comparison example; and it says that a compound question with an unsupported part is planned for its supported part.
+The hypotheses were added to the pre-registration before the end-to-end runs (commit \code{06e670a}). The
+planner-alone check below was run earlier, on two drafts of the prompt, and its in-distribution requests come from
+the synthetic week-over-week task, so that task's recovery is partly in-sample.
+
+\paragraph{Step 2, the planner alone.} On a held-out set of 16 window questions with expected windows, written before the
+change, the planner resolved the window correctly for 14 with the study's prompt, 12 with step~1's
+and 15 with step~2's (both drafts). On the 167 requests that agent models had sent for the
+week-over-week task, comparison plans shifted by a week numbered 2, 25 and 0 (13, 38 and 13 counting every
+operation), and refusals 56, 32 and 28 (44 with the first draft; the deployed prompt is the second).
+
+\paragraph{Step 2, synthetic questions: met.} \CC{}$_2$ was \vthreeAccThree{} accurate on the same \vthreeAccN{} runs, against
+\vthreeAccOne{} for the study's \CC{} and \vthreeAccTwo{} for \CC{}$_1$ ($p=$ \vthreeAccP{} against \CC{};
+\cref{tab:v3}); no model differed significantly from the study. On the week-over-week question it was right in
+\vthreeWeekThree{} of \vthreeWeekN{} runs, against \vthreeWeekOne{} for \CC{} and \vthreeWeekTwo{} for \CC{}$_1$.
+
+\paragraph{Step 2, fresh PHIA: refusal met; accuracy as worded not met.} On the answerable
+questions, as worded, \CC{}$_2$ answered \vthreePhiaWordedThree{} against \vthreePhiaWordedTwo{} for \CC{}$_1$
+($p=$ \vthreePhiaWordedPvsTwo{}) and \vthreePhiaWordedA{} for raw context ($p=$ \vthreePhiaWordedP{},
+\vthreePhiaWordedPairs{} discordant). The pre-registered criterion, not lower than \CC{}$_1$, was not met: \CC{}$_2$
+was one point lower (396 against 402 of 720), a difference that is not significant. On PHIA's labels it scored
+\vthreePhiaLabelThree{} against \vthreePhiaLabelTwo{} for \CC{}$_1$ and \vthreePhiaLabelA{} for raw context, so the
+gap on labels is unchanged. The per-model split also stayed: both \code{llama} models were well above raw context
+(\code{llama-3.3-70b} \vthreePhiaWordedLlamaThree{} against \vthreePhiaWordedLlamaThreeA{}), both \code{gpt-oss}
+models well below (\code{gpt-oss-120b} \vthreePhiaWordedOssLarge{} against \vthreePhiaWordedOssLargeA{}). On
+unsupported questions \CC{}$_2$ answered \code{unknown} in \vthreePhiaUnsupThree{} of runs, against
+\vthreePhiaUnsupTwo{} for \CC{}$_1$ and \vthreePhiaUnsupA{} for raw context.
+
+\paragraph{Step 2, privacy: met against \CC{}$_1$, above the study.} On the \vthreePrivN{} runs shared with the study, the detector counted \vthreePrivThree{} leaks,
+against \vthreePrivTwo{} for \CC{}$_1$ and \vthreePrivOne{} for the study's \CC{}. Reading them (not
+pre-registered): one is a fill-in message template with an example figure (``only getting about 4 hours''), one
+names a readiness score, a metric outside the grant, without a value and with none released, and one states a resting heart
+rate after the broker denied the whole request, so the number was invented, as after step~1. None
+follows a release outside the grant.
+
+\paragraph{Step 2, real data (not pre-registered).} On the open-weight models' real-data tasks \CC{}$_2$ was
+\vthreeRealThree{} accurate, against \vthreeRealOne{} for the study's \CC{} ($p$ \vthreeRealP{},
+\vthreeRealPairs{} discordant) and \vthreeRealTwo{} for \CC{}$_1$, significantly higher than the study for
+\vthreeRealSig{} (uncorrected; all but \code{gpt-oss-20b} after Holm correction over the six models). All 60
+gains were on multi-day windows, mostly the 14-day resting heart rate (16 gained, none lost) and the 7-day step
+total (12 and none); none was on a single-day question. Against the study's raw context on the same tasks, \CC{}$_2$ was significantly more accurate for
+the four weaker models (\code{llama-3.3-70b} \vthreeRealLlamaThree{} against \vthreeRealLlamaThreeA{}, $p$
+\vthreeRealMcnALlamaThree{}, discordant in parentheses) and no longer significantly less accurate for either
+\code{gpt-oss} model (\code{gpt-oss-120b} \vthreeRealOssLarge{} against \vthreeRealOssLargeA{}, $p=$
+\vthreeRealMcnAOssLarge{}; \code{gpt-oss-20b} \vthreeRealOssSmall{} against \vthreeRealOssSmallA{}, $p=$
+\vthreeRealMcnAOssSmall{}, still five points lower). Raw context
+was run once, in the study; it does not depend on the broker.
+
+\paragraph{Where the path ends.} After the planner was given the comparison windows rather than left to work
+them out, step~1's regression was gone and accuracy on real data rose (a finding we did not
+pre-register), consistent with relative windows being common there. Step~2 did not move PHIA: accuracy as worded stayed level with raw context, the gap on labels stayed, and the
+strongest open models still did better with raw context there. The fresh PHIA sample had been used once before, in
+step~1, though not to write this prompt. The broker as deployed is the one after step~2. These results come from one step measured once.

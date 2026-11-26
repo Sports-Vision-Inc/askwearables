@@ -11,7 +11,7 @@ denial. We compare \sys{} with raw context and with open tools, holding the agen
 models and \nTasks{} questions over a synthetic cohort whose ground truth is known by construction and which contains
 the data-quality traps of real wearable data. With \sys{}, accuracy ranged from \accCMin{} to \accCMax{} across the
 models, against \accAMin{} to \accAMax{} with raw context and \accBMin{} to \accBMax{} with open
-tools; the pooled gain over raw context was \bootPooledCA{} percentage points (95\% interval from a bootstrap over
+tools; the pooled gain over raw context was \bootPooledCAEst{} points (\bootPooledCACI{}, from a bootstrap over
 people). \sys{} was more accurate than raw context for \nSigCA{} of \nTestedCA{} models (exact McNemar, $p<0.05$) and
 significantly less accurate for none; for the strongest models the differences were small (at most four points). On 152
 questions over real Fitbit data, with the six open-weight models, \sys{} raised accuracy for the four models that were weakest with raw context and
@@ -24,10 +24,10 @@ tools; for data outside a grant this is enforced by construction. On PHIA's obje
 support, against \phiaUnsupPooledA{} for raw context, but was less accurate on the answerable ones
 (\phiaWordedPooledC{} against \phiaWordedPooledA{}); its two largest causes of error lay in the broker's design
 rather than in the agent models: threshold counts were released as yes or no, and a metric the planner chose fell
-outside the grant. A pre-registered second iteration that changed both brought pooled
-accuracy on fresh answerable PHIA questions, as worded, level with raw context for the open-weight models
+outside the grant. Changing both, as the first of two pre-registered steps from the study to the deployed broker,
+brought pooled accuracy on fresh answerable PHIA questions, as worded, level with raw context for the open-weight models
 (\vtwoWordedPooledC{} against \vtwoWordedPooledA{}; \vtwoStudyWordedC{} against \vtwoStudyWordedA{} on the study's
-questions), though not for every model and not on PHIA's own labels. A third revision of the planner prompt alone
+questions), though not for every model and not on PHIA's own labels. The second step, which gave the planner the comparison windows,
 removed a regression on one synthetic question and raised accuracy on real data from \vthreeRealOne{} to
 \vthreeRealThree{} (not pre-registered), without changing the PHIA results.
 \end{abstract}

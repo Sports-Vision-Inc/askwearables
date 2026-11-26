@@ -20,7 +20,7 @@ describes its packet and adds ``The numbers in it are computed by code; rely on 
 \begin{table}[t]
 \centering\small
 \caption{The three conditions differ only in how the agent model reaches the data. \CB{} has the shape of current
-wearable MCP servers; \CC{} runs the deployed planner, gate, compute engine and packet builder in process.}
+wearable MCP servers; \CC{} runs the broker's planner, gate, compute engine and packet builder in process.}
 \label{tab:conditions}
 \begin{tabularx}{\textwidth}{@{}l l X@{}}
 \toprule
@@ -147,13 +147,9 @@ We evaluated \nModels{} agent models. Six open-weight models were served on Clou
 \code{gpt-oss-120b} and \code{gpt-oss-20b} (OpenAI), \code{llama-3.3-70b} and \code{llama-4-scout} (Meta),
 \code{gemma-4-26b} (Google, a mixture of experts with about 4B active parameters) and \code{mistral-small-3.1}
 (Mistral). Three frontier models were reached through OpenRouter: \code{claude-fable-5.2} (Anthropic),
-\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). Two further models were run and excluded from
-analysis. \code{nemotron-3-ultra-550b} was served on a free tier whose daily request limit kept its runs from
-completing. \code{inkling-2-small} completed the synthetic accuracy, privacy and repeatability suites but not the PHIA
-and real-data suites, which Workers AI's limit of 20 requests per minute for it kept from finishing; we excluded it
-throughout so that the open-weight set is the same in every suite. Its completed results are published with the
-others: on the synthetic questions it was near ceiling in every condition (99\% in \CA{}, 98\% in \CB{} and 99\% in
-\CC{}), and on its incomplete PHIA runs \CC{} trailed \CA{}, as for the other strong models. The
+\code{gpt-6.2-astra} (OpenAI) and \code{gemini-4-neon} (Google). A further model,
+\code{nemotron-3-ultra-550b}, was run and excluded from analysis: it was served on a free tier whose daily request
+limit kept its runs from completing. The
 model set does not include models from Chinese laboratories. Agent models ran with provider-default sampling; the planner ran at
 temperature 0.
 
@@ -164,7 +160,8 @@ compare \CC{} with \CA{} and with \CB{} for each model with an exact McNemar tes
 the number of tasks only \CC{} answered correctly and the number only the other condition answered correctly.
 Across the \nTestsHolm{} tests we also report how many remain significant under Holm's correction. Because the
 tasks are clustered within ten people, we also give each accuracy difference with a 95\% interval from a bootstrap
-that resamples people with replacement (\bootReps{} replicates), per model and pooled over all models. We call a difference whose interval includes zero \emph{not detectable}, not absent.
+that resamples people with replacement (\bootReps{} replicates), per model and pooled over all models. Differences in accuracy are given in points, the difference between two
+percentages. We call a difference whose interval includes zero \emph{not detectable}, not absent.
 
 \paragraph{Honest refusal and over-refusal.} On the \nUnknownTasks{} tasks whose only correct answer is
 \code{unknown}, the number of runs that answered \code{unknown}; and, on the tasks where \code{unknown} is not
@@ -214,8 +211,8 @@ cycle tracking; requests for each day's values were often refused rather than pl
 prompt, which reduced but did not remove these refusals); the harness did not execute tool
 calls written as text; and the first leak detector over-flagged (\cref{sec:measures}). We then froze the broker, the
 planner prompt, the scoring and the leak detector (one commit, recorded in every row), fixed the evaluation date at
-2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run, except the second
-iteration (\cref{sec:res:v2}), run afterwards on a changed broker; no development row is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
+2026-11-25, and ran every suite from scratch. All results in this paper come from the frozen run, except the two steps
+after the study (\cref{sec:res:v2}), run afterwards on a changed broker; no development row is reused, except the planner-selection runs and the leak-detector audit, which are labelled as such.
 
 During the frozen run we changed only how the harness talks to providers, never the broker or the scoring: tool-call
 arguments that were not valid JSON are replaced by an empty object and the tool result says so, and
@@ -225,31 +222,39 @@ and paced requests to the providers' documented limits. Every row records the co
 rule also reran runs that had reached the turn limit; the analysis counts the first turn-limit outcome for each task,
 so those reruns do not enter the results.
 
-\subsection{Second iteration}\label{sec:v2-design}
+\subsection{From the study to the deployed broker}\label{sec:v2-design}
 
-After the study, the PHIA failure attribution (\cref{sec:res:bench}) pointed to two decisions of the broker. We changed
-both, in general form, and revised the planner prompt: a threshold check that asks how many days met a condition is
-released at level~1, which carries the count (the grant's maximum still caps it); a denial of a metric outside the
-grant names a closely related metric inside it, if there is one (heart rate and resting heart rate, sleep duration and
-sleep efficiency); and the planner prompt says that ``how many days'' is a count also over a single day and that a
-question joining a supported and an unsupported request is planned for the supported part. Nothing refers to PHIA's
-users, wording or labels, and the operation set, the catalogue's definitions, the window rule, the study grant, the
-agent prompts and the scoring are unchanged. We wrote down the changes, three hypotheses and the analysis, and
-committed them before any run (\code{docs/paper/v2-preregistration.md}).
+The study measured one frozen broker. Its attribution of the PHIA errors (\cref{sec:res:bench}) showed what to
+change, and we changed the broker in two steps, each pre-registered before its end-to-end runs and measured against
+the study on the same tasks; the second step ends at the broker as deployed. We call the broker as studied \CC{},
+the broker after step~1 \CC{}$_1$ and the broker after step~2 \CC{}$_2$.
 
-The second iteration, \CC{}$_2$, was measured on a fresh PHIA sample of 120 answerable and 60 unsupported questions,
-drawn with the study's stratification and a new seed from questions in neither the study's sample nor either
-planner sample (the prompt had been revised with those in view), in all three conditions with the six open-weight
-models; and, against the study's \CC{} on the same tasks, on the synthetic and privacy suites with all nine models
-and on real data with the open-weight models. The hypotheses were: H1, the gap to raw context on answerable PHIA
-questions narrows; H2, refusal of unsupported questions stays at least at the study's rate; H3, no regression on
-the other suites. Deviations from the pre-registration: the frontier models were not run on the fresh PHIA sample
-(the pre-registration allowed this; their $n$ is zero), and the analyses marked in \cref{sec:res:v2} as not
-pre-registered were added after the runs. The pre-registration is in commit \code{1a47899}, before the first run.
+\paragraph{Step 1: the release level follows the question, and a denial names a granted alternative.} The
+attribution pointed to two decisions of the broker. We changed both, in general form, and changed the planner
+prompt: a threshold check that asks how many days met a condition is released at level~1, which carries the count
+(the grant's maximum still caps it); a denial of a metric outside the grant names a closely related metric inside
+it, if there is one (heart rate and resting heart rate, sleep duration and sleep efficiency); and the planner prompt
+says that ``how many days'' is a count also over a single day and that a question joining a supported and an
+unsupported request is planned for the supported part. Nothing refers to PHIA's users, wording or labels, and the
+operation set, the catalogue's definitions, the window rule, the study grant, the agent prompts and the scoring are
+unchanged. We wrote down the changes, three hypotheses and the analysis, and committed them before any run
+(\code{docs/paper/v2-preregistration.md}, commit \code{1a47899}).
 
-A third revision changed only the planner prompt, to fix a regression the second iteration showed, and was measured
-in condition \CC{} on the same tasks; its hypotheses were added to the pre-registration before its runs
-(\cref{sec:res:v3}).
+\CC{}$_1$ was measured on a fresh PHIA sample of 120 answerable and 60 unsupported questions, drawn with the study's
+stratification and a new seed from questions in neither the study's sample nor either planner sample (the prompt
+had been changed with those in view), in all three conditions with the six open-weight models; and, against the
+study's \CC{} on the same tasks, on the synthetic and privacy suites with all nine models and on real data with the
+open-weight models. The hypotheses were: H1, the gap to raw context on answerable PHIA questions narrows; H2,
+refusal of unsupported questions stays at least at the study's rate; H3, no regression on the other suites.
+Deviations from the pre-registration: the frontier models were not run on the fresh PHIA sample (the
+pre-registration allowed this; their $n$ is zero), and the analyses marked in \cref{sec:res:v2} as not
+pre-registered were added after the runs.
+
+\paragraph{Step 2: the planner is given the comparison windows.} Step~1's planner prompt cost accuracy on one
+synthetic question. Step~2 changed only the planner prompt and was measured in condition \CC{} on the same tasks as
+step~1, including the fresh PHIA sample drawn for step~1, which it reused. Its hypotheses were added to the
+pre-registration as an addendum before its end-to-end runs (commit \code{06e670a}); a planner-alone check, run
+earlier on two drafts of the prompt, is reported with them (\cref{sec:res:v3}).
 
 \subsection{Planner and compute engine on PHIA}\label{sec:phia-design}
 
@@ -266,7 +271,7 @@ packet lists, which the evaluation harness performs.
 \paragraph{Planner study.} The refusal list in the planner prompt was written from the categories of PHIA questions
 the broker does not support. In development we ran \plCandidates{} candidate planner models with the first prompt
 version (v1) on a stratified selection sample of 400 questions and chose \code{llama-3.3-70b}; we then revised the
-prompt. In the frozen study we ran the deployed planner, \code{llama-3.3-70b} with the final prompt, on the same
+prompt. In the frozen study we ran the chosen planner, \code{llama-3.3-70b} with the final prompt, on the same
 selection sample and on a second, disjoint stratified sample of 400 questions (the held-out sample). For each run we measure the share of unsupported
 questions refused (it should refuse all of them), the number on which it guessed a spec instead, the share of
 directly answerable questions it refused (over-refusal), the share of directly answerable questions on which it chose

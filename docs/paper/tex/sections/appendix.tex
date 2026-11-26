@@ -14,7 +14,7 @@ cost per correct answer is total cost divided by correct answers. $^{\dagger}$In
 \toprule
  & & & \multicolumn{2}{c}{Context (input tokens)} & & \multicolumn{2}{c}{Cost (USD)}\\
 \cmidrule(lr){4-5}\cmidrule(lr){7-8}
-Agent model & Cond. & Accuracy, \% [95\% CI] & Agent & Planner & Output & per question & per correct\\
+Agent model & Cond. & Accuracy, \% (95\% interval) & Agent & Planner & Output & per question & per correct\\
 \midrule
 \inputtab{tables/tab_usage.tex}
 \bottomrule
@@ -51,3 +51,23 @@ and \CB{} (open tools).}
 held-out samples (the data of \cref{tab:planner}).}
 \label{fig:plannerphia}
 \end{figure}
+
+\begin{table}[h]
+\centering\small
+\caption{Step~1 against the study's \sys{} on the same tasks, per model (condition \CC{} only): the synthetic
+questions, and real data for the open-weight models. Accuracy in \%; \CC{}$_1$-only and \CC{}-only count tasks
+right only after step~1 or only in the study; $p$ is the exact McNemar test.}
+\label{tab:v2reg}
+\setlength{\tabcolsep}{4pt}\footnotesize
+\begin{tabular}{@{}l r c c r r c@{}}
+\toprule
+Agent model & tasks & \CC{} & \CC{}$_1$ & \CC{}$_1$-only & \CC{}-only & $p$\\
+\midrule
+\multicolumn{7}{@{}l}{\emph{Synthetic questions}}\\
+\inputtab{tables/tab_v2_accuracy.tex}
+\midrule
+\multicolumn{7}{@{}l}{\emph{Real data}}\\
+\inputtab{tables/tab_v2_real.tex}
+\bottomrule
+\end{tabular}
+\end{table}

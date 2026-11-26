@@ -30,7 +30,7 @@ over all \nTestsHolm{} tests.}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l c c c c c@{}}
 \toprule
- & \multicolumn{3}{c}{Accuracy, \% [95\% CI]} & \multicolumn{2}{c}{McNemar $p$ (\CC{}-only / other-only)}\\
+ & \multicolumn{3}{c}{Accuracy, \% (95\% interval)} & \multicolumn{2}{c}{McNemar $p$ (\CC{}-only / other-only)}\\
 \cmidrule(lr){2-4}\cmidrule(lr){5-6}
 Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{} & \CC{} vs.\ \CA{} & \CC{} vs.\ \CB{}\\
 \midrule
@@ -42,8 +42,8 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{} & \CC{} vs.\ \
 \paragraph{\sys{} narrowed the spread of accuracy across models.} Across the \nModels{} models, accuracy in \CC{} ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} in \CA{} and
 \accBMin{} to \accBMax{} in \CB{} (\cref{fig:acccost,tab:accuracy}). Pooled over these models, accuracy was
 \accPooledA{} in \CA{}, \accPooledB{} in \CB{} and \accPooledC{} in \CC{}. With people resampled as clusters, the
-pooled difference was \bootPooledCA{} percentage points against \CA{} and \bootPooledCB{} against \CB{}
-(\cref{tab:bootstrap}).
+pooled accuracy in \CC{} was \bootPooledCAEst{} points higher than in \CA{} (\bootPooledCACI{}) and
+\bootPooledCBEst{} points higher than in \CB{} (\bootPooledCBCI{}; \cref{tab:bootstrap}).
 
 \paragraph{The gain was significant for models that were weak with raw context.} \CC{} was more accurate than \CA{}
 for \nSigCA{} of \nTestedCA{} models at $p<0.05$ (\nHolmCA{} after Holm correction), and more accurate than \CB{} for
@@ -60,21 +60,24 @@ scored \accGemmaB{} with them, level with \CC{} (\accGemmaC{}, \mcnGemmaCBP{}), 
 \accAstraC{}) and \code{claude-fable-5.2} (\accFableA{}, \accFableB{}, \accFableC{}) were near ceiling in all three
 conditions. With 100 paired tasks
 and two to four discordant pairs the McNemar tests have little power and were not significant; the bootstrap gives
-small positive differences, \bootAstraCA{} points against \CA{} for \code{gpt-6.2-astra}, whose interval excludes
-zero, and \bootFableCA{} for \code{claude-fable-5.2}. The \code{gpt-oss} models had point estimates on both sides of \CC{}
-(\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}, \bootOssSmallCA{} against \CA{};
-\code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}, \bootOssLargeCA{}). For \code{gpt-oss-120b}
-\sys{} neither helped nor hurt measurably; for \code{gpt-oss-20b} the difference against \CB{} was \bootOssSmallCB{}
-points by the bootstrap, while the McNemar test was not significant.
+small positive differences against \CA{}: \bootAstraCAEst{} points for \code{gpt-6.2-astra} (\bootAstraCACI{},
+which excludes zero) and \bootFableCAEst{} points for \code{claude-fable-5.2} (\bootFableCACI{}). The \code{gpt-oss} models had point estimates on both sides of \CC{}
+(\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}; a difference of \bootOssSmallCAEst{} points against \CA{}, \bootOssSmallCACI{};
+\code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}; a difference of \bootOssLargeCAEst{} points, \bootOssLargeCACI{}). For \code{gpt-oss-120b}
+\sys{} neither helped nor hurt measurably; for \code{gpt-oss-20b} \CC{} was \bootOssSmallCBEst{} points higher than \CB{}
+by the bootstrap (\bootOssSmallCBCI{}), while the McNemar test was not significant.
 
 \begin{table}[t]
 \centering\small
-\caption{Accuracy differences in percentage points with 95\% intervals from a bootstrap that resamples the ten
-people (\bootReps{} replicates). Intervals that include zero mark differences we could not detect.}
+\caption{Accuracy differences in points (the difference between two percentages), with 95\% intervals from a
+bootstrap that resamples the ten people (\bootReps{} replicates). A positive difference means \CC{} was more
+accurate. Intervals that include zero mark differences we could not detect.}
 \label{tab:bootstrap}
 \begin{tabular}{@{}l c c@{}}
 \toprule
-Agent model & \CC{} $-$ \CA{} & \CC{} $-$ \CB{}\\
+& \multicolumn{2}{c}{Difference, points (95\% interval)}\\
+\cmidrule(lr){2-3}
+Agent model & \CC{} minus \CA{} & \CC{} minus \CB{}\\
 \midrule
 \inputtab{tables/tab_bootstrap.tex}
 \bottomrule
@@ -417,9 +420,9 @@ spec, not from the computation.
 
 \begin{table}[t]
 \centering\small
-\caption{Every planner candidate refused nearly all PHIA questions outside the operation set; the deployed planner
+\caption{Every planner candidate refused nearly all PHIA questions outside the operation set; the chosen planner
 held its refusal and agreement rates on the held-out sample. Selection and held-out samples of 400 questions each;
-op.+metric in \% with Wilson 95\% interval. Rows marked \emph{dev v1} are the development-run selection with the
+op.+metric in \% with Wilson 95\% interval in parentheses. Rows marked \emph{dev v1} are the development-run selection with the
 first prompt; \emph{final} rows are the frozen study. Latency is shown only for the development rows: in the frozen
 study the planner runs shared rate limits with the other suites, so their wall-clock time measures queueing.}
 \label{tab:planner}
@@ -519,7 +522,7 @@ Agent model & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \C
 \begin{table}[t]
 \centering\small
 \caption{Real data (PMData and LifeSnaps, 16 participants, 152 questions) with references computed independently
-of the broker. Accuracy, \% [95\% CI].}
+of the broker. Accuracy, \% (95\% interval).}
 \label{tab:benchreal}
 \begin{tabular}{@{}l c c c@{}}
 \toprule
@@ -562,7 +565,7 @@ descriptive; we did not change the broker in response (\cref{sec:discussion}).
 
 \paragraph{Real data: gains for the models that struggled with raw context.} On 152 questions over 16 real
 participants, \CC{} was more accurate than \CA{} for \code{llama-3.3-70b}, \code{llama-4-scout},
-\code{mistral-small-3.1} and \code{gemma-4-26b}, by 12 to 21 percentage points, and less accurate for both
+\code{mistral-small-3.1} and \code{gemma-4-26b}, by 12 to 21 points, and less accurate for both
 \code{gpt-oss} models (\cref{tab:benchreal}), which were already above 90\% with raw context. Read from the stored packets, the \code{gpt-oss} losses against \CA{} mix three causes: on
 the resting-heart-rate trend the planner chose a longer window than the 28 days asked (``steady over 54 days'' where the
 reference is \emph{up}); where the reference is \code{unknown} because of missing days, the agent model reported the
@@ -571,5 +574,4 @@ on real data: on the 48 tasks whose only correct answer is \code{unknown}, \CC{}
 against 12 in \CA{}, and on the LifeSnaps participants without missing days \CC{} scored 66\% against 81\% for \CA{}.
 The real-data suite covers the six open-weight models.
 
-\input{sections/v2}
-\input{sections/v3}
+\input{sections/path}

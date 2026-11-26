@@ -110,7 +110,9 @@ Each operation has a lowest level that can answer it: \code{threshold\_check} ne
 \code{compare\_to\_baseline}, \code{compare\_periods} and \code{correlate} need level 1; \code{latest},
 \code{aggregate} and \code{list\_sessions} need level 2. The gate releases that level unless the grant or the
 purpose caps it lower. A threshold question about sleep therefore returns a flag and a count of days, not the
-nightly durations.
+nightly durations. This is the broker as studied; in the broker as deployed, after the two steps of
+\cref{sec:v2-design}, a threshold check that asks how many days met a condition is released at level~1, which
+carries the count, and a denial names a closely related granted metric where there is one.
 Free text from providers, such as workout titles and notes, appears only at level 3. Every packet also carries a
 data-quality block (freshness, coverage, sources, baseline length and caveats such as a device change or a
 time-zone change in the window), the data version, and a flag stating that it is not medical advice. Packets at

@@ -1,4 +1,5 @@
-"""Third revision (planner prompt only; docs/paper/v2-preregistration.md, addendum): macros and a table for the paper.
+"""Step 2 after the study (planner prompt only; the paper's "third revision" in docs/paper/v2-preregistration.md,
+addendum): macros and the paper's path table (study, after step 1, after step 2).
 
 Condition C only, on the same tasks as the second iteration. Compares C3 (results/v3) with the study's C
 (results/final) and the second iteration's C2 (results/v2); on fresh PHIA, A and B come from the second iteration
@@ -56,6 +57,7 @@ for suite, models, label in (("accuracy", OPEN + FRONTIER, "Synthetic questions"
         mac("vthreeWeekN", str(len(wk)))
         for n_, c in (("One", c1), ("Two", c2), ("Three", c3)):
             mac(f"vthreeWeek{n_}", str(sum(corr(c[k]) for k in wk)))
+        lines.append(f"Week-over-week question (correct runs) & {len(wk)} & {M['vthreeWeekOne']} & {M['vthreeWeekTwo']} & {M['vthreeWeekThree']} & \\\\")
         sig = []
         for m in models:
             mk = [k for k in ks if k[0] == m]
@@ -116,6 +118,7 @@ mac("vthreePhiaUnsupThree", pct(sum(rf(C3[k]) for k in uns) / len(uns)) if uns e
 mac("vthreePhiaUnsupA", pct(sum(rf(A[k]) for k in uns) / len(uns)) if uns else "--")
 mac("vthreePhiaN", str(len(ans) + len(uns)))
 lines.append(f"Fresh PHIA, answerable, as worded & {len(ans)} & -- & {M['vthreePhiaWordedTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaWordedThree'].replace(chr(92) + '%', '')} & \\\\")
+lines.append(f"Fresh PHIA, answerable, PHIA labels & {len(ans)} & -- & {M['vthreePhiaLabelTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaLabelThree'].replace(chr(92) + '%', '')} & \\\\")
 lines.append(f"Fresh PHIA, unsupported refused & {len(uns)} & -- & {M['vthreePhiaUnsupTwo'].replace(chr(92) + '%', '')} & {M['vthreePhiaUnsupThree'].replace(chr(92) + '%', '')} & \\\\")
 per = []
 for m in OPEN:

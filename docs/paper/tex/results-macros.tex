@@ -144,26 +144,106 @@
 \newcommand{\auditRec}{0.96}
 \newcommand{\benchPhiaRuns}{4{,}860}
 \newcommand{\benchRealRuns}{2{,}736}
-\newcommand{\bootAstraCA}{$+$4 [$+$1, $+$7]}
-\newcommand{\bootAstraCB}{$+$1 [$+$0, $+$3]}
-\newcommand{\bootFableCA}{$+$2 [$+$0, $+$5]}
-\newcommand{\bootFableCB}{$+$2 [$+$0, $+$5]}
-\newcommand{\bootGeminiCA}{$+$16 [$+$8, $+$25]}
-\newcommand{\bootGeminiCB}{$+$11 [$+$4, $+$18]}
-\newcommand{\bootGemmaCA}{$+$21 [$+$10, $+$33]}
-\newcommand{\bootGemmaCB}{$+$5 [$-$1, $+$12]}
-\newcommand{\bootLlamaScoutCA}{$+$23 [$+$16, $+$30]}
-\newcommand{\bootLlamaScoutCB}{$+$27 [$+$21, $+$34]}
-\newcommand{\bootLlamaThreeCA}{$+$35 [$+$28, $+$42]}
-\newcommand{\bootLlamaThreeCB}{$+$54 [$+$45, $+$63]}
-\newcommand{\bootMistralCA}{$+$22 [$+$10, $+$36]}
-\newcommand{\bootMistralCB}{$+$29 [$+$18, $+$39]}
-\newcommand{\bootOssLargeCA}{$+$0 [$-$7, $+$9]}
-\newcommand{\bootOssLargeCB}{$+$1 [$-$6, $+$10]}
-\newcommand{\bootOssSmallCA}{$+$4 [$-$1, $+$9]}
-\newcommand{\bootOssSmallCB}{$+$7 [$+$1, $+$13]}
-\newcommand{\bootPooledCA}{$+$14 [$+$10, $+$18]}
-\newcommand{\bootPooledCB}{$+$15 [$+$11, $+$20]}
+\newcommand{\bootAstraCA}{4 (1 to 7)}
+\newcommand{\bootAstraCACI}{95\% interval 1 to 7}
+\newcommand{\bootAstraCAEst}{4}
+\newcommand{\bootAstraCAHi}{7}
+\newcommand{\bootAstraCALo}{1}
+\newcommand{\bootAstraCB}{1 (0 to 3)}
+\newcommand{\bootAstraCBCI}{95\% interval 0 to 3}
+\newcommand{\bootAstraCBEst}{1}
+\newcommand{\bootAstraCBHi}{3}
+\newcommand{\bootAstraCBLo}{0}
+\newcommand{\bootFableCA}{2 (0 to 5)}
+\newcommand{\bootFableCACI}{95\% interval 0 to 5}
+\newcommand{\bootFableCAEst}{2}
+\newcommand{\bootFableCAHi}{5}
+\newcommand{\bootFableCALo}{0}
+\newcommand{\bootFableCB}{2 (0 to 5)}
+\newcommand{\bootFableCBCI}{95\% interval 0 to 5}
+\newcommand{\bootFableCBEst}{2}
+\newcommand{\bootFableCBHi}{5}
+\newcommand{\bootFableCBLo}{0}
+\newcommand{\bootGeminiCA}{16 (8 to 25)}
+\newcommand{\bootGeminiCACI}{95\% interval 8 to 25}
+\newcommand{\bootGeminiCAEst}{16}
+\newcommand{\bootGeminiCAHi}{25}
+\newcommand{\bootGeminiCALo}{8}
+\newcommand{\bootGeminiCB}{11 (4 to 18)}
+\newcommand{\bootGeminiCBCI}{95\% interval 4 to 18}
+\newcommand{\bootGeminiCBEst}{11}
+\newcommand{\bootGeminiCBHi}{18}
+\newcommand{\bootGeminiCBLo}{4}
+\newcommand{\bootGemmaCA}{21 (10 to 33)}
+\newcommand{\bootGemmaCACI}{95\% interval 10 to 33}
+\newcommand{\bootGemmaCAEst}{21}
+\newcommand{\bootGemmaCAHi}{33}
+\newcommand{\bootGemmaCALo}{10}
+\newcommand{\bootGemmaCB}{5 ($-$1 to 12)}
+\newcommand{\bootGemmaCBCI}{95\% interval $-$1 to 12}
+\newcommand{\bootGemmaCBEst}{5}
+\newcommand{\bootGemmaCBHi}{12}
+\newcommand{\bootGemmaCBLo}{$-$1}
+\newcommand{\bootLlamaScoutCA}{23 (16 to 30)}
+\newcommand{\bootLlamaScoutCACI}{95\% interval 16 to 30}
+\newcommand{\bootLlamaScoutCAEst}{23}
+\newcommand{\bootLlamaScoutCAHi}{30}
+\newcommand{\bootLlamaScoutCALo}{16}
+\newcommand{\bootLlamaScoutCB}{27 (21 to 34)}
+\newcommand{\bootLlamaScoutCBCI}{95\% interval 21 to 34}
+\newcommand{\bootLlamaScoutCBEst}{27}
+\newcommand{\bootLlamaScoutCBHi}{34}
+\newcommand{\bootLlamaScoutCBLo}{21}
+\newcommand{\bootLlamaThreeCA}{35 (28 to 42)}
+\newcommand{\bootLlamaThreeCACI}{95\% interval 28 to 42}
+\newcommand{\bootLlamaThreeCAEst}{35}
+\newcommand{\bootLlamaThreeCAHi}{42}
+\newcommand{\bootLlamaThreeCALo}{28}
+\newcommand{\bootLlamaThreeCB}{54 (45 to 63)}
+\newcommand{\bootLlamaThreeCBCI}{95\% interval 45 to 63}
+\newcommand{\bootLlamaThreeCBEst}{54}
+\newcommand{\bootLlamaThreeCBHi}{63}
+\newcommand{\bootLlamaThreeCBLo}{45}
+\newcommand{\bootMistralCA}{22 (10 to 36)}
+\newcommand{\bootMistralCACI}{95\% interval 10 to 36}
+\newcommand{\bootMistralCAEst}{22}
+\newcommand{\bootMistralCAHi}{36}
+\newcommand{\bootMistralCALo}{10}
+\newcommand{\bootMistralCB}{29 (18 to 39)}
+\newcommand{\bootMistralCBCI}{95\% interval 18 to 39}
+\newcommand{\bootMistralCBEst}{29}
+\newcommand{\bootMistralCBHi}{39}
+\newcommand{\bootMistralCBLo}{18}
+\newcommand{\bootOssLargeCA}{0 ($-$7 to 9)}
+\newcommand{\bootOssLargeCACI}{95\% interval $-$7 to 9}
+\newcommand{\bootOssLargeCAEst}{0}
+\newcommand{\bootOssLargeCAHi}{9}
+\newcommand{\bootOssLargeCALo}{$-$7}
+\newcommand{\bootOssLargeCB}{1 ($-$6 to 10)}
+\newcommand{\bootOssLargeCBCI}{95\% interval $-$6 to 10}
+\newcommand{\bootOssLargeCBEst}{1}
+\newcommand{\bootOssLargeCBHi}{10}
+\newcommand{\bootOssLargeCBLo}{$-$6}
+\newcommand{\bootOssSmallCA}{4 ($-$1 to 9)}
+\newcommand{\bootOssSmallCACI}{95\% interval $-$1 to 9}
+\newcommand{\bootOssSmallCAEst}{4}
+\newcommand{\bootOssSmallCAHi}{9}
+\newcommand{\bootOssSmallCALo}{$-$1}
+\newcommand{\bootOssSmallCB}{7 (1 to 13)}
+\newcommand{\bootOssSmallCBCI}{95\% interval 1 to 13}
+\newcommand{\bootOssSmallCBEst}{7}
+\newcommand{\bootOssSmallCBHi}{13}
+\newcommand{\bootOssSmallCBLo}{1}
+\newcommand{\bootPooledCA}{14 (10 to 18)}
+\newcommand{\bootPooledCACI}{95\% interval 10 to 18}
+\newcommand{\bootPooledCAEst}{14}
+\newcommand{\bootPooledCAHi}{18}
+\newcommand{\bootPooledCALo}{10}
+\newcommand{\bootPooledCB}{15 (11 to 20)}
+\newcommand{\bootPooledCBCI}{95\% interval 11 to 20}
+\newcommand{\bootPooledCBEst}{15}
+\newcommand{\bootPooledCBHi}{20}
+\newcommand{\bootPooledCBLo}{11}
 \newcommand{\bootReps}{2{,}000}
 \newcommand{\cAccNow}{96.8\%}
 \newcommand{\cAccPerfectPlanner}{96.9\%}

@@ -142,8 +142,16 @@ for c in COND:
     mac(f"vtwoStudyUnsup{CL[c]}", pct(sp["U" + c][0] / sp["U" + c][1]))
 gap_study = sp["C_broker"][0] / sp["C_broker"][1] - sp["A_raw"][0] / sp["A_raw"][1]
 gap_v2 = pool[("Worded", "C_broker")][0] / max(1, pool[("Worded", "C_broker")][1]) - pool[("Worded", "A_raw")][0] / max(1, pool[("Worded", "A_raw")][1])
-mac("vtwoGapStudy", f"{100 * gap_study:+.0f}".replace("+", "$+$").replace("-", "$-$"))
-mac("vtwoGapNew", f"{100 * gap_v2:+.0f}".replace("+", "$+$").replace("-", "$-$"))
+def gap_words(x):
+    """A difference to raw context in words: "5 points below", "1 point above", "level with"."""
+    v = round(100 * x)
+    if v == 0:
+        return "level with"
+    return f"{abs(v)} point{'' if abs(v) == 1 else 's'} {'above' if v > 0 else 'below'}"
+
+
+mac("vtwoGapStudy", gap_words(gap_study))
+mac("vtwoGapNew", gap_words(gap_v2))
 
 # Threshold-count release and heart-rate hints in the fresh C runs.
 cr = [r for r in phia if r["condition"] == "C_broker"]
@@ -239,7 +247,7 @@ mac("vtwoPooledMcn", f"{fp(p)}"); mac("vtwoPooledMcnPairs", f"{o1}/{o2}")
 for c in COND:
     k, n = pool[("Worded", c)]
     _, lo, hi = wilson(k, n)
-    mac(f"vtwoWordedPooledCI{CL[c]}", f"[{100 * lo:.0f}, {100 * hi:.0f}]")
+    mac(f"vtwoWordedPooledCI{CL[c]}", f"(95\\% interval {100 * lo:.0f} to {100 * hi:.0f})")
 ks, x, y = pooled_pair([r for r in phia if r["model"] in OPEN], "C_broker", "A_raw", "correct_phia", "answerable")
 o1, o2, p = mcnemar(x, y)
 mac("vtwoLabelPooledMcn", fp(p))

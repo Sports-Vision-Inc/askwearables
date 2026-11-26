@@ -3,10 +3,10 @@
 We set out to measure what changes when an AI agent asks about wearable data through a broker that computes the
 answer, releases only what the question needs, and records every decision. Holding the agent model fixed, \sys{}
 raised accuracy for the models that were weak with raw context (\nSigCA{} of \nTestedCA{} at $p<0.05$ against raw
-context; pooled \bootPooledCA{} points) and lowered it significantly for none. For the strongest models the accuracy
+context; pooled, \bootPooledCAEst{} points higher, \bootPooledCACI{}) and lowered it significantly for none. For the strongest models the accuracy
 differences were small; for them the benefit was a shorter context, a release limited to the granted level and an
 audit record, at the cost of an extra planner call. On real Fitbit data, with the open-weight models, the same pattern held for the weaker ones,
-while the two strongest open-weight models lost accuracy; after a later revision of the planner prompt they were
+while the two strongest open-weight models lost accuracy; after the second step on the path to the deployed broker, a change to the planner prompt, they were
 no longer significantly below raw context from the study's runs (one remained five points lower), and the four
 weaker ones were well above it. Raw context over-exposed the record by a factor of
 \expRatioAC{}, and \sys{} leaked in \leakPooledC{} of privacy runs against \leakPooledA{} for raw context and
