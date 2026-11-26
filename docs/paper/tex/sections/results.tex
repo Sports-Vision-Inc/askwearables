@@ -10,7 +10,7 @@ accurate with it. Accuracy in \% with Wilson 95\% intervals; $p$ is the exact Mc
 number of tasks only \CC{} answered correctly and only the other condition answered correctly in parentheses.
 \nHolmCA{} of the \nSigCA{} significant
 differences against \CA{}, and \nHolmCB{} of the \nSigCB{} against \CB{}, remain significant after Holm correction
-over all \nTestsHolm{} tests.}
+over all \nTestsHolm{} tests. Best per row in bold.}
 \label{tab:accuracy}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l c c c c c@{}}
@@ -98,7 +98,7 @@ Agent model & \CC{} minus \CA{} & \CC{} minus \CB{}\\
 \begin{table}[t]
 \centering\small
 \begin{minipage}[t]{0.40\textwidth}\centering
-\caption{\CC{} was the most accurate condition on every trap. Accuracy (\%) over the \nModels{} models.}
+\caption{\CC{} was the most accurate condition on every trap. Accuracy (\%) over the \nModels{} models; best per row in bold.}
 \label{tab:traps}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c@{}}
@@ -111,7 +111,7 @@ Trap & \CA{} & \CB{} & \CC{}\\
 \end{minipage}\hfill
 \begin{minipage}[t]{0.56\textwidth}\centering
 \caption{\CC{} helped most on the trend and multi-day aggregates; on the threshold question it was level with
-\CA{}. Accuracy (\%) over the \nModels{} models.}
+\CA{}. Accuracy (\%) over the \nModels{} models; best per row in bold.}
 \label{tab:questions}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c@{}}
@@ -153,7 +153,7 @@ refusal (\cref{sec:res:failures}).
 \centering\small
 \caption{On tasks the data cannot answer, \sys{} raised the rate of honest \code{unknown} answers for the models that
 guessed most; on answerable tasks it also answered \code{unknown} more often. Runs answering \code{unknown} out of
-the \nUnknownTasks{} unanswerable tasks per model and condition.}
+the \nUnknownTasks{} unanswerable tasks per model and condition; best per row in bold.}
 \label{tab:refusal}
 \begin{tabular}{@{}l c c c@{}}
 \toprule
@@ -242,7 +242,7 @@ all models (log scale).}
 \centering\small
 \caption{Characters of the user's health data delivered to the agent model per question (median): the whole
 per-device export in \CA{} (the workout list is not counted), everything the tools returned in \CB{}, and every broker
-response in \CC{}, refusals included. The last column counts \CB{} runs that answered without calling any tool.}
+response in \CC{}, refusals included. The last column counts \CB{} runs that answered without calling any tool. Fewest characters per row in bold.}
 \label{tab:exposure}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l r r r r r c@{}}
@@ -330,7 +330,7 @@ positive by hand.
 \caption{\sys{} leaked in one of 300 privacy runs, with a figure it invented: in every scenario the grant or release
 level withholds each scored quantity. Open tools leaked less than raw context but more than \sys{}
 in three of the four scenarios. Leak rate in \% (leaked / runs) per scenario and condition, scored
-by the frozen detector.}
+by the frozen detector. Fewest leaks per row in bold.}
 \label{tab:privacy}
 \begin{tabular}{@{}l c c c@{}}
 \toprule
@@ -363,7 +363,7 @@ difference was observed.
 
 \begin{table}[t]
 \centering\small
-\caption{Leaks per model and condition, all scenarios (leaked / runs).}
+\caption{Leaks per model and condition, all scenarios (leaked / runs). Fewest leaks per row in bold.}
 \label{tab:privacymodels}
 \begin{tabular}{@{}l c c c@{}}
 \toprule
@@ -387,7 +387,7 @@ models, but not for all. Share of questions with identical answers across runs (
 \begin{table}[t]
 \centering\small
 \caption{Repeatability over \repRuns{} runs of \repTasks{} tasks: tasks on which every run gave the same answer
-(agree, TARa@\repRuns{}) and tasks on which every run was correct.}
+(agree, TARa@\repRuns{}) and tasks on which every run was correct. Most always-correct tasks per row in bold.}
 \label{tab:repeat}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}l c c c c c c@{}}
@@ -418,7 +418,7 @@ spec, not from the computation.
 held its refusal and agreement rates on the held-out sample. Selection and held-out samples of 400 questions each;
 op.+metric in \% with Wilson 95\% interval in parentheses; $n$ is the number of questions scored. Development rows
 use the first prompt on the selection sample; final rows are the frozen study. Median latency is given for the
-development rows.}
+development rows. Best development candidate per column in bold (answerable refusals not bolded).}
 \label{tab:planner}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l l l r r r r c r r@{}}
@@ -498,7 +498,7 @@ files. The attribution was made after the comparison, by recomputing each disput
 \caption{On PHIA end to end, \sys{} refused unsupported questions far more reliably but was less accurate on the
 answerable ones. 120 answerable questions scored as worded (``last $N$ days'' as $N$ days) and against PHIA's own
 labels ($N{+}1$ days), and 60 unsupported questions scored as correct when answered \code{unknown}; accuracy in \%,
-one run per question, model and condition.}
+one run per question, model and condition. Best per row and group in bold.}
 \label{tab:benchphia}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l ccc ccc ccc@{}}
@@ -515,7 +515,7 @@ Agent model & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \C
 \begin{table}[t]
 \centering\small
 \caption{Real data (PMData and LifeSnaps, 16 participants, 152 questions) with references computed independently
-of the broker. Accuracy, \% (95\% interval); $n=152$ per cell.}
+of the broker. Accuracy, \% (95\% interval); $n=152$ per cell. Best per row in bold.}
 \label{tab:benchreal}
 \begin{tabular}{@{}l c c c@{}}
 \toprule

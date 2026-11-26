@@ -2,8 +2,8 @@
 
 \begin{table}[h]
 \centering\small
-\caption{Accuracy first, then what each answer costs. Bold marks the highest point estimate per model; where the
-95\% intervals overlap, the difference is not significant (see the McNemar $p$ values in \cref{tab:accuracy}).
+\caption{Accuracy first, then what each answer costs. Bold marks the best value per model: the highest accuracy and the lowest cost; where the
+95\% accuracy intervals overlap, the difference is not significant (see the McNemar $p$ values in \cref{tab:accuracy}).
 Context = median input tokens per question read by the agent model, and in \CC{} separately by the broker's planner
 (\code{llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question
 (provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \CC{});
@@ -33,7 +33,7 @@ Agent model & Cond. & Accuracy, \% (95\% interval) & Agent & Planner & Output & 
 \centering\small
 \caption{Step~1 against the study's \sys{} on the same tasks, per model (condition \CC{} only): the synthetic
 questions, and real data for the open-weight models. Accuracy in \%; \CC{}$_1$-only and \CC{}-only count tasks
-right only after step~1 or only in the study; $p$ is the exact McNemar test.}
+right only after step~1 or only in the study; $p$ is the exact McNemar test. Best per row in bold.}
 \label{tab:v2reg}
 \setlength{\tabcolsep}{4pt}\footnotesize
 \begin{tabular}{@{}l r c c r r c@{}}

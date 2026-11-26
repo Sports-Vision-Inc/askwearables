@@ -547,6 +547,7 @@ INPUT ./sections/results.tex
 INPUT ./sections/results.tex
 INPUT sections/results.tex
 INPUT tables/tab_accuracy.tex
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
 INPUT ./figures/fig_accuracy_cost.pdf
 INPUT ./figures/fig_accuracy_cost.pdf
 INPUT ./figures/fig_accuracy_cost.pdf
@@ -555,6 +556,7 @@ INPUT ./figures/fig_accuracy_cost.pdf
 INPUT tables/tab_bootstrap.tex
 INPUT tables/tab_traps.tex
 INPUT tables/tab_questions.tex
+INPUT tables/tab_refusal.tex
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
@@ -562,7 +564,8 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/zptmcm7m.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/psyro.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
-INPUT tables/tab_refusal.tex
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
 INPUT tables/tab_examples.tex
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
@@ -630,7 +633,6 @@ INPUT ./sections/appendix.tex
 INPUT ./sections/appendix.tex
 INPUT sections/appendix.tex
 INPUT tables/tab_usage.tex
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8t.tfm
 INPUT ./figures/fig_accuracy.pdf
 INPUT ./figures/fig_accuracy.pdf
 INPUT ./figures/fig_accuracy.pdf
@@ -639,8 +641,6 @@ INPUT ./figures/fig_accuracy.pdf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
 INPUT tables/tab_v2_accuracy.tex
 INPUT tables/tab_v2_real.tex
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
 INPUT main.aux
 INPUT ./main.out
