@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1795632914.04628 "main.aux" "main.bbl" "main" 1795720525.48846 0
+["bibtex main"] 1795720754.31554 "main.aux" "main.bbl" "main" 1795720755.80307 0
   "./references.bib" 1795574237.52327 33151 2e7f7b7ec8bdc4fcc2ca2ebea61e7aab ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "main.aux" 1795720525.20182 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
+  "main.aux" 1795720755.51869 57848 629324347906a9f89b2f89e9c5d3e6b4 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1795720524.02067 "main.tex" "main.pdf" "main" 1795720525.48865 0
+["pdflatex"] 1795720754.41142 "main.tex" "main.pdf" "main" 1795720755.80333 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -39,12 +39,14 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmtt10.tfm" 1254269338 1372 2ef2c2b492b3c4cd7879fe083abbb061 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmtt12.tfm" 1254269338 1368 6a60e6a5e029141041d64d339b87e533 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/lm/ec-lmtt9.tfm" 1254269338 1372 a2ff2d4391a2d6bba15b518acb79e80f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/rsfs/rsfs10.tfm" 1229303445 688 37338d6ab346c2f1466b29e195316aa4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb" 1255129361 113227 1010e11451afc2822c95dae77c390042 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb" 1255129361 110323 92daea7ca7b4120bd2b54b047c93be27 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt9.pfb" 1255129361 108480 ee1de99df36ee0a16b36023b9c9d8a58 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb" 1136849748 35941 f27169cc74234d5bd5e4cca5abafaabb ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb" 1136849748 44648 23115b2a545ebfe2c526c3ca99db8b95 ""
@@ -240,10 +242,10 @@
   "figures/fig_repeat.pdf" 1795622455.76393 17559 b90d8cd2c0e9d053bfeb168539f28bab ""
   "figures/fig_traps.pdf" 1795622455.76053 20444 8a8a2b274db6b4bcc435022e4093d280 ""
   "macros.tex" 1795622265.74489 1787 eb4689855ee9ce40a8a7f57f19556680 ""
-  "main.aux" 1795720525.20182 57847 05e4d8f3a4b0183367ff05abadae7405 "pdflatex"
-  "main.bbl" 1795632914.20602 31174 0f18259bc9a388eb0eb46fa5fb925f2f "bibtex main"
-  "main.out" 1795720525.20402 7097 272254516ea89a4eb81a6264202cad74 "pdflatex"
-  "main.tex" 1795632661.09488 2812 1a2ae1df574515c460cff035169d8a31 ""
+  "main.aux" 1795720755.51869 57848 629324347906a9f89b2f89e9c5d3e6b4 "pdflatex"
+  "main.bbl" 1795720754.40811 31174 0f18259bc9a388eb0eb46fa5fb925f2f "bibtex main"
+  "main.out" 1795720755.52098 7097 272254516ea89a4eb81a6264202cad74 "pdflatex"
+  "main.tex" 1795720744.24571 3077 ca458a66ec37fd9f8f60c0e6a8e803c9 ""
   "results-macros.tex" 1795622455.76464 34406 92a7b4a7fe424c07a030051cb1acfe53 ""
   "sections/abstract.tex" 1795632911.49367 3605 577a1aa0bee33a42b86ba8b1acf26fa7 ""
   "sections/appendix.tex" 1795622293.69052 2367 a4a9cc3416d01b0eedaa9b96d0a278a0 ""
