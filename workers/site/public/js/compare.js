@@ -109,7 +109,7 @@
     }, text: (s) => (s.cost ? `${usd(s.cost.median)} median (${usd(s.cost.min)} to ${usd(s.cost.max)})` : "varies by model") },
     { key: "fail", label: "A typical miss", sub: "a real run from the study", cell(s, c) {
       const f = s.failure;
-      if (f.none != null) return [h("p", { class: "cmp-note", text: `No wrong answer among the ${int(f.none)} recorded example runs. The accuracy row counts every miss.` })];
+      if (f.none != null) return [h("p", { class: "cmp-note", text: `None of the ${int(f.none)} example runs kept for this page was wrong; the accuracy row above counts every miss.` })];
       const q = QUESTIONS[f.x.question] || f.x.question.replace(/_/g, " ");
       return [
         h("p", { class: "cmp-fail-q" }, h("strong", { text: q }), h("span", { class: "cmp-sub", text: ` · ${TRAP[f.x.trap] || f.x.trap.replace(/_/g, " ")} · ${f.x.model}` })),

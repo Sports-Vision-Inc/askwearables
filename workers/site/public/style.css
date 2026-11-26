@@ -451,7 +451,7 @@ svg.chart path.hatched { stroke: var(--c-c); stroke-width: 1; }
   .chart-body table.stack tbody th { white-space: normal; }
 }
 
-/* ---------- icons (Lucide, drawn as masks so they take the text colour) and emoji (Twemoji) ---------- */
+/* ---------- icons (Lucide, drawn as masks so they take the text colour) ---------- */
 
 .ico { display: inline-block; width: 1.1em; height: 1.1em; flex: none; vertical-align: -0.18em; background-color: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
 .ico-watch { --ico: url("/assets/icons/lucide/watch.svg"); }
@@ -469,7 +469,9 @@ svg.chart path.hatched { stroke: var(--c-c); stroke-width: 1; }
 .ico-file-text { --ico: url("/assets/icons/lucide/file-text.svg"); }
 .ico-lock { --ico: url("/assets/icons/lucide/lock.svg"); }
 .ico-footprints { --ico: url("/assets/icons/lucide/footprints.svg"); }
-.emoji { display: inline-block; width: 1.15em; height: 1.15em; vertical-align: -0.2em; }
+.ico-chevron-left { --ico: url("/assets/icons/lucide/chevron-left.svg"); }
+.ico-chevron-right { --ico: url("/assets/icons/lucide/chevron-right.svg"); }
+.walk-lead { margin-top: 28px; }
 .card.problem h3 .ico { color: var(--accent); margin-right: 8px; }
 .flow .who .ico { color: var(--accent); margin-right: 6px; }
 
@@ -502,7 +504,6 @@ svg.chart path.hatched { stroke: var(--c-c); stroke-width: 1; }
 .walk-panel:focus { outline: none; }
 .walk-panel:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .walk-why { margin: 10px 0 16px; font-size: 0.95rem; color: var(--fg-muted); }
-.walk-why .emoji { margin-right: 6px; }
 .walk-why strong { color: var(--fg); }
 .walk-body { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 26px; align-items: start; }
 @media (max-width: 860px) { .walk-body { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
@@ -521,10 +522,10 @@ svg.chart path.hatched { stroke: var(--c-c); stroke-width: 1; }
 .ws.cur .ws-dot::after { animation: ring 1.6s ease-out infinite; }
 @keyframes ring { 0% { opacity: 0.55; transform: scale(0.8); } 100% { opacity: 0; transform: scale(1.25); } }
 .ws-main { min-width: 0; padding-top: 5px; }
-.ws-label { margin: 0 0 6px; font-weight: 650; font-size: 0.92rem; line-height: 1.35; opacity: 0.45; transition: opacity 0.35s; }
+.ws-label { margin: 0 0 6px; font-weight: 650; font-size: 0.92rem; line-height: 1.35; opacity: 0.7; transition: opacity 0.35s; }
 .ws-sub { display: block; font-weight: 400; font-size: 0.78rem; color: var(--fg-muted); }
 .ws.on .ws-label { opacity: 1; }
-.ws-main > :not(.ws-label) { opacity: 0.14; transform: translateY(6px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.ws-main > :not(.ws-label) { opacity: 0.4; transform: translateY(6px); transition: opacity 0.45s ease, transform 0.45s ease; }
 .ws.on .ws-main > :not(.ws-label) { opacity: 1; transform: none; }
 
 .ws-bubble { display: inline-block; margin: 0; padding: 8px 12px; border-radius: 12px 12px 12px 4px; background: var(--surface-2); border: 1px solid var(--line); font-size: 0.93rem; }
@@ -1176,7 +1177,7 @@ svg.chart .mark:focus-visible .hit { fill: var(--surface-2); stroke: var(--accen
   .walk-step { font-size: 1rem; }
 
   /* Hero: a full-width primary action, then the two others side by side. */
-  .hero-copy .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-copy .actions { display: grid; grid-template-columns: minmax(0, 1fr); }
   .hero-copy .btn { padding: 8px 12px; font-size: 0.9375rem; text-align: center; line-height: 1.25; }
   .hero-copy .btn.primary { grid-column: 1 / -1; }
   /* Use-case tiles: the device sits beside the agent's name, at the top, not floating beside the whole header. */

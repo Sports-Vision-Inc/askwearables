@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -98,7 +98,7 @@ describe("site worker", () => {
       expect(x!.runs.C_broker!.correct, it.id).toBe(true);
       expect(!x!.runs.A_raw!.correct || !x!.runs.B_tools!.correct, it.id).toBe(true);
       expect(x!.runs.C_broker!.asked?.length, it.id).toBeGreaterThan(0);
-      expect(statSync(join(root, "public/assets/emoji/twemoji", `${it.emoji}.svg`)).isFile(), it.emoji).toBe(true);
+      expect((it as { emoji?: string }).emoji, "no emoji on the landing page").toBeUndefined();
       // Tabs are labelled by the question a person would ask, not by trap names.
       expect(it.title, it.id).toMatch(/\?$/);
       expect(it.title, it.id).not.toMatch(/_/);
@@ -159,10 +159,10 @@ describe("site worker", () => {
     }
   });
 
-  it("self-hosts open-source icons and emoji with their licences and credits them", () => {
+  it("self-hosts open-source icons with their licences and credits them, and uses no emoji", () => {
     const assets = join(root, "public/assets");
     expect(readFileSync(join(assets, "icons/lucide/LICENSE.txt"), "utf8")).toMatch(/ISC License/);
-    expect(readFileSync(join(assets, "emoji/twemoji/LICENSE.txt"), "utf8")).toMatch(/Attribution 4\.0 International/);
+    expect(existsSync(join(assets, "emoji")), "no emoji assets").toBe(false);
     for (const f of walk(assets).filter((x) => x.endsWith(".svg"))) {
       const svg = readFileSync(f, "utf8");
       expect(svg, f).toMatch(/^<svg/);
@@ -176,7 +176,8 @@ describe("site worker", () => {
     const page = readFileSync(join(root, "public/index.html"), "utf8");
     for (const m of page.matchAll(/src="(\/assets\/[^"]+)"/g)) expect(statSync(join(root, "public", m[1]!)).isFile(), m[1]).toBe(true);
     const credits = readFileSync(join(root, "public/credits.html"), "utf8");
-    expect(credits).toMatch(/Lucide[\s\S]*ISC[\s\S]*Twemoji[\s\S]*CC-BY 4\.0/);
+    expect(credits).toMatch(/Lucide[\s\S]*ISC/);
+    expect(credits).not.toMatch(/Twemoji/);
   });
 
   it("gives every animation a reduced-motion fallback", () => {
@@ -329,7 +330,7 @@ describe("site worker", () => {
 
   it("credits third-party work on /credits, linked from every footer, not in the footer text", () => {
     const credits = readFileSync(join(root, "public/credits.html"), "utf8");
-    for (const k of ["Lucide", "ISC License", "/assets/icons/lucide/LICENSE.txt", "Twemoji by Twitter, Inc and other contributors", "CC-BY 4.0", "/assets/emoji/twemoji/LICENSE.txt", "unmodified",
+    for (const k of ["Lucide", "ISC License", "/assets/icons/lucide/LICENSE.txt", 
       "© 2026 Sports Vision, Inc.", "Trademark of Sports Vision, Inc.", "@simplewebauthn/browser", "MIT License", "/assets/wearables/LICENSE.txt"]) expect(credits, k).toContain(k);
     for (const f of walk(join(root, "public")).filter((x) => x.endsWith(".html"))) {
       const s = readFileSync(f, "utf8");

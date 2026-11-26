@@ -596,7 +596,7 @@
   }
   const taskLabel = (x) => `${label(QUESTIONS, x.question)} · ${label(TRAPS, x.trap)} · ${x.task.split("-")[0]}`;
   function verdict(ok) {
-    return h("span", { class: "verdict " + (ok ? "ok" : "no") }, h("span", { "aria-hidden": "true", text: ok ? "✓ " : "✗ " }), ok ? "Correct" : "Incorrect");
+    return h("span", { class: "verdict " + (ok ? "ok" : "no") }, h("span", { class: "ico ico-" + (ok ? "check" : "x"), "aria-hidden": "true" }), " ", ok ? "Correct" : "Incorrect");
   }
   function exCard(c, run) {
     return h("article", { class: "ex-card ex-" + CLS[c] },

@@ -38,7 +38,6 @@
     return e;
   }
   const icon = (name, extra) => h("span", { class: "ico ico-" + name + (extra ? " " + extra : ""), "aria-hidden": "true" });
-  const emoji = (code) => (/^[0-9a-f-]+$/.test(code || "") ? h("img", { class: "emoji", src: `/assets/emoji/twemoji/${code}.svg`, alt: "", width: "20", height: "20" }) : null);
   const int = (x) => Math.round(x).toLocaleString("en-US");
 
   function fmtAnswer(a) {
@@ -181,7 +180,7 @@
 
     const tabs = items.map((it, i) => {
       const b = h("button", { type: "button", role: "tab", id: "walk-tab-" + i, "aria-controls": "walk-panel", "aria-selected": "false", tabindex: "-1", class: "walk-tab" },
-        emoji(it.f.emoji), h("span", { text: it.f.title || label(QUESTIONS, it.x.question) }));
+        h("span", { text: it.f.title || label(QUESTIONS, it.x.question) }));
       b.addEventListener("click", () => select(i, true));
       return b;
     });
@@ -204,7 +203,7 @@
       const c = x.runs.C_broker;
       const p = (c.packets || [])[0] || null;
       const level = (c.levels || []).find((v) => typeof v === "number");
-      why.replaceChildren(emoji(f.emoji), h("strong", { text: f.title || "" }), " ", f.why || "");
+      why.replaceChildren(h("strong", { text: f.title || "" }), " ", f.why || "");
       field("model").textContent = `${x.model} · ${label(QUESTIONS, x.question)}`;
       field("ask").textContent = (c.asked && c.asked[0]) || label(QUESTIONS, x.question);
       field("spec").replaceChildren(...specBlock(p));
@@ -348,7 +347,7 @@
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const tabs = items.map((it, i) => {
-      const b = h("button", { type: "button", role: "tab", id: "story-tab-" + i, "aria-controls": "story-panel", "aria-selected": "false", tabindex: "-1", class: "story-tab" }, emoji(it.f.emoji), h("span", { text: it.f.title || label(QUESTIONS, it.x.question) }));
+      const b = h("button", { type: "button", role: "tab", id: "story-tab-" + i, "aria-controls": "story-panel", "aria-selected": "false", tabindex: "-1", class: "story-tab" }, h("span", { text: it.f.title || label(QUESTIONS, it.x.question) }));
       b.addEventListener("click", () => select(i));
       return b;
     });

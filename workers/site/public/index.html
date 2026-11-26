@@ -43,11 +43,10 @@
       <div class="hero-copy">
         <p class="eyebrow"><span class="ico ico-watch" aria-hidden="true"></span> Wearable data for AI agents</p>
         <h1>Agents get the answer, not your whole health record.</h1>
-        <p class="lede">AskWearables sits between wearable data and any AI agent. Each request gets a small computed answer within the grant you approved, with a receipt. Below: four real requests and what each agent got back.</p>
+        <p class="lede">AskWearables sits between your wearable data and the AI agents you use. An agent asks a question and gets back a short, computed answer, only at the level of detail you approved. Every answer and every refusal is logged with a receipt.</p>
         <div class="actions">
           <a class="btn primary" href="/docs/quickstart">Developer quickstart</a>
-          <a class="btn" href="#story-h">One question, three ways</a>
-          <a class="btn" href="/results">Study results</a>
+          <a class="btn" href="/results">See the study results</a>
         </div>
       </div>
 
@@ -79,7 +78,7 @@
       <section class="usecases hero-uc" id="usecases" aria-labelledby="ask-title">
         <div class="uc-intro">
           <h2 id="ask-title">What people ask, and exactly what each agent got back</h2>
-          <p>Four real requests. Every packet was computed by the AskWearables engine for a synthetic person in the study cohort, under the grant shown.</p>
+          <p>Four example requests. Each answer was computed by AskWearables for a synthetic person from the study, under the grant shown.</p>
         </div>
     <div class="uc-grid" id="uc-grid">
 
@@ -163,7 +162,6 @@
 
     </div>
     <noscript><p class="note">The scenario packets need JavaScript. They are at <a href="/data/usecases.json">/data/usecases.json</a>.</p></noscript>
-        <p class="fine">Built by <code>scripts/build-usecases.ts</code> from the study's synthetic people. Wellness information only; not medical advice.</p>
   </section>
       <p class="fine hero-fine">Synthetic people, real model runs. For general wellness and personal insight only; not medical advice.</p>
     </div>
@@ -343,14 +341,14 @@
         <li><span class="who"><span class="ico ico-receipt" aria-hidden="true"></span>The agent receives a packet</span> at the coarsest level that answers the question: findings against the user's own baseline, caveats, freshness and sources, plus a receipt.</li>
       </ol>
     </div>
-    <p>Watch one request go through, from a real run in the study:</p>
+    <p class="walk-lead">Step through one request from the study, stage by stage:</p>
     <figure class="walk" id="walk" aria-labelledby="walk-title">
         <div class="walk-top">
           <figcaption class="walk-title" id="walk-title">Inside one request: what each stage did, from runs in the study</figcaption>
           <div class="walk-ctrls">
-            <button class="walk-step" id="walk-prev" type="button" aria-controls="walk-panel">◀ Prev step</button>
+            <button class="walk-step" id="walk-prev" type="button" aria-controls="walk-panel"><span class="ico ico-chevron-left" aria-hidden="true"></span> Previous</button>
             <span class="walk-count" id="walk-count" aria-live="polite"></span>
-            <button class="walk-step" id="walk-next" type="button" aria-controls="walk-panel">Next step ▶</button>
+            <button class="walk-step" id="walk-next" type="button" aria-controls="walk-panel">Next <span class="ico ico-chevron-right" aria-hidden="true"></span></button>
             <button class="walk-toggle" id="walk-toggle" type="button" aria-pressed="false" aria-controls="walk-panel" hidden><span class="ico ico-pause" aria-hidden="true"></span><span class="walk-toggle-label">Pause</span></button>
           </div>
         </div>
@@ -410,7 +408,7 @@
     <div class="table-wrap"><table class="stack">
       <thead><tr><th scope="col">Level</th><th scope="col">The agent receives</th><th scope="col">Example</th></tr></thead>
       <tbody>
-        <tr><th scope="row">0 · Flag</th><td data-label="The agent receives">Yes, no or unknown</td><td data-label="Example">"Sleep duration under 6 h 0 min on any night from 2026-11-18 to 2026-11-24: no"</td></tr>
+        <tr><th scope="row">0 · Flag</th><td data-label="The agent receives">Yes, no or unknown</td><td data-label="Example">"Sleep duration under 6 h on any night from 2026-11-18 to 2026-11-24: no"</td></tr>
         <tr><th scope="row">1 · Trend</th><td data-label="The agent receives">Direction and a size bucket against the user's usual range</td><td data-label="Example">"Sleep duration moderately below usual range on 3 of the last 3 nights"</td></tr>
         <tr><th scope="row">2 · Daily</th><td data-label="The agent receives">Daily values with units</td><td data-label="Example">"… usual range 7 h 10 min to 7 h 29 min", with nightly values in minutes</td></tr>
         <tr><th scope="row">3 · Raw</th><td data-label="The agent receives">Samples and session detail</td><td data-label="Example">A heart-rate series for one run</td></tr>
@@ -444,7 +442,8 @@
         <h3>Ask from your server</h3>
         <p>For developers serving their own users with a signed developer key. The SDKs sign each request for you.</p>
         <p class="code-label">TypeScript SDK</p>
-        <pre><code>npm install ./sdks/typescript</code></pre>
+        <pre><code># from a clone of the repository
+npm install ./sdks/typescript</code></pre>
         <pre><code>import { AskWearables } from "@askwearables/sdk";
 
 const aw = new AskWearables({
@@ -455,7 +454,8 @@ const aw = new AskWearables({
 });
 const res = await aw.ask("How did I sleep this week?");</code></pre>
         <p class="code-label">Python SDK</p>
-        <pre><code>pip install ./sdks/python</code></pre>
+        <pre><code># from a clone of the repository
+pip install ./sdks/python</code></pre>
         <p><a href="/docs/quickstart">Full quickstart</a> · the SDKs live in the repository under <code>sdks/</code>.</p>
       </div>
     </div>
