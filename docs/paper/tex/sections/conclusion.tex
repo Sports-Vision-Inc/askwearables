@@ -1,22 +1,16 @@
 \section{Conclusion}\label{sec:conclusion}
 
-We set out to measure what changes when an AI agent asks about wearable data through a broker that computes the
-answer, releases only what the question needs, and records every decision. Holding the agent model fixed, \sys{}
-raised accuracy for the models that were weak with raw context (\nSigCA{} of \nTestedCA{} at $p<0.05$ against raw
-context; pooled, \bootPooledCAEst{} points higher, \bootPooledCACI{}) and lowered it significantly for none. For the
-strongest models the accuracy differences on the synthetic questions were small, and with \sys{} accuracy depended
-less on the choice of model (\accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} with raw context); for them the
-benefit was a shorter context, a release limited to the granted level and an audit record, at the cost of an extra
-planner call. On real Fitbit data, with the open-weight models, the same pattern held for the weaker ones, while the
-two strongest open-weight models lost accuracy; after the second step on the path to the deployed broker, a change to
-the planner prompt, they scored \vthreeRealOssLarge{} against \vthreeRealOssLargeA{} and \vthreeRealOssSmall{} against
-\vthreeRealOssSmallA{} for raw context (not significant), and the four weaker ones were well above it. Raw context
-over-exposed the record by a factor of \expRatioAC{}. \sys{} leaked in \leakPooledC{} of privacy runs against
-\leakPooledA{} for raw context and \leakPooledB{} for open tools; in three of the four scenarios the requested data
-lay outside the grant, so the gate denied them by construction, and in the fourth \sys{} leaked once in 75 runs, an
-invented figure. On PHIA, \sys{} refused out-of-scope questions far more often than either baseline but answered
-fewer of the answerable questions, mostly because it released threshold counts as yes or no and denied a metric its
-grant did not cover. Changing both, and measuring the change on fresh questions, brought pooled accuracy on answerable
-questions, as worded, to within a point of raw context for the open-weight models, without making \sys{} better there
-for the models that were already strong. Code, data and the scripts that produce every number in this paper are
-available at \codeurl{}.
+We measured what changes when an AI agent asks about wearable data through a broker that computes the answer,
+releases only what the question needs, and records every decision. Holding the agent and planner models fixed,
+\sys{} raised pooled accuracy over raw context by \bootPooledCAEst{} points (\bootPooledCACI{}), about
+\sensCapHrvEst{} excluding raw-context runs that hit the output limit and a trend question whose reference matches the
+broker's rule; accuracy rose significantly for \nSigCA{} of \nTestedCA{} models (\sensCapNSig{} excluding those runs),
+fell for none, and depended less on the choice of model. Raw context put \expRatioAC{} times as much of the record in
+front of the model (for a 45-day export), and \sys{} leaked in \leakPooledC{} of privacy runs against \leakPooledA{}
+for raw context and \leakPooledB{} for open tools; in every scenario the grant or release level withheld each scored
+quantity, so its one leak was an invented figure. On PHIA, \sys{} refused out-of-scope questions far more often than
+either baseline but answered fewer answerable ones; after two pre-registered steps, the deployed broker matched raw
+context on fresh answerable questions as worded (\vthreePhiaWordedThree{} against \vthreePhiaWordedA{}) but not on
+PHIA's labels (\vthreePhiaLabelThree{} against \vthreePhiaLabelA{}), and the strongest open-weight models still did
+better with raw context there. Code, data and the scripts that produce every number in this paper are available at
+\codeurl{}.

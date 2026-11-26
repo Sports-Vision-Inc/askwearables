@@ -1,22 +1,22 @@
 \begin{abstract}
 \noindent
 AI agents asked about a person's wearable data either read the whole record or fetch it through unrestricted tools,
-leaving computation and disclosure to the model. We present \sys{}, a broker in which an LLM planner that never sees
-the stored record turns each question into a typed query over tested code, a policy gate releases the coarsest of
-four levels that a per-agent, per-purpose grant allows, and the agent receives a short packet with a hash-chained
-receipt. Holding the agent model fixed (plus a fixed planner model), we compare \sys{} with raw context and open
-tools across \nModels{} models on \nTasks{} questions over a synthetic cohort with known ground truth and realistic
-data-quality traps. With \sys{}, accuracy ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} with
-raw context and \accBMin{} to \accBMax{} with open tools; the pooled gain over raw context was \bootPooledCAEst{}
-points (\bootPooledCACI{}), about 10 excluding a trend question whose reference matches the broker's trend rule.
-Accuracy rose significantly for \nSigCA{} of \nTestedCA{} models and fell for none. Raw context put \expRatioAC{}
-times as much of the record in front of the model. \sys{} leaked in 1 of 300 privacy runs (raw context
-\leakPooledA{}, open tools \leakPooledB{}); in three of four scenarios the requested data lay outside the grant and
-were denied by construction, and the one leak, an invented figure, came in the fourth (1 of 75). On PHIA, \sys{}
-answered \code{unknown} to \phiaUnsupPooledC{} of out-of-scope questions (raw context \phiaUnsupPooledA{}; some were
-computable from the export) but was less accurate on answerable ones (\phiaWordedPooledC{} against
-\phiaWordedPooledA{}). Two pre-registered broker changes brought fresh answerable PHIA questions to
-\vtwoWordedPooledC{} against \vtwoWordedPooledA{} for raw context, though not for every model.
+leaving computation and disclosure to the model. We present \sys{}, a broker in which a large language model (LLM)
+planner that never sees the stored record turns each question into a typed query over tested code, a policy gate
+releases the coarsest level that a per-agent, per-purpose grant allows, and the agent receives a short
+packet with a hash-chained receipt. Holding the agent and planner models fixed, we compare \sys{} with raw context
+and open tools across \nModels{} models on \nTasks{} questions over a synthetic cohort with known ground truth. Pooled accuracy was \bootPooledCAEst{} points higher with \sys{} than with raw
+context (\bootPooledCACI{}), about \sensCapHrvEst{} excluding raw-context runs that hit the output
+limit and a trend question whose reference matches the broker's rule. Accuracy rose significantly for \nSigCA{} of
+\nTestedCA{} models (\sensCapNSig{} excluding those runs) and fell for none. Raw context put \expRatioAC{} times as
+much of the record in front of the model (for a 45-day export). \sys{} leaked in 1 of 300 privacy runs (raw context
+\leakPooledA{}, open tools \leakPooledB{}), with an invented figure: in every scenario the grant or release level
+withheld each scored quantity. On the Personal Health
+Insights Agent (PHIA) benchmark, \sys{} refused \phiaUnsupPooledC{} of out-of-scope questions (raw
+context \phiaUnsupPooledA{}) but was less accurate on answerable ones (\phiaWordedPooledC{} against
+\phiaWordedPooledA{}). After two pre-registered steps, the deployed broker matched raw context on fresh answerable
+questions as worded (\vthreePhiaWordedThree{} against \vthreePhiaWordedA{}, six open-weight models) but not on
+PHIA's labels (\vthreePhiaLabelThree{} against \vthreePhiaLabelA{}).
 \end{abstract}
 
 \noindent\textit{Keywords}\enspace AI agents $\cdot$ wearable data $\cdot$ personal health informatics $\cdot$

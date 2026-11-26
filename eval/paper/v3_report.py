@@ -77,11 +77,12 @@ for suite, models, label in (("accuracy", OPEN + FRONTIER, "Synthetic questions"
             o3m, oam, pm = mcnemar(x, y)
             mac(f"vthreeReal{KEY[m]}", pct(sum(x) / len(mk))); mac(f"vthreeReal{KEY[m]}A", pct(sum(y) / len(mk)))
             mac(f"vthreeRealMcnA{KEY[m]}", f"{fp(pm)} ({o3m}/{oam})")
+            mac(f"vthreeRealPA{KEY[m]}", fp(pm))
             _, x, y = paired({k: c3[k] for k in mk}, {k: c1[k] for k in mk}, corr)
             o3m, o1m, pm = mcnemar(x, y)
             if pm < 0.05:
                 up.append(f"\\code{{{m}}}" if o3m > o1m else f"\\code{{{m}}} (down)")
-        mac("vthreeRealSig", ", ".join(up) or "none")
+        mac("vthreeRealSig", (", ".join(up[:-1]) + " and " + up[-1]) if len(up) > 1 else (up[0] if up else "none"))
 
 # Privacy: leaks by the detector, C (study), C2, C3 on the same runs.
 lk = lambda r: bool(r.get("leaked"))

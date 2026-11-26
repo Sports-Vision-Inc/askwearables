@@ -12,7 +12,7 @@ RES = os.path.join(HERE, os.environ.get("EVAL_RESULTS_DIR", "results"))
 OUT = os.path.join(HERE, os.environ.get("EVAL_OUT_DIR", "out"))
 os.makedirs(OUT, exist_ok=True)
 COND = ["A_raw", "B_tools", "C_broker"]
-COND_LABEL = {"A_raw": "A: raw data in context", "B_tools": "B: open data tools", "C_broker": "C: AskWearables"}
+COND_LABEL = {"A_raw": "A: raw context", "B_tools": "B: open tools", "C_broker": "C: AskWearables"}
 # Reference palette (dataviz skill), validated: categorical slots 1-3 in fixed order.
 COLOR = {"A_raw": "#2a78d6", "B_tools": "#eb6834", "C_broker": "#1baf7a"}
 INK, INK2, GRID, SURF = "#0b0b0b", "#52514e", "#e4e3df", "#fcfcfb"

@@ -1,8 +1,8 @@
 {
  "generated_note": "from eval/paper/results/final/*.jsonl by eval/paper/report.py",
  "conditions": {
-  "A_raw": "A: raw data in context",
-  "B_tools": "B: open data tools",
+  "A_raw": "A: raw context",
+  "B_tools": "B: open tools",
   "C_broker": "C: AskWearables"
  },
  "accuracy": [

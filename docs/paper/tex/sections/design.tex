@@ -6,10 +6,8 @@
 \caption{Request flow. The agent sends a question (1); the planner turns it into a QuerySpec without seeing the
 stored record (2); the gate checks the QuerySpec against the user's grant and picks the coarsest release level (3; step 7 in
 the gate box is the daily limit); only the per-user vault reads health data, computes the answer and
-builds the packet (4); the packet and a receipt identifier return to the agent (5). Seven Cloudflare Workers form
-four trust zones: public (site, console), identity (auth), request path (edge, planner) and protected (gate,
-vault). The planner and the edge hold no binding to data or policy, and a test checks the bindings between
-Workers.}
+builds the packet (4); the packet and a receipt identifier return to the agent (5). The planner holds no access to
+data or policy.}
 \label{fig:arch}
 \end{figure}
 

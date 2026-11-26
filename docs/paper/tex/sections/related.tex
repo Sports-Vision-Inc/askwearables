@@ -35,15 +35,15 @@ tools~\citep{guo2026agentciscope}. Mitigations largely remain model-mediated: Pr
 reason about information flows~\citep{wang2025privacyinaction}, and AirGapAgent uses a separate minimizer model
 isolated from third-party input~\citep{bagdasarian2024airgap}. Data-minimization work formalizes the least revealing
 useful disclosure and finds that language models struggle to predict it when prompted
-directly~\citep{zhou2025dataminimization}, Rescriber lets users sanitize what they send~\citep{zhou2025rescriber},
-while brokers that minimize before data leave the device~\citep{yu2026minim}, rewrite outbound tool
+directly~\citep{zhou2025dataminimization}; Rescriber lets users sanitize what they send~\citep{zhou2025rescriber};
+and brokers that minimize before data leave the device~\citep{yu2026minim}, rewrite outbound tool
 arguments~\citep{li2026toolminimize}, offer tiered disclosure~\citep{maeda2026puda} or encode enforceable user
 preferences~\citep{kochar2026preference} move the decision toward the system. Violations grow with what is in context: contextual-integrity violations rise with the number of context
 entries~\citep{fu2026ciwork} and accumulate across tasks and runs~\citep{mireshghallah2025cimemories}, agents disclose
 context through tool calls that legitimate access does not authorize~\citep{dong2026claw}, and a data firewall that
 projects information to task granularity cuts privacy attacks between agents~\citep{abdelnabi2025firewalls}. Most of
-these works measure what leaves the model; ToolMinimize~\citep{li2026toolminimize} and Zhou et
-al.~\citep{zhou2025dataminimization} also measure what is sent. For wearable agents we measure, per question, how
+these works measure what leaves the model; ToolMinimize~\citep{li2026toolminimize} and
+\citet{zhou2025dataminimization} also measure what is sent. For wearable agents we measure, per question, how
 much of the record enters the model under each design. \sys{} makes the release ceiling deterministic: the grant,
 the level and the window are enforced in code, while what is requested within that ceiling is still chosen by the
 planner and the agent.
@@ -60,7 +60,9 @@ budget-bounded capability tokens~\citep{suresh2026agentcap}, reference monitors 
 models~\citep{aljumaily2026untrusted}, and aiAuthZ's off-host, identity-bound gateway with a hash-chained
 audit~\citep{kodathala2026aiauthz}, extended to verifiable step-up approval~\citep{kodathala2026stepup}. Analyses of
 MCP document how broad tool exposure enables exploitation~\citep{hou2025mcp,radosevich2025mcpaudit,hasan2025mcp}.
-These systems decide whether a call may run; \sys{} also decides how much information an allowed call returns.
+These systems decide whether a call may run; \sys{} also decides how much information an allowed call returns. An MCP
+server with per-metric OAuth scopes would enforce the gate's metric check but not release levels, windows or purpose;
+open tools here is the unscoped case.
 
 \paragraph{Personal data stores and purpose-based access control.} openPDS keeps personal data in a store the user
 controls and answers third-party questions with computed aggregates, SafeAnswers, rather than raw
@@ -72,7 +74,7 @@ computing a release level per question and in returning one agent-facing packet 
 reconstruction of the underlying data~\citep{dinur2003revealing,dwork2017exposed,garfinkel2018reconstruction}, the
 observation behind differential privacy and its composition
 accounting~\citep{dwork2006calibrating,dwork2014algorithmic}. Auditors whose refusals depend on the data can leak
-through their denials~\citep{kenthapadi2005simulatable}. \sys{}'s daily release limit, which this study does not exercise, applies a simple form of this
+through their denials~\citep{kenthapadi2005simulatable}. \sys{}' daily release limit, which this study does not exercise, applies a simple form of this
 accounting to agents that issue repeated trend and daily queries, with denials that depend only on the query
 history (the number of packets already released), never on the data.
 

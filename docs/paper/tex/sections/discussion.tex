@@ -43,7 +43,7 @@ handled by catalog category, not by what a released value implies. Leak rates al
 recommend that agent-privacy evaluations report detector precision and recall on a labeled sample and freeze the
 detector before the runs it scores.
 
-\paragraph{Where errors remain.} On the synthetic questions, \sys{}'s remaining errors came almost all after a packet
+\paragraph{Where errors remain.} On the synthetic questions, \sys{}' remaining errors came almost all after a packet
 was released: a partial total reported despite a caveat that it is incomplete, or \emph{yes} to a threshold when every
 value received was above it.
 
@@ -62,7 +62,7 @@ PHIA as worded and with its labels for that reason. PHIA also shows the trade-of
 unsupported questions far more often than the baselines, and refused some answerable ones.
 
 \paragraph{The open-tools condition depends on how the model calls tools.} Open tools were the worst condition for
-some models and the best for others. One model wrote most of its tool calls as text, which a harness that only
+some models and, on real data, the best for others. One model wrote most of its tool calls as text, which a harness that only
 reads structured calls would have scored as unanswered; the harness executes such calls in every condition, and
 with it the model's open-tools accuracy was \accLlamaScoutB{}. A comparison of MCP-style designs therefore depends on the serving stack as much as on the design,
 and studies should state how text-format tool calls are handled.
@@ -82,6 +82,8 @@ The gate cannot stop an agent model from misreading a packet, and a released pac
 control once an agent's provider stores it. Within the ceiling the grant sets, what is requested is chosen by the
 planner and the agent model, so the release is deterministic in its limits, not in its content. The operation set is
 deliberately narrow, so \sys{} refuses questions a code-writing agent could answer (\phiaUnsupported{} of PHIA's
-\phiaTotal{} objective questions). In the threat model the operator of the broker is trusted.
+\phiaTotal{} objective questions). In the threat model the operator of the broker is trusted. So are the providers
+hosting the planner, which sees the question text, and the agent model, which sees each packet. The gate governs the
+flow to the agent, not the agent's onward flows.
 Receipts are hash-chained but anchored on the same platform, so they detect tampering by others, not by the
 operator, and a stolen agent token reaches only that agent's grant.

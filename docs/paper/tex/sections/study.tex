@@ -39,9 +39,9 @@ gate, compute engine and packet builder and returns the packet or the refusal.\\
 \paragraph{\CC{} adds a planner model.} In \CC{} every broker call runs the planner, \code{llama-3.3-70b} with
 \code{gpt-oss-120b} as the second model, in addition to the agent model. For the smaller agent models, \CC{} therefore
 puts a larger model in the loop, and part of any gain may come from the planner rather than from computing in code.
-For \code{llama-3.3-70b} as the agent model, agent and planner are the same model. The planner received the time
-zone \code{UTC} for every person, while the cohort lives at UTC$-$5, UTC$-$4 and UTC$+$1; windows in the questions are
-stated in days, so this affects only the planner's notion of ``today'', which the prompt fixes.
+For \code{llama-3.3-70b} as the agent model, agent and planner are the same model. The planner was given UTC as
+every person's time zone; because question windows are stated in days and the prompt fixes the date, this does not
+change any window.
 
 \paragraph{Harness.} Each agent model runs for at most eight turns. Some models write a tool call as text in their
 reply rather than as a structured call (for example \code{[get\_daily(metric=steps, start=...)]}). The harness
@@ -52,7 +52,7 @@ contain such a call; \textRecoveredA{} in \CA{}, where no tools exist, and \text
 
 Ten synthetic people, each with 45 days of data ending the day before the evaluation date, are generated from fixed
 seeds. The generator records each person's \emph{truth}, the steps, sleep, resting heart rate, heart-rate
-variability (HRV, as RMSSD; the catalog keeps SDNN as a separate metric) and workouts they actually had each day, separately from what the devices report. Each person
+variability (HRV, as RMSSD) and workouts they actually had each day, separately from what the devices report. Each person
 carries one data-quality trap (\cref{tab:traps-def}). Every person wears a watch; steps are recorded hourly over 15
 waking hours, sleep as a main sleep session, resting heart rate and HRV as daily values, and a workout every third
 day.
@@ -96,19 +96,17 @@ exact.
 scored wrong, in every condition. The parser reads the last such line and maps synonyms to the protocol's labels
 (for example, ``more'' to \code{higher}); on the comparison with the previous week, the direction words \code{up},
 \code{down} and \code{flat} are read as \code{higher}, \code{lower} and \code{same}. Runs without an \code{ANSWER:}
-line numbered \noAnswerA{} in \CA{}, \noAnswerB{} in \CB{} and \noAnswerC{} in \CC{}.
-
-The evaluation date, 2026-11-25, is stated in every prompt.
+line numbered \noAnswerA{} in \CA{}, \noAnswerB{} in \CB{} and \noAnswerC{} in \CC{}. Each agent call was capped at
+4{,}000 output tokens; a run that exhausted it without an answer is scored wrong. This happened in \capA{} raw-context
+runs (\code{gemini-4-neon} \capAGemini{}, \code{gemma-4-26b} \capAGemma{}, \code{gpt-oss-20b} \capAOssSmall{}), \capB{}
+open-tools runs and \capC{} \sys{} run, mostly reasoning models working through the long raw-context input.
 
 \subsection{Privacy scenarios}\label{sec:privacy-design}
 
 Each person's data also holds one body-weight reading that no scenario needs, a \emph{canary}. Four scenarios
 each give the agent model a role (\cref{tab:scenarios}). In \CA{} and \CB{} the role is stated in the system prompt
 and all data is available. In \CC{} the same system prompt is used and the role is also the grant: purpose, metrics,
-maximum level and maximum window. In \CC{} the canary and resting heart rate are outside every grant, so the gate
-cannot release them; for those two quantities a \CC{} leak could only be a number the agent model invents. The
-informative \CC{} measurements are therefore what the agent model does with what it \emph{was} given, and whether the
-gate's refusals hold. In \code{purpose\_drift} and \code{ci\_manager\_message} the user asks about their own data,
+maximum level and maximum window. In \code{purpose\_drift} and \code{ci\_manager\_message} the user asks about their own data,
 so these two scenarios measure disclosure beyond the agent's role and grant, not harm to the data subject.
 \Cref{sec:measures} describes how leaks are scored.
 
@@ -169,7 +167,7 @@ correct answer (total cost divided by the number of correct answers). We also re
 provider-reported cost for the frontier models on OpenRouter, and Workers AI list prices (Cloudflare's published
 Workers AI pricing, read 2026-11-25\footnote{\url{https://developers.cloudflare.com/workers-ai/platform/pricing/}})
 for the open-weight models. In \CC{}, the planner's tokens and cost (\code{llama-3.3-70b} at Workers AI list price)
-are included (for one run that reached the turn limit, planner usage is estimated from measured per-call usage).
+are included.
 
 \paragraph{Leak rate.} A leak is scored by a deterministic detector from the agent model's final text: the canary
 weight within 0.6~kg (or the equivalent in pounds), resting-heart-rate values, and, for the manager message, sleep
@@ -188,8 +186,8 @@ repeated.
 
 We froze the broker, planner prompt, scoring and leak detector before the runs, fixed the evaluation date at
 2026-11-25, and ran every suite once from the frozen version (the repeatability suite \repRuns{} times by design); planner selection and the leak-detector validation used
-a separate development pass. Runs that did not complete for technical reasons were rerun; no run was repeated because
-of its answer, and a run that hit the turn limit or the context window is scored as wrong. All results come from the
+a separate development pass. No run was repeated because of its answer; a run that hit the turn limit, the context
+window or the output limit is scored as wrong. All results come from the
 frozen version, except the steps after the study (\cref{sec:res:v2}).
 
 \subsection{From the study to the deployed broker}\label{sec:v2-design}
@@ -197,7 +195,7 @@ frozen version, except the steps after the study (\cref{sec:res:v2}).
 The study's attribution of the PHIA errors (\cref{sec:res:bench}) showed what to change, and we changed the broker in
 two steps, each pre-registered before its end-to-end runs and measured against the study on the same tasks; the
 second step ends at the broker as deployed. We call the broker as studied \CC{}, the broker after step~1 \CC{}$_1$
-and the broker after step~2 \CC{}$_2$.\footnote{The pre-registration names these brokers C2 and C3.}
+and the broker after step~2 \CC{}$_2$.
 
 \paragraph{Step 1: the release level follows the question, and a denial names a granted alternative.} We changed the
 two broker decisions the attribution pointed to, in general form, and the planner prompt: a threshold check that asks
@@ -206,8 +204,8 @@ denial of a metric outside the grant names a closely related metric inside it, i
 resting heart rate, sleep duration and sleep efficiency); and the planner prompt says that ``how many days'' is a
 count also over a single day and that a question joining a supported and an unsupported request is planned for the
 supported part. Nothing refers to PHIA's users, wording or labels, and the operation set, the catalog's definitions,
-the window rule, the study grant, the agent prompts and the scoring are unchanged. The changes, three hypotheses and
-the analysis were committed before any run (commit \code{1a47899}).
+the window rule, the study grant, the agent prompts and the scoring are unchanged. The changes, hypotheses and
+analysis were registered before any run.
 
 \CC{}$_1$ was measured on a fresh PHIA sample of 120 answerable and 60 unsupported questions, drawn with the study's
 stratification and a new seed from questions in neither the study's sample nor either planner sample, in all three
@@ -256,6 +254,6 @@ Two further suites run the same three conditions, prompts, tools and broker on o
 directly answerable (scored as worded and against PHIA's labels, to two significant digits) and 60 unsupported (correct only if
 answered \code{unknown}), stratified with a fixed seed. \emph{Real data}: 152 questions, the ten templates of the
 synthetic study with a resting-heart-rate trend in place of the HRV trend, over 16 participants of the public PMData
-(Fitbit Versa~2) and LifeSnaps (Fitbit Sense) datasets, with reference answers computed from the raw files by a
+(Fitbit Versa~2)~\citep{thambawita2020pmdata} and LifeSnaps (Fitbit Sense)~\citep{yfantidou2022lifesnaps} datasets, with reference answers computed from the raw files by a
 script that imports nothing from the broker. Real data has no injected traps but natural ones: missing days, low wear
 and, for PMData, a daylight-saving change inside every question window.

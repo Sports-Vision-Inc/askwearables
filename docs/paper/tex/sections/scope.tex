@@ -5,7 +5,8 @@ by construction. This lets us score every answer against what actually happened 
 or the broker reports, and lets us place each data-quality trap deliberately. The cost is realism and size: real
 exports have more varied gaps, devices and artifacts than ten seeded profiles, each person carries one trap, each
 task was run once per model and condition, and the questions name their windows explicitly. Tasks are clustered
-within people, which is why we report a bootstrap over people next to the per-task tests. The results describe these
+within people, which is why we report a bootstrap over people next to the per-task tests; with ten people as
+clusters its percentile intervals may be narrow, and the models are treated as fixed. The results describe these
 traps and questions, not the distribution of questions real users ask; the real-data suite (\cref{sec:res:bench})
 addresses part of this.
 
@@ -13,7 +14,7 @@ addresses part of this.
 same team, and some definitions coincide. The HRV reference is \emph{flat} for every person without an HRV trap,
 while the broker calls a trend only when the slope's $t$ statistic reaches 2.5. ``Sleeping less than usual'' is
 defined by quartiles of the prior nights, and the broker compares with an interquartile baseline; \usualLenient{} of
-the \usualTasks{} such tasks accept either answer. The planner prompt resolves the windows the questions use
+the \usualTasks{} such tasks accepts either answer. The planner prompt resolves the windows the questions use
 (``ending yesterday''). Each of these favors \CC{} to an unknown degree; the PHIA and real-data suites, whose
 references the broker's authors did not define or computed independently, are the check.
 
@@ -37,4 +38,4 @@ a judge, corrected after a check against one annotator's labels and not re-valid
 did not compare against PHIA's code-writing agent, a model-mediated minimizer~\citep{bagdasarian2024airgap}, a
 deterministic tool gate without the metric layer~\citep{shi2025progent}, \CC{} with an oracle planner, or \CA{} with
 self-consistency at matched compute~\citep{wang2023selfconsistency}; each would separate a different part of
-\sys{}'s effect.
+\sys{}' effect.

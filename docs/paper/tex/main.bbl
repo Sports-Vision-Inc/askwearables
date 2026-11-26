@@ -1,4 +1,4 @@
-\begin{thebibliography}{78}
+\begin{thebibliography}{80}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -8,7 +8,7 @@
 \bibitem[Merrill et~al.(2024{\natexlab{a}})Merrill, Tan, Gupta, Hartvigsen, and
   Althoff]{merrill2024timeseries}
 Mike~A. Merrill, Mingtian Tan, Vinayak Gupta, Tom Hartvigsen, and Tim Althoff.
-\newblock {Language Models Still Struggle to Zero-shot Reason about Time
+\newblock {Language Models Still Struggle to Zero-Shot Reason About Time
   Series}.
 \newblock arXiv preprint arXiv:2404.11757, 2024{\natexlab{a}}.
 \newblock URL \url{https://arxiv.org/abs/2404.11757}.
@@ -31,11 +31,11 @@ Mike~A. Merrill, Akshay Paruchuri, Naghmeh Rezaei, Geza Kovacs, Javier Perez,
   Yun Liu, Erik Schenck, Nova Hammerquist, Jake Sunshine, Shyam Tailor, Kumar
   Ayush, Hao-Wei Su, Qian He, Cory~Y. McLean, Mark Malhotra, Shwetak Patel,
   Jiening Zhan, Tim Althoff, Daniel McDuff, and Xin Liu.
-\newblock {Transforming Wearable Data into Personal Health Insights using Large
+\newblock {Transforming Wearable Data into Personal Health Insights Using Large
   Language Model Agents}.
 \newblock arXiv preprint arXiv:2406.06464, 2024{\natexlab{b}}.
 \newblock URL \url{https://arxiv.org/abs/2406.06464}.
-\newblock Accepted to Nature Communications (per arXiv comment).
+\newblock Accepted to Nature Communications.
 
 \bibitem[Shao et~al.(2024)Shao, Li, Shi, Liu, and Yang]{shao2024privacylens}
 Yijia Shao, Tianshi Li, Weiyan Shi, Yanchen Liu, and Diyi Yang.
@@ -59,7 +59,7 @@ Shouju Wang, Fenglin Yu, Xirui Liu, Xiaoting Qin, Jue Zhang, Qingwei Lin,
   Fritz]{greshake2023indirect}
 Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten
   Holz, and Mario Fritz.
-\newblock {Not what you've signed up for: Compromising Real-World
+\newblock {Not What You've Signed Up For: Compromising Real-World
   LLM-Integrated Applications with Indirect Prompt Injection}.
 \newblock arXiv preprint arXiv:2302.12173, 2023.
 \newblock URL \url{https://arxiv.org/abs/2302.12173}.
@@ -69,7 +69,7 @@ Kai Greshake, Sahar Abdelnabi, Shailesh Mishra, Christoph Endres, Thorsten
 Berk Atil, Sarp Aykent, Alexa Chittams, Lisheng Fu, Rebecca~J. Passonneau, Evan
   Radcliffe, Guru~Rajan Rajagopal, Adam Sloan, Tomasz Tudrej, Ferhan Ture, Zhe
   Wu, Lixinyu Xu, and Breck Baldwin.
-\newblock {Non-Determinism of "Deterministic" LLM Settings}.
+\newblock {Non-Determinism of ``Deterministic'' LLM Settings}.
 \newblock arXiv preprint arXiv:2408.04667, 2024.
 \newblock URL \url{https://arxiv.org/abs/2408.04667}.
 
@@ -83,14 +83,13 @@ Niloofar Mireshghallah, Hyunwoo Kim, Xuhui Zhou, Yulia Tsvetkov, Maarten Sap,
   (ICLR)}, 2024.
 \newblock URL \url{https://arxiv.org/abs/2310.17884}.
 
-\bibitem[{U.S. Department of Health and Human Services}(2024)]{hipaa164502}
+\bibitem[{U.S. Department of Health and Human Services}(2000)]{hipaa164502}
 {U.S. Department of Health and Human Services}.
-\newblock {45 CFR \S 164.502(b): Standard: Minimum necessary}.
+\newblock {45 CFR \S 164.502(b): Standard: Minimum Necessary}.
 \newblock Code of Federal Regulations, Title 45, Part 164 (HIPAA Privacy Rule),
-  2024.
+  2000.
 \newblock URL \url{https://www.law.cornell.edu/cfr/text/45/164.502}.
-\newblock 65 FR 82802, Dec. 28, 2000, as last amended at 89 FR 33063, Apr. 26,
-  2024; text read at Cornell LII.
+\newblock Originally published at 65 FR 82802, Dec. 28, 2000; current text.
 
 \bibitem[{U.S. Federal Trade Commission}(2024)]{ftc2024hbnr}
 {U.S. Federal Trade Commission}.
@@ -152,7 +151,7 @@ Eugene Bagdasarian, Ren Yi, Sahra Ghalebikesabi, Peter Kairouz, Marco Gruteser,
   Neubig]{gao2022pal}
 Luyu Gao, Aman Madaan, Shuyan Zhou, Uri Alon, Pengfei Liu, Yiming Yang, Jamie
   Callan, and Graham Neubig.
-\newblock {PAL: Program-aided Language Models}.
+\newblock {PAL: Program-Aided Language Models}.
 \newblock arXiv preprint arXiv:2211.10435, 2022.
 \newblock URL \url{https://arxiv.org/abs/2211.10435}.
 
@@ -190,7 +189,7 @@ Sai~Varun Kodathala.
   Poh, Liao, Achille, and Patel]{liu2023fewshot}
 Xin Liu, Daniel McDuff, Geza Kovacs, Isaac Galatzer-Levy, Jacob Sunshine,
   Jiening Zhan, Ming-Zher Poh, Shun Liao, Paolo~Di Achille, and Shwetak Patel.
-\newblock {Large Language Models are Few-Shot Health Learners}.
+\newblock {Large Language Models Are Few-Shot Health Learners}.
 \newblock arXiv preprint arXiv:2305.15525, 2023.
 \newblock URL \url{https://arxiv.org/abs/2305.15525}.
 
@@ -247,7 +246,7 @@ Sirui Li, Shuhan Xiao, Mihir Joshi, Ahmed Metwally, Daniel McDuff, Wei Wang,
 \bibitem[Cai et~al.(2024)Cai, Choudhry, Goswami, and
   Dubrawski]{cai2024timeseriesexam}
 Yifu Cai, Arjun Choudhry, Mononito Goswami, and Artur Dubrawski.
-\newblock {TimeSeriesExam: A time series understanding exam}.
+\newblock {TimeSeriesExam: A Time Series Understanding Exam}.
 \newblock arXiv preprint arXiv:2410.14752, 2024.
 \newblock URL \url{https://arxiv.org/abs/2410.14752}.
 \newblock NeurIPS 2024 Workshop on Time Series in the Age of Large Models.
@@ -282,7 +281,7 @@ A.~Ali Heydari, Ken Gu, Vidya Srinivas, Hong Yu, Zhihan Zhang, Yuwei Zhang,
   Ben Graef, Isaac~R. Galatzer-Levy, Erik Schenck, Andrew Barakat, Javier
   Perez, Jacqueline Shreibati, John Hernandez, Anthony~Z. Faranesh, Javier~L.
   Prieto, Connor Heneghan, Yun Liu, Jiening Zhan, Mark Malhotra, Shwetak Patel,
-  Tim Althoff, Xin Liu, Daniel McDuff, and Xuhai~"Orson" Xu.
+  Tim Althoff, Xin Liu, Daniel McDuff, and Xuhai~``Orson'' Xu.
 \newblock {The Anatomy of a Personal Health Agent}.
 \newblock arXiv preprint arXiv:2508.20148, 2025.
 \newblock URL \url{https://arxiv.org/abs/2508.20148}.
@@ -436,8 +435,8 @@ Edoardo Debenedetti, Jie Zhang, Mislav Balunović, Luca Beurer-Kellner, Marc
 
 \bibitem[Willison(2023)]{willison2023dual}
 Simon Willison.
-\newblock {The Dual LLM pattern for building AI assistants that can resist
-  prompt injection}.
+\newblock {The Dual LLM Pattern for Building AI Assistants That Can Resist
+  Prompt Injection}.
 \newblock Blog post, 2023.
 \newblock URL \url{https://simonwillison.net/2023/Apr/25/dual-llm-pattern/}.
 
@@ -539,14 +538,14 @@ Mohammed~Mehedi Hasan, Hao Li, Emad Fallahzadeh, Gopi~Krishnan Rajbahadur, Bram
   Pentland]{demontjoye2014openpds}
 Yves-Alexandre de~Montjoye, Erez Shmueli, Samuel~S. Wang, and Alex~Sandy
   Pentland.
-\newblock {openPDS}: Protecting the privacy of metadata through {SafeAnswers}.
+\newblock {openPDS: Protecting the Privacy of Metadata through SafeAnswers}.
 \newblock \emph{PLoS ONE}, 9\penalty0 (7):\penalty0 e98790, 2014.
 \newblock \doi{10.1371/journal.pone.0098790}.
 
 \bibitem[Agrawal et~al.(2002)Agrawal, Kiernan, Srikant, and
   Xu]{agrawal2002hippocratic}
 Rakesh Agrawal, Jerry Kiernan, Ramakrishnan Srikant, and Yirong Xu.
-\newblock Hippocratic databases.
+\newblock {Hippocratic Databases}.
 \newblock In \emph{Proceedings of the 28th International Conference on Very
   Large Data Bases (VLDB)}, pages 143--154, 2002.
 
@@ -641,15 +640,41 @@ Potsawee Manakul, Adian Liusie, and Mark J.~F. Gales.
 
 \bibitem[Nissenbaum(2004)]{nissenbaum2004ci}
 Helen Nissenbaum.
-\newblock Privacy as contextual integrity.
+\newblock {Privacy as Contextual Integrity}.
 \newblock \emph{Washington Law Review}, 79\penalty0 (1):\penalty0 119--157,
   2004.
 
 \bibitem[Nissenbaum(2010)]{nissenbaum2010context}
 Helen Nissenbaum.
-\newblock \emph{Privacy in Context: Technology, Policy, and the Integrity of
-  Social Life}.
+\newblock \emph{{Privacy in Context: Technology, Policy, and the Integrity of
+  Social Life}}.
 \newblock Stanford University Press, Stanford, CA, 2010.
+
+\bibitem[Thambawita et~al.(2020)Thambawita, Hicks, Borgli, Stensland, Jha,
+  Svensen, Pettersen, Johansen, Johansen, Pettersen, Nordvang, Pedersen,
+  Gjerdrum, Gr{\o}nli, Fredriksen, Eg, Hansen, Fagernes, Claudi,
+  Bi{\o}rn-Hansen, Nguyen, Kupka, Hammer, Jain, Riegler, and
+  Halvorsen]{thambawita2020pmdata}
+Vajira Thambawita, Steven~A. Hicks, Hanna Borgli, H{\aa}kon~K. Stensland,
+  Debesh Jha, Martin~K. Svensen, Svein-Arne Pettersen, Dag Johansen,
+  H{\aa}vard~D. Johansen, Susann~D. Pettersen, Simon Nordvang, Sigurd Pedersen,
+  Anders Gjerdrum, Tor-Morten Gr{\o}nli, Per~Morten Fredriksen, Ragnhild Eg,
+  Kjeld Hansen, Siri Fagernes, Christine Claudi, Andreas Bi{\o}rn-Hansen, Duc
+  Tien~Dang Nguyen, Tomas Kupka, Hugo~Lewi Hammer, Ramesh Jain, Michael~A.
+  Riegler, and P{\aa}l Halvorsen.
+\newblock {PMData: A Sports Logging Dataset}.
+\newblock In \emph{Proceedings of the 11th ACM Multimedia Systems Conference
+  (MMSys '20)}, pages 231--236, 2020.
+
+\bibitem[Yfantidou et~al.(2022)Yfantidou, Karagianni, Efstathiou, Vakali,
+  Palotti, Giakatos, Marchioro, Kazlouski, Ferrari, and
+  Girdzijauskas]{yfantidou2022lifesnaps}
+Sofia Yfantidou, Christina Karagianni, Stefanos Efstathiou, Athena Vakali, Joao
+  Palotti, Dimitrios~Panteleimon Giakatos, Thomas Marchioro, Andrei Kazlouski,
+  Elena Ferrari, and {\v{S}}ar{\=u}nas Girdzijauskas.
+\newblock {LifeSnaps, a 4-Month Multi-Modal Dataset Capturing Unobtrusive
+  Snapshots of Our Lives in the Wild}.
+\newblock \emph{Scientific Data}, 9:\penalty0 663, 2022.
 
 \bibitem[Patil et~al.(2025)Patil, Stengel-Eskin, and Bansal]{patil2025sumleaks}
 Vaidehi Patil, Elias Stengel-Eskin, and Mohit Bansal.

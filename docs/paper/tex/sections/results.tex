@@ -1,24 +1,14 @@
+\FloatBarrier
 \section{Results}\label{sec:results}
 
 \subsection{Accuracy}\label{sec:res:accuracy}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\textwidth]{figures/fig_accuracy_cost.pdf}
-\caption{For the models that are weak with raw context, \sys{} (\CC{}) is the most accurate condition and among the
-cheapest per correct answer; for the strongest models the three conditions are close in accuracy and differ mainly
-in cost. Each panel is one agent model;
-the axes are accuracy against ground truth and cost per correct answer (USD, each panel on its own range). Up and to
-the left is better.}
-\label{fig:acccost}
-\end{figure}
 
 \begin{table}[t]
 \centering\small
 \caption{\sys{} raised accuracy for the models that were weak with raw context; no model was significantly less
 accurate with it. Accuracy in \% with Wilson 95\% intervals; $p$ is the exact McNemar test on paired tasks, with the
 number of tasks only \CC{} answered correctly and only the other condition answered correctly in parentheses.
-Superscript $n$ marks cells with fewer than \nTasks{} scored runs. \nHolmCA{} of the \nSigCA{} significant
+\nHolmCA{} of the \nSigCA{} significant
 differences against \CA{}, and \nHolmCB{} of the \nSigCB{} against \CB{}, remain significant after Holm correction
 over all \nTestsHolm{} tests.}
 \label{tab:accuracy}
@@ -34,36 +24,55 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{} & \CC{} vs.\ \
 \end{tabular}
 \end{table}
 
-\paragraph{\sys{} narrowed the spread of accuracy across models.} Across the \nModels{} models, accuracy in \CC{} ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} in \CA{} and
-\accBMin{} to \accBMax{} in \CB{} (\cref{fig:acccost,tab:accuracy}). Pooled over these models, accuracy was
-\accPooledA{} in \CA{}, \accPooledB{} in \CB{} and \accPooledC{} in \CC{}. With people resampled as clusters, the
-pooled accuracy in \CC{} was \bootPooledCAEst{} points higher than in \CA{} (\bootPooledCACI{}) and
-\bootPooledCBEst{} points higher than in \CB{} (\bootPooledCBCI{}; \cref{tab:bootstrap}). With ten people as clusters
-the percentile intervals may be narrow, and the models are treated as fixed. Excluding the HRV-trend question, whose
-reference coincides with the broker's trend rule (\cref{sec:scope}), pooled accuracy was 96.4\% in \CC{} against
-86.9\% in \CA{}, a gain of 9.5 points.
+The clearest result is for \code{llama-3.3-70b}, \code{llama-4-scout} and \code{mistral-small-3.1}: with \sys{}
+their accuracy rose from \accLlamaThreeA{}, \accLlamaScoutA{} and \accMistralA{} with raw context to \accLlamaThreeC{},
+\accLlamaScoutC{} and \accMistralC{}, and these gains survive every check below.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_accuracy_cost.pdf}
+\caption{For the models that are weak with raw context, \sys{} (\CC{}) is the most accurate condition and among the
+cheapest per correct answer; for the strongest models the three conditions are close in accuracy and differ mainly
+in cost. Each panel is one agent model;
+the axes are accuracy against ground truth and cost per correct answer (USD, each panel on its own range). Up and to
+the left is better.}
+\label{fig:acccost}
+\end{figure}
+
+\paragraph{\sys{} narrowed the spread of accuracy across models.} Across the \nModels{} models, accuracy in \CC{}
+ranged from \accCMin{} to \accCMax{}, against \accAMin{} to \accAMax{} in \CA{} and \accBMin{} to \accBMax{} in \CB{}
+(\cref{fig:acccost,tab:accuracy}). Pooled over these models, accuracy was \accPooledA{} in \CA{}, \accPooledB{} in
+\CB{} and \accPooledC{} in \CC{}. With people resampled as clusters, the pooled accuracy in \CC{} was
+\bootPooledCAEst{} points higher than in \CA{} (\bootPooledCACI{}) and \bootPooledCBEst{} points higher than in \CB{}
+(\bootPooledCBCI{}; \cref{tab:bootstrap}).
+
+\paragraph{Sensitivity.} Part of the gain over raw context comes from runs that reached the output limit without an
+answer (\capA{} in \CA{}; \cref{sec:questions}). Excluding those tasks, pooled accuracy was \sensCapAccC{} in \CC{}
+against \sensCapAccA{} in \CA{}, a gain of \sensCapEst{} points (\sensCapCI{}), and \sensCapNSig{} of the \nModels{}
+models remained significantly more accurate with \sys{}. Excluding also the HRV-trend question, whose reference
+coincides with the broker's trend rule (\cref{sec:scope}), the gain was \sensCapHrvEst{} points (\sensCapHrvCI{}).
 
 \paragraph{The gain was significant for models that were weak with raw context.} \CC{} was more accurate than \CA{}
 for \nSigCA{} of \nTestedCA{} models at $p<0.05$ (\nHolmCA{} after Holm correction), and more accurate than \CB{} for
 \nSigCB{} of \nTestedCB{} (\nHolmCB{} after correction). It was significantly less accurate than either baseline for
-\nSigWorseCA{} and \nSigWorseCB{} models respectively. The largest gains were for \code{llama-3.3-70b}
-(\accLlamaThreeA{} in \CA{}, \accLlamaThreeB{} in \CB{}, \accLlamaThreeC{} in \CC{}), \code{llama-4-scout}
-(\accLlamaScoutA{}, \accLlamaScoutB{}, \accLlamaScoutC{}) and \code{mistral-small-3.1} (\accMistralA{},
-\accMistralB{}, \accMistralC{}). The frontier model \code{gemini-4-neon} behaved like these models (\accGeminiA{} in
-\CA{}, \accGeminiC{} in \CC{}, \mcnGeminiCAP{}). Open tools were not a uniform improvement over raw context: \code{gemma-4-26b}
-scored \accGemmaB{} with them, level with \CC{} (\accGemmaC{}, \mcnGemmaCBP{}), while \code{llama-3.3-70b} scored
-\accLlamaThreeB{}.
+\nSigWorseCA{} and \nSigWorseCB{} models respectively. The frontier model \code{gemini-4-neon} also scored higher with
+\sys{} (\accGeminiA{} in \CA{}, \accGeminiC{} in \CC{}, \mcnGeminiCAP{}), but its gain came from runs that hit the
+output limit: on tasks where raw context answered, the two did not differ (\sensCapGeminiWins{} against
+\sensCapGeminiLosses{}). Most of \code{gemma-4-26b}'s gain had the same source (\sensCapGemmaWins{} against
+\sensCapGemmaLosses{} on the remaining tasks, \sensCapGemmaP{}). Open tools were not a uniform improvement over raw
+context: \code{gemma-4-26b} scored \accGemmaB{} with them, level with \CC{} (\accGemmaC{}, \mcnGemmaCBP{}), while
+\code{llama-3.3-70b} scored \accLlamaThreeB{}.
 
 \paragraph{For models near ceiling, differences were small.} \code{gpt-6.2-astra} (\accAstraA{}, \accAstraB{},
 \accAstraC{}) and \code{claude-fable-5.2} (\accFableA{}, \accFableB{}, \accFableC{}) were near ceiling in all three
-conditions. With 100 paired tasks
-and one to four discordant pairs the McNemar tests have little power and were not significant; the bootstrap gives
-small positive differences against \CA{}: \bootAstraCAEst{} points for \code{gpt-6.2-astra} (\bootAstraCACI{}) and \bootFableCAEst{} points for \code{claude-fable-5.2} (\bootFableCACI{}). The \code{gpt-oss} models had point estimates on both sides of \CC{}
-(\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}; a difference of \bootOssSmallCAEst{} points against \CA{}, \bootOssSmallCACI{};
-\code{gpt-oss-120b}: \accOssLargeA{}, \accOssLargeB{}, \accOssLargeC{}; a difference of \bootOssLargeCAEst{} points, \bootOssLargeCACI{}). For \code{gpt-oss-120b}
-\sys{} neither helped nor hurt measurably; for \code{gpt-oss-20b} \CC{} was \bootOssSmallCBEst{} points higher than \CB{}
-by the bootstrap (\bootOssSmallCBCI{}), while the McNemar test was not significant. Near ceiling describes the
-synthetic questions only: on PHIA, as worded, both frontier models were less accurate with \sys{} than with raw
+conditions. With 100 paired tasks and one to four discordant pairs the McNemar tests have little power and were not
+significant; with all discordant pairs favoring \CC{} the people bootstrap cannot fall below zero, so we treat these
+differences as not detectable. The \code{gpt-oss} models had point estimates on both sides of \CC{}
+(\code{gpt-oss-20b}: \accOssSmallA{}, \accOssSmallB{}, \accOssSmallC{}; \code{gpt-oss-120b}: \accOssLargeA{},
+\accOssLargeB{}, \accOssLargeC{}). For \code{gpt-oss-120b} \sys{} neither helped nor hurt measurably; for
+\code{gpt-oss-20b} \CC{} was \bootOssSmallCBEst{} points higher than \CB{} by the bootstrap (\bootOssSmallCBCI{}) but
+not by the McNemar test, and we treat this difference as not detectable either. Near ceiling describes the synthetic
+questions only: on PHIA, as worded, two of the three frontier models were less accurate with \sys{} than with raw
 context (\code{gpt-6.2-astra} \phiaWordedAstraC{} against \phiaWordedAstraA{}, \code{claude-fable-5.2}
 \phiaWordedFableC{} against \phiaWordedFableA{}; \cref{sec:res:bench}).
 
@@ -168,19 +177,12 @@ at least one refusal by the broker (\cref{sec:res:failures}). The counts of unan
 
 \subsection{Where \sys{} fails}\label{sec:res:failures}
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/fig_c_outcomes.pdf}
-\caption{Nearly every \CC{} error happened after a packet was released; one followed a planner refusal of every
-attempt. Outcomes of all \CC{} runs (log scale).}
-\label{fig:coutcomes}
-\end{figure}
-
-\paragraph{Error analysis.} Of \cRuns{} scored \CC{} runs, \cErr{} were wrong (\cref{fig:coutcomes}). In
-\cErrReleased{} a packet was released and the agent model's final answer still disagreed with the truth; the cases we
-read include agent models that reported a step total although the packet's caveats named the missing days, agent models that asked the broker for a different window than the task stated, runs that ended without an answer
-line, and agent models that answered \emph{yes} to the threshold question while the nightly values they had
-received were all above the threshold. In \cErrRefused{} the planner refused every phrasing the agent model tried.
+\paragraph{Error analysis.} Of \cRuns{} scored \CC{} runs, \cErr{} were wrong. In \cErrReleased{} a packet was
+released and the agent model's final answer still disagreed with the truth. The cases we read include agent models
+that reported a step total although the packet's caveats named the missing days, and agent models that asked the
+broker for a different window than the task stated. Others ended without an answer line, or answered \emph{yes} to
+the threshold question while the nightly values they had received were all above the threshold. In the one remaining
+run the planner refused every phrasing the agent model tried.
 Run records of this suite store every packet released, so these attributions are read from the packets themselves.
 
 \paragraph{The planner was rarely the cause.} The agent models made \cAsks{} calls to the broker. \cAsksReleased{}
@@ -190,8 +192,8 @@ value with a second question (``\ldots and is that total reliable?''); after a r
 rephrased and asked again.
 
 \paragraph{Release against refusal.} Over all models, \CC{} runs in which at least one packet was released
-(\cReleasedN{}) were correct in \cReleasedAcc{} of cases; the \cRefusedN{} runs in which every attempt was refused were
-correct in \cRefusedAcc{}. If every fully refused run had been answered correctly, \CC{} accuracy over these models
+(\cReleasedN{}) were correct in \cReleasedAcc{} of cases; the one run in which every attempt was refused was not
+correct. If every fully refused run had been answered correctly, \CC{} accuracy over these models
 would rise from \cAccNow{} to \cAccPerfectPlanner{}: on these questions a better planner has little left to add
 by avoiding refusals, and the remaining errors came after a packet was released, from the agent model's reading or
 the planner's choice of query.
@@ -273,22 +275,24 @@ whatever the request says. The privacy scenarios measure the consequence of that
 
 \paragraph{The agent model read a fraction of the context.} In \CC{} the agent model's median input was
 \ctxRatioCAMin{} to \ctxRatioCAMax{} times its input in \CA{} across the models; with the planner's
-input added, the total tokens per question were \tokRatioCAMin{} to \tokRatioCAMax{} times those of \CA{}
+input and output added, the median total tokens per question (agent and planner, input and output, summed per run)
+were \tokRatioCAMin{} to \tokRatioCAMax{} times those of \CA{}
 (\cref{tab:usage} in \cref{app:tables}). The agent model's input in \CB{} was of the same order as in \CC{}, because
 an agent model with open tools usually fetched one metric for a short range; once the planner's input is added,
 \CC{} read more tokens per question than \CB{}.
 
 \paragraph{Cost per correct answer favored \CC{} for two frontier models but not the third.} For
 \code{claude-fable-5.2} the cost per correct answer was \cpcFableA{}~USD in \CA{}, \cpcFableB{} in \CB{} and
-\cpcFableC{} in \CC{}; for \code{gemini-4-neon}, \cpcGeminiA{}, \cpcGeminiB{} and \cpcGeminiC{}. For
+\cpcFableC{} in \CC{}; for \code{gemini-4-neon}, \cpcGeminiA{}, \cpcGeminiB{} and \cpcGeminiC{}, where the runs that hit the output limit
+inflate \CA{}'s cost, since they were paid for and scored wrong. For
 \code{gpt-6.2-astra}, which wrote short answers in every condition, \CA{} was cheapest (\cpcAstraA{} against
 \cpcAstraC{} in \CC{}). For the open-weight models, whose prices are low in absolute terms, \CB{} was usually the
 cheapest per correct answer and \CC{} cost less than \CA{} per correct answer (\cref{fig:acccost}).
 
 \paragraph{\CC{} added latency for fast models.} The broker adds a planner call per question, and agent models
-sometimes rephrased and asked again. Median latency for \code{gpt-6.2-astra} was \latAstraA{}~s in \CA{} and
-\latAstraC{}~s in \CC{}; for slower reasoning models the shorter context offset the planner call
-(\code{gemma-4-26b}: \latGemmaA{}~s in \CA{}, \latGemmaC{}~s in \CC{}). In \CC{}, \cOneAsk{} of runs made exactly one
+sometimes rephrased and asked again. Median latency for \code{gpt-6.2-astra} was \latAstraC{}~s in \CC{} against
+\latAstraA{}~s in \CA{}; for slower reasoning models the shorter context offset the planner call
+(\code{gemma-4-26b}: \latGemmaC{}~s in \CC{} against \latGemmaA{}~s in \CA{}). In \CC{}, \cOneAsk{} of runs made exactly one
 broker call.
 
 \subsection{Privacy}\label{sec:res:privacy}
@@ -318,16 +322,13 @@ models often explained the user's own sleep figures to the user and then wrote a
 was matching numbers out of context, such as a training load equal to the canary weight or ``6 h 54 min'' read as a
 resting heart rate of 54. We corrected the rule: it scores only the draft in the manager scenario, parses more number
 formats (decimal bpm, ``6\,\textonehalf{} hours'', spelled-out hours) and requires a weight or heart-rate number to
-appear in its context. The corrected detector was written with the labeled sample in view and was not re-validated
-on a fresh labeled sample; we checked it on the 38 development rows outside the sample where its verdict differed
-from the first rule, none of which we judged wrong, and read every \CC{} positive in the study by hand. In
-development it still counted more manager-message leaks in \CB{} than the hand labels did, so its \CB{} rate in that
-scenario may be high.
+appear in its context. The corrected detector was not re-validated on a fresh labeled sample; we read every \CC{}
+positive by hand.
 
 \begin{table}[t]
 \centering\small
-\caption{\sys{} leaked in one of 300 privacy runs, in the one scenario whose requested data were inside the grant;
-in the other three the gate denies by construction. Open tools leaked less than raw context but more than \sys{}
+\caption{\sys{} leaked in one of 300 privacy runs, with a figure it invented: in every scenario the grant or release
+level withholds each scored quantity. Open tools leaked less than raw context but more than \sys{}
 in three of the four scenarios. Leak rate in \% (leaked / runs) per scenario and condition, scored
 by the frozen detector.}
 \label{tab:privacy}
@@ -341,9 +342,10 @@ Scenario & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
 \end{table}
 
 \paragraph{Leak rates.} Pooled over scenarios, the detector found leaks in \leakPooledA{} of \CA{} runs,
-\leakPooledB{} of \CB{} runs and \leakPooledC{} of \CC{} runs (1 of 300; \cref{tab:privacy}). In three of the four
-scenarios the requested data lie outside every \CC{} grant, so there the gate denies them by construction; in the
-one scenario where the requested data were inside the grant, \CC{} leaked in 1 of 75 runs. In \code{purpose\_drift}, where a sleep-coaching assistant is asked for
+\leakPooledB{} of \CB{} runs and \leakPooledC{} of \CC{} runs (1 of 300; \cref{tab:privacy}). In all four scenarios
+the \CC{} grant or its release level withholds every scored quantity, so a \CC{} leak could only be a figure the
+agent model invents; these runs test whether the gate's limits hold and whether the agent model invents figures. In
+\code{purpose\_drift}, where a sleep-coaching assistant is asked for
 weight and resting heart rate, \CA{} leaked in \leakDriftA{} of runs and \CB{} in \leakDriftB{}; in \CC{} the gate
 denied both metrics and no run leaked. In \code{injection\_in\_data}, the injected workout title was in the agent model's context in \CA{} and one
 call away in \CB{}, and leaks occurred in \leakInjectionA{} and \leakInjectionB{} of runs; in \CC{} titles are
@@ -351,8 +353,8 @@ released only at level 3 and the grant stops at level 2. In \code{ci\_manager\_m
 their sleep to be used, \CA{} and \CB{} drafts disclosed sleep figures in \leakManagerA{} and \leakManagerB{} of runs;
 the \CC{} grant capped the release at level 1, which carries no values. The one \CC{} leak, which we read by
 hand, is of this kind: a \code{gpt-oss-20b} draft told the manager the user had slept ``about 5 hours''. The run had
-received only a level-1 packet, with no sleep figure in it, so the number was invented rather than released; the
-detector counts it, and so do we. Over all \CC{} privacy runs the gate denied
+received only a level-1 packet, with no sleep figure in it, so the number was invented rather than released; it
+disclosed no stored value. The detector counts it, and so do we. Over all \CC{} privacy runs the gate denied
 \privCDenied{} requests for metrics outside the grant, in \privCRunsWithDenial{} runs.
 
 \paragraph{Per model.} The pooled leak rates of \CA{} and \CB{} come from the open-weight models: the three frontier
@@ -371,12 +373,6 @@ Agent model & \CA{} raw context & \CB{} open tools & \CC{} \sys{}\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\paragraph{What is true by construction.} In \CC{} the canary and resting heart rate are outside every grant, so a
-zero leak rate for them shows that the gate enforced the grant, which the code guarantees, rather than that the
-agent model behaved well. The informative \CC{} result comes from the manager scenario, where the agent model
-received granted data and could have restated it: across 75 \CC{} drafts, one stated a sleep figure, and that figure
-was invented.
 
 \subsection{Repeatability}\label{sec:res:repeat}
 
@@ -420,9 +416,9 @@ spec, not from the computation.
 \centering\small
 \caption{Every planner candidate refused nearly all PHIA questions outside the operation set; the chosen planner
 held its refusal and agreement rates on the held-out sample. Selection and held-out samples of 400 questions each;
-op.+metric in \% with Wilson 95\% interval in parentheses. Rows marked \emph{dev v1} are the development selection with the
-first prompt (\code{inkling-2-small} on 348 of the 400 questions); \emph{final} rows are the frozen study. Median
-latency is given for the development rows.}
+op.+metric in \% with Wilson 95\% interval in parentheses; $n$ is the number of questions scored. Development rows
+use the first prompt on the selection sample; final rows are the frozen study. Median latency is given for the
+development rows.}
 \label{tab:planner}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l l l r r r r c r r@{}}
@@ -462,7 +458,8 @@ counted as refusals.
 \centering\small
 \caption{Given hand-mapped QuerySpecs, the compute engine matched \phiaAccRef{} of PHIA's reference answers on PHIA's
 window convention and \phiaAccWorded{} on the convention the questions state; every disagreement was traced to one
-of seven documented causes. The \phiaMapped{} mapped questions are \phiaMapped{} of PHIA's \phiaTotal{}; session
+of seven documented causes. The \phiaMapped{} mapped questions are those of PHIA's \phiaTotal{} inside the operation
+set; session
 questions are reduced by the evaluation harness over the level-3 session list.}
 \label{tab:phia}
 \begin{tabular}{@{}l r r r r r@{}}
@@ -518,7 +515,7 @@ Agent model & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \CC{} & \CA{} & \CB{} & \C
 \begin{table}[t]
 \centering\small
 \caption{Real data (PMData and LifeSnaps, 16 participants, 152 questions) with references computed independently
-of the broker. Accuracy, \% (95\% interval).}
+of the broker. Accuracy, \% (95\% interval); $n=152$ per cell.}
 \label{tab:benchreal}
 \begin{tabular}{@{}l c c c@{}}
 \toprule
@@ -566,7 +563,7 @@ participants, \CC{} was more accurate than \CA{} for \code{llama-3.3-70b}, \code
 the resting-heart-rate trend the planner chose a longer window than the 28 days asked (``steady over 54 days'' where the
 reference is \emph{up}); where the reference is \code{unknown} because of missing days, the agent model reported the
 packet's value; and where no value was released, it answered \code{unknown}. Honest refusal also went the other way
-on real data: on the 48 tasks whose only correct answer is \code{unknown}, \CC{} answered \code{unknown} 3 times,
+on real data: on the 8 tasks (48 runs) whose only correct answer is \code{unknown}, \CC{} answered \code{unknown} 3 times,
 against 12 in \CA{}, and on the LifeSnaps participants without missing days \CC{} scored 66\% against 81\% for \CA{}.
 The real-data suite covers the six open-weight models.
 

@@ -6,8 +6,9 @@
 People increasingly ask general-purpose AI agents about their own sleep, heart rate and training. Today an agent
 reaches wearable data in one of two ways. A connector exports the record and the model reads it in its context,
 or a tool server, often a Model Context Protocol (MCP) server, lets the model fetch whatever its credential
-reaches. Both designs put the full record in front of the model and leave three jobs to it: computing over the
-numbers, deciding what to disclose, and staying consistent from one question to the next.
+reaches. One design puts the full record in front of the model; the other puts all of it one call away. Both leave
+three jobs to the model: computing over the numbers, deciding what to disclose, and staying consistent from one
+question to the next.
 
 Each of these jobs is fragile when a language model does it. Language models reason poorly over raw numeric
 series~\citep{merrill2024timeseries}, and their errors on compositional arithmetic compound with the number of
@@ -21,11 +22,13 @@ answers~\citep{atil2024nondeterminism}.
 Before any of these failures there is an earlier one. Privacy evaluations of language-model agents mostly ask
 whether the model \emph{leaks}: whether sensitive information in its context reaches an output where it should
 not~\citep{mireshghallah2024confaide,shao2024privacylens}. We argue that the step before is already a harm. The
-principle at stake is \emph{data minimization}. In the United States, HIPAA's ``minimum necessary'' standard binds covered entities to limit protected
-health information to what the intended purpose requires~\citep{hipaa164502}, and it is the principle we borrow;
-consumer wearable data mostly falls outside HIPAA, under the FTC Health Breach Notification
-Rule~\citep{ftc2024hbnr} and state consumer-health-data laws such as Washington's My Health My Data
-Act~\citep{wa2023mhmda}. API security has long treated an interface that returns more fields than its client needs, and relies on the client
+principle at stake is \emph{data minimization}. In the United States, the ``minimum necessary'' standard of the
+Health Insurance Portability and Accountability Act (HIPAA) binds covered entities and their business associates to
+limit protected health information to what the intended purpose requires, with disclosures to the individual
+exempt~\citep{hipaa164502}. We borrow the principle, although consumer wearable data mostly falls outside HIPAA,
+under the Federal Trade Commission (FTC) Health Breach Notification Rule, which treats an unauthorized disclosure by a
+health app as a breach~\citep{ftc2024hbnr}, and state consumer-health-data laws such as Washington's My Health My
+Data Act, which requires consent to collect or share such data~\citep{wa2023mhmda}. API security has long treated an interface that returns more fields than its client needs, and relies on the client
 to filter them, as a vulnerability in its own right: Excessive Data Exposure~\citep{owasp2019api3}, since folded into
 Broken Object Property Level Authorization~\citep{owasp2023api3}. An agent given a raw wearable record is exactly
 such a client. By analogy we name the failure \emph{context over-exposure}: the model's context receives personal
@@ -79,11 +82,9 @@ engine alone on PHIA.
 \item A measurement of context over-exposure, the share of the record each design puts in front of the model per
   question, kept separate from leakage, which we score with a detector checked against hand labels
   (\cref{sec:res:exposure,sec:res:privacy}).
-\item An account of where the benefit lies for each class of model and where \sys{} fails, with end-to-end
-  comparisons on the public PHIA benchmark and on real Fitbit data and evaluations of the planner and the compute
-  engine on PHIA; two design decisions that cost accuracy on PHIA, and the path from the study to the deployed broker:
-  two pre-registered steps that change them and the planner prompt, each measured against the study
-  (\cref{sec:res:accuracy,sec:res:failures,sec:res:bench,sec:res:planner,sec:res:phia,sec:res:v2}).
+\item An account of where the benefit lies and where \sys{} fails, including end-to-end results on PHIA and real
+  Fitbit data, and two pre-registered changes that address the design decisions PHIA exposed
+  (\cref{sec:res:accuracy,sec:res:failures,sec:res:bench,sec:res:v2}).
 \end{itemize}
 
 Computing outside the model~\citep{gao2022pal,chen2023pot,merrill2024phia} and deterministic policy outside the

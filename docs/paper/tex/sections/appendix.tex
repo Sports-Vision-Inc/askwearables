@@ -1,4 +1,4 @@
-\section{Additional Tables and Figures}\label{app:tables}
+\section{Additional Tables and Figures}\label[appendix]{app:tables}
 
 \begin{table}[h]
 \centering\small
@@ -7,7 +7,7 @@
 Context = median input tokens per question read by the agent model, and in \CC{} separately by the broker's planner
 (\code{llama-3.3-70b}); output = median output tokens of the agent model. Cost is the mean USD per question
 (provider-reported for frontier models, Workers AI list prices for open-weight models, planner included in \CC{});
-cost per correct answer is total cost divided by correct answers. $^{\dagger}$Includes runs whose planner usage was estimated from measured per-call usage.}
+cost per correct answer is total cost divided by correct answers.}
 \label{tab:usage}
 \setlength{\tabcolsep}{3pt}\footnotesize
 \begin{tabular}{@{}l c c r r r r r@{}}
@@ -25,31 +25,8 @@ Agent model & Cond. & Accuracy, \% (95\% interval) & Agent & Planner & Output & 
 \centering
 \includegraphics[width=\textwidth]{figures/fig_accuracy.pdf}
 \caption{Accuracy against ground truth by model and condition, with Wilson 95\% intervals (the data of
-\cref{tab:accuracy}). The legend's ``raw data in context'' and ``open data tools'' are conditions \CA{} (raw context)
-and \CB{} (open tools).}
+\cref{tab:accuracy}).}
 \label{fig:accuracy}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.75\textwidth]{figures/fig_traps.pdf}
-\caption{Accuracy by data-quality trap and condition, pooled over all models (the data of \cref{tab:traps}).}
-\label{fig:traps}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/fig_privacy.pdf}
-\caption{Leak rate by scenario and condition under the frozen detector (the data of \cref{tab:privacy}).}
-\label{fig:privacy}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/fig_planner_phia.pdf}
-\caption{Planner refusal of unsupported PHIA questions and agreement on answerable ones, final prompt, selection and
-held-out samples (the data of \cref{tab:planner}).}
-\label{fig:plannerphia}
 \end{figure}
 
 \begin{table}[h]
@@ -72,13 +49,11 @@ Agent model & tasks & \CC{} & \CC{}$_1$ & \CC{}$_1$-only & \CC{}-only & $p$\\
 \end{tabular}
 \end{table}
 
-\section{Reproducibility Notes}\label{app:repro}
+\section{Reproducibility Notes}\label[appendix]{app:repro}
 
 \paragraph{Harness.} Tool-call arguments that are not valid JSON are passed to the tool as an empty object, and the
-tool result says so; \code{llama-3.3-70b} on Workers AI receives one tool call per turn. The planner in the study was
-called without schema-constrained decoding, and its JSON was validated afterwards. Final texts are stored up to
-1{,}500 characters, and the leak detector and the hand labels read the stored text. Every run record carries the
-commit it ran under.
+tool result says so. The planner in the study was called without schema-constrained decoding, and its JSON was
+validated afterwards.
 
 \paragraph{Deployed broker.} Besides the two steps of \cref{sec:res:v2}, the deployed broker requests
 schema-constrained decoding from the model provider, and it drops the keyword pre-check for sensitive categories:

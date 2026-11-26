@@ -329,7 +329,7 @@ for m, k, g in MODELS:
             a += f"$^{{n={e['n']}}}$"
         if len(present) > 1 and e["accuracy"] == best:
             a = f"\\textbf{{{a}}}"
-        est = r"$^{\dagger}$" if e.get("planner_usage_estimated") else ""
+        est = ""
         ptxt = (fmt_int(round(pin)) + est) if c == "C_broker" else "--"
         lines.append(f"{name} & {CL[c]} & {a} & {fmt_int(round(e['median_agent_input_tokens']))} & {ptxt} & "
                      f"{fmt_int(round(e['median_completion_tokens']))} & {cost} & {cpc} \\\\")
@@ -912,9 +912,9 @@ mac("bootReps", fmt_int(B_REPS))
 # ------------------------------------------------------------------ planner selection: every candidate, both samples
 PLANNER_FILES = [  # (file, sample, prompt version)
     # Planner selection was made during development (prompt v1), before the study was frozen; those files live in the
-    # development results directory and are labelled "dev v1". The final rows are the frozen study's re-measurement.
-    ("planner-phia-v1-llama-gptoss-mistral.jsonl", "selection", "dev v1"),
-    ("planner-phia-v1-mixed-gemma-inkling.jsonl", "selection", "dev v1"),
+    # development results directory and are labelled "development". The final rows are the frozen study's re-measurement.
+    ("planner-phia-v1-llama-gptoss-mistral.jsonl", "selection", "development"),
+    ("planner-phia-v1-mixed-gemma-inkling.jsonl", "selection", "development"),
     ("planner-phia.jsonl", "selection", "final"),
     ("planner-phia-heldout.jsonl", "held-out", "final"),
 ]
@@ -936,7 +936,7 @@ lines = []
 sel = {}
 for fname, sample, ver in PLANNER_FILES:
     pth = os.path.join(RES, fname)
-    if ver == "dev v1":
+    if ver == "development":
         pth = os.path.join(HERE, "results", fname)
     if not os.path.exists(pth):
         continue
@@ -953,7 +953,7 @@ for fname, sample, ver in PLANNER_FILES:
         sel[(p_, sample, ver)] = {r["id"]: r for r in a}
         lines.append(f"{model_tt(p_)} & {ver} & {sample} & {len(rs)} & {pct(ref_ / max(1, len(u)), 1)} & {len(u) - ref_} & "
                      f"{pct(over / max(1, len(a)), 1)} & {100 * same / max(1, len(a)):.0f} ({100 * lo:.0f} to {100 * hi:.0f}) & "
-                     f"{pct(win / max(1, len(a)), 1)} & {(f'{statistics.median(ms) / 1000:.1f}' if ver == 'dev v1' else '--')} \\\\")
+                     f"{pct(win / max(1, len(a)), 1)} & {(f'{statistics.median(ms) / 1000:.1f}' if ver == 'development' else '--')} \\\\")
         key_ = {"llama-3.3-70b": "LlamaThree", "gpt-oss-120b": "OssLarge"}.get(p_)
         if key_ and sample == "held-out" and ver == "final":
             mac(f"plHeld{key_}RefUnsup", pct(ref_ / max(1, len(u)), 1)); mac(f"plHeld{key_}OverRef", pct(over / max(1, len(a)), 1))
@@ -1015,7 +1015,7 @@ for suite, key_ in (("phia", "Phia"), ("real", "Real")):
             if rs:
                 kk = sum(bool(r.get("correct")) for r in rs)
                 _, lo, hi = wilson(kk, len(rs))
-                cells_.append(f"{100 * kk / len(rs):.0f} ({100 * lo:.0f} to {100 * hi:.0f})$^{{n={len(rs)}}}$")
+                cells_.append(f"{100 * kk / len(rs):.0f} ({100 * lo:.0f} to {100 * hi:.0f})")
             else:
                 cells_.append("--")
         lines.append(f"{model_tt(m)} & " + " & ".join(cells_) + r" \\")
@@ -1118,6 +1118,61 @@ mac("usualTasks", str(len(usual)))
 ov = [r for m in complete_models for r in by.get((m, "C_broker"), {}).values()
       if "unknown" not in (r["accept"].get("labels") or []) and r["answer"] == "unknown"]
 mac("overRefAfterRefusal", str(sum(1 for r in ov if any(x in ("unsupported", "denied") for x in (r.get("packet_levels") or [])))))
+
+# ------------------------------------------------------------------ sensitivity: runs that exhausted the output cap
+# Every agent call is capped at 4,000 output tokens (conditions.ts). A run that reached the cap and ended with an empty
+# final text is scored wrong; the sensitivity analysis drops the tasks whose raw-context run did so (and, separately,
+# also the HRV-trend question), with its own seeded generator so the bootstrap above is unchanged.
+def capped(r):
+    return (r.get("completion_tokens") or 0) >= 4000 and not (r.get("final") or "").strip() and not r.get("error")
+
+
+for c in COND:
+    cm = collections.Counter(r["model"] for r in rows_acc if r["condition"] == c and capped(r))
+    mac(f"cap{CL[c]}", str(sum(cm.values())))
+    for m, k, _ in MODELS:
+        mac(f"cap{CL[c]}{k}", str(cm.get(m, 0)))
+capA = {(r["model"], r["task"]) for r in rows_acc if r["condition"] == "A_raw" and capped(r)}
+SRNG = random.Random(20261125)
+
+
+def sens_cells(models, drop_hrv):
+    cells = collections.defaultdict(list)
+    for m in models:
+        cr, orr = by.get((m, "C_broker"), {}), by.get((m, "A_raw"), {})
+        for t in cr:
+            if t in orr and (m, t) not in capA and not (drop_hrv and cr[t]["tag"] == "hrv_trend_28d"):
+                cells[person_of(t)].append((cr[t]["correct"], orr[t]["correct"]))
+    return cells
+
+
+def sens_boot(cells):
+    people_ = sorted(cells)
+    allp = [x for p_ in people_ for x in cells[p_]]
+    est = sum(a - b for a, b in allp) / len(allp)
+    reps = []
+    for _ in range(B_REPS):
+        pick = [x for p_ in (SRNG.choice(people_) for _ in people_) for x in cells[p_]]
+        reps.append(sum(a - b for a, b in pick) / len(pick))
+    reps.sort()
+    return est, reps[int(0.025 * B_REPS)], reps[int(0.975 * B_REPS) - 1]
+
+
+for name, drop_hrv in (("sensCap", False), ("sensCapHrv", True)):
+    cells = sens_cells(complete_models, drop_hrv)
+    allp = [x for v in cells.values() for x in v]
+    mac(name + "Pairs", str(len(allp)))
+    mac(name + "AccC", pct(sum(a for a, _ in allp) / len(allp), 1))
+    mac(name + "AccA", pct(sum(b for _, b in allp) / len(allp), 1))
+    boot_macros(name, sens_boot(cells))
+    nsig = 0
+    for m, k, _ in MODELS:
+        pr = [x for v in sens_cells([m], drop_hrv).values() for x in v]
+        b_, c_, p_ = mcnemar(pr)
+        nsig += p_ < 0.05 and b_ > c_
+        mac(f"{name}{k}Wins", str(b_)); mac(f"{name}{k}Losses", str(c_))
+        mac(f"{name}{k}P", r"$p<0.001$" if p_ < 0.001 else f"$p={fmt_p(p_)}$")
+    mac(name + "NSig", str(nsig))
 
 # ------------------------------------------------------------------ figures and flags
 for src in glob.glob(os.path.join(OUT, "fig_*.pdf")):

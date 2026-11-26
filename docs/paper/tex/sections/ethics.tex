@@ -4,8 +4,9 @@
 \addcontentsline{toc}{section}{Ethics and Reproducibility Statement}
 
 The study used synthetic data and the public PHIA, PMData and LifeSnaps datasets under their licenses. The real-data
-analyses are secondary analyses of the public, de-identified PMData and LifeSnaps datasets; no re-identification was
-attempted, no personal health data was collected, and no human subjects took part. Question text and reference
+analyses are secondary analyses of PMData and LifeSnaps, which their authors released publicly without direct
+identifiers; using them is not human-subjects research as defined in 45 CFR 46.102(e); no re-identification was
+attempted and no new data were collected. Question text and reference
 answers from PHIA are not redistributed; the repository stores question identifiers and hashes only. The grants in
 the privacy scenarios are illustrative, chosen by the authors. \sys{} answers wellness questions about a person's own
 data and makes no medical claims: its packets carry a flag stating that they are not medical advice, the planner
@@ -15,5 +16,5 @@ The broker, the synthetic generator, the question set and scoring rules, the pri
 the leak-detector audit with its hand labels, and the per-run records are available at \codeurl{}. Each record holds
 the final text, parsed answer, tool calls, packet levels and gate reasons; records of the synthetic, real-data and
 repeatability suites also hold every packet released. The pre-registration of the two steps after the study is in
-the repository. The repository maps every table, figure and number to the script that produces it (\codeurl{}).
+the repository, which maps every table, figure and number to the script that produces it.
 \par\endgroup
